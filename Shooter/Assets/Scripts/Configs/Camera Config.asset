@@ -12,8 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5c4a3f3889b6243479d8e2e4709b8701, type: 3}
   m_Name: Camera Config
   m_EditorClassIdentifier: 
-  sensivity: 400
+  sensivity: 150
   minAngle: -90
-  maxAngle: 50
+  maxAngle: 90
   aimX: 0
   aimZ: 0

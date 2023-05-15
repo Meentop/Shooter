@@ -11,9 +11,9 @@ GameObject:
   - component: {fileID: 6655776285994737156}
   - component: {fileID: 6655776285994737159}
   - component: {fileID: 6655776285994737158}
-  - component: {fileID: 6655776285994737157}
   - component: {fileID: 6655776285994737161}
   - component: {fileID: 6655776285994737154}
+  - component: {fileID: 1523618390974265089}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -86,20 +86,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!136 &6655776285994737157
-CapsuleCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6655776285994737160}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  m_Radius: 0.5
-  m_Height: 2
-  m_Direction: 1
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!54 &6655776285994737161
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -128,13 +114,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 02d7768bf08701b47aae5e38ac9bb836, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  movementSpeed: 5
-  jumpStrength: 7
   checkOnGroundPoint: {fileID: 6655776286372067823}
-  checkOnGroundRadius: 0.3
-  dashStrength: 15
-  dashDuration: 0.3
-  dashReloadTime: 1
+  playerConfig: {fileID: 11400000, guid: b4e04a6794d8f84469a6f174b303cb1c, type: 2}
+--- !u!65 &1523618390974265089
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6655776285994737160}
+  m_Material: {fileID: 13400000, guid: e845df1f50f5ac04cb0dd13fcb75ba23, type: 2}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.8, y: 2, z: 0.8}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &6655776286372067822
 GameObject:
   m_ObjectHideFlags: 0
@@ -261,5 +255,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: db497ba7f854e4a4e9ba9206d2c2aa44, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sensivity: 200
   player: {fileID: 6655776285994737156}
+  cameraConfig: {fileID: 11400000, guid: 2756563a011559b46b7e575379cb9c7e, type: 2}

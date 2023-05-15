@@ -19,31 +19,25 @@ public class PlayerController : MonoBehaviour
     private void Update()
     {
         if (Input.GetKeyDown(KeyCode.Space))
-        {
             TryJump();
-        }
 
-        if(_dashTimer > 0)
-        {
+        if (_dashTimer > 0)
             _dashTimer -= Time.deltaTime;
-        }
 
         if (Input.GetKeyDown(KeyCode.LeftShift) && _dashTimer <= 0)
-        {
             Dash();
-        }
-    }
-
-    void OnDrawGizmosSelected()
-    {
-        Gizmos.color = Color.yellow;
-        Gizmos.DrawSphere(checkOnGroundPoint.position, playerConfig.checkOnGroundRadius);
     }
 
     private void FixedUpdate()
     {
-        if(_isMove)
+        if (_isMove)
             Movement();
+    }
+
+    void OnDrawGizmos()
+    {
+        Gizmos.color = Color.yellow;
+        Gizmos.DrawSphere(checkOnGroundPoint.position, playerConfig.checkOnGroundRadius);
     }
 
     private void Movement()
@@ -80,8 +74,8 @@ public class PlayerController : MonoBehaviour
         if (Input.GetAxis("Horizontal") == 0 && Input.GetAxis("Vertical") == 0)
             direction = Vector3.forward;
         _isMove = false;
-        this._dashTimer = playerConfig.dashReloadTime;
-        float dashTimer = this.playerConfig.dashDuration;
+        _dashTimer = playerConfig.dashReloadTime;
+        float dashTimer = playerConfig.dashDuration;
         while(dashTimer > 0)
         {
             Vector3 dashDirection = transform.TransformDirection(direction) * playerConfig.dashStrength;
