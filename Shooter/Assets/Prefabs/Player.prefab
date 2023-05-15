@@ -128,13 +128,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 02d7768bf08701b47aae5e38ac9bb836, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  movementSpeed: 5
-  jumpStrength: 7
   checkOnGroundPoint: {fileID: 6655776286372067823}
-  checkOnGroundRadius: 0.3
-  dashStrength: 15
-  dashDuration: 0.3
-  dashReloadTime: 1
+  playerConfig: {fileID: 11400000, guid: b4e04a6794d8f84469a6f174b303cb1c, type: 2}
 --- !u!1 &6655776286372067822
 GameObject:
   m_ObjectHideFlags: 0
@@ -261,5 +256,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: db497ba7f854e4a4e9ba9206d2c2aa44, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sensivity: 200
   player: {fileID: 6655776285994737156}
+  cameraConfig: {fileID: 0}

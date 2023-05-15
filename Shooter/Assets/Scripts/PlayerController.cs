@@ -6,6 +6,7 @@ public class PlayerController : MonoBehaviour
 {
     [SerializeField] private Transform checkOnGroundPoint;
     [SerializeField] private PlayerConfig playerConfig;
+    [SerializeField] private Crossheir crossheir;
 
     private Rigidbody _rb;
     private bool _isMove = true;
@@ -32,6 +33,16 @@ public class PlayerController : MonoBehaviour
         {
             Dash();
         }
+
+        if(_rb.velocity == Vector3.zero)
+        {
+            crossheir.CurrentSpread = 20;
+        }
+
+        else
+        {
+            crossheir.CurrentSpread = 50;
+        }
     }
 
     void OnDrawGizmosSelected()
@@ -43,7 +54,11 @@ public class PlayerController : MonoBehaviour
     private void FixedUpdate()
     {
         if(_isMove)
+        {
             Movement();
+        }
+       
+            
     }
 
     private void Movement()
