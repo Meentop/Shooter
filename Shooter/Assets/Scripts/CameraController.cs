@@ -4,26 +4,24 @@ using UnityEngine;
 
 public class CameraController : MonoBehaviour
 {
-    private float _mouseX, _mouseY;
-
-    [SerializeField] private float sensivity = 200f;
-
     [SerializeField] private Transform player;
+    [SerializeField] private CameraConfig cameraConfig;
+
+    private float _mouseX, _mouseY;
+    private float xRotation;
 
     private void Start()
     {
         Cursor.lockState = CursorLockMode.Locked;
     }
 
-    float xRotation = 0f;
-
     private void Update()
     {
-        _mouseX = Input.GetAxis("Mouse X") * sensivity * Time.deltaTime;
-        _mouseY = Input.GetAxis("Mouse Y") * sensivity * Time.deltaTime;
+        _mouseX = Input.GetAxis("Mouse X") * cameraConfig.sensivity * Time.deltaTime;
+        _mouseY = Input.GetAxis("Mouse Y") * cameraConfig.sensivity * Time.deltaTime;
 
         xRotation -= _mouseY;
-        xRotation = Mathf.Clamp(xRotation, -90f, 90f);
+        xRotation = Mathf.Clamp(xRotation, cameraConfig.minAngle, cameraConfig.maxAngle);
         transform.localRotation = Quaternion.Euler(xRotation, 0f, 0f);
         transform.Rotate(-_mouseY * new Vector3(1, 0, 0) * Time.deltaTime);
 

@@ -4,19 +4,12 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
-    private Rigidbody _rb;
-
-    [SerializeField] private float movementSpeed;
-    private bool isMove = true;
-
-    [SerializeField] private float jumpStrength;
-
     [SerializeField] private Transform checkOnGroundPoint;
+    [SerializeField] private PlayerConfig playerConfig;
 
-    [SerializeField] private float checkOnGroundRadius;
-
-    [SerializeField] private float dashStrength, dashDuration, dashReloadTime;
-    private float dashTimer = 0;
+    private Rigidbody _rb;
+    private bool _isMove = true;
+    private float _dashTimer;
 
     private void Start()
     {
@@ -30,12 +23,12 @@ public class PlayerController : MonoBehaviour
             TryJump();
         }
 
-        if(dashTimer > 0)
+        if(_dashTimer > 0)
         {
-            dashTimer -= Time.deltaTime;
+            _dashTimer -= Time.deltaTime;
         }
 
-        if (Input.GetKeyDown(KeyCode.LeftShift) && dashTimer <= 0)
+        if (Input.GetKeyDown(KeyCode.LeftShift) && _dashTimer <= 0)
         {
             Dash();
         }
@@ -44,19 +37,19 @@ public class PlayerController : MonoBehaviour
     void OnDrawGizmosSelected()
     {
         Gizmos.color = Color.yellow;
-        Gizmos.DrawSphere(checkOnGroundPoint.position, checkOnGroundRadius);
+        Gizmos.DrawSphere(checkOnGroundPoint.position, playerConfig.checkOnGroundRadius);
     }
 
     private void FixedUpdate()
     {
-        if(isMove)
+        if(_isMove)
             Movement();
     }
 
     private void Movement()
     {
         Vector3 movement = new Vector3(Input.GetAxis("Horizontal"), 0, Input.GetAxis("Vertical"));
-        Vector3 movementDirection = transform.TransformDirection(movement).normalized * movementSpeed;
+        Vector3 movementDirection = transform.TransformDirection(movement).normalized * playerConfig.movementSpeed;
 
         _rb.velocity = new Vector3(movementDirection.x, _rb.velocity.y, movementDirection.z);
     }
@@ -65,7 +58,7 @@ public class PlayerController : MonoBehaviour
     {
         Vector3 overlapCenter = checkOnGroundPoint.position;
 
-        Collider[] colliders = Physics.OverlapSphere(overlapCenter, checkOnGroundRadius, LayerMask.GetMask("Solid"));
+        Collider[] colliders = Physics.OverlapSphere(overlapCenter, playerConfig.checkOnGroundRadius, LayerMask.GetMask("Solid"));
 
         if (colliders.Length > 0)
             Jump();
@@ -73,7 +66,7 @@ public class PlayerController : MonoBehaviour
 
     private void Jump()
     {
-        _rb.AddForce(Vector3.up * jumpStrength, ForceMode.Impulse);
+        _rb.AddForce(Vector3.up * playerConfig.jumpStrength, ForceMode.Impulse);
     }
 
     private void Dash()
@@ -86,16 +79,16 @@ public class PlayerController : MonoBehaviour
         Vector3 direction = new Vector3(Input.GetAxis("Horizontal"), 0, Input.GetAxis("Vertical")).normalized;
         if (Input.GetAxis("Horizontal") == 0 && Input.GetAxis("Vertical") == 0)
             direction = Vector3.forward;
-        isMove = false;
-        dashTimer = dashReloadTime;
-        float dashDuration = this.dashDuration;
-        while(dashDuration > 0)
+        _isMove = false;
+        this._dashTimer = playerConfig.dashReloadTime;
+        float dashTimer = this.playerConfig.dashDuration;
+        while(dashTimer > 0)
         {
-            Vector3 dashDirection = transform.TransformDirection(direction) * dashStrength;
+            Vector3 dashDirection = transform.TransformDirection(direction) * playerConfig.dashStrength;
             _rb.velocity = new Vector3(dashDirection.x, _rb.velocity.y, dashDirection.z);
-            dashDuration -= Time.fixedDeltaTime;
+            dashTimer -= Time.fixedDeltaTime;
             yield return new WaitForFixedUpdate();
         }
-        isMove = true;
+        _isMove = true;
     }
 }
