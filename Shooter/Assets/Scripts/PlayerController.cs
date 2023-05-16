@@ -9,7 +9,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private Crossheir crossheir;
 
     private Rigidbody _rb;
-    private bool _isMove = true;
+    private bool _canMove = true;
     private float _dashTimer;
 
     private void Start()
@@ -34,15 +34,6 @@ public class PlayerController : MonoBehaviour
             Dash();
         }
 
-        if(_rb.velocity == Vector3.zero)
-        {
-            crossheir.CurrentSpread = 20;
-        }
-
-        else
-        {
-            crossheir.CurrentSpread = 50;
-        }
     }
 
     void OnDrawGizmosSelected()
@@ -53,12 +44,10 @@ public class PlayerController : MonoBehaviour
 
     private void FixedUpdate()
     {
-        if(_isMove)
+        if(_canMove)
         {
             Movement();
-        }
-       
-            
+        }    
     }
 
     private void Movement()
@@ -94,9 +83,9 @@ public class PlayerController : MonoBehaviour
         Vector3 direction = new Vector3(Input.GetAxis("Horizontal"), 0, Input.GetAxis("Vertical")).normalized;
         if (Input.GetAxis("Horizontal") == 0 && Input.GetAxis("Vertical") == 0)
             direction = Vector3.forward;
-        _isMove = false;
-        this._dashTimer = playerConfig.dashReloadTime;
-        float dashTimer = this.playerConfig.dashDuration;
+        _canMove = false;
+        _dashTimer = playerConfig.dashReloadTime;
+        float dashTimer = playerConfig.dashDuration;
         while(dashTimer > 0)
         {
             Vector3 dashDirection = transform.TransformDirection(direction) * playerConfig.dashStrength;
@@ -104,6 +93,6 @@ public class PlayerController : MonoBehaviour
             dashTimer -= Time.fixedDeltaTime;
             yield return new WaitForFixedUpdate();
         }
-        _isMove = true;
+        _canMove = true;
     }
 }

@@ -109,10 +109,4 @@ public abstract class Weapon : MonoBehaviour
             FreeAmmo = 0;
         }
     }
-
-
-    
-
-
-   
 }
