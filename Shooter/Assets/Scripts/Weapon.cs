@@ -7,10 +7,6 @@ public abstract class Weapon : MonoBehaviour
     [SerializeField] protected GameObject bullet;
     [SerializeField] protected ParticleSystem shootEffect;
 
-
-    
-
-
     private UIManager _UIManager;
     private Player _player;
     private Rigidbody _rigidbody;
@@ -19,8 +15,6 @@ public abstract class Weapon : MonoBehaviour
     private Transform _targetLook;
     private Transform _weaponPos;
 
-    private int _currentAmmo;
-    private int _freeAmmo;
     private bool _isInited;
 
 

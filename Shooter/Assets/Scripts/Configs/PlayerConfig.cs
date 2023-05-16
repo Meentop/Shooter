@@ -6,8 +6,9 @@ using UnityEngine;
 public class PlayerConfig : ScriptableObject
 {
     public float movementSpeed;
+    public float groundDrag;
     public float jumpStrength;
-    public float checkOnGroundRadius;
+    public float airMultiplayer;
     public float dashStrength;
     public float dashDuration;
     public float dashReloadTime;

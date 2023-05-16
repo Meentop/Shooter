@@ -6,23 +6,33 @@ public class PlayerController : MonoBehaviour
 {
     [SerializeField] private Transform checkOnGroundPoint;
     [SerializeField] private PlayerConfig playerConfig;
-    [SerializeField] private Crossheir crossheir;
+    [SerializeField] private KeyCode jumpKey = KeyCode.Space;
 
     private Rigidbody _rb;
-    private bool _canMove = true;
+    private bool _canMove = true, _grounded;
     private float _dashTimer;
+    private float _horizontalInput, _verticalInput;
+    private Vector3 _moveDirection;
 
     private void Start()
     {
         _rb = GetComponent<Rigidbody>();
+        _rb.freezeRotation = true;
     }
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Space))
-        {
-            TryJump();
-        }
+        _grounded = Physics.Raycast(transform.position, Vector3.down, 1.2f, LayerMask.GetMask("Solid"));
+
+        MyInput();
+        SpeedControl();
+
+        if (_grounded)
+            _rb.drag = playerConfig.groundDrag;
+        else
+            _rb.drag = 0;
+
+        
 
         if(_dashTimer > 0)
         {
@@ -36,12 +46,6 @@ public class PlayerController : MonoBehaviour
 
     }
 
-    void OnDrawGizmosSelected()
-    {
-        Gizmos.color = Color.yellow;
-        Gizmos.DrawSphere(checkOnGroundPoint.position, playerConfig.checkOnGroundRadius);
-    }
-
     private void FixedUpdate()
     {
         if(_canMove)
@@ -50,27 +54,41 @@ public class PlayerController : MonoBehaviour
         }    
     }
 
-    private void Movement()
+    private void MyInput()
     {
-        Vector3 movement = new Vector3(Input.GetAxis("Horizontal"), 0, Input.GetAxis("Vertical"));
-        Vector3 movementDirection = transform.TransformDirection(movement).normalized * playerConfig.movementSpeed;
+        _horizontalInput = Input.GetAxisRaw("Horizontal");
+        _verticalInput = Input.GetAxisRaw("Vertical");
 
-        _rb.velocity = new Vector3(movementDirection.x, _rb.velocity.y, movementDirection.z);
+        if (Input.GetKeyDown(jumpKey) && _grounded)
+        {
+            Jump();
+        }
     }
 
-    private void TryJump()
+    private void Movement()
     {
-        Vector3 overlapCenter = checkOnGroundPoint.position;
+        _moveDirection = transform.forward * _verticalInput + transform.right * _horizontalInput;
+        if(_grounded)
+            _rb.AddForce(_moveDirection * playerConfig.movementSpeed * 10f, ForceMode.Force);
+        else
+            _rb.AddForce(_moveDirection * playerConfig.movementSpeed * 10f * playerConfig.airMultiplayer, ForceMode.Force);
+    }
 
-        Collider[] colliders = Physics.OverlapSphere(overlapCenter, playerConfig.checkOnGroundRadius, LayerMask.GetMask("Solid"));
-
-        if (colliders.Length > 0)
-            Jump();
+    private void SpeedControl()
+    {
+        Vector3 flatVel = new Vector3(_rb.velocity.x, 0, _rb.velocity.z);
+        if(flatVel.magnitude > playerConfig.movementSpeed)
+        {
+            Vector3 limitedVel = flatVel.normalized * playerConfig.movementSpeed;
+            _rb.velocity = new Vector3(limitedVel.x, _rb.velocity.y, limitedVel.z);
+        }
     }
 
     private void Jump()
     {
-        _rb.AddForce(Vector3.up * playerConfig.jumpStrength, ForceMode.Impulse);
+        _rb.velocity = new Vector3(_rb.velocity.x, 0f, _rb.velocity.z);
+
+        _rb.AddForce(transform.up * playerConfig.jumpStrength, ForceMode.Impulse);
     }
 
     private void Dash()

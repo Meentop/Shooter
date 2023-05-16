@@ -7,25 +7,24 @@ public class CameraController : MonoBehaviour
     [SerializeField] private Transform player;
     [SerializeField] private CameraConfig cameraConfig;
 
-    private float _mouseX, _mouseY;
-    private float xRotation;
+    private float xRotation, yRotation;
 
     private void Start()
     {
         Cursor.lockState = CursorLockMode.Locked;
     }
 
-    private void Update()
+    private void FixedUpdate()
     {
-        _mouseX = Input.GetAxis("Mouse X") * cameraConfig.sensivity * Time.deltaTime;
-        _mouseY = Input.GetAxis("Mouse Y") * cameraConfig.sensivity * Time.deltaTime;
+        float mouseX = Input.GetAxisRaw("Mouse X") * cameraConfig.sensivity;
+        float mouseY = Input.GetAxisRaw("Mouse Y") * cameraConfig.sensivity;
 
-        xRotation -= _mouseY;
-        xRotation = Mathf.Clamp(xRotation, cameraConfig.minAngle, cameraConfig.maxAngle);
-        transform.localRotation = Quaternion.Euler(xRotation, 0f, 0f);
-        transform.Rotate(-_mouseY * new Vector3(1, 0, 0) * Time.deltaTime);
+        yRotation += mouseX;
 
-        player.Rotate(_mouseX * new Vector3(0, 1, 0));
+        xRotation -= mouseY;
+        xRotation = Mathf.Clamp(xRotation, -90f, 90f);
 
+        transform.rotation = Quaternion.Euler(xRotation, yRotation, 0);
+        player.rotation = Quaternion.Euler(0, yRotation, 0);
     }
 }

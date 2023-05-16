@@ -13,8 +13,9 @@ MonoBehaviour:
   m_Name: Player Config
   m_EditorClassIdentifier: 
   movementSpeed: 7
-  jumpStrength: 7
-  checkOnGroundRadius: 0.1
+  groundDrag: 10
+  jumpStrength: 12
+  airMultiplayer: 0.4
   dashStrength: 15
   dashDuration: 0.3
   dashReloadTime: 1
