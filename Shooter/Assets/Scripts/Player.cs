@@ -6,6 +6,7 @@ public class Player : MonoBehaviour
 {
     [SerializeField] private Weapon weapon;
     [SerializeField] private Transform weaponHolder;
+    [SerializeField] private Transform targetLook;
 
     private UIManager _UIManager;
 
@@ -18,6 +19,6 @@ public class Player : MonoBehaviour
     {
         _UIManager = uIManager;
         
-        weapon.Init(uIManager, this, weaponHolder);
+        weapon.Init(uIManager, this, weaponHolder, targetLook);
     }
 }

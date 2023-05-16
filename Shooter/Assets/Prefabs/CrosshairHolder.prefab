@@ -29,7 +29,6 @@ RectTransform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 7253941367744046596}
   m_RootOrder: 1
@@ -121,7 +120,6 @@ RectTransform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 7253941367744046596}
   m_RootOrder: 0
@@ -211,7 +209,6 @@ RectTransform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 7253941367245721430}
   - {fileID: 7253941367109544484}
@@ -262,7 +259,6 @@ RectTransform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 7253941367744046596}
   m_RootOrder: 2
@@ -354,7 +350,6 @@ RectTransform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 7253941367744046596}
   m_RootOrder: 3
@@ -427,7 +422,6 @@ GameObject:
   m_Component:
   - component: {fileID: 7253941368739155564}
   - component: {fileID: 7253941368739155562}
-  - component: {fileID: 7253941368739155565}
   m_Layer: 5
   m_Name: CrosshairHolder
   m_TagString: Untagged
@@ -445,7 +439,6 @@ RectTransform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 7253941367744046596}
   m_Father: {fileID: 0}
@@ -464,26 +457,3 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7253941368739155567}
   m_CullTransparentMesh: 1
---- !u!114 &7253941368739155565
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7253941368739155567}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e9d27df7796dbb44fb068572e234c838, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  parts:
-  - trans: {fileID: 7253941367245721430}
-    pos: {x: 0, y: 1}
-  - trans: {fileID: 7253941367109544484}
-    pos: {x: 0, y: -1}
-  - trans: {fileID: 7253941368018284316}
-    pos: {x: -1, y: 0}
-  - trans: {fileID: 7253941368271993993}
-    pos: {x: 1, y: 0}
-  speedSpread: 25
-  CurrentSpread: 0
