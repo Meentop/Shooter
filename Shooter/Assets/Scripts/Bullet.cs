@@ -20,13 +20,18 @@ public class Bullet : MonoBehaviour
 
         if (Physics.Linecast(lastPos, transform.position, out var hit))
         {
-            var decal = Instantiate(decalPrefab, hit.point + hit.normal * 0.001f, Quaternion.LookRotation(hit.normal));
-            decal.transform.SetParent(hit.transform);
-            
-            Destroy(decal, 5);
+            if (hit.transform.TryGetComponent<IDamageReceiver>(out var damageReceiver))
+            {
+                damageReceiver.OnGetDamage(new DamageData(dmg, hit));
+            }
+            else
+            {
+                var decal = Instantiate(decalPrefab, hit.point + hit.normal * 0.001f, Quaternion.LookRotation(hit.normal));
+                decal.transform.SetParent(hit.transform);
+                Destroy(decal, 5);
+            }
             Destroy(gameObject);
         }
-
         lastPos = transform.position;
     }
 }
