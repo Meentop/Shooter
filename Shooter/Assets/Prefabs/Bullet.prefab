@@ -96,7 +96,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 150
-  dmg: 30
+  dmgRangeMin: 25
+  dmgRangeMax: 35
   decalPrefab: {fileID: 1000012142692022, guid: f55c9bf640b6fd34aa8924a3dc6673dd, type: 3}
 --- !u!114 &7152523237875103402
 MonoBehaviour:

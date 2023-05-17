@@ -3,7 +3,8 @@ using UnityEngine;
 public class Bullet : MonoBehaviour
 {
     [SerializeField] private float speed;
-    [SerializeField] private float dmg;
+    [SerializeField] private float dmgRangeMin;
+    [SerializeField] private float dmgRangeMax;
     [SerializeField] private GameObject decalPrefab;
     private Vector3 lastPos;
 
@@ -22,7 +23,7 @@ public class Bullet : MonoBehaviour
         {
             if (hit.transform.TryGetComponent<IDamageReceiver>(out var damageReceiver))
             {
-                damageReceiver.OnGetDamage(new DamageData(dmg, hit));
+                damageReceiver.OnGetDamage(new DamageData(Random.Range(dmgRangeMin, dmgRangeMax), hit));
             }
             else
             {

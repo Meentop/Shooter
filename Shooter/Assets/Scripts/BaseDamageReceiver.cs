@@ -8,6 +8,7 @@ public class BaseDamageReceiver : MonoBehaviour, IDamageReceiver
     [SerializeField] private ActionBase[] executeOnGetDamage;
     [SerializeField] private ActionBase[] executeOnHPBelowZero;
     [SerializeField] private Image healthBarSprite;
+    [SerializeField] private Image afterHealthBarSprite;
     [SerializeField] private Transform hPBarCanvas;
     [SerializeField] private float reduceSpeed;
     [SerializeField] private float armor;
@@ -25,7 +26,7 @@ public class BaseDamageReceiver : MonoBehaviour, IDamageReceiver
     private void Update()
     {
         hPBarCanvas.transform.rotation = Quaternion.LookRotation(transform.position - Camera.main.transform.position);
-        healthBarSprite.transform.localScale = new Vector3(Mathf.MoveTowards(healthBarSprite.transform.localScale.x, _target, reduceSpeed * Time.deltaTime), 1, 1);
+        afterHealthBarSprite.transform.localScale = new Vector3(Mathf.MoveTowards(afterHealthBarSprite.transform.localScale.x, _target, reduceSpeed * Time.deltaTime), 1, 1);
     }
 
     public void OnGetDamage(DamageData damageData)
@@ -34,6 +35,7 @@ public class BaseDamageReceiver : MonoBehaviour, IDamageReceiver
         var penetratedDamage = Mathf.Max(damageData.Damage - armor, 0);
         HP -= penetratedDamage;
         UpdateHealthBar(maxHP, HP);
+        DamageUI.Instance.AddText((int)penetratedDamage,transform.position);
         Debug.Log(name + " HP = " + HP, gameObject);
 
         if (HP <= 0)
@@ -48,5 +50,6 @@ public class BaseDamageReceiver : MonoBehaviour, IDamageReceiver
             return;
 
         _target = currentHP / maxHP;
+        healthBarSprite.transform.localScale = new Vector3(currentHP / maxHP, 1, 1);
     }
 }
