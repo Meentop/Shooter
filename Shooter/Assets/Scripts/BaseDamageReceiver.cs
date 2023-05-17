@@ -16,12 +16,8 @@ public class BaseDamageReceiver : MonoBehaviour, IDamageReceiver
         Debug.Log(name + " HP = " + HP, gameObject);
 
         if (HP <= 0)
-        {
             executeOnHPBelowZero.ExecuteAll();
-        }
         else
-        {
             executeOnGetDamage.ExecuteAll();
-        }
     }
 }

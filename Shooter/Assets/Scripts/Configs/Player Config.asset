@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   movementSpeed: 7
   groundDrag: 10
-  jumpStrength: 12
+  jumpStrength: 15
   airMultiplayer: 0.4
   maxSlopeAngle: 40
   dashStrength: 15
