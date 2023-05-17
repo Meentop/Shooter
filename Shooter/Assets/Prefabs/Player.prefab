@@ -41,7 +41,7 @@ GameObject:
   - component: {fileID: 6655776285994737156}
   - component: {fileID: 6655776285994737159}
   - component: {fileID: 6655776285994737158}
-  - component: {fileID: 4990793904324656874}
+  - component: {fileID: 2031550109969213181}
   - component: {fileID: 6655776285994737161}
   - component: {fileID: 6655776285994737154}
   - component: {fileID: 5417072423963475846}
@@ -117,8 +117,8 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!65 &4990793904324656874
-BoxCollider:
+--- !u!136 &2031550109969213181
+CapsuleCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -127,8 +127,9 @@ BoxCollider:
   m_Material: {fileID: 13400000, guid: e845df1f50f5ac04cb0dd13fcb75ba23, type: 2}
   m_IsTrigger: 0
   m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 0.8, y: 2, z: 0.8}
+  m_Radius: 0.5
+  m_Height: 2
+  m_Direction: 1
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!54 &6655776285994737161
 Rigidbody:
@@ -160,6 +161,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   checkOnGroundPoint: {fileID: 6655776286372067823}
   playerConfig: {fileID: 11400000, guid: b4e04a6794d8f84469a6f174b303cb1c, type: 2}
+  jumpKey: 32
 --- !u!114 &5417072423963475846
 MonoBehaviour:
   m_ObjectHideFlags: 0

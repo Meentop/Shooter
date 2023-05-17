@@ -9,6 +9,7 @@ public class PlayerConfig : ScriptableObject
     public float groundDrag;
     public float jumpStrength;
     public float airMultiplayer;
+    public float maxSlopeAngle;
     public float dashStrength;
     public float dashDuration;
     public float dashReloadTime;
