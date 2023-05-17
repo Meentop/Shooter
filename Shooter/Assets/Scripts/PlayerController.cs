@@ -9,7 +9,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private KeyCode jumpKey = KeyCode.Space;
 
     private Rigidbody _rb;
-    private bool _canMove = true, _grounded, _exitingSlope;
+    private bool _grounded, _exitingSlope, _dashing;
     private float _dashTimer;
     private float _horizontalInput, _verticalInput;
     private Vector3 _moveDirection;
@@ -28,7 +28,7 @@ public class PlayerController : MonoBehaviour
         MyInput();
         SpeedControl();
 
-        if (_grounded)
+        if (_grounded && !_dashing)
             _rb.drag = playerConfig.groundDrag;
         else
             _rb.drag = 0;  
@@ -47,7 +47,7 @@ public class PlayerController : MonoBehaviour
 
     private void FixedUpdate()
     {
-        if(_canMove)
+        if(!_dashing)
         {
             Movement();
         }    
@@ -87,18 +87,21 @@ public class PlayerController : MonoBehaviour
 
     private void SpeedControl()
     {
-        if (OnSlope() && !_exitingSlope)
+        if (!_dashing)
         {
-            if (_rb.velocity.magnitude > playerConfig.movementSpeed)
-                _rb.velocity = _rb.velocity.normalized * playerConfig.movementSpeed;
-        }
-        else
-        {
-            Vector3 flatVel = new Vector3(_rb.velocity.x, 0, _rb.velocity.z);
-            if (flatVel.magnitude > playerConfig.movementSpeed)
+            if (OnSlope() && !_exitingSlope)
             {
-                Vector3 limitedVel = flatVel.normalized * playerConfig.movementSpeed;
-                _rb.velocity = new Vector3(limitedVel.x, _rb.velocity.y, limitedVel.z);
+                if (_rb.velocity.magnitude > playerConfig.movementSpeed)
+                    _rb.velocity = _rb.velocity.normalized * playerConfig.movementSpeed;
+            }
+            else
+            {
+                Vector3 flatVel = new Vector3(_rb.velocity.x, 0, _rb.velocity.z);
+                if (flatVel.magnitude > playerConfig.movementSpeed)
+                {
+                    Vector3 limitedVel = flatVel.normalized * playerConfig.movementSpeed;
+                    _rb.velocity = new Vector3(limitedVel.x, _rb.velocity.y, limitedVel.z);
+                }
             }
         }
     }
@@ -141,7 +144,7 @@ public class PlayerController : MonoBehaviour
         Vector3 direction = new Vector3(Input.GetAxis("Horizontal"), 0, Input.GetAxis("Vertical")).normalized;
         if (Input.GetAxis("Horizontal") == 0 && Input.GetAxis("Vertical") == 0)
             direction = Vector3.forward;
-        _canMove = false;
+        _dashing = true;
         _dashTimer = playerConfig.dashReloadTime;
         float dashTimer = playerConfig.dashDuration;
         while(dashTimer > 0)
@@ -151,6 +154,6 @@ public class PlayerController : MonoBehaviour
             dashTimer -= Time.fixedDeltaTime;
             yield return new WaitForFixedUpdate();
         }
-        _canMove = true;
+        _dashing = false;
     }
 }
