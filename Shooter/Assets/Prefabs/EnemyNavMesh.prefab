@@ -87,7 +87,6 @@ GameObject:
   - component: {fileID: 7805121399157260101}
   - component: {fileID: 7805121399157260098}
   - component: {fileID: 7805121399157260099}
-  - component: {fileID: 7481311399651376026}
   m_Layer: 0
   m_Name: HPBarCanvas
   m_TagString: Untagged
@@ -176,19 +175,6 @@ MonoBehaviour:
   m_BlockingMask:
     serializedVersion: 2
     m_Bits: 4294967295
---- !u!114 &7481311399651376026
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7805121399157260097}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1807023e389547a4984ed4259607963c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  textPrefab: {fileID: 885411906455123319, guid: 6e73eda23db8a1f41b3f0bc395c97ae6, type: 3}
 --- !u!1 &7805121399701665569
 GameObject:
   m_ObjectHideFlags: 0
@@ -285,7 +271,7 @@ GameObject:
   - component: {fileID: 6165429743608668739}
   m_Layer: 0
   m_Name: EnemyNavMesh
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
