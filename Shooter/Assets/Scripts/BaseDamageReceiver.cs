@@ -25,7 +25,8 @@ public class BaseDamageReceiver : MonoBehaviour, IDamageReceiver
 
     private void Update()
     {
-        hPBarCanvas.transform.rotation = Quaternion.LookRotation(transform.position - Camera.main.transform.position);
+        if(hPBarCanvas != null)
+            hPBarCanvas.transform.rotation = Quaternion.LookRotation(transform.position - Camera.main.transform.position);
         afterHealthBarSprite.transform.localScale = new Vector3(Mathf.MoveTowards(afterHealthBarSprite.transform.localScale.x, _target, reduceSpeed * Time.deltaTime), 1, 1);
     }
 
