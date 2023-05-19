@@ -10,7 +10,10 @@ public class DashEnemy : Enemy
     {
         base.Update();
         if (Vector3.Distance(transform.position, player.position) <= attackRange && !isAttacking && GetAngleToPlayer() < 10)
-            StartCoroutine(Attack());
+        {
+            anim.SetTrigger("Attack");
+            isAttacking = true;
+        }
     }
 
     private IEnumerator Attack()
@@ -37,5 +40,43 @@ public class DashEnemy : Enemy
         agent.enabled = true;
         isAttacking = false;
         print("end attacking");
+    }
+
+    public void StartAttack()
+    {
+        
+        agent.enabled = false;
+    }
+
+    public void StartDash()
+    {
+        rb.AddForce(transform.forward * 20f, ForceMode.Impulse);
+    }
+
+    public void EndDash()
+    {
+        rb.velocity = Vector3.zero;
+    }
+
+    public void EndAttack()
+    {    
+        agent.enabled = true;
+        isAttacking = false;
+    }
+
+    public void ResetTransform()
+    {
+        //StartCoroutine(ResetTr());
+    }
+
+    IEnumerator ResetTr()
+    {
+        anim.applyRootMotion = false;
+        anim.transform.localRotation = Quaternion.Euler(Vector3.zero);
+        anim.transform.localPosition = Vector3.zero;
+        print(anim.transform.localRotation.eulerAngles);
+        yield return new WaitForEndOfFrame();
+        anim.applyRootMotion = false;
+        print(anim.transform.localRotation.eulerAngles);
     }
 }

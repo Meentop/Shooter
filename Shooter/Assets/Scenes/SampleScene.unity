@@ -434,6 +434,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: DashEnemy (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 5502814733913550371, guid: feca398dd300d4a46a03bed884e235ee, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: feca398dd300d4a46a03bed884e235ee, type: 3}
 --- !u!1001 &1471971647
@@ -490,6 +494,10 @@ PrefabInstance:
     - target: {fileID: 5502814733913550371, guid: feca398dd300d4a46a03bed884e235ee, type: 3}
       propertyPath: m_Name
       value: DashEnemy
+      objectReference: {fileID: 0}
+    - target: {fileID: 5502814733913550371, guid: feca398dd300d4a46a03bed884e235ee, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: feca398dd300d4a46a03bed884e235ee, type: 3}
