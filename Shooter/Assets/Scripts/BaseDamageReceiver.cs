@@ -38,7 +38,7 @@ public class BaseDamageReceiver : MonoBehaviour, IDamageReceiver
             
         Debug.Log(name + " HP = " + HP, gameObject);
 
-        if (damageData.Hit.transform.TryGetComponent<Enemy>(out var enemy))
+        if (damageData.Hit.transform != null && damageData.Hit.transform.GetComponent<Enemy>())
         {
             DamageUI.Instance.AddText((int)penetratedDamage, transform.position);
         }
