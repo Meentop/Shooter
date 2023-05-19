@@ -1504,6 +1504,7 @@ GameObject:
   - component: {fileID: 3005778194534445179}
   - component: {fileID: 9089307073131585168}
   - component: {fileID: 2337895182689192908}
+  - component: {fileID: 4123450729288506133}
   - component: {fileID: 3201374300052633890}
   - component: {fileID: 1498340833107021634}
   - component: {fileID: 537288006300093292}
@@ -1559,6 +1560,7 @@ MonoBehaviour:
   executeOnGetDamage: []
   executeOnHPBelowZero:
   - {fileID: 2337895182689192908}
+  - {fileID: 4123450729288506133}
   healthBarSprite: {fileID: 1527643518624817814}
   afterHealthBarSprite: {fileID: 8676102195805279203}
   hPBarCanvas: {fileID: 3361999159271364861}
@@ -1578,6 +1580,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   delay: 0
+--- !u!114 &4123450729288506133
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5502814733913550371}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa86a28e80960a24e9adc1aab773c6f7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!195 &3201374300052633890
 NavMeshAgent:
   m_ObjectHideFlags: 0

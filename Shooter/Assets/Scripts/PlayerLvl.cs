@@ -24,16 +24,7 @@ public class PlayerLvl : MonoBehaviour
         nextLvlText.text = (_curLvl + 1).ToString();
     }
 
-    private void OnTriggerEnter(Collider other)
-    {
-        if(other.gameObject.TryGetComponent<ExpSphere>(out var exp))
-        {
-            AddExp(exp.exp);
-            Destroy(other.gameObject);
-        }
-    }
-
-    private void AddExp(int addExp)
+    public void AddExp(int addExp)
     {
         _curLvlPoints += addExp;
         if(_curLvlPoints >= maxLvlPoints)

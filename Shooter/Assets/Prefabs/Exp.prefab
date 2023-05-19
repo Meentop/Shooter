@@ -77,6 +77,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   pickDistance: 5
   speed: 10
+  lifeTime: 3
   exp: 20
 --- !u!1 &9220291964023866356
 GameObject:
