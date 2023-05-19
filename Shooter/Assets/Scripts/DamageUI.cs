@@ -21,12 +21,12 @@ public class DamageUI : MonoBehaviour
             UIText.transform.position = newPos;
         }
     }
-    public TextMeshProUGUI textPrefab;
+    [SerializeField] private TextMeshProUGUI textPrefab;
 
-    const int POOL_SIZE = 12;
+    private const int POOL_SIZE = 12;
 
-    Queue<TextMeshProUGUI> textPool = new Queue<TextMeshProUGUI>();
-    List<ActiveText> activeTexts = new List<ActiveText>();
+    private Queue<TextMeshProUGUI> textPool = new Queue<TextMeshProUGUI>();
+    private List<ActiveText> activeTexts = new List<ActiveText>();
 
     private Camera _camera;
     private Transform _transformPos;
@@ -40,12 +40,7 @@ public class DamageUI : MonoBehaviour
     {
         _camera = Camera.main;
         _transformPos = transform;
-        for (int i = 0; i < POOL_SIZE; i++)
-        {
-            TextMeshProUGUI temp = Instantiate(textPrefab, _transformPos);
-            temp.gameObject.SetActive(false);
-            textPool.Enqueue(temp);
-        }
+        InitializeTextPool();
     }
 
     void Update()
@@ -57,46 +52,46 @@ public class DamageUI : MonoBehaviour
 
             if (activeText.timer <= 0)
             {
-                if (activeText.UIText != null)
-                { 
                 activeText.UIText.gameObject.SetActive(false);
                 textPool.Enqueue(activeText.UIText);
-                }
+                
                 activeTexts.RemoveAt(i);
                 --i;
             }
             else
             {
-                if (activeText.UIText != null)
-                {
                     var color = activeText.UIText.color;
                     color.a = activeText.timer / activeText.maxTime;
                     activeText.UIText.color = color;
-                }
 
                 activeText.MoveText(_camera);
             }
         }
     }
 
+    private void InitializeTextPool()
+    {
+        for (int i = 0; i < POOL_SIZE; i++)
+        {
+            TextMeshProUGUI temp = Instantiate(textPrefab, _transformPos);
+            temp.gameObject.SetActive(false);
+            textPool.Enqueue(temp);
+        }
+    }
+
     public void AddText(int amount, Vector3 unitPos)
     {
-        TextMeshProUGUI item;
-        if (textPool.Count > 0)
-        { 
-        item = textPool.Dequeue();
-        }
-        else
-        {
-            item = Instantiate(textPrefab, _transformPos);
-        }
+        var item = textPool.Dequeue();
         item.text = amount.ToString();
         item.gameObject.SetActive(true);
 
-        ActiveText activeText = new ActiveText() { maxTime = 1.0f };
-        activeText.timer = activeText.maxTime;
-        activeText.UIText = item;
-        activeText.unitPosition = unitPos + new Vector3(0, Random.Range(0f, 1f), Random.Range(-1f, 1f));
+        ActiveText activeText = new ActiveText()
+        {
+            maxTime = 1.0f,
+            timer = 1.0f,
+            UIText = item,
+            unitPosition = unitPos + new Vector3(0, Random.Range(0.5f, 1f), Random.Range(-1f, 1f))
+        };
 
         activeText.MoveText(_camera);
         activeTexts.Add(activeText);

@@ -32,13 +32,16 @@ public class BaseDamageReceiver : MonoBehaviour, IDamageReceiver
 
     public void OnGetDamage(DamageData damageData)
     {
-        
         var penetratedDamage = Mathf.Max(damageData.Damage - armor, 0);
         HP -= penetratedDamage;
         UpdateHealthBar(maxHP, HP);
-        if (damageData.Hit.transform.gameObject.CompareTag("Enemy"))
-            DamageUI.Instance.AddText((int)penetratedDamage, transform.position);
+            
         Debug.Log(name + " HP = " + HP, gameObject);
+
+        if (damageData.Hit.transform.TryGetComponent<Enemy>(out var enemy))
+        {
+            DamageUI.Instance.AddText((int)penetratedDamage, transform.position);
+        }
 
         if (HP <= 0)
             executeOnHPBelowZero.ExecuteAll();
