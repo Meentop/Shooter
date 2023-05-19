@@ -25,9 +25,4 @@ public class DashEnemyModel : MonoBehaviour
     {
         dashEnemy.EndAttack();
     }
-
-    public void ResetTransform()
-    {
-        dashEnemy.ResetTransform();
-    }
 }
