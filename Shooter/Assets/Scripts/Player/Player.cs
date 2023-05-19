@@ -10,7 +10,6 @@ public class Player : MonoBehaviour
     [SerializeField] private Weapon firstWeapon;
     [SerializeField] private Weapon secondWeapon;
 
-    private UIManager _UIManager;
     private int _selWeapon;
     private Weapon _currentWeapon;
 
@@ -25,12 +24,11 @@ public class Player : MonoBehaviour
     }
 
 
-    public void Init(UIManager uIManager)
+    public void Init()
     {
-        _UIManager = uIManager;
         _currentWeapon = weapon;
         
-        weapon.Init(uIManager, this, weaponHolder, targetLook);
+        weapon.Init(this, weaponHolder, targetLook);
     }
 
     public void InputSelectWeapon()
@@ -60,14 +58,14 @@ public class Player : MonoBehaviour
             _currentWeapon.transform.gameObject.SetActive(false);
             _currentWeapon = firstWeapon;
             _currentWeapon.transform.gameObject.SetActive(true);
-            _currentWeapon.Init(_UIManager, this, weaponHolder, targetLook);
+            _currentWeapon.Init(this, weaponHolder, targetLook);
         }
         if (selectWeapon == 2)
         {
             _currentWeapon.transform.gameObject.SetActive(false);
             _currentWeapon = secondWeapon;
             _currentWeapon.transform.gameObject.SetActive(true);
-            _currentWeapon.Init(_UIManager, this, weaponHolder, targetLook);
+            _currentWeapon.Init(this, weaponHolder, targetLook);
         }
         if (selectWeapon == 3)
         {

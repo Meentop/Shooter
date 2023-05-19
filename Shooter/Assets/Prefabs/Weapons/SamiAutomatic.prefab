@@ -18,7 +18,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &4451136273754108101
 Transform:
   m_ObjectHideFlags: 0
@@ -98,7 +98,6 @@ MonoBehaviour:
   shotPoint: {fileID: 0}
   bullet: {fileID: 7281535641344190930, guid: e6ef6b31f7a5145499946cc7869a7ea4, type: 3}
   shootEffect: {fileID: 4574235748930194364}
-  shootInterval: 0.2
   shootDeley: 0.1
 --- !u!1001 &4451136274643036940
 PrefabInstance:
