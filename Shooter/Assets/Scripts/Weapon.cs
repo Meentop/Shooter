@@ -34,6 +34,8 @@ public abstract class Weapon : MonoBehaviour
 
     public abstract void Shoot();
 
+    public abstract void StopShooting();
+
 
     protected virtual void Update()
     {
@@ -43,6 +45,10 @@ public abstract class Weapon : MonoBehaviour
         if (Input.GetMouseButtonDown(0))
         {
             Shoot();
+        }
+        else if(Input.GetMouseButtonUp(0))
+        {
+            StopShooting();
         }
 
         
