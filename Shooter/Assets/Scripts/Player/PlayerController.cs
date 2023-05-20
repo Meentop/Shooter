@@ -58,7 +58,7 @@ public class PlayerController : MonoBehaviour
         _horizontalInput = Input.GetAxisRaw("Horizontal");
         _verticalInput = Input.GetAxisRaw("Vertical");
 
-        if (Input.GetKeyDown(jumpKey) && _grounded)
+        if (Input.GetKeyDown(jumpKey) && _grounded && !_dashing)
         {
             Jump();
 
@@ -147,6 +147,8 @@ public class PlayerController : MonoBehaviour
         _dashing = true;
         _dashTimer = playerConfig.dashReloadTime;
         float dashTimer = playerConfig.dashDuration;
+        _rb.velocity = new Vector3(_rb.velocity.x, 0, _rb.velocity.z);
+        _rb.useGravity = false;
         while(dashTimer > 0)
         {
             Vector3 dashDirection = transform.TransformDirection(direction) * playerConfig.dashStrength;
@@ -154,6 +156,7 @@ public class PlayerController : MonoBehaviour
             dashTimer -= Time.fixedDeltaTime;
             yield return new WaitForFixedUpdate();
         }
+        _rb.useGravity = true;
         _dashing = false;
     }
 }
