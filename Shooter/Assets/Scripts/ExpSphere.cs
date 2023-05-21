@@ -6,7 +6,7 @@ using UnityEngine;
 public class ExpSphere : MonoBehaviour
 {
     [SerializeField] private float pickDistance, speed, lifeTime;
-    public int exp;
+    [HideInInspector] public int exp;
 
     private Transform _player;
     private Rigidbody _rb;

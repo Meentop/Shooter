@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 4451136273751293933}
   - component: {fileID: 4451136273752376477}
   - component: {fileID: 4451136274993328746}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: SamiAutomatic
   m_TagString: Untagged
   m_Icon: {fileID: 0}

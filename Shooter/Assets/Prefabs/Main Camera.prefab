@@ -54,7 +54,7 @@ Camera:
     y: 0
     width: 1
     height: 1
-  near clip plane: 0.3
+  near clip plane: 0.2
   far clip plane: 1000
   field of view: 90
   orthographic: 0
@@ -135,7 +135,7 @@ Camera:
     y: 0
     width: 1
     height: 1
-  near clip plane: 0.3
+  near clip plane: 0.2
   far clip plane: 1000
   field of view: 90
   orthographic: 0
@@ -340,6 +340,10 @@ PrefabInstance:
     - target: {fileID: 7448507824946437732, guid: d18c597c3cbff74499d37446af0c7f61, type: 3}
       propertyPath: m_Name
       value: SamiAutomatic
+      objectReference: {fileID: 0}
+    - target: {fileID: 7448507824946437732, guid: d18c597c3cbff74499d37446af0c7f61, type: 3}
+      propertyPath: m_Layer
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 7448507824946437732, guid: d18c597c3cbff74499d37446af0c7f61, type: 3}
       propertyPath: m_IsActive

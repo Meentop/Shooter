@@ -1009,7 +1009,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 9089307073131585168, guid: feca398dd300d4a46a03bed884e235ee, type: 3}
       propertyPath: HP
-      value: 1000
+      value: 100
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 4744967400779253388, guid: feca398dd300d4a46a03bed884e235ee, type: 3}
