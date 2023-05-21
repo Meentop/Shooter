@@ -18,7 +18,7 @@ public class DamageUI : MonoBehaviour
             float delta = 1.0f - (timer / maxTime);
             float modefiedDelta = delta * 2;
             Vector3 newPos = unitPosition + new Vector3(delta, modefiedDelta, 0);
-            UIText.transform.position = newPos;
+            UIText.rectTransform.anchoredPosition = newPos;
         }
     }
     [SerializeField] private TextMeshProUGUI textPrefab;
@@ -29,8 +29,6 @@ public class DamageUI : MonoBehaviour
     private List<ActiveText> activeTexts = new List<ActiveText>();
 
     private Camera _camera;
-    private Transform _transformPos;
-
     void Awake()
     {
         Instance = this;
@@ -39,7 +37,6 @@ public class DamageUI : MonoBehaviour
     private void Start()
     {
         _camera = Camera.main;
-        _transformPos = transform;
         InitializeTextPool();
     }
 
@@ -60,9 +57,9 @@ public class DamageUI : MonoBehaviour
             }
             else
             {
-                    var color = activeText.UIText.color;
-                    color.a = activeText.timer / activeText.maxTime;
-                    activeText.UIText.color = color;
+                var color = activeText.UIText.color;
+                color.a = activeText.timer / activeText.maxTime;
+                activeText.UIText.color = color;
 
                 activeText.MoveText(_camera);
             }
@@ -73,7 +70,7 @@ public class DamageUI : MonoBehaviour
     {
         for (int i = 0; i < POOL_SIZE; i++)
         {
-            TextMeshProUGUI temp = Instantiate(textPrefab, _transformPos);
+            TextMeshProUGUI temp = Instantiate(textPrefab, transform);
             temp.gameObject.SetActive(false);
             textPool.Enqueue(temp);
         }
@@ -90,7 +87,7 @@ public class DamageUI : MonoBehaviour
             maxTime = 1.0f,
             timer = 1.0f,
             UIText = item,
-            unitPosition = unitPos + new Vector3(0, Random.Range(0.5f, 1f), Random.Range(-1f, 1f))
+            unitPosition = _camera.WorldToScreenPoint(unitPos) + new Vector3(0, Random.Range(0.5f, 1f), Random.Range(-1f, 1f))
         };
 
         activeText.MoveText(_camera);
