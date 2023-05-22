@@ -7,6 +7,7 @@ public class BaseDamageReceiver : MonoBehaviour, IDamageReceiver
 {
     [SerializeField] private ActionBase[] executeOnGetDamage;
     [SerializeField] private ActionBase[] executeOnHPBelowZero;
+    [SerializeField] private RectTransform canvas;
     [SerializeField] private Image healthBarSprite;
     [SerializeField] private Image afterHealthBarSprite;
     [SerializeField] private Transform hPBarCanvas;
@@ -40,7 +41,7 @@ public class BaseDamageReceiver : MonoBehaviour, IDamageReceiver
 
         if (damageData.Hit.transform != null && damageData.Hit.transform.GetComponent<Enemy>())
         {
-            DamageUI.Instance.AddText((int)penetratedDamage, transform.position);
+            DamageUI.Instance.AddText((int)penetratedDamage, damageData.Hit.transform, canvas);
         }
 
         if (HP <= 0)

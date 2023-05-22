@@ -498,6 +498,10 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 9089307073131585168, guid: feca398dd300d4a46a03bed884e235ee, type: 3}
+      propertyPath: canvas
+      value: 
+      objectReference: {fileID: 1198665613}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: feca398dd300d4a46a03bed884e235ee, type: 3}
 --- !u!1 &649399075
@@ -948,6 +952,11 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1081600368}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!224 &1198665613 stripped
+RectTransform:
+  m_CorrespondingSourceObject: {fileID: 5526591209243580115, guid: 83c9ad56a38022b4899e1e1eec2c3fab, type: 3}
+  m_PrefabInstance: {fileID: 2565003241933251663}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1471971647
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1011,6 +1020,10 @@ PrefabInstance:
       propertyPath: HP
       value: 100
       objectReference: {fileID: 0}
+    - target: {fileID: 9089307073131585168, guid: feca398dd300d4a46a03bed884e235ee, type: 3}
+      propertyPath: canvas
+      value: 
+      objectReference: {fileID: 1198665613}
     m_RemovedComponents:
     - {fileID: 4744967400779253388, guid: feca398dd300d4a46a03bed884e235ee, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: feca398dd300d4a46a03bed884e235ee, type: 3}
@@ -1123,6 +1136,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 3349830339781464865, guid: 83c9ad56a38022b4899e1e1eec2c3fab, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 180.77344
+      objectReference: {fileID: 0}
     - target: {fileID: 3349830339781464865, guid: 83c9ad56a38022b4899e1e1eec2c3fab, type: 3}
       propertyPath: m_AnchoredPosition.y
       value: 31.224121

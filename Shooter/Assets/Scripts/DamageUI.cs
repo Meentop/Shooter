@@ -11,13 +11,18 @@ public class DamageUI : MonoBehaviour
         public TextMeshProUGUI UIText;
         public float maxTime;
         public float timer;
-        public Vector3 unitPosition;
+        public Transform enemy;
+        public Vector3 randPos;
+        public RectTransform canvas;
 
         public void MoveText(Camera camera)
         {
-            float delta = 1.0f - (timer / maxTime);
-            float modefiedDelta = delta * 2;
-            Vector3 newPos = unitPosition + new Vector3(delta, modefiedDelta, 0);
+            Vector3 newPos = new Vector3();
+            if (enemy != null)
+            {
+                Vector3 viewportPos = camera.WorldToViewportPoint(enemy.position);
+                newPos = new Vector3(viewportPos.x * canvas.sizeDelta.x, viewportPos.y * canvas.sizeDelta.y, 0) + randPos;
+            }
             UIText.rectTransform.anchoredPosition = newPos;
         }
     }
@@ -76,7 +81,7 @@ public class DamageUI : MonoBehaviour
         }
     }
 
-    public void AddText(int amount, Vector3 unitPos)
+    public void AddText(int amount, Transform enemy, RectTransform canvas)
     {
         var item = textPool.Dequeue();
         item.text = amount.ToString();
@@ -87,11 +92,12 @@ public class DamageUI : MonoBehaviour
             maxTime = 1.0f,
             timer = 1.0f,
             UIText = item,
-            unitPosition = _camera.WorldToScreenPoint(unitPos) + new Vector3(0, Random.Range(0.5f, 1f), Random.Range(-1f, 1f))
+            enemy = enemy,
+            randPos = new Vector3(Random.Range(-50, 50), Random.Range(50, 100), 0),
+            canvas = canvas
         };
 
         activeText.MoveText(_camera);
         activeTexts.Add(activeText);
-        
     }
 }
