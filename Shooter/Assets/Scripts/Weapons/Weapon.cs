@@ -8,7 +8,6 @@ public abstract class Weapon : MonoBehaviour
     [SerializeField] protected ParticleSystem shootEffect;
 
     private Player _player;
-    private Rigidbody _rigidbody;
     private Collider _collider;
 
     private Transform _targetLook;
