@@ -5,11 +5,12 @@ using UnityEngine;
 public class DashEnemy : Enemy
 {
     [SerializeField] private float attackRange;
-    private bool _isDashing;
 
     protected override void Update()
     {
         base.Update();
+        if (agent.enabled)
+            agent.SetDestination(player.position);
         if (Vector3.Distance(transform.position, player.position) <= attackRange && !isAttacking && GetAngleToPlayer() < 10)
         {
             anim.SetTrigger("Attack");

@@ -12,18 +12,16 @@ public abstract class Enemy : MonoBehaviour
 
     [SerializeField] protected Animator anim;
 
-    private void Start()
+    protected virtual void Start()
     {
         agent = GetComponent<NavMeshAgent>();
         rb = GetComponent<Rigidbody>();
         player = FindObjectOfType<Player>().transform;
-        //Time.timeScale = 0.1f;
     }
 
     protected virtual void Update()
     {
-        if(agent.enabled)
-            agent.SetDestination(player.position);
+        
     }
 
     protected float GetAngleToPlayer()
