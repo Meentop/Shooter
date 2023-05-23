@@ -16,12 +16,13 @@ public class BaseDamageReceiver : MonoBehaviour, IDamageReceiver
 
     public float HP;
 
-    private float maxHP;
+    private float _maxHP;
     private float _target = 1;
+    private bool _isDead = false;
 
     private void Start()
     {
-        maxHP = HP;
+        _maxHP = HP;
     }
 
     private void Update()
@@ -33,21 +34,27 @@ public class BaseDamageReceiver : MonoBehaviour, IDamageReceiver
 
     public void OnGetDamage(DamageData damageData)
     {
-        var penetratedDamage = Mathf.Max(damageData.Damage - armor, 0);
-        HP -= penetratedDamage;
-        UpdateHealthBar(maxHP, HP);
-            
-        Debug.Log(name + " HP = " + HP, gameObject);
-
-        if (damageData.Hit.transform != null && damageData.Hit.transform.GetComponent<Enemy>())
+        if (!_isDead)
         {
-            DamageUI.Instance.AddText((int)penetratedDamage, damageData.Hit.transform, canvas);
-        }
+            var penetratedDamage = Mathf.Max(damageData.Damage - armor, 0);
+            HP -= penetratedDamage;
+            UpdateHealthBar(_maxHP, HP);
 
-        if (HP <= 0)
-            executeOnHPBelowZero.ExecuteAll();
-        else
-            executeOnGetDamage.ExecuteAll();
+            Debug.Log(name + " HP = " + HP, gameObject);
+
+            if (damageData.Hit.transform != null && damageData.Hit.transform.GetComponent<Enemy>())
+            {
+                DamageUI.Instance.AddText((int)penetratedDamage, damageData.Hit.transform, canvas);
+            }
+
+            if (HP <= 0)
+            {
+                executeOnHPBelowZero.ExecuteAll();
+                _isDead = true;
+            }
+            else
+                executeOnGetDamage.ExecuteAll();
+        }
     }
 
     private void UpdateHealthBar(float maxHP, float currentHP)

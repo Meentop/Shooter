@@ -5,7 +5,7 @@ using UnityEngine;
 public class Shotgun : Weapon
 {
     [SerializeField] private int pelletsCount;
-    [SerializeField] private float spreadAngle;
+    [SerializeField] private float spread;
     [SerializeField] private float shootInterval;
 
     private float shootTimer;
@@ -34,7 +34,7 @@ public class Shotgun : Weapon
                 Vector3 spread = Vector3.zero;
                 spread += Camera.main.transform.up * Random.Range(-1f, 1f); 
                 spread += Camera.main.transform.right * Random.Range(-1f, 1f); 
-                direction += spread.normalized * Random.Range(0f, 0.1f);
+                direction += spread.normalized * Random.Range(0f, this.spread);
 
                 RaycastHit hit;
                 if (Physics.Raycast(Camera.main.transform.position, direction, out hit, range))

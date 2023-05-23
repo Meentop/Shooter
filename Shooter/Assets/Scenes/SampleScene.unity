@@ -496,7 +496,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5502814733913550371, guid: feca398dd300d4a46a03bed884e235ee, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 9089307073131585168, guid: feca398dd300d4a46a03bed884e235ee, type: 3}
       propertyPath: canvas
@@ -773,10 +773,6 @@ PrefabInstance:
       propertyPath: shotPoint
       value: 
       objectReference: {fileID: 1881312010}
-    - target: {fileID: 3989152721682544715, guid: 173c17210338c17418317d17ac0e0e42, type: 3}
-      propertyPath: spreadAngle
-      value: 0.1
-      objectReference: {fileID: 0}
     - target: {fileID: 3989152721713438089, guid: 173c17210338c17418317d17ac0e0e42, type: 3}
       propertyPath: m_RootOrder
       value: 2
@@ -1094,7 +1090,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5502814733913550371, guid: d7fdcab166ecdb0458882adf197b95c2, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 9089307073131585168, guid: d7fdcab166ecdb0458882adf197b95c2, type: 3}
       propertyPath: canvas
@@ -1165,7 +1161,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5502814733913550371, guid: feca398dd300d4a46a03bed884e235ee, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 9089307073131585168, guid: feca398dd300d4a46a03bed884e235ee, type: 3}
       propertyPath: HP

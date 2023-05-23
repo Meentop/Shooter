@@ -5094,7 +5094,7 @@ MonoBehaviour:
   damageRange: {x: 20, y: 25}
   range: 50
   pelletsCount: 5
-  spreadAngle: 5
+  spread: 0.1
   shootInterval: 0.5
 --- !u!1 &3989152721713529259
 GameObject:
