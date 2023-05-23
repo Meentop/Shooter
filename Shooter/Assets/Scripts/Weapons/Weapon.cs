@@ -4,7 +4,6 @@ public abstract class Weapon : MonoBehaviour
 {
     [SerializeField] protected Transform shotPoint;
     [Space]
-    [SerializeField] protected GameObject bullet;
     [SerializeField] protected ParticleSystem shootEffect;
     [SerializeField] protected ParticleSystem decalPrefab;
     [Space]
