@@ -115,7 +115,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   shotPoint: {fileID: 0}
   bullet: {fileID: 7281535641344190930, guid: e6ef6b31f7a5145499946cc7869a7ea4, type: 3}
-  shootEffect: {fileID: 7295592624365481070}
+  shootEffect: {fileID: 0}
+  decalPrefab: {fileID: 198000010535933408, guid: f55c9bf640b6fd34aa8924a3dc6673dd, type: 3}
+  damageRange: {x: 20, y: 30}
+  range: 200
   shootInterval: 0.2
 --- !u!1001 &7458041388544232670
 PrefabInstance:
@@ -197,10 +200,5 @@ PrefabInstance:
 --- !u!4 &7462038924787711332 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4000011227296186, guid: 18da9b4052e33814097d68831d211209, type: 3}
-  m_PrefabInstance: {fileID: 7458041388544232670}
-  m_PrefabAsset: {fileID: 0}
---- !u!198 &7295592624365481070 stripped
-ParticleSystem:
-  m_CorrespondingSourceObject: {fileID: 198000012944515248, guid: 18da9b4052e33814097d68831d211209, type: 3}
   m_PrefabInstance: {fileID: 7458041388544232670}
   m_PrefabAsset: {fileID: 0}

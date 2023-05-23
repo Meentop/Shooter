@@ -6,9 +6,12 @@ public abstract class Weapon : MonoBehaviour
     [Space]
     [SerializeField] protected GameObject bullet;
     [SerializeField] protected ParticleSystem shootEffect;
+    [SerializeField] protected ParticleSystem decalPrefab;
+    [Space]
+    [SerializeField] protected Vector2Int damageRange;
+    [SerializeField] protected float range;
 
     private Player _player;
-    private Rigidbody _rigidbody;
     private Collider _collider;
 
     private Transform _targetLook;

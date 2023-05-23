@@ -9,9 +9,11 @@ public class Player : MonoBehaviour
     [SerializeField] private Transform targetLook;
     [SerializeField] private Weapon firstWeapon;
     [SerializeField] private Weapon secondWeapon;
+    [SerializeField] private float scrollDeley;
 
     private int _selWeapon;
     private Weapon _currentWeapon;
+    private bool _isScrolling;
 
     private void Start()
     {
@@ -21,6 +23,7 @@ public class Player : MonoBehaviour
     private void Update()
     {
         InputSelectWeapon();
+        InputScrollWeapon();
     }
 
 
@@ -55,21 +58,66 @@ public class Player : MonoBehaviour
     {
         if (selectWeapon == 1)
         {
-            _currentWeapon.transform.gameObject.SetActive(false);
-            _currentWeapon = firstWeapon;
-            _currentWeapon.transform.gameObject.SetActive(true);
-            _currentWeapon.Init(this, weaponHolder, targetLook);
+            SwapWeapon(firstWeapon);
         }
         if (selectWeapon == 2)
         {
-            _currentWeapon.transform.gameObject.SetActive(false);
-            _currentWeapon = secondWeapon;
-            _currentWeapon.transform.gameObject.SetActive(true);
-            _currentWeapon.Init(this, weaponHolder, targetLook);
+            SwapWeapon(secondWeapon);
         }
         if (selectWeapon == 3)
         {
 
         }
+    }
+    
+    private void SwapWeapon(Weapon weaponToSwap)
+    {
+        _currentWeapon.transform.gameObject.SetActive(false);
+        _currentWeapon = weaponToSwap;
+        _currentWeapon.transform.gameObject.SetActive(true);
+        _currentWeapon.Init(this, weaponHolder, targetLook);
+    }
+
+    private void InputScrollWeapon()
+    {
+        float scrollInput = Input.GetAxis("Mouse ScrollWheel");
+
+        if(scrollInput != 0)
+        {
+            if (!_isScrolling)
+            {
+                _isScrolling = true;
+                StartCoroutine(ScrollDeleyRoutine());
+            }
+        }
+    }
+
+    private IEnumerator ScrollDeleyRoutine()
+    {
+        float scrollInput = Input.GetAxis("Mouse ScrollWheel");
+
+        while (scrollInput != 0)
+        {
+            if (scrollInput > 0)
+            {
+                _selWeapon++;
+                if (_selWeapon > 2) 
+                {
+                    _selWeapon = 1;
+                }
+            }
+            else if(scrollInput < 0)
+            {
+                _selWeapon--;
+                if (_selWeapon < 1) 
+                {
+                    _selWeapon = 2;
+                }
+            }
+            SelectWeapon(_selWeapon);
+            yield return new WaitForSeconds(scrollDeley);
+            scrollInput = Input.GetAxis("Mouse ScrollWheel");
+        }
+        _isScrolling = false;
     }
 }
