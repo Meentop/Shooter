@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 705507994}
-  m_IndirectSpecularColor: {r: 0.44657844, g: 0.49641222, b: 0.57481694, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657898, g: 0.4964133, b: 0.5748178, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -752,6 +752,11 @@ Camera:
   m_CorrespondingSourceObject: {fileID: 1697727721791610561, guid: 5dabf89771060884e956222b099303a1, type: 3}
   m_PrefabInstance: {fileID: 1697727722191368257}
   m_PrefabAsset: {fileID: 0}
+--- !u!198 &960080079 stripped
+ParticleSystem:
+  m_CorrespondingSourceObject: {fileID: 407251843418390316, guid: 5dabf89771060884e956222b099303a1, type: 3}
+  m_PrefabInstance: {fileID: 1697727722191368257}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &987962129 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 3517441006931142457, guid: 5dabf89771060884e956222b099303a1, type: 3}
@@ -1038,6 +1043,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: da2d86176a9c7584c82ac06778769538, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!198 &1793582187 stripped
+ParticleSystem:
+  m_CorrespondingSourceObject: {fileID: 7443506445602160360, guid: 5dabf89771060884e956222b099303a1, type: 3}
+  m_PrefabInstance: {fileID: 1697727722191368257}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &1841170829 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 1697727722218239975, guid: 5dabf89771060884e956222b099303a1, type: 3}
+  m_PrefabInstance: {fileID: 1697727722191368257}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1697727722191368257
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1046,12 +1061,40 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 511640773994085659, guid: 5dabf89771060884e956222b099303a1, type: 3}
+      propertyPath: range
+      value: 200
+      objectReference: {fileID: 0}
+    - target: {fileID: 511640773994085659, guid: 5dabf89771060884e956222b099303a1, type: 3}
+      propertyPath: damage
+      value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 511640773994085659, guid: 5dabf89771060884e956222b099303a1, type: 3}
       propertyPath: shotPoint
       value: 
-      objectReference: {fileID: 1697727722191368258}
+      objectReference: {fileID: 1841170829}
+    - target: {fileID: 511640773994085659, guid: 5dabf89771060884e956222b099303a1, type: 3}
+      propertyPath: decalPrefab
+      value: 
+      objectReference: {fileID: 198000010535933408, guid: f55c9bf640b6fd34aa8924a3dc6673dd, type: 3}
+    - target: {fileID: 511640773994085659, guid: 5dabf89771060884e956222b099303a1, type: 3}
+      propertyPath: shootEffect
+      value: 
+      objectReference: {fileID: 960080079}
+    - target: {fileID: 511640773994085659, guid: 5dabf89771060884e956222b099303a1, type: 3}
+      propertyPath: damageRange.x
+      value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 511640773994085659, guid: 5dabf89771060884e956222b099303a1, type: 3}
+      propertyPath: damageRange.y
+      value: 30
+      objectReference: {fileID: 0}
     - target: {fileID: 1178393481496247189, guid: 5dabf89771060884e956222b099303a1, type: 3}
       propertyPath: m_IsActive
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1697727721791610561, guid: 5dabf89771060884e956222b099303a1, type: 3}
+      propertyPath: near clip plane
+      value: 0.01
       objectReference: {fileID: 0}
     - target: {fileID: 1697727722218239970, guid: 5dabf89771060884e956222b099303a1, type: 3}
       propertyPath: player
@@ -1060,6 +1103,10 @@ PrefabInstance:
     - target: {fileID: 1697727722218239971, guid: 5dabf89771060884e956222b099303a1, type: 3}
       propertyPath: m_Name
       value: Main Camera
+      objectReference: {fileID: 0}
+    - target: {fileID: 1697727722218239972, guid: 5dabf89771060884e956222b099303a1, type: 3}
+      propertyPath: near clip plane
+      value: 0.01
       objectReference: {fileID: 0}
     - target: {fileID: 1697727722218239975, guid: 5dabf89771060884e956222b099303a1, type: 3}
       propertyPath: m_RootOrder
@@ -1117,18 +1164,49 @@ PrefabInstance:
       propertyPath: cameraPos
       value: 
       objectReference: {fileID: 6655776286918135552}
+    - target: {fileID: 4568968781651815216, guid: 5dabf89771060884e956222b099303a1, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 7157593366589273503, guid: 5dabf89771060884e956222b099303a1, type: 3}
       propertyPath: m_RootOrder
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 7346437907303352126, guid: 5dabf89771060884e956222b099303a1, type: 3}
+      propertyPath: range
+      value: 150
+      objectReference: {fileID: 0}
+    - target: {fileID: 7346437907303352126, guid: 5dabf89771060884e956222b099303a1, type: 3}
+      propertyPath: shotPoint
+      value: 
+      objectReference: {fileID: 1841170829}
+    - target: {fileID: 7346437907303352126, guid: 5dabf89771060884e956222b099303a1, type: 3}
+      propertyPath: decalPrefab
+      value: 
+      objectReference: {fileID: 198000010535933408, guid: f55c9bf640b6fd34aa8924a3dc6673dd, type: 3}
+    - target: {fileID: 7346437907303352126, guid: 5dabf89771060884e956222b099303a1, type: 3}
+      propertyPath: shootEffect
+      value: 
+      objectReference: {fileID: 1793582187}
+    - target: {fileID: 7346437907303352126, guid: 5dabf89771060884e956222b099303a1, type: 3}
+      propertyPath: damageRange.x
+      value: 15
+      objectReference: {fileID: 0}
+    - target: {fileID: 7346437907303352126, guid: 5dabf89771060884e956222b099303a1, type: 3}
+      propertyPath: damageRange.y
+      value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 7346437909285356945, guid: 5dabf89771060884e956222b099303a1, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 2.15
+      objectReference: {fileID: 0}
+    - target: {fileID: 7346437909285356945, guid: 5dabf89771060884e956222b099303a1, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.39
+      objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 5231037006145314398, guid: 5dabf89771060884e956222b099303a1, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 5dabf89771060884e956222b099303a1, type: 3}
---- !u!4 &1697727722191368258 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 2144623432011222771, guid: 5dabf89771060884e956222b099303a1, type: 3}
-  m_PrefabInstance: {fileID: 1697727722191368257}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &2565003241933251663
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1318,6 +1396,10 @@ PrefabInstance:
       propertyPath: firstWeapon
       value: 
       objectReference: {fileID: 68189256}
+    - target: {fileID: 5417072423963475846, guid: 9e72b9e8f879a1147acd589cbd24cdd4, type: 3}
+      propertyPath: scrollDeley
+      value: 0.3
+      objectReference: {fileID: 0}
     - target: {fileID: 5417072423963475846, guid: 9e72b9e8f879a1147acd589cbd24cdd4, type: 3}
       propertyPath: secondWeapon
       value: 
