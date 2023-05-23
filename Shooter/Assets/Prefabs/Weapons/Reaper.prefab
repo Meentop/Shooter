@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 3989152721716862383}
   - component: {fileID: 3989152721715732335}
   - component: {fileID: 3989152721706283631}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Light billboard plane
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -110,7 +110,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3989152721713438083}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Shoot Spawn Point
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -142,7 +142,7 @@ GameObject:
   - component: {fileID: 3989152721713438085}
   - component: {fileID: 3989152721732835531}
   - component: {fileID: 3989152721732804971}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Light Particles
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4957,7 +4957,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3989152721713438087}
   - component: {fileID: 3989152721707060363}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Focus light
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5050,7 +5050,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3989152721713438089}
   - component: {fileID: 3989152721682544715}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Reaper
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5108,7 +5108,7 @@ GameObject:
   - component: {fileID: 3989152721716862379}
   - component: {fileID: 3989152721715732331}
   - component: {fileID: 3989152721706283627}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: reaper_mesh
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5212,7 +5212,7 @@ GameObject:
   - component: {fileID: 3989152721716862377}
   - component: {fileID: 3989152721715732329}
   - component: {fileID: 3989152721706283625}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Light plane
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5310,7 +5310,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3989152721713438095}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: SpotLight Spawn Point
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5344,7 +5344,7 @@ GameObject:
   - component: {fileID: 3989152721716862375}
   - component: {fileID: 3989152721715732327}
   - component: {fileID: 3989152721706283623}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Light plane
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5445,7 +5445,7 @@ GameObject:
   - component: {fileID: 3989152721716862369}
   - component: {fileID: 3989152721715732321}
   - component: {fileID: 3989152721706283617}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: logo_plane
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5546,7 +5546,7 @@ GameObject:
   - component: {fileID: 3989152721716862395}
   - component: {fileID: 3989152721715732347}
   - component: {fileID: 3989152721706283643}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Light plane
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5647,7 +5647,7 @@ GameObject:
   - component: {fileID: 3989152721716862373}
   - component: {fileID: 3989152721715732325}
   - component: {fileID: 3989152721706283621}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: glow_mesh
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5745,7 +5745,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3989152721713438105}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Cartridges Spawn Point
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5778,7 +5778,7 @@ GameObject:
   - component: {fileID: 3989152721716862381}
   - component: {fileID: 3989152721715732333}
   - component: {fileID: 3989152721706283629}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Light plane
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5879,7 +5879,7 @@ GameObject:
   - component: {fileID: 3989152721716862371}
   - component: {fileID: 3989152721715732323}
   - component: {fileID: 3989152721706283619}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: logo_plane
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5977,7 +5977,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3989152721713438111}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Spotlight(Clone)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -6020,7 +6020,7 @@ GameObject:
   - component: {fileID: 3989152721716862393}
   - component: {fileID: 3989152721715732345}
   - component: {fileID: 3989152721706283641}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Light billboard plane
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -6119,7 +6119,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3989152721713438123}
   - component: {fileID: 3989152721707060367}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Focus light
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -6213,7 +6213,7 @@ GameObject:
   - component: {fileID: 3989152721713438125}
   - component: {fileID: 3989152721716862399}
   - component: {fileID: 3989152721715732351}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: RC5300amount
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -6293,7 +6293,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3989152721713438127}
   - component: {fileID: 3989152721706283647}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: ammo
   m_TagString: Untagged
   m_Icon: {fileID: 0}
