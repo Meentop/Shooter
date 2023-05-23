@@ -19,8 +19,9 @@ public class DashEnemy : Enemy
     }
 
     public void StartAttack()
-    {      
+    {
         agent.enabled = false;
+        transform.position = transform.position;
     }
 
     public void StartDash()
@@ -34,7 +35,7 @@ public class DashEnemy : Enemy
     }
 
     public void EndAttack()
-    {    
+    {
         agent.enabled = true;
         isAttacking = false;
     }
