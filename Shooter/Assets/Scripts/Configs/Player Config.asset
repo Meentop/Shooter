@@ -12,11 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f746355af64d0264fab53ca79e057ac2, type: 3}
   m_Name: Player Config
   m_EditorClassIdentifier: 
-  movementSpeed: 7
+  movementSpeed: 6
   groundDrag: 10
   jumpStrength: 15
   airMultiplayer: 0.4
   maxSlopeAngle: 40
   dashStrength: 15
-  dashDuration: 0.3
+  dashDuration: 0.25
   dashReloadTime: 1
