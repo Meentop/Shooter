@@ -26,10 +26,17 @@ public class BaseDamageReceiver : MonoBehaviour, IDamageReceiver
     }
 
     private void Update()
-    {
-        if(hPBarCanvas != null)
-            hPBarCanvas.transform.rotation = Quaternion.LookRotation(transform.position - Camera.main.transform.position);
+    { 
         afterHealthBarSprite.transform.localScale = new Vector3(Mathf.MoveTowards(afterHealthBarSprite.transform.localScale.x, _target, reduceSpeed * Time.deltaTime), 1, 1);
+    }
+
+    private void LateUpdate()
+    {
+        if (hPBarCanvas != null)
+        {
+            Vector3 directionToCamera = hPBarCanvas.position - Camera.main.transform.position;
+            hPBarCanvas.rotation = Quaternion.LookRotation(directionToCamera, Vector3.up);
+        }
     }
 
     public void OnGetDamage(DamageData damageData)
