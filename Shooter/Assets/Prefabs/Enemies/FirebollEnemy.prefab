@@ -419,7 +419,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: 664afbfbf76f45444be6e2f346e7f44d, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -1654,9 +1654,9 @@ CapsuleCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   m_Radius: 0.2
-  m_Height: 1.8373317
+  m_Height: 1.8619553
   m_Direction: 1
-  m_Center: {x: 0, y: 0.9186658, z: 0}
+  m_Center: {x: 0, y: 0.906354, z: 0}
 --- !u!114 &9089307073131585168
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1679,7 +1679,7 @@ MonoBehaviour:
   hPBarCanvas: {fileID: 3361999159271364861}
   reduceSpeed: 0.2
   armor: 0
-  HP: 100
+  maxHP: 200
 --- !u!114 &2337895182689192908
 MonoBehaviour:
   m_ObjectHideFlags: 0

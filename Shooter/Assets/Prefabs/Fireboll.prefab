@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 3749027257339470822}
   - component: {fileID: 3749027257339470826}
   - component: {fileID: 3749027257339470829}
+  - component: {fileID: 2588468719248787455}
   m_Layer: 0
   m_Name: Fireboll
   m_TagString: Untagged
@@ -62,7 +63,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: 664afbfbf76f45444be6e2f346e7f44d, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -110,7 +111,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 8
-  maxRadiansDelta: 0.01
+  maxRadiansDelta: 0.02
 --- !u!54 &3749027257339470829
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -127,3 +128,16 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!114 &2588468719248787455
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3749027257339470823}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 056337b87742e7143b08bbfc8333e4e3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  delayToDestroy: 3

@@ -11,10 +11,12 @@ public class PlayerLvl : MonoBehaviour
 
     private float _curLvlPoints;
     private int _curLvl;
+    private PlayerHealth playerHealth;
 
     private void Start()
     {
         UpdateLvlBar();
+        playerHealth = GetComponent<PlayerHealth>();
     }
 
     private void UpdateLvlBar()
@@ -31,7 +33,13 @@ public class PlayerLvl : MonoBehaviour
         {
             _curLvlPoints -= maxLvlPoints;
             _curLvl++;
+            NewLvl();
         }
         UpdateLvlBar();
+    }
+
+    private void NewLvl()
+    {
+        playerHealth.AddMaxHealth(25);
     }
 }
