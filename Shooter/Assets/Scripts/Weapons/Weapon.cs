@@ -6,7 +6,7 @@ public abstract class Weapon : MonoBehaviour, ICollectableItem
     [SerializeField] protected ParticleSystem decalPrefab;
     [Space]
     [SerializeField] protected Vector2Int damageRange;
-    [SerializeField] protected Vector3 f;
+    [SerializeField] protected Vector3 weaponOnCollectRot;
     [SerializeField] protected float range;
 
     public CollectableItems ItemType => CollectableItems.Weapon;
@@ -29,7 +29,6 @@ public abstract class Weapon : MonoBehaviour, ICollectableItem
         gameObject.layer = LayerMask.NameToLayer("Weapon");
 
 
-
         _isInited = true;
         OnInit();
     }
@@ -43,10 +42,10 @@ public abstract class Weapon : MonoBehaviour, ICollectableItem
     public void DisconnectWeaponFromPlayer(Weapon savedWeapon)
     {
         GetComponent<Weapon>().enabled = false;
+        transform.GetComponent<RotateObject>().enabled = true;
         transform.parent.parent = savedWeapon.transform.parent.parent;
         transform.parent.localRotation = Quaternion.identity;
         transform.parent.position = (transform.parent.parent.position + new Vector3(0, 1f, 0)) + (transform.parent.position - transform.position);
-        print(transform.parent.position - transform.position);    
         GetComponent<Collider>().enabled = true;
         gameObject.layer = LayerMask.NameToLayer("Default");
     }
@@ -55,6 +54,8 @@ public abstract class Weapon : MonoBehaviour, ICollectableItem
     {
         GetComponent<Weapon>().enabled = true;
         GetComponent<Collider>().enabled = false;
+        transform.GetComponent<RotateObject>().enabled = false;
+        transform.localRotation = Quaternion.Euler(weaponOnCollectRot);
         transform.parent.transform.parent = _weaponHolder.transform;
         transform.parent.localPosition = new Vector3(0, 0, 0);
         transform.parent.localRotation = Quaternion.identity;

@@ -16,7 +16,7 @@ public class SemiAutomatic : Weapon
 
     IEnumerator ShootCoroutine()
     {
-        while (_isShooting)
+        while (_isShooting && GetComponent<Weapon>().enabled == true)
         {
             RaycastHit hit;
             if (Physics.Raycast(Camera.main.transform.position, Camera.main.transform.forward, out hit, range))

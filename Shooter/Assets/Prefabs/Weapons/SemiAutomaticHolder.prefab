@@ -4801,6 +4801,7 @@ GameObject:
   - component: {fileID: 2604743607051225425}
   - component: {fileID: 2604743608494653350}
   - component: {fileID: 3124322557215765905}
+  - component: {fileID: 7994846596296764956}
   m_Layer: 7
   m_Name: SamiAutomatic
   m_TagString: Untagged
@@ -4816,7 +4817,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 9132770346699166632}
   m_LocalRotation: {x: -0, y: -0.7071068, z: -0, w: 0.7071068}
-  m_LocalPosition: {x: 2.1500006, y: 0.39, z: -0.6780014}
+  m_LocalPosition: {x: 2.15, y: 0.39, z: -0.6780014}
   m_LocalScale: {x: 2.1112597, y: 2.1112614, z: 2.1112597}
   m_Children:
   - {fileID: 2606420350890088314}
@@ -4887,7 +4888,7 @@ MonoBehaviour:
   shootEffect: {fileID: 2781684655017903728}
   decalPrefab: {fileID: 198000010535933408, guid: f55c9bf640b6fd34aa8924a3dc6673dd, type: 3}
   damageRange: {x: 15, y: 20}
-  f: {x: 0, y: 0, z: 0}
+  weaponOnCollectRot: {x: 0, y: -90, z: 0}
   range: 150
   shootDeley: 0.1
 --- !u!65 &3124322557215765905
@@ -4903,3 +4904,16 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1.0296425, y: 0.53818333, z: 1.5711347}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &7994846596296764956
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9132770346699166632}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cfe844f07abb2484ca36e4ab2f6d4d02, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  rotateSpeed: {x: 0, y: 50, z: 0}
