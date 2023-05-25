@@ -1679,7 +1679,7 @@ MonoBehaviour:
   hPBarCanvas: {fileID: 3361999159271364861}
   reduceSpeed: 0.2
   armor: 0
-  HP: 100
+  maxHP: 200
 --- !u!114 &2337895182689192908
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -14,15 +14,16 @@ public class BaseDamageReceiver : MonoBehaviour, IDamageReceiver
     [SerializeField] private float reduceSpeed;
     [SerializeField] private float armor;
 
-    public float HP;
+    protected int curHP;
 
-    private float _maxHP;
+    [SerializeField] protected int maxHP;
     private float _target = 1;
     private bool _isDead = false;
 
-    private void Start()
+    protected virtual void Start()
     {
-        _maxHP = HP;
+        curHP = maxHP;
+        UpdateHealthBar(maxHP, curHP);
     }
 
     private void Update()
@@ -43,18 +44,17 @@ public class BaseDamageReceiver : MonoBehaviour, IDamageReceiver
     {
         if (!_isDead)
         {
-            var penetratedDamage = Mathf.Max(damageData.Damage - armor, 0);
-            HP -= penetratedDamage;
-            UpdateHealthBar(_maxHP, HP);
+            curHP -= (int)damageData.Damage;
+            UpdateHealthBar(maxHP, curHP);
 
-            Debug.Log(name + " HP = " + HP, gameObject);
+            Debug.Log(name + " HP = " + curHP, gameObject);
 
             if (damageData.Hit.transform != null && damageData.Hit.transform.GetComponent<Enemy>())
             {
-                DamageUI.Instance.AddText((int)penetratedDamage, damageData.Hit.transform, canvas);
+                DamageUI.Instance.AddText((int)damageData.Damage, damageData.Hit.transform, canvas);
             }
 
-            if (HP <= 0)
+            if (curHP <= 0)
             {
                 executeOnHPBelowZero.ExecuteAll();
                 _isDead = true;
@@ -64,7 +64,7 @@ public class BaseDamageReceiver : MonoBehaviour, IDamageReceiver
         }
     }
 
-    private void UpdateHealthBar(float maxHP, float currentHP)
+    protected virtual void UpdateHealthBar(float maxHP, float currentHP)
     {
         if (healthBarSprite == null)
             return;

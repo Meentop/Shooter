@@ -149,7 +149,7 @@ public class PlayerController : MonoBehaviour
         float dashTimer = playerConfig.dashDuration;
         _rb.velocity = new Vector3(_rb.velocity.x, 0, _rb.velocity.z);
         _rb.useGravity = false;
-        while(dashTimer > 0)
+        while (dashTimer > 0)
         {
             Vector3 dashDirection = transform.TransformDirection(direction) * playerConfig.dashStrength;
             _rb.velocity = new Vector3(dashDirection.x, _rb.velocity.y, dashDirection.z);

@@ -1568,7 +1568,7 @@ MonoBehaviour:
   hPBarCanvas: {fileID: 3361999159271364861}
   reduceSpeed: 0.2
   armor: 0
-  HP: 100
+  maxHP: 200
 --- !u!114 &2337895182689192908
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1632,6 +1632,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   anim: {fileID: 2105284880716143178}
   attackRange: 5
+  maxRadiansDelta: 0.05
 --- !u!54 &537288006300093292
 Rigidbody:
   m_ObjectHideFlags: 0
