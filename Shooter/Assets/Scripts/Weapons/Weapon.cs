@@ -44,8 +44,9 @@ public abstract class Weapon : MonoBehaviour, ICollectableItem
     {
         GetComponent<Weapon>().enabled = false;
         transform.parent.parent = savedWeapon.transform.parent.parent;
-        transform.parent.localPosition = savedWeapon.transform.parent.localPosition;
         transform.parent.localRotation = Quaternion.identity;
+        transform.parent.position = (transform.parent.parent.position + new Vector3(0, 1f, 0)) + (transform.parent.position - transform.position);
+        print(transform.parent.position - transform.position);    
         GetComponent<Collider>().enabled = true;
         gameObject.layer = LayerMask.NameToLayer("Default");
     }
@@ -57,6 +58,7 @@ public abstract class Weapon : MonoBehaviour, ICollectableItem
         transform.parent.transform.parent = _weaponHolder.transform;
         transform.parent.localPosition = new Vector3(0, 0, 0);
         transform.parent.localRotation = Quaternion.identity;
+        gameObject.layer = LayerMask.NameToLayer("Weapon");
     }
     
 

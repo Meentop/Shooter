@@ -247,8 +247,8 @@ Transform:
   m_LocalPosition: {x: 0.52, y: -0.39, z: 1.09}
   m_LocalScale: {x: 0.43545604, y: 0.435456, z: 0.43545604}
   m_Children:
-  - {fileID: 5671775205999299120}
   - {fileID: 775666708225215947}
+  - {fileID: 5671775205999299120}
   m_Father: {fileID: 1697727722218239975}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 90, z: 0}
@@ -291,7 +291,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1107907119291167400, guid: be6f9770983ba1c42a7b2eb7d30b3fcc, type: 3}
       propertyPath: m_RootOrder
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1107907119291167400, guid: be6f9770983ba1c42a7b2eb7d30b3fcc, type: 3}
       propertyPath: m_LocalPosition.x
@@ -337,6 +337,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: SemiAutomaticHolder
       objectReference: {fileID: 0}
+    - target: {fileID: 9132770346699166632, guid: be6f9770983ba1c42a7b2eb7d30b3fcc, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: be6f9770983ba1c42a7b2eb7d30b3fcc, type: 3}
 --- !u!4 &5671775205999299120 stripped
@@ -351,9 +355,13 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 3517441006931142457}
     m_Modifications:
+    - target: {fileID: 4599686081341117006, guid: 22947d7ca094aab45a3066d32938a7d8, type: 3}
+      propertyPath: m_IsTrigger
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 5837850366297924653, guid: 22947d7ca094aab45a3066d32938a7d8, type: 3}
       propertyPath: m_RootOrder
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5837850366297924653, guid: 22947d7ca094aab45a3066d32938a7d8, type: 3}
       propertyPath: m_LocalPosition.x
