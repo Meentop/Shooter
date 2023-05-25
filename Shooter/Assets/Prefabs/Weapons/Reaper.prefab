@@ -5050,6 +5050,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3989152721713438089}
   - component: {fileID: 3989152721682544715}
+  - component: {fileID: 8450428409546937173}
   m_Layer: 7
   m_Name: Reaper
   m_TagString: Untagged
@@ -5096,6 +5097,19 @@ MonoBehaviour:
   pelletsCount: 5
   spread: 0.1
   shootInterval: 0.5
+--- !u!65 &8450428409546937173
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3989152721713529257}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 9.45477, y: 3.1290293, z: 3.5368183}
+  m_Center: {x: 2.2006657, y: -0.039194845, z: 0.3049771}
 --- !u!1 &3989152721713529259
 GameObject:
   m_ObjectHideFlags: 0

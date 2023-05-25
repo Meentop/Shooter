@@ -50,4 +50,6 @@ public class SemiAutomatic : Weapon
             _isShooting = false;
         }
     }
+
+   
 }

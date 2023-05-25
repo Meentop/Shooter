@@ -4,34 +4,62 @@ using UnityEngine;
 
 public class Player : MonoBehaviour
 {
-    [SerializeField] private Weapon weapon;
+
     [SerializeField] private Transform weaponHolder;
     [SerializeField] private Transform targetLook;
     [SerializeField] private Weapon firstWeapon;
     [SerializeField] private Weapon secondWeapon;
     [SerializeField] private float scrollDeley;
 
-    private int _selWeapon;
     private Weapon _currentWeapon;
+    private int _selWeapon;
     private bool _isScrolling;
-
-    private void Start()
-    {
-
-    }
+    private bool _isCollecting;
+    private ICollectableItem _lastSavedWeapon;
 
     private void Update()
     {
         InputSelectWeapon();
         InputScrollWeapon();
+        ChengeWeapon();
     }
 
+    void OnTriggerEnter(Collider other)
+    {
+        if (other.transform.TryGetComponent<ICollectableItem>(out var item))
+        {
+            switch (item.ItemType)
+            {
+                case CollectableItems.Weapon:
+                    _lastSavedWeapon = item;
+                    _isCollecting = true;
+                    break;
+            }
+        }
+    }
+
+    private void OnTriggerExit(Collider other)
+    {
+        if (other.transform.TryGetComponent<ICollectableItem>(out var item))
+        {
+            switch (item.ItemType)
+            {
+                case CollectableItems.Weapon:
+                    if (item == _lastSavedWeapon)
+                    {
+                        _lastSavedWeapon = null;
+                        _isCollecting = false;
+                    }
+                    break;
+            }
+        }
+    }
 
     public void Init()
     {
-        _currentWeapon = weapon;
-        
-        weapon.Init(this, weaponHolder, targetLook);
+        _currentWeapon = firstWeapon;
+        _selWeapon = 1;
+        _currentWeapon.Init(this, weaponHolder, targetLook);
     }
 
     public void InputSelectWeapon()
@@ -47,11 +75,6 @@ public class Player : MonoBehaviour
             _selWeapon = 2;
             SelectWeapon(_selWeapon);
         }
-
-        if (Input.GetKeyDown(KeyCode.Alpha3) && _selWeapon != 3)
-        {
-            _selWeapon = 3;
-        }
     }
 
     public void SelectWeapon(int selectWeapon)
@@ -63,10 +86,6 @@ public class Player : MonoBehaviour
         if (selectWeapon == 2)
         {
             SwapWeapon(secondWeapon);
-        }
-        if (selectWeapon == 3)
-        {
-
         }
     }
     
@@ -91,7 +110,7 @@ public class Player : MonoBehaviour
             }
         }
     }
-
+    
     private IEnumerator ScrollDeleyRoutine()
     {
         float scrollInput = Input.GetAxis("Mouse ScrollWheel");
@@ -120,4 +139,28 @@ public class Player : MonoBehaviour
         }
         _isScrolling = false;
     }
+
+    private void ChengeWeapon()
+    {
+        if(_isCollecting)
+        {
+            if (Input.GetKeyDown(KeyCode.F))
+            {
+                if (_lastSavedWeapon == null)
+                    return;
+
+                _currentWeapon.DisconnectWeaponFromPlayer(_lastSavedWeapon as Weapon);
+                _currentWeapon = _lastSavedWeapon as Weapon;
+
+                if (_selWeapon == 1)
+                    firstWeapon = _currentWeapon;
+                else if (_selWeapon == 2)
+                    secondWeapon = _currentWeapon;
+
+                _currentWeapon.Init(this, weaponHolder, targetLook);
+                _currentWeapon.ConectWeaponToPlayer();
+            }
+        }
+    }  
 }
+
