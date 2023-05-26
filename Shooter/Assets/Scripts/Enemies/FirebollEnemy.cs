@@ -4,8 +4,6 @@ using UnityEngine;
 
 public class FirebollEnemy : Enemy
 {
-    [SerializeField] private float maxRadiansDelta;
-
     [SerializeField] private Fireboll fireboll;
 
     [SerializeField] private Transform shootPoint;
@@ -31,15 +29,6 @@ public class FirebollEnemy : Enemy
             agent.SetDestination(player.position);
         }
         anim.SetBool("Move", !playerInView && !isAttacking);
-    }
-
-    public void RotateToPlayer()
-    {
-        Vector3 playerPosXZ = new Vector3(player.position.x, 0, player.position.z);
-        Vector3 transformPosXZ = new Vector3(transform.position.x, 0, transform.position.z);
-        Vector3 targetDirection = playerPosXZ - transformPosXZ;
-        Vector3 newDirection = Vector3.RotateTowards(transform.forward, targetDirection, maxRadiansDelta, 0.0f);
-        transform.rotation = Quaternion.LookRotation(newDirection);
     }
 
     public void Shoot()
