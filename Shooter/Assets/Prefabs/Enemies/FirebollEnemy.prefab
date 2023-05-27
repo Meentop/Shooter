@@ -1831,6 +1831,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   anim: {fileID: 2105284880716143178}
   maxRadiansDelta: 0.05
+  maxShootDistance: 10
   fireboll: {fileID: 3749027257339470826, guid: 5f9ee8f5e2d0fbe4ab7293804af2fdc8, type: 3}
   shootPoint: {fileID: 1601227066104386501}
 --- !u!1 &5581279801895787609

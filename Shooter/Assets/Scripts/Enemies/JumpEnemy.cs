@@ -4,9 +4,9 @@ using UnityEngine;
 
 public class JumpEnemy : Enemy
 {
-    [SerializeField] private float maxJumpDistance, minJumpDistance;
+    [SerializeField] private float maxJumpDistance, minJumpDistance, punchDistance, punchReloadTime;
 
-    private bool _isRotating;
+    private bool _isRotating, _canPunch = true;
 
     private Vector3 _playerForRotating;
 
@@ -36,6 +36,13 @@ public class JumpEnemy : Enemy
         {
             RotateToPlayer45(_playerForRotating);
         }
+
+        if (distance <= punchDistance && GetAngleToPlayer() < 45f && _canPunch)
+        {
+            anim.SetTrigger("Punch");
+            _canPunch = false;
+            Invoke(nameof(SetCanPunch), punchReloadTime);
+        }
     }
 
     private void LeftOrRight()
@@ -60,5 +67,10 @@ public class JumpEnemy : Enemy
     private void EndRotating()
     {
         _isRotating = false;
+    }
+
+    private void SetCanPunch()
+    {
+        _canPunch = true;
     }
 }
