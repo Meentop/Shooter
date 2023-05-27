@@ -1090,7 +1090,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5502814733913550371, guid: d7fdcab166ecdb0458882adf197b95c2, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 9089307073131585168, guid: d7fdcab166ecdb0458882adf197b95c2, type: 3}
       propertyPath: canvas
@@ -1722,7 +1722,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5587077259902345155, guid: c61c6495134d8a24cbaa6ed46c03b901, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5587077259902345159, guid: c61c6495134d8a24cbaa6ed46c03b901, type: 3}
       propertyPath: canvas
