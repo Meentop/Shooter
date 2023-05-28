@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class FirebollEnemy : Enemy
 {
+    [SerializeField] private float maxShootDistance;
+
     [SerializeField] private Fireboll fireboll;
 
     [SerializeField] private Transform shootPoint;
@@ -15,20 +17,24 @@ public class FirebollEnemy : Enemy
 
     protected override void Update()
     {
-        base.Update();
-        RotateToPlayer();
+        base.Update();   
         bool playerInView = !Physics.Raycast(shootPoint.position, (player.position - shootPoint.position).normalized, Vector3.Distance(shootPoint.position, player.position), LayerMask.GetMask("Solid"));
-        if (playerInView && !isAttacking)
+        float distance = Vector3.Distance(player.position, transform.position);
+        if (playerInView && !isAttacking || distance < maxShootDistance)
         {
             anim.SetTrigger("Attack");
             isAttacking = true;
         }
-        agent.enabled = !playerInView;
-        if(!playerInView && !isAttacking)
+        agent.enabled = !playerInView || distance >= maxShootDistance;
+        if(!agent.enabled)
+            RotateToPlayer();
+        if ((!playerInView && !isAttacking) || distance >= maxShootDistance)
         {
             agent.SetDestination(player.position);
         }
-        anim.SetBool("Move", !playerInView && !isAttacking);
+        anim.SetBool("Move", (!playerInView && !isAttacking) || distance >= maxShootDistance);
+        print(distance);
+        print(!playerInView || distance >= maxShootDistance);
     }
 
     public void Shoot()

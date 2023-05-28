@@ -32,7 +32,7 @@ public class DashEnemy : Enemy
     public void StartDash()
     {
         _isRotating = false;
-        rb.AddForce(transform.forward * 20f, ForceMode.Impulse);
+        rb.AddForce(transform.forward * 20f, ForceMode.VelocityChange);
     }
 
     public void EndDash()
