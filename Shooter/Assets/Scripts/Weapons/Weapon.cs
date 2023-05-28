@@ -1,9 +1,11 @@
 using UnityEngine;
+using UnityEngine.UI;
 
 public abstract class Weapon : MonoBehaviour, ICollectableItem
 {
     [SerializeField] protected ParticleSystem shootEffect;
     [SerializeField] protected ParticleSystem decalPrefab;
+    [SerializeField] protected Image weaponsIcon;
     [Space]
     [SerializeField] protected Vector2Int damageRange;
     [SerializeField] protected Vector3 weaponOnCollectRot;
@@ -13,6 +15,7 @@ public abstract class Weapon : MonoBehaviour, ICollectableItem
 
     private Player _player;
     private Collider _collider;
+    private InfoInterface _infoInterface;
 
     private Transform _targetLook;
     private Transform _weaponHolder;
@@ -20,13 +23,15 @@ public abstract class Weapon : MonoBehaviour, ICollectableItem
     private bool _isInited;
 
 
-    public void Init(Player player, Transform weaponHolder, Transform targetLook)
+    public void Init(Player player, Transform weaponHolder, Transform targetLook, InfoInterface infoInterface, int selectedWeapon)
     {
         _player = player;
         _weaponHolder = weaponHolder;
         _targetLook = targetLook;
         _collider = GetComponent<Collider>();
         gameObject.layer = LayerMask.NameToLayer("Weapon");
+        _infoInterface = infoInterface;
+        _infoInterface.UpdateInfoIcon(InfoInterface.InfoIconEnum.WeaponsIcon, weaponsIcon, selectedWeapon);
 
 
         _isInited = true;
@@ -39,7 +44,7 @@ public abstract class Weapon : MonoBehaviour, ICollectableItem
 
     public abstract void StopShooting();
 
-    public void DisconnectWeaponFromPlayer(Weapon savedWeapon)
+    public void DiscardWeaponFromPlayer(Weapon savedWeapon)
     {
         GetComponent<Weapon>().enabled = false;
         transform.GetComponent<RotateObject>().enabled = true;

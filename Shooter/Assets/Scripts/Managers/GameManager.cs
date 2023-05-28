@@ -5,8 +5,9 @@ using UnityEngine;
 public class GameManager : MonoBehaviour
 {
     [SerializeField] private Player player;
+    [SerializeField] private InfoInterface InfoInterface;
     private void Awake()
     {
-        player.Init();
+        player.Init(InfoInterface);
     }
 }

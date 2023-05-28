@@ -1,25 +1,24 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
 public class Player : MonoBehaviour
 {
 
     [SerializeField] private Transform weaponHolder;
     [SerializeField] private Transform targetLook;
-    [SerializeField] private Weapon firstWeapon;
-    [SerializeField] private Weapon secondWeapon;
+    [SerializeField] private Weapon[] Weapons;
     [SerializeField] private float scrollDeley;
 
     private Weapon _currentWeapon;
-    private int _selWeapon;
+    private int _selectedSlot;
     private bool _isScrolling;
     private bool _isCollecting;
     private ICollectableItem _lastSavedWeapon;
+    private InfoInterface _infoInterface;
 
     private void Update()
     {
-        InputSelectWeapon();
+        SelectWeapon();
         InputScrollWeapon();
         ChengeWeapon();
     }
@@ -55,46 +54,37 @@ public class Player : MonoBehaviour
         }
     }
 
-    public void Init()
+    public void Init(InfoInterface infoInterface)
     {
-        _currentWeapon = firstWeapon;
-        _selWeapon = 1;
-        _currentWeapon.Init(this, weaponHolder, targetLook);
+        _currentWeapon = Weapons[0];
+        _currentWeapon.Init(this, weaponHolder, targetLook, infoInterface, _selectedSlot);
+        _infoInterface = infoInterface;
     }
 
-    public void InputSelectWeapon()
+    public void SelectWeapon()
     {
-        if (Input.GetKeyDown(KeyCode.Alpha1) && _selWeapon != 1)
+        if (Input.GetKeyDown(KeyCode.Alpha1))
         {
-            _selWeapon = 1;
-            SelectWeapon(_selWeapon);
+            _selectedSlot = 0;
+            SwapWeapon(Weapons[_selectedSlot]);
         }
 
-        if (Input.GetKeyDown(KeyCode.Alpha2) && _selWeapon != 2)
+        if (Input.GetKeyDown(KeyCode.Alpha2))
         {
-            _selWeapon = 2;
-            SelectWeapon(_selWeapon);
-        }
-    }
-
-    public void SelectWeapon(int selectWeapon)
-    {
-        if (selectWeapon == 1)
-        {
-            SwapWeapon(firstWeapon);
-        }
-        if (selectWeapon == 2)
-        {
-            SwapWeapon(secondWeapon);
+            _selectedSlot = 1;
+            SwapWeapon(Weapons[_selectedSlot]);
         }
     }
     
     private void SwapWeapon(Weapon weaponToSwap)
     {
+        if (weaponToSwap == _currentWeapon)
+            return;
+
         _currentWeapon.transform.gameObject.SetActive(false);
         _currentWeapon = weaponToSwap;
         _currentWeapon.transform.gameObject.SetActive(true);
-        _currentWeapon.Init(this, weaponHolder, targetLook);
+        _currentWeapon.Init(this, weaponHolder, targetLook, _infoInterface, _selectedSlot);
     }
 
     private void InputScrollWeapon()
@@ -117,23 +107,8 @@ public class Player : MonoBehaviour
 
         while (scrollInput != 0)
         {
-            if (scrollInput > 0)
-            {
-                _selWeapon++;
-                if (_selWeapon > 2) 
-                {
-                    _selWeapon = 1;
-                }
-            }
-            else if(scrollInput < 0)
-            {
-                _selWeapon--;
-                if (_selWeapon < 1) 
-                {
-                    _selWeapon = 2;
-                }
-            }
-            SelectWeapon(_selWeapon);
+            _selectedSlot = CollectionsExtensions.GetNextIndex(Weapons, _selectedSlot);
+            SwapWeapon(Weapons[_selectedSlot]);
             yield return new WaitForSeconds(scrollDeley);
             scrollInput = Input.GetAxis("Mouse ScrollWheel");
         }
@@ -149,15 +124,12 @@ public class Player : MonoBehaviour
                 if (_lastSavedWeapon == null)
                     return;
 
-                _currentWeapon.DisconnectWeaponFromPlayer(_lastSavedWeapon as Weapon);
+                _currentWeapon.DiscardWeaponFromPlayer(_lastSavedWeapon as Weapon);
                 _currentWeapon = _lastSavedWeapon as Weapon;
 
-                if (_selWeapon == 1)
-                    firstWeapon = _currentWeapon;
-                else if (_selWeapon == 2)
-                    secondWeapon = _currentWeapon;
+                Weapons[_selectedSlot] = _currentWeapon;
 
-                _currentWeapon.Init(this, weaponHolder, targetLook);
+                _currentWeapon.Init(this, weaponHolder, targetLook, _infoInterface, _selectedSlot);
                 _currentWeapon.ConectWeaponToPlayer();
             }
         }

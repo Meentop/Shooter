@@ -176,12 +176,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a773c816879f38f4ebc23c3bd931e7cc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  weapon: {fileID: 0}
   weaponHolder: {fileID: 0}
   targetLook: {fileID: 0}
-  firstWeapon: {fileID: 0}
-  secondWeapon: {fileID: 0}
-  scrollDeley: 0
+  Weapons:
+  - {fileID: 0}
+  - {fileID: 0}
+  scrollDeley: 0.3
 --- !u!114 &8814092693866201418
 MonoBehaviour:
   m_ObjectHideFlags: 0
