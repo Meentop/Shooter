@@ -12,16 +12,16 @@ public class Fireboll : MonoBehaviour
     private void Start()
     {
         player = FindObjectOfType<Player>().transform;
-        player.rotation = Quaternion.LookRotation((player.position - transform.position).normalized);
+        transform.rotation = Quaternion.LookRotation((player.position - transform.position).normalized);
     }
 
     private void Update()
     {
         transform.Translate(Vector3.forward * speed * Time.deltaTime);
 
-        /*Vector3 targetDirection = player.position - transform.position;
+        Vector3 targetDirection = player.position - transform.position;
         Vector3 newDirection = Vector3.RotateTowards(transform.forward, targetDirection, maxRadiansDelta, 0.0f);
-        transform.rotation = Quaternion.LookRotation(newDirection);       */
+        transform.rotation = Quaternion.LookRotation(newDirection);       
     }
 
     private void OnTriggerEnter(Collider other)

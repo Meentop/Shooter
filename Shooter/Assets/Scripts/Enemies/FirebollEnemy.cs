@@ -20,10 +20,13 @@ public class FirebollEnemy : Enemy
         base.Update();   
         bool playerInView = !Physics.Raycast(shootPoint.position, (player.position - shootPoint.position).normalized, Vector3.Distance(shootPoint.position, player.position), LayerMask.GetMask("Solid"));
         float distance = Vector3.Distance(player.position, transform.position);
-        if (playerInView && !isAttacking || distance < maxShootDistance)
+        if (!isAttacking || distance < maxShootDistance)
         {
-            anim.SetTrigger("Attack");
-            isAttacking = true;
+            if (playerInView)
+            {
+                anim.SetTrigger("Attack");
+                isAttacking = true;
+            }
         }
         agent.enabled = !playerInView || distance >= maxShootDistance;
         if(!agent.enabled)
@@ -33,8 +36,6 @@ public class FirebollEnemy : Enemy
             agent.SetDestination(player.position);
         }
         anim.SetBool("Move", (!playerInView && !isAttacking) || distance >= maxShootDistance);
-        print(distance);
-        print(!playerInView || distance >= maxShootDistance);
     }
 
     public void Shoot()
