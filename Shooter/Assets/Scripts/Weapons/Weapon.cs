@@ -31,8 +31,7 @@ public abstract class Weapon : MonoBehaviour, ICollectableItem
         _collider = GetComponent<Collider>();
         gameObject.layer = LayerMask.NameToLayer("Weapon");
         _infoInterface = infoInterface;
-        _infoInterface.UpdateInfoIcon(InfoInterface.InfoIconEnum.WeaponsIcon, weaponsIcon, selectedWeapon);
-
+        _infoInterface.UpdateInfoIcon(InfoInterface.InfoIconEnum.SelectWeaponsIcon, weaponsIcon, selectedWeapon);
 
         _isInited = true;
         OnInit();
@@ -51,14 +50,14 @@ public abstract class Weapon : MonoBehaviour, ICollectableItem
         transform.parent.parent = savedWeapon.transform.parent.parent;
         transform.parent.localRotation = Quaternion.identity;
         transform.parent.position = (transform.parent.parent.position + new Vector3(0, 1f, 0)) + (transform.parent.position - transform.position);
-        GetComponent<Collider>().enabled = true;
+        _collider.enabled = true;
         gameObject.layer = LayerMask.NameToLayer("Default");
     }
 
     public void ConectWeaponToPlayer()
     {
         GetComponent<Weapon>().enabled = true;
-        GetComponent<Collider>().enabled = false;
+        _collider.enabled = false;
         transform.GetComponent<RotateObject>().enabled = false;
         transform.localRotation = Quaternion.Euler(weaponOnCollectRot);
         transform.parent.transform.parent = _weaponHolder.transform;
