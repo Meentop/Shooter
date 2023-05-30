@@ -747,6 +747,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   player: {fileID: 670343695}
+  InfoInterface: {fileID: 2565003241933251670}
 --- !u!114 &787724149 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 7346437907303352126, guid: 5dabf89771060884e956222b099303a1, type: 3}
@@ -1359,6 +1360,11 @@ PrefabInstance:
     m_RemovedComponents:
     - {fileID: 5231037006145314398, guid: 5dabf89771060884e956222b099303a1, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 5dabf89771060884e956222b099303a1, type: 3}
+--- !u!20 &1697727722191368258 stripped
+Camera:
+  m_CorrespondingSourceObject: {fileID: 7071249058586371037, guid: 5dabf89771060884e956222b099303a1, type: 3}
+  m_PrefabInstance: {fileID: 1697727722191368257}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &2565003241933251663
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1465,7 +1471,7 @@ PrefabInstance:
     - target: {fileID: 7607249716108153019, guid: 83c9ad56a38022b4899e1e1eec2c3fab, type: 3}
       propertyPath: m_Camera
       value: 
-      objectReference: {fileID: 922822104}
+      objectReference: {fileID: 1697727722191368258}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 83c9ad56a38022b4899e1e1eec2c3fab, type: 3}
 --- !u!114 &2565003241933251664 stripped
@@ -1526,6 +1532,17 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 5f7201a12d95ffc409449d95f23cf332, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &2565003241933251670 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 5735200062394883522, guid: 83c9ad56a38022b4899e1e1eec2c3fab, type: 3}
+  m_PrefabInstance: {fileID: 2565003241933251663}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 422cde4999e1acc42929853b6324d8fc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1001 &4989669558344135253
@@ -1722,7 +1739,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5587077259902345155, guid: c61c6495134d8a24cbaa6ed46c03b901, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5587077259902345159, guid: c61c6495134d8a24cbaa6ed46c03b901, type: 3}
       propertyPath: canvas
@@ -1873,6 +1890,14 @@ PrefabInstance:
       propertyPath: weaponHolder
       value: 
       objectReference: {fileID: 987962129}
+    - target: {fileID: 5417072423963475846, guid: 9e72b9e8f879a1147acd589cbd24cdd4, type: 3}
+      propertyPath: Weapons.Array.data[0]
+      value: 
+      objectReference: {fileID: 68189256}
+    - target: {fileID: 5417072423963475846, guid: 9e72b9e8f879a1147acd589cbd24cdd4, type: 3}
+      propertyPath: Weapons.Array.data[1]
+      value: 
+      objectReference: {fileID: 787724149}
     - target: {fileID: 5440067626376647844, guid: 9e72b9e8f879a1147acd589cbd24cdd4, type: 3}
       propertyPath: _health
       value: 
