@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 705507994}
-  m_IndirectSpecularColor: {r: 0.44657844, g: 0.49641222, b: 0.57481694, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657898, g: 0.4964133, b: 0.5748178, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -1468,6 +1468,14 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5735200062394883522, guid: 83c9ad56a38022b4899e1e1eec2c3fab, type: 3}
+      propertyPath: activeWeaponsIcon
+      value: 
+      objectReference: {fileID: 3508801258913019876, guid: d2381fd110bc64d4cbd7257d58269bb7, type: 3}
+    - target: {fileID: 5735200062394883522, guid: 83c9ad56a38022b4899e1e1eec2c3fab, type: 3}
+      propertyPath: passiveWeaponsIcon
+      value: 
+      objectReference: {fileID: 6232494266667643165, guid: 08f6ac46beded06409b003b312d0ab99, type: 3}
     - target: {fileID: 7607249716108153019, guid: 83c9ad56a38022b4899e1e1eec2c3fab, type: 3}
       propertyPath: m_Camera
       value: 

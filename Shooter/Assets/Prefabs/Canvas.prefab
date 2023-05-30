@@ -1464,14 +1464,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 422cde4999e1acc42929853b6324d8fc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  weaponsIcon:
+  weaponsFillerIcon:
   - {fileID: 3367361585972183395}
   - {fileID: 8309498157347227875}
+  weaponsIconHoldear:
+  - {fileID: 7776009084465564274}
+  - {fileID: 1098321191563008406}
   skillIcon:
   - {fileID: 3676011843121071867}
   - {fileID: 6250519851584133797}
   - {fileID: 6419464805987372514}
   mapMini: {fileID: 6915425892900332414}
+  activeWeaponsIcon: {fileID: 3508801258913019876, guid: d2381fd110bc64d4cbd7257d58269bb7, type: 3}
+  passiveWeaponsIcon: {fileID: 6232494266667643165, guid: 08f6ac46beded06409b003b312d0ab99, type: 3}
 --- !u!1 &8585693629017017575
 GameObject:
   m_ObjectHideFlags: 0

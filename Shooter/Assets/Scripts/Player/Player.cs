@@ -85,6 +85,7 @@ public class Player : MonoBehaviour
         _currentWeapon = weaponToSwap;
         _currentWeapon.transform.gameObject.SetActive(true);
         _currentWeapon.Init(this, weaponHolder, targetLook, _infoInterface, _selectedSlot);
+        _infoInterface.DiscardWeaponsIcon(CollectionsExtensions.GetNextIndex(Weapons, _selectedSlot));
     }
 
     private void InputScrollWeapon()
