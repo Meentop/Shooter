@@ -75,7 +75,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: edd7b842dcc3f3a4d95fd56cc9ab94c6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  pickDistance: 4
+  pickDistance: 3
   speed: 10
   lifeTime: 3
   exp: 20

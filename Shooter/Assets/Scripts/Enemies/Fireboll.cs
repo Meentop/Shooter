@@ -19,9 +19,9 @@ public class Fireboll : MonoBehaviour
     {
         transform.Translate(Vector3.forward * speed * Time.deltaTime);
 
-        Vector3 targetDirection = player.position - transform.position;
+        /*Vector3 targetDirection = player.position - transform.position;
         Vector3 newDirection = Vector3.RotateTowards(transform.forward, targetDirection, maxRadiansDelta, 0.0f);
-        transform.rotation = Quaternion.LookRotation(newDirection);       
+        transform.rotation = Quaternion.LookRotation(newDirection);       */
     }
 
     private void OnTriggerEnter(Collider other)

@@ -22228,7 +22228,7 @@ AnimationClip:
         inWeight: 0
         outWeight: 0
       - serializedVersion: 3
-        time: 0.2
+        time: 0.25
         value: 1
         inSlope: Infinity
         outSlope: Infinity
@@ -22237,7 +22237,7 @@ AnimationClip:
         inWeight: 0
         outWeight: 0
       - serializedVersion: 3
-        time: 0.41666666
+        time: 0.33333334
         value: 0
         inSlope: Infinity
         outSlope: Infinity
@@ -22258,7 +22258,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: m_IsActive
-    path: DamageZone
+    path: PunchDamageZone
     classID: 1
     script: {fileID: 0}
   m_PPtrCurves: []
@@ -22921,7 +22921,7 @@ AnimationClip:
       customType: 8
       isPPtrCurve: 0
     - serializedVersion: 2
-      path: 1012064138
+      path: 2844824170
       attribute: 2086281974
       script: {fileID: 0}
       typeID: 1
@@ -45419,7 +45419,7 @@ AnimationClip:
         inWeight: 0
         outWeight: 0
       - serializedVersion: 3
-        time: 0.2
+        time: 0.25
         value: 1
         inSlope: Infinity
         outSlope: Infinity
@@ -45428,7 +45428,7 @@ AnimationClip:
         inWeight: 0
         outWeight: 0
       - serializedVersion: 3
-        time: 0.41666666
+        time: 0.33333334
         value: 0
         inSlope: Infinity
         outSlope: Infinity
@@ -45449,7 +45449,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: m_IsActive
-    path: DamageZone
+    path: PunchDamageZone
     classID: 1
     script: {fileID: 0}
   m_EulerEditorCurves: []
