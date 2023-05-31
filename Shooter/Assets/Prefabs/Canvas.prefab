@@ -1646,6 +1646,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   interfacePanel: {fileID: 8485796192286546379}
+  infoPanelsToHighd:
+  - {fileID: 1678688382521338522}
   backgroundBlur: {fileID: 1970312547816584644}
 --- !u!1 &5222085512437736440
 GameObject:

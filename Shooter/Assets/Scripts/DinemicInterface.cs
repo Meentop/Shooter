@@ -4,6 +4,7 @@ using UnityEngine.UI;
 public class DinemicInterface : MonoBehaviour
 {
     [SerializeField] private GameObject interfacePanel;
+    [SerializeField] private GameObject[] infoPanelsToHighd;
     [SerializeField] private Image backgroundBlur;
 
     private bool isInterfaceVisible = false;
@@ -12,7 +13,6 @@ public class DinemicInterface : MonoBehaviour
     {
         interfacePanel.SetActive(false);
         backgroundBlur.gameObject.SetActive(false);
-        print("ddd");
     }
 
     private void Update()
@@ -21,13 +21,16 @@ public class DinemicInterface : MonoBehaviour
         {
             interfacePanel.SetActive(true);
             backgroundBlur.gameObject.SetActive(true);
+            foreach (var infoPanel in infoPanelsToHighd)
+                infoPanel.SetActive(false);
             isInterfaceVisible = true;
-            
         }
         else if (isInterfaceVisible)
         {
             interfacePanel.SetActive(false);
             backgroundBlur.gameObject.SetActive(false);
+            foreach (var infoPanel in infoPanelsToHighd)
+                infoPanel.SetActive(true);
             isInterfaceVisible = false;
         }
     }

@@ -21,9 +21,17 @@ public class DamageUI : MonoBehaviour
             if (enemy != null)
             {
                 Vector3 viewportPos = camera.WorldToViewportPoint(enemy.position);
-                newPos = new Vector3(viewportPos.x * canvas.sizeDelta.x, viewportPos.y * canvas.sizeDelta.y, 0) + randPos;
+                float distance = Vector3.Distance(camera.transform.position, enemy.position);
+                float yFarOffset = 400f;
+                float yNearOffset = 1300f;
+                float yOffset = Mathf.Lerp(yFarOffset, yNearOffset, distance / camera.farClipPlane);
+                float multiplier = Mathf.Lerp(1f, 3f, distance / camera.farClipPlane);
+                print(viewportPos.y);
+                newPos = new Vector3(viewportPos.x * canvas.sizeDelta.x, viewportPos.y + yOffset, 0) + randPos * multiplier;
+                
             }
             UIText.rectTransform.anchoredPosition = newPos;
+            
         }
     }
     [SerializeField] private TextMeshProUGUI textPrefab;
@@ -93,7 +101,7 @@ public class DamageUI : MonoBehaviour
             timer = 1.0f,
             UIText = item,
             enemy = enemy,
-            randPos = new Vector3(Random.Range(-50, 50), Random.Range(50, 100), 0),
+            randPos = new Vector3(Random.Range(-50, 50), Random.Range(100, 150), 0),
             canvas = canvas
         };
 

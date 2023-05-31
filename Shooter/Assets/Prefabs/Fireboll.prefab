@@ -111,7 +111,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 20
-  maxRadiansDelta: 0.02
+  maxRadiansDelta: 0.01
 --- !u!54 &3749027257339470829
 Rigidbody:
   m_ObjectHideFlags: 0
