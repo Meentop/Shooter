@@ -36,7 +36,7 @@ public class Shotgun : Weapon
                 direction += spread.normalized * Random.Range(0f, this.spread);
 
                 RaycastHit hit;
-                if (Physics.Raycast(Camera.main.transform.position, direction, out hit, range))
+                if (Physics.Raycast(Camera.main.transform.position, direction, out hit, Mathf.Infinity))
                 {
                     if (hit.transform.TryGetComponent<IDamageReceiver>(out var damageReceiver))
                     {
@@ -65,6 +65,4 @@ public class Shotgun : Weapon
     {
 
     }
-
-    
 }

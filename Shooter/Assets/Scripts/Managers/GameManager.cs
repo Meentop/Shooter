@@ -6,7 +6,7 @@ public class GameManager : MonoBehaviour
 {
     [SerializeField] private Player player;
     [SerializeField] private InfoInterface infoInterface;
-    [SerializeField] private DinemicInterface dinemicInterface;
+    [SerializeField] private DynamicInterface dinemicInterface;
     private void Awake()
     {
         player.Init(infoInterface, dinemicInterface);

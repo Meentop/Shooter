@@ -15,7 +15,7 @@ public class Player : MonoBehaviour
     private bool _isCollecting;
     private ICollectableItem _lastSavedWeapon;
     private InfoInterface _infoInterface;
-    private DinemicInterface _dinemicInterface;
+    private DynamicInterface _dinemicInterface;
 
     private void Update()
     {
@@ -55,7 +55,7 @@ public class Player : MonoBehaviour
         }
     }
 
-    public void Init(InfoInterface infoInterface, DinemicInterface dinemicInterface)
+    public void Init(InfoInterface infoInterface, DynamicInterface dinemicInterface)
     {
         _currentWeapon = Weapons[0];
         _infoInterface = infoInterface;

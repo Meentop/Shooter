@@ -9,7 +9,6 @@ public abstract class Weapon : MonoBehaviour, ICollectableItem
     [Space]
     [SerializeField] protected Vector2Int damageRange;
     [SerializeField] protected Vector3 weaponOnCollectRot;
-    [SerializeField] protected float range;
     [SerializeField] protected float shootDeley;
 
     public CollectableItems ItemType => CollectableItems.Weapon;
@@ -17,7 +16,7 @@ public abstract class Weapon : MonoBehaviour, ICollectableItem
     private Player _player;
     private Collider _collider;
     private InfoInterface _infoInterface;
-    private DinemicInterface _dinemicInterface;
+    private DynamicInterface _dinemicInterface;
 
     private Transform _targetLook;
     private Transform _weaponHolder;
@@ -25,16 +24,25 @@ public abstract class Weapon : MonoBehaviour, ICollectableItem
     private bool _isInited;
 
     [System.Serializable]
-    public struct WeaponsDescription
+    public struct WeaponDescription
     {
         public Text WeaponNameText;
         public Text DamageText;
-        public Text FiringRange;
         public Text FiringSpeed;
     }
 
+    protected virtual void Update()
+    {
+        if (!_isInited)
+            return;
 
-    public void Init(Player player, Transform weaponHolder, Transform targetLook, InfoInterface infoInterface, DinemicInterface dinemicInterface, int selectedWeapon)
+        if (Input.GetMouseButtonDown(0))
+            Shoot();
+        else if (Input.GetMouseButtonUp(0))
+            StopShooting();
+    }
+
+    public void Init(Player player, Transform weaponHolder, Transform targetLook, InfoInterface infoInterface, DynamicInterface dinemicInterface, int selectedWeapon)
     {
         _player = player;
         _weaponHolder = weaponHolder;
@@ -44,8 +52,7 @@ public abstract class Weapon : MonoBehaviour, ICollectableItem
         _infoInterface = infoInterface;
         _dinemicInterface = dinemicInterface;
         _infoInterface.UpdateInfoIcon(InfoInterface.InfoIconEnum.SelectWeaponsIcon, weaponsIcon, selectedWeapon);
-        _dinemicInterface.UpdateWeaponInfo(selectedWeapon, GetType().Name, damageRange, range, shootDeley);
-
+        _dinemicInterface.UpdateWeaponInfo(selectedWeapon, GetType().Name, damageRange, shootDeley);
 
         _isInited = true;
         OnInit();
@@ -78,23 +85,6 @@ public abstract class Weapon : MonoBehaviour, ICollectableItem
         transform.parent.localPosition = new Vector3(0, 0, 0);
         transform.parent.localRotation = Quaternion.identity;
         gameObject.layer = LayerMask.NameToLayer("Weapon");
-    }
-    
-
-
-    protected virtual void Update()
-    {
-        if (!_isInited)
-            return;
-
-        if (Input.GetMouseButtonDown(0))
-        {
-            Shoot();
-        }
-        else if(Input.GetMouseButtonUp(0))
-        {
-            StopShooting();
-        }
     }
 
     public void OnCollect()

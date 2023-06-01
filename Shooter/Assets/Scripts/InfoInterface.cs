@@ -7,9 +7,9 @@ public class InfoInterface : MonoBehaviour
     [SerializeField] private Image[] weaponsFillerIcon;
     [SerializeField] private Image[] weaponsIconHoldear;
     [SerializeField] private Image[] skillIcon;
-    [SerializeField] private Image mapMini;
+    [SerializeField] private Image miniMap;
     [SerializeField] private Image activeWeaponsIcon;
-    [SerializeField] private Image passiveWeaponsIcon;
+    [SerializeField] private Image inactiveWeaponsIcon;
 
     public void UpdateInfoIcon(InfoIconEnum infoIconEnum ,Image newIcon, int number)
     {
@@ -32,7 +32,7 @@ public class InfoInterface : MonoBehaviour
 
     public void DiscardWeaponsIcon(int number)
     {
-        weaponsIconHoldear[number].color = passiveWeaponsIcon.color;
+        weaponsIconHoldear[number].color = inactiveWeaponsIcon.color;
     }
 
     public enum InfoIconEnum
