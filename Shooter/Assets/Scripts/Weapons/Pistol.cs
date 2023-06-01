@@ -2,7 +2,6 @@ using UnityEngine;
 
 public class Pistol : Weapon
 {
-    [SerializeField] private float shootInterval;
     private float shootTimer;
     private bool canShoot = true;
 
@@ -12,7 +11,7 @@ public class Pistol : Weapon
         if (!canShoot)
         {
             shootTimer += Time.deltaTime;
-            if (shootTimer >= shootInterval)
+            if (shootTimer >= shootDeley)
             {
                 canShoot = true;
                 shootTimer = 0f;

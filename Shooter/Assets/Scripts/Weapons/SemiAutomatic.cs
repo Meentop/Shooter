@@ -3,8 +3,6 @@ using UnityEngine;
 
 public class SemiAutomatic : Weapon
 {
-    [SerializeField] private float shootDeley;
-
     private bool _isShooting;
     private Coroutine _ShootCoroutine;
 

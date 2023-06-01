@@ -5,10 +5,11 @@ public class DinemicInterface : MonoBehaviour
 {
     [SerializeField] private GameObject interfacePanel;
     [SerializeField] private GameObject[] infoPanelsToHighd;
+    [SerializeField] private GameObject[] weaponsDescriptionHolldears;
     [SerializeField] private Image backgroundBlur;
+    [SerializeField] private Weapon.WeaponsDescription[] localWeaponsDescriptions;
 
-    private bool isInterfaceVisible = false;
-
+    private bool _isInterfaceVisible = false;
     private void Start()
     {
         interfacePanel.SetActive(false);
@@ -23,15 +24,25 @@ public class DinemicInterface : MonoBehaviour
             backgroundBlur.gameObject.SetActive(true);
             foreach (var infoPanel in infoPanelsToHighd)
                 infoPanel.SetActive(false);
-            isInterfaceVisible = true;
+            _isInterfaceVisible = true;
         }
-        else if (isInterfaceVisible)
+        else if (_isInterfaceVisible)
         {
             interfacePanel.SetActive(false);
             backgroundBlur.gameObject.SetActive(false);
             foreach (var infoPanel in infoPanelsToHighd)
                 infoPanel.SetActive(true);
-            isInterfaceVisible = false;
+            _isInterfaceVisible = false;
         }
+    }
+
+    public void UpdateWeaponInfo(int number, string weaponNameText, Vector2Int damageText, float firingRange, float firingSpeed)
+    {
+        weaponsDescriptionHolldears[number].SetActive(true);
+        localWeaponsDescriptions[number].WeaponNameText.text = weaponNameText;
+        localWeaponsDescriptions[number].DamageText.text = "Damage " + damageText.ToString();
+        localWeaponsDescriptions[number].FiringRange.text = "FiringRange " + firingRange.ToString();
+        localWeaponsDescriptions[number].FiringSpeed.text = "FiringSpeed " + firingSpeed.ToString();
+        weaponsDescriptionHolldears[CollectionsExtensions.GetNextIndex(weaponsDescriptionHolldears, number)].SetActive(false);
     }
 }

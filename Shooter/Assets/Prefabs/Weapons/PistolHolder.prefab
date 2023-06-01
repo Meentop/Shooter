@@ -106,7 +106,7 @@ MonoBehaviour:
   damageRange: {x: 20, y: 30}
   weaponOnCollectRot: {x: 0, y: 0, z: 0}
   range: 200
-  shootInterval: 0.2
+  shootDeley: 0.2
 --- !u!65 &4599686081341117006
 BoxCollider:
   m_ObjectHideFlags: 0

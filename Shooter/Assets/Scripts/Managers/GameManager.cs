@@ -5,9 +5,10 @@ using UnityEngine;
 public class GameManager : MonoBehaviour
 {
     [SerializeField] private Player player;
-    [SerializeField] private InfoInterface InfoInterface;
+    [SerializeField] private InfoInterface infoInterface;
+    [SerializeField] private DinemicInterface dinemicInterface;
     private void Awake()
     {
-        player.Init(InfoInterface);
+        player.Init(infoInterface, dinemicInterface);
     }
 }

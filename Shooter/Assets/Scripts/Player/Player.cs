@@ -15,6 +15,7 @@ public class Player : MonoBehaviour
     private bool _isCollecting;
     private ICollectableItem _lastSavedWeapon;
     private InfoInterface _infoInterface;
+    private DinemicInterface _dinemicInterface;
 
     private void Update()
     {
@@ -54,11 +55,12 @@ public class Player : MonoBehaviour
         }
     }
 
-    public void Init(InfoInterface infoInterface)
+    public void Init(InfoInterface infoInterface, DinemicInterface dinemicInterface)
     {
         _currentWeapon = Weapons[0];
-        _currentWeapon.Init(this, weaponHolder, targetLook, infoInterface, _selectedSlot);
         _infoInterface = infoInterface;
+        _dinemicInterface = dinemicInterface;
+        _currentWeapon.Init(this, weaponHolder, targetLook, _infoInterface, _dinemicInterface, _selectedSlot);
     }
 
     public void SelectWeapon()
@@ -84,7 +86,7 @@ public class Player : MonoBehaviour
         _currentWeapon.transform.gameObject.SetActive(false);
         _currentWeapon = weaponToSwap;
         _currentWeapon.transform.gameObject.SetActive(true);
-        _currentWeapon.Init(this, weaponHolder, targetLook, _infoInterface, _selectedSlot);
+        _currentWeapon.Init(this, weaponHolder, targetLook, _infoInterface, _dinemicInterface, _selectedSlot);
         _infoInterface.DiscardWeaponsIcon(CollectionsExtensions.GetNextIndex(Weapons, _selectedSlot));
     }
 
@@ -130,7 +132,7 @@ public class Player : MonoBehaviour
 
                 Weapons[_selectedSlot] = _currentWeapon;
 
-                _currentWeapon.Init(this, weaponHolder, targetLook, _infoInterface, _selectedSlot);
+                _currentWeapon.Init(this, weaponHolder, targetLook, _infoInterface, _dinemicInterface, _selectedSlot);
                 _currentWeapon.ConectWeaponToPlayer();
             }
         }
