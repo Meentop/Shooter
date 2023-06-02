@@ -62,7 +62,6 @@ public abstract class Enemy : MonoBehaviour
         List<Enemy> enemies = colliders.Select(enemy => enemy.GetComponentInParent<Enemy>()).ToList();
         enemies = enemies.Distinct().ToList();
         enemies.Remove(this);
-        print(enemies.Count);
         //get correction vector
         List<Vector3> correctionVectors = new List<Vector3>();
         foreach (var enemy in enemies)
@@ -72,14 +71,14 @@ public abstract class Enemy : MonoBehaviour
             float dotProduct = Vector3.Dot(transform.right, directionFromEnemy.normalized);
             float correctionPower = distancePower * Mathf.Abs(dotProduct);
             correctionVectors.Add(directionFromEnemy * correctionPower);
-            Debug.DrawLine(transform.position, transform.position + (directionFromEnemy * correctionPower), Color.red);
+            //Debug.DrawLine(transform.position, transform.position + (directionFromEnemy * correctionPower), Color.red);
         }
         Vector3 correctionVector = Vector3.zero;
         for (int i = 0; i < correctionVectors.Count; i++)
         {
             correctionVector += correctionVectors[i];
         }
-        Debug.DrawLine(transform.position, transform.position + correctionVector, Color.yellow);
+        //Debug.DrawLine(transform.position, transform.position + correctionVector, Color.yellow);
         correctionVectors.Clear();
         return new Vector3(correctionVector.x, 0, correctionVector.z);
     }
@@ -103,8 +102,14 @@ public abstract class Enemy : MonoBehaviour
 
     protected void Move()
     {
+        //check if moveDirection is on nav mesh
+        NavMeshHit hit;
+        if (NavMesh.SamplePosition(transform.position + moveDirection, out hit, 1.0f, NavMesh.AllAreas))
+        {
+            moveDirection = (hit.position - transform.position).normalized;
+        }
         rb.velocity = new Vector3(moveDirection.x * moveSpeed, rb.velocity.y, moveDirection.z * moveSpeed);
-        //rb.AddForce(moveDirection, ForceMode.VelocityChange);
+        Debug.DrawLine(transform.position, transform.position + moveDirection, Color.yellow);
     }
 
     protected void Rotate()
