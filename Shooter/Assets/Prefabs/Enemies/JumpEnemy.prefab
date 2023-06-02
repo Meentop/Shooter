@@ -787,7 +787,7 @@ GameObject:
   - component: {fileID: 5587077259902345158}
   - component: {fileID: 5587077259902345161}
   - component: {fileID: 5587077259902345160}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: JumpEnemy
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -841,6 +841,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   anim: {fileID: 2081749909696065837}
   maxRadiansDelta: 0.02
+  trackingDistance: 0
   maxJumpDistance: 7
   minJumpDistance: 5
   punchDistance: 3

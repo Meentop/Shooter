@@ -17,7 +17,7 @@ public class SemiAutomatic : Weapon
         while (_isShooting && GetComponent<Weapon>().enabled == true)
         {
             RaycastHit hit;
-            if (Physics.Raycast(Camera.main.transform.position, Camera.main.transform.forward, out hit, Mathf.Infinity))
+            if (Physics.Raycast(Camera.main.transform.position, Camera.main.transform.forward, out hit, Mathf.Infinity, LayerMask.GetMask("Enemy")))
             {
                 if (hit.transform.TryGetComponent<IDamageReceiver>(out var damageReceiver))
                 {

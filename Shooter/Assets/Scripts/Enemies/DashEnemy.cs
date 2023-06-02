@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AI;
 
 public class DashEnemy : Enemy
 {
@@ -11,8 +12,6 @@ public class DashEnemy : Enemy
     protected override void Update()
     {
         base.Update();
-        if (agent.enabled)
-            agent.SetDestination(player.position);
         if (Vector3.Distance(transform.position, player.position) <= attackRange && !isAttacking && GetAngleToPlayer() < 10)
         {
             anim.SetTrigger("Attack");
@@ -24,7 +23,7 @@ public class DashEnemy : Enemy
 
     public void StartAttack()
     {
-        agent.enabled = false;
+        canMove = false;
         transform.position = transform.position;
         _isRotating = true;
     }
@@ -42,7 +41,7 @@ public class DashEnemy : Enemy
 
     public void EndAttack()
     {
-        agent.enabled = true;
+        canMove = true;
         isAttacking = false;
     }
 }
