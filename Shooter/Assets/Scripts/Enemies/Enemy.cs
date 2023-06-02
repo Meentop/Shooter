@@ -34,7 +34,7 @@ public abstract class Enemy : MonoBehaviour
         {
             SetDirectionAlongPath();
             moveDirection = (GetCorrectionVector() + moveDirection).normalized;
-            Rotate();
+            RotateTowardsMoveDirection();
         }
     }
 
@@ -112,8 +112,9 @@ public abstract class Enemy : MonoBehaviour
         Debug.DrawLine(transform.position, transform.position + moveDirection, Color.yellow);
     }
 
-    protected void Rotate()
+    protected void RotateTowardsMoveDirection()
     {
-        transform.rotation = Quaternion.LookRotation(new Vector3(moveDirection.x, 0, moveDirection.z).normalized);
+        Vector3 newDirection = Vector3.RotateTowards(transform.forward, new Vector3(moveDirection.x, 0, moveDirection.z).normalized, maxRadiansDelta, 0.0f);
+        transform.rotation = Quaternion.LookRotation(newDirection);
     }
 }
