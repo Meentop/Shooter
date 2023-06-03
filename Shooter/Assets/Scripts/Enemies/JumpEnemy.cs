@@ -4,13 +4,13 @@ using UnityEngine;
 
 public class JumpEnemy : Enemy
 {
-    [SerializeField] private float maxJumpDistance, minJumpDistance, punchDistance;
+    [SerializeField] private float maxRadiansDelta45, maxJumpDistance, minJumpDistance, punchDistance;
 
     [SerializeField] private float punchReloadTime, jumpReloadTime;
 
     [SerializeField] private float jumpHeight, jumpDistance;
 
-    private bool _isRotating, _canEndJump;
+    private bool _isRotating, _canEndJump, _isPunching;
 
     private Vector3 _playerForRotating;
 
@@ -21,7 +21,7 @@ public class JumpEnemy : Enemy
         base.Update();
         Timers();
         float distance = Vector3.Distance(new Vector3(transform.position.x, 0, transform.position.z), new Vector3(player.position.x, 0, player.position.z));
-        if (!isAttacking)
+        if (!isAttacking && !_isPunching)
         {
             if (distance > minJumpDistance && distance < maxJumpDistance)
             {
@@ -29,7 +29,8 @@ public class JumpEnemy : Enemy
                     JumpAttack();
             }
 
-            Move(distance);
+            if (!_isRotating)
+                SetCanMove(distance);
 
             if (distance <= maxJumpDistance && GetAngleToPlayer() > 45f && !_isRotating)
                 Rotation();
@@ -59,13 +60,11 @@ public class JumpEnemy : Enemy
         }
     }
 
-    private void Move(float distance)
+    private void SetCanMove(float distance)
     {
-        agent.enabled = distance > maxJumpDistance || (distance < minJumpDistance && distance > punchDistance);
+        canMove = distance > maxJumpDistance || (distance < minJumpDistance && distance > punchDistance);
         if (!isAttacking)
             anim.SetBool("Move", distance > maxJumpDistance || (distance < minJumpDistance && distance > punchDistance));
-        if (agent.enabled)
-            agent.SetDestination(player.position);
     }
 
     private void Rotation()
@@ -73,6 +72,7 @@ public class JumpEnemy : Enemy
         LeftOrRight();
         _playerForRotating = player.position;
         _isRotating = true;
+        rb.velocity = Vector3.zero;
     }
 
     private void LeftOrRight()
@@ -82,7 +82,7 @@ public class JumpEnemy : Enemy
             anim.SetTrigger("TurnRight");
         else
             anim.SetTrigger("TurnLeft");
-        Invoke(nameof(EndRotating), 1.33f);
+        Invoke(nameof(EndRotating), 1f);
     }
 
     public void RotateToPlayer45(Vector3 player)
@@ -90,7 +90,7 @@ public class JumpEnemy : Enemy
         Vector3 playerPosXZ = new Vector3(player.x, 0, player.z);
         Vector3 transformPosXZ = new Vector3(transform.position.x, 0, transform.position.z);
         Vector3 targetDirection = playerPosXZ - transformPosXZ;
-        Vector3 newDirection = Vector3.RotateTowards(transform.forward, targetDirection, maxRadiansDelta, 0.0f);
+        Vector3 newDirection = Vector3.RotateTowards(transform.forward, targetDirection, maxRadiansDelta45, 0.0f);
         transform.rotation = Quaternion.LookRotation(newDirection);
     }
 
@@ -111,7 +111,14 @@ public class JumpEnemy : Enemy
     private void Punch()
     {
         anim.SetTrigger("Punch");
+        rb.velocity = Vector3.zero;
         punchTimer = punchReloadTime;
+        _isPunching = true;
+    }
+
+    public void EndPunch()
+    {
+        _isPunching = false;
     }
 
     private void EndJump()

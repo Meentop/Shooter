@@ -6,7 +6,6 @@ using System.Linq;
 
 public abstract class Enemy : MonoBehaviour
 {
-    protected NavMeshAgent agent;
     protected Rigidbody rb;
     protected Transform player;
     protected bool isAttacking, canMove = true;
@@ -22,7 +21,6 @@ public abstract class Enemy : MonoBehaviour
 
     protected virtual void Start()
     {
-        agent = GetComponent<NavMeshAgent>();
         rb = GetComponent<Rigidbody>();
         player = FindObjectOfType<Player>().transform;
         path = new NavMeshPath();

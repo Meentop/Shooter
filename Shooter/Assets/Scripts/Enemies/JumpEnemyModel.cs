@@ -15,4 +15,9 @@ public class JumpEnemyModel : MonoBehaviour
     {
         enemy.SetEndAttack();
     }
+
+    public void SetEndPunch()
+    {
+        enemy.EndPunch();
+    }
 }

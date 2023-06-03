@@ -28,13 +28,9 @@ public class FirebollEnemy : Enemy
                 isAttacking = true;
             }
         }
-        agent.enabled = !playerInView || distance >= maxShootDistance;
-        if(!agent.enabled)
+        canMove = (!playerInView && !isAttacking) || distance >= maxShootDistance;
+        if(!canMove)
             RotateToPlayer();
-        if ((!playerInView && !isAttacking) || distance >= maxShootDistance)
-        {
-            agent.SetDestination(player.position);
-        }
         anim.SetBool("Move", (!playerInView && !isAttacking) || distance >= maxShootDistance);
     }
 
