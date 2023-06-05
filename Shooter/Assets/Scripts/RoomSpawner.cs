@@ -23,27 +23,29 @@ public class RoomSpawner : MonoBehaviour
         for (int i = 0; i < numberOfRooms - 1; i++)
         {
             Room connectedRoom;
-            Vector2Int newRoomPlace;
+            Vector2Int direction;
+            Room room;
             // check if new room place is free
             do
             {
                 connectedRoom = _rooms[Random.Range(0, _rooms.Count)];
-                newRoomPlace = connectedRoom.place + directions[Random.Range(0, directions.Length)];
-            } while (_roomsMap[newRoomPlace.x, newRoomPlace.y] != null);
-            SpawnRoom(connectedRoom, newRoomPlace);
+                direction = connectedRoom.GetDoorDirections()[Random.Range(0, connectedRoom.GetDoorDirections().Length)];
+                room = roomPrefabs[Random.Range(0, roomPrefabs.Length)];
+            } while (_roomsMap[connectedRoom.place.x + direction.x, connectedRoom.place.y + direction.y] != null || !room.HasDoorInDirection(connectedRoom.place - (connectedRoom.place + direction)));
+            SpawnRoom(connectedRoom, direction, room);
         }
     }
     public static readonly Vector2Int[] directions = {Vector2Int.up, Vector2Int.right, Vector2Int.down, Vector2Int.left};
 
-    private void SpawnRoom(Room connectedRoom, Vector2Int place)
+    private void SpawnRoom(Room connectedRoom, Vector2Int direction, Room room)
     {
-        Vector3 direction = new Vector3(connectedRoom.place.x - place.x, 0, connectedRoom.place.y - place.y);
-        Vector3 position = direction * (roomSize.x + 1) + connectedRoom.transform.position;
-        Room room = Instantiate(roomPrefabs[Random.Range(0, roomPrefabs.Length)], position, Quaternion.identity);
-        _roomsMap[place.x, place.y] = room;
-        _rooms.Add(room);
-        room.place = place;
-        connectedRoom.SetOpenDoor(connectedRoom.place - room.place);
-        room.SetOpenDoor(room.place - connectedRoom.place);
+        Vector3 position = new Vector3(direction.x, 0, direction.y) * roomSize.x + connectedRoom.transform.position;
+        Vector2Int place = connectedRoom.place + direction;
+        Room newRoom = Instantiate(room, position, Quaternion.identity);
+        _roomsMap[place.x, place.y] = newRoom;
+        _rooms.Add(newRoom);
+        newRoom.place = place;
+        connectedRoom.SetOpenDoor(newRoom.place - connectedRoom.place);
+        newRoom.SetOpenDoor(connectedRoom.place - newRoom.place);
     }
 }
