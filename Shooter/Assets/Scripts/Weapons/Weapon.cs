@@ -87,6 +87,21 @@ public abstract class Weapon : MonoBehaviour, ICollectableItem
         gameObject.layer = LayerMask.NameToLayer("Weapon");
     }
 
+    public string GetWeaponName()
+    {
+        return GetType().Name;
+    }
+
+    public Vector2Int GetWeaponDamageRange()
+    {
+        return damageRange;
+    }
+
+    public float GetWeaponFiringSpeed()
+    {
+        return shootDeley;
+    }
+
     public void OnCollect()
     {
         

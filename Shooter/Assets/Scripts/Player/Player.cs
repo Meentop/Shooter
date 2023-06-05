@@ -13,9 +13,11 @@ public class Player : MonoBehaviour
     private int _selectedSlot;
     private bool _isScrolling;
     private bool _isCollecting;
+    bool _isUpdated;
     private ICollectableItem _lastSavedWeapon;
     private InfoInterface _infoInterface;
     private DynamicInterface _dinemicInterface;
+    private UIManager _uiManager;
 
     private void Update()
     {
@@ -33,6 +35,7 @@ public class Player : MonoBehaviour
                 case CollectableItems.Weapon:
                     _lastSavedWeapon = item;
                     _isCollecting = true;
+                    UpdateNewWeaponInfo(_lastSavedWeapon as Weapon);
                     break;
             }
         }
@@ -49,17 +52,19 @@ public class Player : MonoBehaviour
                     {
                         _lastSavedWeapon = null;
                         _isCollecting = false;
+                        UpdateNewWeaponInfo(_lastSavedWeapon as Weapon);
                     }
                     break;
             }
         }
     }
 
-    public void Init(InfoInterface infoInterface, DynamicInterface dinemicInterface)
+    public void Init(InfoInterface infoInterface, DynamicInterface dinemicInterface, UIManager uiManager)
     {
         _currentWeapon = Weapons[0];
         _infoInterface = infoInterface;
         _dinemicInterface = dinemicInterface;
+        _uiManager = uiManager;
         _currentWeapon.Init(this, weaponHolder, targetLook, _infoInterface, _dinemicInterface, _selectedSlot);
     }
 
@@ -128,6 +133,7 @@ public class Player : MonoBehaviour
                     return;
 
                 _currentWeapon.DiscardWeaponFromPlayer(_lastSavedWeapon as Weapon);
+
                 _currentWeapon = _lastSavedWeapon as Weapon;
 
                 Weapons[_selectedSlot] = _currentWeapon;
@@ -136,6 +142,22 @@ public class Player : MonoBehaviour
                 _currentWeapon.ConectWeaponToPlayer();
             }
         }
-    }  
+    }
+
+    private void UpdateNewWeaponInfo(Weapon CollectingWeapon)
+    {
+        if(_isCollecting)
+        {
+            _uiManager.SetActiveText(UIManager.TextTypes.SelectText, true);
+            _uiManager.SetActiveText(UIManager.TextTypes.NewWeaponTextHolder, true);
+            _uiManager.UpdateNewWeaponDescription(_lastSavedWeapon.GetType().Name, CollectingWeapon.GetWeaponDamageRange(), CollectingWeapon.GetWeaponFiringSpeed());
+        }
+        else
+        {
+            _uiManager.SetActiveText(UIManager.TextTypes.SelectText, false);
+            _uiManager.SetActiveText(UIManager.TextTypes.NewWeaponTextHolder, false);
+        }
+        
+    }
 }
 
