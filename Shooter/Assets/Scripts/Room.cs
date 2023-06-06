@@ -11,6 +11,8 @@ public class Room : MonoBehaviour
 
     [SerializeField] private Vector2Int[] directions;
 
+    [SerializeField] private float[] newRoomYPositions;
+
     public void SetOpenDoor(Vector2Int direction)
     {
         print(direction);
@@ -31,5 +33,10 @@ public class Room : MonoBehaviour
                 return true;
         }
         return false;
+    }
+
+    public float GetYPosition(Vector2Int direction)
+    {
+        return newRoomYPositions[Array.IndexOf(directions, direction)];
     }
 }

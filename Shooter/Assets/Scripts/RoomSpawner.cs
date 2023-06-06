@@ -39,8 +39,10 @@ public class RoomSpawner : MonoBehaviour
 
     private void SpawnRoom(Room connectedRoom, Vector2Int direction, Room room)
     {
-        Vector3 position = new Vector3(direction.x, 0, direction.y) * roomSize.x + connectedRoom.transform.position;
+        Vector3 flatPosition = new Vector3(direction.x, 0, direction.y) * roomSize.x + connectedRoom.transform.position;    
         Vector2Int place = connectedRoom.place + direction;
+        float yPosition = connectedRoom.GetYPosition(direction) + -room.GetYPosition(connectedRoom.place - place);
+        Vector3 position = new Vector3(flatPosition.x, flatPosition.y + yPosition, flatPosition.z);
         Room newRoom = Instantiate(room, position, Quaternion.identity);
         _roomsMap[place.x, place.y] = newRoom;
         _rooms.Add(newRoom);
