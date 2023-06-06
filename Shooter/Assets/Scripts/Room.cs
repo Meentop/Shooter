@@ -16,7 +16,7 @@ public class Room : MonoBehaviour
     public void SetOpenDoor(Vector2Int direction)
     {
         print(direction);
-        doors[Array.IndexOf(RoomSpawner.directions, direction)].SetActive(false);
+        doors[Array.IndexOf(directions, direction)].SetActive(false);
     }
 
     public Vector2Int[] GetDoorDirections()
