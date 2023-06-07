@@ -26,12 +26,9 @@ public class DamageUI : MonoBehaviour
                 float yNearOffset = 1300f;
                 float yOffset = Mathf.Lerp(yFarOffset, yNearOffset, distance / camera.farClipPlane);
                 float multiplier = Mathf.Lerp(1f, 3f, distance / camera.farClipPlane);
-                print(viewportPos.y);
                 newPos = new Vector3(viewportPos.x * canvas.sizeDelta.x, viewportPos.y + yOffset, 0) + randPos * multiplier;
-                
             }
             UIText.rectTransform.anchoredPosition = newPos;
-            
         }
     }
     [SerializeField] private TextMeshProUGUI textPrefab;

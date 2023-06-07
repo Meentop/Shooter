@@ -106,4 +106,13 @@ public abstract class Weapon : MonoBehaviour, ICollectableItem
     {
         
     }
+
+    protected float DamageModifired()
+    {
+        _player.transform.TryGetComponent<PlayerDamage>(out var playerDamage);
+        if (playerDamage == null)
+            Debug.LogError("Player doesn`t have script PlayerDamage is null, pls set it");
+        //print(playerDamage.damagePower);
+        return Random.Range(damageRange.x, damageRange.y) * playerDamage.damagePower;
+    }
 }

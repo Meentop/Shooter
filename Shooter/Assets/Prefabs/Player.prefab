@@ -47,6 +47,7 @@ GameObject:
   - component: {fileID: 5417072423963475846}
   - component: {fileID: 8814092693866201418}
   - component: {fileID: 5440067626376647844}
+  - component: {fileID: 5121611369077538754}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -195,9 +196,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxLvlPoints: 100
+  healthLvlStep: 25
+  damageLvlStep: 0.1
   lvlBar: {fileID: 0}
   curLvlText: {fileID: 0}
   nextLvlText: {fileID: 0}
+  playerDamage: {fileID: 5121611369077538754}
 --- !u!114 &5440067626376647844
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -216,10 +220,23 @@ MonoBehaviour:
   healthBarSprite: {fileID: 0}
   afterHealthBarSprite: {fileID: 0}
   hPBarCanvas: {fileID: 0}
-  reduceSpeed: 0
+  reduceSpeed: 0.2
   armor: 0
   maxHP: 100
   _health: {fileID: 0}
+--- !u!114 &5121611369077538754
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6655776285994737160}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 10549ec4229364b418488cdfb0893fa0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  damagePower: 1
 --- !u!1 &6655776286372067822
 GameObject:
   m_ObjectHideFlags: 0

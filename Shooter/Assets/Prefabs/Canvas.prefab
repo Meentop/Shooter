@@ -1962,8 +1962,6 @@ MonoBehaviour:
   interfacePanel: {fileID: 8485796192286546379}
   panelsToHide:
   - {fileID: 1678688382521338522}
-  - {fileID: 8228167796806504458}
-  - {fileID: 2672805079970742602}
   weaponsDescriptionHolders:
   - {fileID: 6635918947664173847}
   - {fileID: 6535224526983981246}

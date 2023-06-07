@@ -21,7 +21,7 @@ public class SemiAutomatic : Weapon
             {
                 if (hit.transform.TryGetComponent<IDamageReceiver>(out var damageReceiver))
                 {
-                    damageReceiver.OnGetDamage(new DamageData(Random.Range(damageRange.x, damageRange.y), hit));
+                    damageReceiver.OnGetDamage(new DamageData(DamageModifired(), hit));
                 }
                 else
                 {

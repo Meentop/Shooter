@@ -6,8 +6,11 @@ using UnityEngine.UI;
 public class PlayerLvl : MonoBehaviour
 {
     [SerializeField] private float maxLvlPoints;
+    [SerializeField] private int healthLvlStep;
+    [SerializeField] private float damageLvlStep;
     [SerializeField] private Transform lvlBar;
     [SerializeField] private Text curLvlText, nextLvlText;
+    [SerializeField] private PlayerDamage playerDamage;
 
     private float _curLvlPoints;
     private int _curLvl;
@@ -40,6 +43,7 @@ public class PlayerLvl : MonoBehaviour
 
     private void NewLvl()
     {
-        playerHealth.AddMaxHealth(25);
+        playerHealth.AddMaxHealth(healthLvlStep);
+        playerDamage.AddDamagePower(damageLvlStep);
     }
 }

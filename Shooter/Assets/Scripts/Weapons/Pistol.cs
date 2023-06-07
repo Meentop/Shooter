@@ -25,9 +25,10 @@ public class Pistol : Weapon
             RaycastHit hit;
             if (Physics.Raycast(Camera.main.transform.position, Camera.main.transform.forward, out hit, Mathf.Infinity, LayerMask.GetMask("Enemy")))
             {
+                print(DamageModifired());
                 if (hit.transform.TryGetComponent<IDamageReceiver>(out var damageReceiver))
                 {
-                    damageReceiver.OnGetDamage(new DamageData(Random.Range(damageRange.x, damageRange.y), hit));
+                    damageReceiver.OnGetDamage(new DamageData(DamageModifired(), hit));
                 }
                 else
                 {
