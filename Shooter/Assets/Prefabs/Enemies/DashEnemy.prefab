@@ -1702,7 +1702,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5502814733913550371}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 7345d31242bbd554b85b8d6fda0cea6e, type: 3}
   m_Name: 
@@ -1728,7 +1728,7 @@ MonoBehaviour:
   executeOnHPBelowZero:
   - {fileID: 2337895182689192908}
   - {fileID: 4123450729288506133}
-  canvas: {fileID: 0}
+  canvas: {fileID: 5526591209243580115, guid: 83c9ad56a38022b4899e1e1eec2c3fab, type: 3}
   healthBarSprite: {fileID: 1527643518624817814}
   afterHealthBarSprite: {fileID: 8676102195805279203}
   hPBarCanvas: {fileID: 3361999159271364861}

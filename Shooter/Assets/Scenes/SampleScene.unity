@@ -278,7 +278,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fd549f641a88d8249903aff4eb98bba6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  numberOfRooms: 20
+  numberOfRooms: 6
   roomSize: {x: 42, y: 42}
   startRoom: {fileID: 5990737833800903788, guid: 57bad9941f279ac43bcfb702b210f19e, type: 3}
   roomPrefabs:
@@ -1206,6 +1206,11 @@ PrefabInstance:
     m_RemovedComponents:
     - {fileID: 5231037006145314398, guid: 5dabf89771060884e956222b099303a1, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 5dabf89771060884e956222b099303a1, type: 3}
+--- !u!20 &1697727722191368258 stripped
+Camera:
+  m_CorrespondingSourceObject: {fileID: 7071249058586371037, guid: 5dabf89771060884e956222b099303a1, type: 3}
+  m_PrefabInstance: {fileID: 1697727722191368257}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &2565003241933251663
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1301,6 +1306,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7607249716108153019, guid: 83c9ad56a38022b4899e1e1eec2c3fab, type: 3}
+      propertyPath: m_Camera
+      value: 
+      objectReference: {fileID: 1697727722191368258}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 83c9ad56a38022b4899e1e1eec2c3fab, type: 3}
 --- !u!114 &2565003241933251664 stripped
