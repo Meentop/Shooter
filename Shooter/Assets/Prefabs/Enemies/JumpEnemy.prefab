@@ -914,7 +914,7 @@ MonoBehaviour:
   - {fileID: 5587077259902345158}
   - {fileID: 5587077259902345161}
   - {fileID: 7501443950998253377}
-  canvas: {fileID: 5526591209243580115, guid: 83c9ad56a38022b4899e1e1eec2c3fab, type: 3}
+  canvas: {fileID: 5587077260169631291}
   healthBarSprite: {fileID: 5587077259747134626}
   afterHealthBarSprite: {fileID: 5587077261415802734}
   hPBarCanvas: {fileID: 5587077260169631291}
