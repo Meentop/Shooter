@@ -1654,6 +1654,7 @@ GameObject:
   - component: {fileID: 9089307073131585168}
   - component: {fileID: 2337895182689192908}
   - component: {fileID: 4123450729288506133}
+  - component: {fileID: 5795337192710114859}
   m_Layer: 8
   m_Name: DashEnemy
   m_TagString: Untagged
@@ -1702,7 +1703,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5502814733913550371}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 7345d31242bbd554b85b8d6fda0cea6e, type: 3}
   m_Name: 
@@ -1728,7 +1729,8 @@ MonoBehaviour:
   executeOnHPBelowZero:
   - {fileID: 2337895182689192908}
   - {fileID: 4123450729288506133}
-  canvas: {fileID: 0}
+  - {fileID: 5795337192710114859}
+  canvas: {fileID: 5526591209243580115, guid: 83c9ad56a38022b4899e1e1eec2c3fab, type: 3}
   healthBarSprite: {fileID: 1527643518624817814}
   afterHealthBarSprite: {fileID: 8676102195805279203}
   hPBarCanvas: {fileID: 3361999159271364861}
@@ -1762,6 +1764,20 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   expDropPoint: {fileID: 3746288536616350534}
   exp: 20
+--- !u!114 &5795337192710114859
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5502814733913550371}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 25231abb63f6ad945834f9dec82b2f1b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  enemy: {fileID: 1498340833107021634}
+  room: {fileID: 0}
 --- !u!1 &5581279801895787609
 GameObject:
   m_ObjectHideFlags: 0
