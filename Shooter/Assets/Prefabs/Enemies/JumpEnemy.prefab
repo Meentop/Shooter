@@ -831,6 +831,7 @@ GameObject:
   - component: {fileID: 5587077259902345159}
   - component: {fileID: 5587077259902345158}
   - component: {fileID: 5587077259902345161}
+  - component: {fileID: 7501443950998253377}
   m_Layer: 8
   m_Name: JumpEnemy
   m_TagString: Untagged
@@ -912,6 +913,7 @@ MonoBehaviour:
   executeOnHPBelowZero:
   - {fileID: 5587077259902345158}
   - {fileID: 5587077259902345161}
+  - {fileID: 7501443950998253377}
   canvas: {fileID: 5526591209243580115, guid: 83c9ad56a38022b4899e1e1eec2c3fab, type: 3}
   healthBarSprite: {fileID: 5587077259747134626}
   afterHealthBarSprite: {fileID: 5587077261415802734}
@@ -946,6 +948,20 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   expDropPoint: {fileID: 5587077260405396983}
   exp: 50
+--- !u!114 &7501443950998253377
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5587077259902345155}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 25231abb63f6ad945834f9dec82b2f1b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  enemy: {fileID: 5587077259902345156}
+  room: {fileID: 0}
 --- !u!1 &5587077260169631288
 GameObject:
   m_ObjectHideFlags: 0

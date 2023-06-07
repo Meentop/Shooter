@@ -15,9 +15,9 @@ public class Room : MonoBehaviour
 
     [SerializeField] private EnemyGroup[] enemyGroups;
 
-    private List<Enemy> enemies = new List<Enemy>();
+    [SerializeField] private List<Enemy> enemies = new List<Enemy>();
 
-    
+    private List<GameObject> activeDoors = new List<GameObject>();
 
     private void Start()
     {
@@ -25,14 +25,18 @@ public class Room : MonoBehaviour
         {
             foreach (var enemy in enemyGroups[UnityEngine.Random.Range(0, enemyGroups.Length)].enemies)
             {
-                enemies.Add(Instantiate(enemy.enemyPrefab, transform.position + enemy.position, Quaternion.identity));
+                Enemy enemy1 = Instantiate(enemy.enemyPrefab, transform.position + enemy.position, Quaternion.identity);
+                enemies.Add(enemy1);
+                enemy1.GetComponent<RemoveFromRoomAction>().room = this;
             }
         }
     }
 
     public void SetOpenDoor(Vector2Int direction)
     {
-        doors[Array.IndexOf(directions, direction)].SetActive(false);
+        int index = Array.IndexOf(directions, direction);
+        doors[index].SetActive(false);
+        activeDoors.Add(doors[index]);
     }
 
     public Vector2Int[] GetDoorDirections()
@@ -65,6 +69,23 @@ public class Room : MonoBehaviour
         foreach (var enemy in enemies)
         {
             enemy.enabled = true;
+        }
+    }
+
+    public void RemoveEnemy(Enemy enemy)
+    {
+        enemies.Remove(enemy);
+        if(enemies.Count == 0)
+        {
+            SetDoors(false);
+        }
+    }
+
+    public void SetDoors(bool value)
+    {
+        foreach (var door in activeDoors)
+        {
+            door.SetActive(value);
         }
     }
 

@@ -13,6 +13,7 @@ public class RoomTrigger : MonoBehaviour
         if (!enemiesActivated && room.GetEnemyCount() > 0 && other.gameObject.GetComponent<Player>())
         {
             room.ActivateEnemies();
+            room.SetDoors(true);
             enemiesActivated = true;
         }
     }
