@@ -1542,6 +1542,10 @@ PrefabInstance:
       propertyPath: nextLvlText
       value: 
       objectReference: {fileID: 2565003241933251666}
+    - target: {fileID: 8814092693866201418, guid: 9e72b9e8f879a1147acd589cbd24cdd4, type: 3}
+      propertyPath: maxLvlPoints
+      value: 10
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9e72b9e8f879a1147acd589cbd24cdd4, type: 3}
 --- !u!4 &6655776286918135551 stripped

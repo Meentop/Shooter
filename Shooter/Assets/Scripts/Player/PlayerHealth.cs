@@ -9,9 +9,9 @@ public class PlayerHealth : BaseDamageReceiver
 
     public void AddMaxHealth(int add)
     {
-        float coefficient = curHP / maxHP;
+        float coefficient = curHP / (float)maxHP;
         maxHP += add;
-        curHP = (int)(maxHP * coefficient);
+        curHP = Mathf.RoundToInt(maxHP * coefficient);
         UpdateHealthBar(maxHP, curHP);
     }
 

@@ -32,12 +32,13 @@ public class PlayerLvl : MonoBehaviour
     public void AddExp(int addExp)
     {
         _curLvlPoints += addExp;
-        if(_curLvlPoints >= maxLvlPoints)
+        while(_curLvlPoints >= maxLvlPoints)
         {
             _curLvlPoints -= maxLvlPoints;
             _curLvl++;
             NewLvl();
         }
+        print(_curLvlPoints);
         UpdateLvlBar();
     }
 
