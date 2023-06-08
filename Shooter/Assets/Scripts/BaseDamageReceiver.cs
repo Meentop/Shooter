@@ -47,12 +47,8 @@ public class BaseDamageReceiver : MonoBehaviour, IDamageReceiver
             curHP -= (int)damageData.Damage;
             UpdateHealthBar(maxHP, curHP);
 
-            Debug.Log(name + " HP = " + curHP, gameObject);
-
             if (damageData.Hit.transform != null && damageData.Hit.transform.GetComponent<Enemy>())
-            {
                 DamageUI.Instance.AddText((int)damageData.Damage, damageData.Hit.transform, canvas);
-            }
 
             if (curHP <= 0)
             {

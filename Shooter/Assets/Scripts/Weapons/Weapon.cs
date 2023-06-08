@@ -17,6 +17,7 @@ public abstract class Weapon : MonoBehaviour, ICollectableItem
     private Collider _collider;
     private InfoInterface _infoInterface;
     private DynamicInterface _dinemicInterface;
+    private PlayerDamage _playerDamage;
 
     private Transform _targetLook;
     private Transform _weaponHolder;
@@ -30,6 +31,8 @@ public abstract class Weapon : MonoBehaviour, ICollectableItem
         public Text DamageText;
         public Text FiringSpeed;
     }
+
+        
 
     protected virtual void Update()
     {
@@ -53,6 +56,7 @@ public abstract class Weapon : MonoBehaviour, ICollectableItem
         _dinemicInterface = dinemicInterface;
         _infoInterface.UpdateInfoIcon(InfoInterface.InfoIconEnum.SelectWeaponsIcon, weaponsIcon, selectedWeapon);
         _dinemicInterface.UpdateWeaponInfo(selectedWeapon, GetType().Name, damageRange, shootDeley);
+        _playerDamage = _player.GetComponent<PlayerDamage>();
 
         _isInited = true;
         OnInit();
@@ -109,10 +113,6 @@ public abstract class Weapon : MonoBehaviour, ICollectableItem
 
     protected float DamageModifired()
     {
-        _player.transform.TryGetComponent<PlayerDamage>(out var playerDamage);
-        if (playerDamage == null)
-            Debug.LogError("Player doesn`t have script PlayerDamage is null, pls set it");
-        //print(playerDamage.damagePower);
-        return Random.Range(damageRange.x, damageRange.y) * playerDamage.damagePower;
+        return Random.Range(damageRange.x, damageRange.y) * _playerDamage.damagePower;
     }
 }
