@@ -23,7 +23,10 @@ public class SemiAutomatic : Weapon
                 {
                     damageReceiver.OnGetDamage(new DamageData(DamageModifired(), hit));
                 }
-                else
+            }
+            else
+            {
+                if (Physics.Raycast(Camera.main.transform.position, Camera.main.transform.forward, out hit, Mathf.Infinity, LayerMask.GetMask("Solid")))
                 {
                     var decal = Instantiate(decalPrefab, hit.point + hit.normal * 0.001f, Quaternion.LookRotation(hit.normal));
                     decal.transform.SetParent(hit.transform);
