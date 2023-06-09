@@ -1,5 +1,4 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
@@ -9,6 +8,11 @@ public class UIManager : MonoBehaviour
     [SerializeField] private TextMeshProUGUI selectText;
     [SerializeField] private Image newWeaponTextHolder;
     [SerializeField] private Weapon.WeaponDescription newWeaponDescriptions;
+    [SerializeField] private InfoInterface _infoInterface;
+    [SerializeField] private DynamicInterface _dinemicInterface;
+
+    public InfoInterface infoInterface { get { return _infoInterface; } private set { _infoInterface = value; } }
+    public DynamicInterface dinemicInterface { get { return _dinemicInterface; } private set { _dinemicInterface = value; } }
 
     public enum TextTypes
     {

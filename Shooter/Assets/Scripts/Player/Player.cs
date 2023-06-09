@@ -59,13 +59,13 @@ public class Player : MonoBehaviour
         }
     }
 
-    public void Init(InfoInterface infoInterface, DynamicInterface dinemicInterface, UIManager uiManager)
+    public void Init(UIManager uiManager)
     {
         _currentWeapon = Weapons[0];
-        _infoInterface = infoInterface;
-        _dinemicInterface = dinemicInterface;
+        _infoInterface = uiManager.infoInterface;
+        _dinemicInterface = uiManager.dinemicInterface;
         _uiManager = uiManager;
-        _currentWeapon.Init(this, weaponHolder, targetLook, _infoInterface, _dinemicInterface, _selectedSlot);
+        _currentWeapon.Init(this, weaponHolder, targetLook, uiManager.infoInterface, uiManager.dinemicInterface, _selectedSlot);
     }
 
     public void SelectWeapon()

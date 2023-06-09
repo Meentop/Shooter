@@ -6,15 +6,10 @@ using UnityEngine;
 public class Room : MonoBehaviour
 {
     [HideInInspector] public Vector2Int place;
-
     [SerializeField] private Vector2Int[] directions;
-
     [SerializeField] private GameObject[] doors;
-
     [SerializeField] private float[] newRoomYPositions;
-
     [SerializeField] private EnemyGroup[] enemyGroups;
-
     [SerializeField] private List<Enemy> enemies = new List<Enemy>();
 
     private List<GameObject> activeDoors = new List<GameObject>();
