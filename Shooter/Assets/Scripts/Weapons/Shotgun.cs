@@ -35,23 +35,7 @@ public class Shotgun : Weapon
                 spread += Camera.main.transform.right * Random.Range(-1f, 1f); 
                 direction += spread.normalized * Random.Range(0f, this.spread);
 
-                RaycastHit hit;
-                if (Physics.Raycast(Camera.main.transform.position, direction, out hit, Mathf.Infinity, LayerMask.GetMask("Enemy")))
-                {
-                    if (hit.transform.TryGetComponent<IDamageReceiver>(out var damageReceiver))
-                    {
-                        damageReceiver.OnGetDamage(new DamageData(DamageModifired(), hit));
-                    }              
-                }
-                else
-                {
-                    if (Physics.Raycast(Camera.main.transform.position, Camera.main.transform.forward, out hit, Mathf.Infinity, LayerMask.GetMask("Solid")))
-                    {
-                        var decal = Instantiate(decalPrefab, hit.point + hit.normal * 0.001f, Quaternion.LookRotation(hit.normal));
-                        decal.transform.SetParent(hit.transform);
-                        Destroy(decal, 5);
-                    }
-                }
+                RaycastShoot(direction);
             }
             shootEffect.Play();
             canShoot = false;

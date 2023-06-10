@@ -115,4 +115,35 @@ public abstract class Weapon : MonoBehaviour, ICollectableItem
     {
         return Random.Range(damageRange.x, damageRange.y) * _playerDamage.damagePower;
     }
+
+    public void RaycastShoot(Vector3 direction)
+    {
+        Physics.Raycast(Camera.main.transform.position, direction, out RaycastHit enemyHit, Mathf.Infinity, LayerMask.GetMask("Enemy"));
+        Physics.Raycast(Camera.main.transform.position, Camera.main.transform.forward, out RaycastHit solidHit, Mathf.Infinity, LayerMask.GetMask("Solid"));
+
+        if (solidHit.collider == null && enemyHit.collider != null)
+            SetDamageToEnemy(enemyHit);
+        else if (solidHit.collider != null && enemyHit.collider == null)
+            SpawnDecal(solidHit);
+        else if (solidHit.collider != null && enemyHit.collider != null)
+        {
+            if (solidHit.distance > enemyHit.distance)
+                SetDamageToEnemy(enemyHit);
+            else
+                SpawnDecal(solidHit);
+        }
+    }
+
+    private void SetDamageToEnemy(RaycastHit enemyHit)
+    {
+        if (enemyHit.transform.TryGetComponent<IDamageReceiver>(out var damageReceiver))
+            damageReceiver.OnGetDamage(new DamageData(DamageModifired(), enemyHit));
+    }
+
+    private void SpawnDecal(RaycastHit solidHit)
+    {
+        var decal = Instantiate(decalPrefab, solidHit.point + solidHit.normal * 0.001f, Quaternion.LookRotation(solidHit.normal));
+        decal.transform.SetParent(solidHit.transform);
+        Destroy(decal, 5);
+    }
 }
