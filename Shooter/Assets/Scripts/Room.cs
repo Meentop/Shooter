@@ -13,9 +13,15 @@ public class Room : MonoBehaviour
     [SerializeField] private List<Enemy> enemies = new List<Enemy>();
 
     private List<GameObject> activeDoors = new List<GameObject>();
+    public Dictionary<Vector2Int, Room> Naighours;
 
-    private void Start()
+    public void Init(Vector2Int roomPos)
     {
+        Naighours = new Dictionary<Vector2Int, Room>();
+        foreach (var direction in directions)
+        {
+            Naighours.Add(roomPos + direction, null);
+        }
         if (enemyGroups.Length > 0)
         {
             foreach (var enemy in enemyGroups[UnityEngine.Random.Range(0, enemyGroups.Length)].enemies)
