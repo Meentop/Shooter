@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using UnityEngine;
 
 public class Room : MonoBehaviour
@@ -10,7 +9,7 @@ public class Room : MonoBehaviour
     [SerializeField] private GameObject[] doors;
     [SerializeField] private float[] newRoomYPositions;
     [SerializeField] private EnemyGroup[] enemyGroups;
-    [SerializeField] private List<Enemy> enemies = new List<Enemy>();
+    private List<Enemy> enemies = new List<Enemy>();
 
     private List<GameObject> activeDoors = new List<GameObject>();
 
@@ -31,7 +30,7 @@ public class Room : MonoBehaviour
     {
         int index = Array.IndexOf(directions, direction);
         doors[index].SetActive(false);
-        activeDoors.Add(doors[index]);
+        activeDoors.Add(doors[index]);    
     }
 
     public Vector2Int[] GetDoorDirections()

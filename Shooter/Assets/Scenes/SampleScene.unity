@@ -1115,6 +1115,22 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 1697727721791610561, guid: 5dabf89771060884e956222b099303a1, type: 3}
+      propertyPath: m_BackGroundColor.a
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1697727721791610561, guid: 5dabf89771060884e956222b099303a1, type: 3}
+      propertyPath: m_BackGroundColor.b
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1697727721791610561, guid: 5dabf89771060884e956222b099303a1, type: 3}
+      propertyPath: m_BackGroundColor.g
+      value: 0.936
+      objectReference: {fileID: 0}
+    - target: {fileID: 1697727721791610561, guid: 5dabf89771060884e956222b099303a1, type: 3}
+      propertyPath: m_BackGroundColor.r
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 1697727722218239970, guid: 5dabf89771060884e956222b099303a1, type: 3}
       propertyPath: player
       value: 
