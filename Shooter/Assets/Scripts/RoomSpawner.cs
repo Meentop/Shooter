@@ -18,33 +18,34 @@ public class RoomSpawner : MonoBehaviour
         startRoom.Init(Vector2Int.zero);
         _roomMap = new Dictionary<Vector2Int, Room>() { { Vector2Int.zero, startRoom } };
 
-
         for (int i = 0; i < numberOfRooms - 1; i++)
         {
-            var roomsWithEmptyNaighbours = _roomMap.Where(room => room.Value.Naighours.Any(naighour => naighour.Value == null));
-            var parentRoom = roomsWithEmptyNaighbours.ElementAt(Random.Range(0, roomsWithEmptyNaighbours.Count()));
-            var freePlaces = parentRoom.Value.Naighours.Where(naighour => naighour.Value == null);
-            var newRoomSpawnPos = freePlaces.ElementAt(Random.Range(0, freePlaces.Count()));
-            var suitablePrefabs = roomPrefabs.Where(roomPrefab => roomPrefab.HasDoorInDirection(parentRoom.Key - newRoomSpawnPos.Key));
-            var randomRoomPrefab = suitablePrefabs.ElementAt(Random.Range(0, suitablePrefabs.Count()));
-            var spawnedRoom = SpawnRoom(parentRoom.Value, newRoomSpawnPos.Key - parentRoom.Key, randomRoomPrefab);
-            spawnedRoom.Init(newRoomSpawnPos.Key);
-            UpdateRoomMap(spawnedRoom, newRoomSpawnPos.Key);
+                var roomsWithEmptyNaighbours = _roomMap.Where(room => room.Value.Naighours.Any(naighour => naighour.Value == null));
+                var parentRoom = roomsWithEmptyNaighbours.ElementAt(Random.Range(0, roomsWithEmptyNaighbours.Count()));
+                var freePlaces = parentRoom.Value.Naighours.Where(naighour => naighour.Value == null);
+                var newRoomSpawnPos = freePlaces.ElementAt(Random.Range(0, freePlaces.Count()));
+                var spawnedRoom = SpawnRoom(parentRoom, newRoomSpawnPos);
+                spawnedRoom.Init(newRoomSpawnPos.Key);
+                UpdateRoomMap(spawnedRoom, newRoomSpawnPos.Key);
         }
     }
     public static readonly Vector2Int[] directions = {Vector2Int.up, Vector2Int.right, Vector2Int.down, Vector2Int.left};
 
-    private Room SpawnRoom(Room connectedRoom, Vector2Int direction, Room room)
+    private Room SpawnRoom(KeyValuePair<Vector2Int, Room> parentRoom, KeyValuePair<Vector2Int, Room> _newRoom)
     {
-        Vector3 flatPosition = new Vector3(direction.x, 0, direction.y) * roomSize.x + connectedRoom.transform.position;
-        Vector2Int place = connectedRoom.place + direction;
-        float yPosition;
-        yPosition = connectedRoom.GetYPosition(direction) + -room.GetYPosition(connectedRoom.place - place);
+        Vector2Int direction = _newRoom.Key - parentRoom.Key;
+        Vector3 flatPosition = new Vector3(direction.x, 0, direction.y) * roomSize.x + parentRoom.Value.transform.position;
+
+        var suitablePrefabs = roomPrefabs.Where(roomPrefab => roomPrefab.HasDoorInDirection(parentRoom.Key - _newRoom.Key));
+        var randomRoomPrefab = suitablePrefabs.ElementAt(Random.Range(0, suitablePrefabs.Count()));
+
+        float yPosition = parentRoom.Value.GetYPosition(direction) + -randomRoomPrefab.GetYPosition(-direction);
         Vector3 position = new Vector3(flatPosition.x, flatPosition.y + yPosition, flatPosition.z);
-        Room newRoom = Instantiate(room, position, Quaternion.identity);
-        newRoom.place = place;
-        connectedRoom.SetOpenDoor(newRoom.place - connectedRoom.place);
-        newRoom.SetOpenDoor(connectedRoom.place - newRoom.place);
+
+        Room newRoom = Instantiate(randomRoomPrefab, position, Quaternion.identity);
+        newRoom.place = parentRoom.Value.place + direction;
+        newRoom.SetOpenDoor(parentRoom.Value.place - newRoom.place);
+        parentRoom.Value.SetOpenDoor(newRoom.place - parentRoom.Value.place);
         return newRoom;
     }
 
