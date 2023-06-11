@@ -74,7 +74,7 @@ GameObject:
   - component: {fileID: 1510728907260425551}
   m_Layer: 6
   m_Name: pandus
-  m_TagString: Untagged
+  m_TagString: Solid
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 4294967295
@@ -170,7 +170,7 @@ GameObject:
   - component: {fileID: 3508239770936368407}
   m_Layer: 6
   m_Name: pandus (3)
-  m_TagString: Untagged
+  m_TagString: Solid
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 4294967295
@@ -2337,7 +2337,7 @@ GameObject:
   - component: {fileID: 7217763842464246530}
   m_Layer: 6
   m_Name: pandus (1)
-  m_TagString: Untagged
+  m_TagString: Solid
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 4294967295
@@ -2541,7 +2541,7 @@ GameObject:
   - component: {fileID: 5904173921127208471}
   m_Layer: 6
   m_Name: Cube (1)
-  m_TagString: Untagged
+  m_TagString: Solid
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 4294967295
@@ -2744,7 +2744,7 @@ GameObject:
   - component: {fileID: 259152060310334940}
   m_Layer: 6
   m_Name: pandus (2)
-  m_TagString: Untagged
+  m_TagString: Solid
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 4294967295
