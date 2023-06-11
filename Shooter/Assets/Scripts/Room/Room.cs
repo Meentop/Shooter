@@ -13,7 +13,7 @@ public class Room : MonoBehaviour
 
     private List<GameObject> activeDoors = new List<GameObject>();
 
-    private void Start()
+    public void SpawnEnemies()
     {
         if (enemyGroups.Length > 0)
         {
@@ -51,19 +51,6 @@ public class Room : MonoBehaviour
     public float GetYPosition(Vector2Int direction)
     {
         return newRoomYPositions[Array.IndexOf(directions, direction)];
-    }
-
-    public int GetEnemyCount()
-    {
-        return enemies.Count;
-    }
-
-    public void ActivateEnemies()
-    {
-        foreach (var enemy in enemies)
-        {
-            enemy.enabled = true;
-        }
     }
 
     public void RemoveEnemy(Enemy enemy)

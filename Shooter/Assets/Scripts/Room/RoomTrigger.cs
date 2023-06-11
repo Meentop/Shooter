@@ -10,9 +10,9 @@ public class RoomTrigger : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (!enemiesActivated && room.GetEnemyCount() > 0 && other.gameObject.GetComponent<Player>())
+        if (!enemiesActivated && other.gameObject.GetComponent<Player>())
         {
-            room.ActivateEnemies();
+            room.SpawnEnemies();
             room.SetDoors(true);
             enemiesActivated = true;
         }
