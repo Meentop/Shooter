@@ -33,11 +33,11 @@ public class Fireboll : MonoBehaviour, IPoolable
         if (other.gameObject.GetComponent<Player>())
         {
             other.gameObject.GetComponent<BaseDamageReceiver>().OnGetDamage(new DamageData(10f, new RaycastHit()));
-            Destroy(gameObject);
+            Reset();
         }
         else if(other.gameObject.tag == "Solid")
         {
-            Destroy(gameObject);
+            Reset();
         }
     }
 

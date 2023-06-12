@@ -36,7 +36,9 @@ public class FirebollEnemy : Enemy
 
     public void Shoot()
     {
-        Instantiate(fireboll.gameObject, shootPoint.position, shootPoint.rotation);
+        Fireboll fireboll = ObjectPool.Instance.GetObject(this.fireboll);
+        fireboll.transform.position = shootPoint.position;
+        fireboll.transform.rotation = Quaternion.LookRotation((player.position - shootPoint.position).normalized);
     }
 
     public void EndAttack()
