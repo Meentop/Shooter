@@ -946,6 +946,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: aa86a28e80960a24e9adc1aab773c6f7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  expSphere: {fileID: 9220291963957624048, guid: d434b6bc919b0e74a8fb176f1a663328, type: 3}
   expDropPoint: {fileID: 5587077260405396983}
   exp: 50
 --- !u!114 &7501443950998253377

@@ -1,11 +1,15 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Fireboll : MonoBehaviour
+public class Fireboll : MonoBehaviour, IPoolable
 {
     [SerializeField] private float speed;
     [SerializeField] private float maxRadiansDelta;
+    public GameObject GameObject => gameObject;
+
+    public event Action<IPoolable> Destroyed;
 
     Transform player;
 
@@ -35,5 +39,10 @@ public class Fireboll : MonoBehaviour
         {
             Destroy(gameObject);
         }
+    }
+
+    public void Reset()
+    {
+        Destroyed?.Invoke(this);
     }
 }

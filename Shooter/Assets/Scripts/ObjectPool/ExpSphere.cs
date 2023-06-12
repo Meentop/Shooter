@@ -3,10 +3,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ExpSphere : MonoBehaviour
+public class ExpSphere : MonoBehaviour, IPoolable
 {
     [SerializeField] private float pickDistance, speed, lifeTime;
     [HideInInspector] public int exp;
+    public GameObject GameObject => gameObject;
 
     private Transform _player;
     private Rigidbody _rb;
@@ -15,7 +16,7 @@ public class ExpSphere : MonoBehaviour
 
     private bool _isDroped, _isPicked;
 
-    public event Action<ExpSphere> Destroyed;
+    public event Action<IPoolable> Destroyed;
 
     private void Start()
     {
@@ -30,7 +31,7 @@ public class ExpSphere : MonoBehaviour
         {
             _timer += Time.deltaTime;
             if (_timer >= lifeTime)
-                Destroy();
+                Reset();
         }
         if (!_isPicked && Vector3.Distance(_player.position, transform.position) <= pickDistance)
         {
@@ -44,12 +45,11 @@ public class ExpSphere : MonoBehaviour
     {
         if (_isPicked)
         {
-            //_rb.AddForce((_player.position - transform.position).normalized * speed, ForceMode.Force);
             _rb.velocity = (_player.position - transform.position).normalized * speed;
         }
     }
 
-    public void StartTimer()
+    private void OnEnable()
     {
         _isDroped = true;
     }
@@ -58,26 +58,18 @@ public class ExpSphere : MonoBehaviour
     {
         if (other.gameObject.TryGetComponent<PlayerLvl>(out var lvl))
         {
-            Destroy(lvl);
+            lvl.AddExp(exp);
+            Reset();
         }
     }
 
-    private void Destroy(PlayerLvl lvl)
+    public void Reset()
     {
-        ResetAll();
-
-        lvl.AddExp(exp);
+        ResetAllCharacteristics();
         Destroyed?.Invoke(this);
     }
 
-    private void Destroy()
-    {
-        ResetAll();
-
-        Destroyed?.Invoke(this);
-    }
-
-    private void ResetAll()
+    private void ResetAllCharacteristics()
     {
         _rb.useGravity = true;
         _collider.isTrigger = false;
