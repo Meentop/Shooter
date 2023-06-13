@@ -1704,6 +1704,7 @@ GameObject:
   - component: {fileID: 9089307073131585168}
   - component: {fileID: 2337895182689192908}
   - component: {fileID: 4123450729288506133}
+  - component: {fileID: 2558881422587477369}
   - component: {fileID: 326357642920016162}
   m_Layer: 8
   m_Name: FirebollEnemy
@@ -1782,6 +1783,7 @@ MonoBehaviour:
   - {fileID: 2337895182689192908}
   - {fileID: 4123450729288506133}
   - {fileID: 326357642920016162}
+  - {fileID: 2558881422587477369}
   canvas: {fileID: 3361999159271364861}
   healthBarSprite: {fileID: 1527643518624817814}
   afterHealthBarSprite: {fileID: 8676102195805279203}
@@ -1817,6 +1819,21 @@ MonoBehaviour:
   expSphere: {fileID: 9220291963957624048, guid: d434b6bc919b0e74a8fb176f1a663328, type: 3}
   expDropPoint: {fileID: 3746288536616350534}
   exp: 20
+--- !u!114 &2558881422587477369
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5502814733913550371}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6cf375b8b2b27d6418908a1421ec5caa, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  gold: {fileID: 7224739097227597096, guid: 9b09b6be0a941d548a80d46ca774998b, type: 3}
+  goldDropPoint: {fileID: 3746288536616350534}
+  count: 3
 --- !u!114 &326357642920016162
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2121,7 +2138,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3746288536616350534}
   m_Layer: 8
-  m_Name: ExpDropPoint
+  m_Name: ItemDropPoint
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

@@ -10,8 +10,8 @@ public class DropExpAction : ActionBase
     {
         ExpSphere expSphere = ObjectPool.Instance.GetObject(this.expSphere);
         expSphere.exp = exp;
-        expSphere.transform.position = expDropPoint.position;
-        Vector3 randVector = new Vector3(Random.Range(0f, 1f), 2, Random.Range(0f, 1f));
-        expSphere.GetComponent<Rigidbody>().AddForce(randVector.normalized * 5f, ForceMode.Impulse);
+        expSphere.transform.position = (Random.insideUnitSphere * 0.2f) + expDropPoint.position;
+        Vector3 randVector = new Vector3(Random.Range(-1f, 1f), Random.Range(1f, 3f), Random.Range(-1f, 1f));
+        expSphere.GetComponent<Rigidbody>().AddForce(randVector, ForceMode.Impulse);
     }
 }

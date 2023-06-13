@@ -831,6 +831,7 @@ GameObject:
   - component: {fileID: 5587077259902345159}
   - component: {fileID: 5587077259902345158}
   - component: {fileID: 5587077259902345161}
+  - component: {fileID: 144080396990857129}
   - component: {fileID: 7501443950998253377}
   m_Layer: 8
   m_Name: JumpEnemy
@@ -914,6 +915,7 @@ MonoBehaviour:
   - {fileID: 5587077259902345158}
   - {fileID: 5587077259902345161}
   - {fileID: 7501443950998253377}
+  - {fileID: 144080396990857129}
   canvas: {fileID: 5587077260169631291}
   healthBarSprite: {fileID: 5587077259747134626}
   afterHealthBarSprite: {fileID: 5587077261415802734}
@@ -949,6 +951,21 @@ MonoBehaviour:
   expSphere: {fileID: 9220291963957624048, guid: d434b6bc919b0e74a8fb176f1a663328, type: 3}
   expDropPoint: {fileID: 5587077260405396983}
   exp: 50
+--- !u!114 &144080396990857129
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5587077259902345155}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6cf375b8b2b27d6418908a1421ec5caa, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  gold: {fileID: 7224739097227597096, guid: 9b09b6be0a941d548a80d46ca774998b, type: 3}
+  goldDropPoint: {fileID: 5587077260405396983}
+  count: 5
 --- !u!114 &7501443950998253377
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1073,7 +1090,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5587077260405396983}
   m_Layer: 0
-  m_Name: ExpDropPoint
+  m_Name: ItemDropPoint
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

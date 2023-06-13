@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using UnityEngine;
 public class Player : MonoBehaviour
 {
-
     [SerializeField] private Transform weaponHolder;
     [SerializeField] private Transform targetLook;
     [SerializeField] private Weapon[] Weapons;
@@ -156,8 +155,7 @@ public class Player : MonoBehaviour
         {
             _uiManager.SetActiveText(UIManager.TextTypes.SelectText, false);
             _uiManager.SetActiveText(UIManager.TextTypes.NewWeaponTextHolder, false);
-        }
-        
+        }      
     }
 }
 
