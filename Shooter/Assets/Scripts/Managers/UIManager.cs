@@ -9,10 +9,10 @@ public class UIManager : MonoBehaviour
     [SerializeField] private Image newWeaponTextHolder;
     [SerializeField] private Weapon.WeaponDescription newWeaponDescriptions;
     [SerializeField] private InfoInterface _infoInterface;
-    [SerializeField] private DynamicInterface _dinemicInterface;
+    [SerializeField] private DynamicUI _dinemicInterface;
 
     public InfoInterface infoInterface { get { return _infoInterface; } private set { _infoInterface = value; } }
-    public DynamicInterface dinemicInterface { get { return _dinemicInterface; } private set { _dinemicInterface = value; } }
+    public DynamicUI dinemicInterface { get { return _dinemicInterface; } private set { _dinemicInterface = value; } }
 
     public enum TextTypes
     {
@@ -30,6 +30,19 @@ public class UIManager : MonoBehaviour
             case TextTypes.NewWeaponTextHolder:
                 newWeaponTextHolder.gameObject.SetActive(isActive);
                 break;
+        }
+    }
+
+    public bool GetActiveText(TextTypes buttonTypes)
+    {
+        switch (buttonTypes)
+        {
+            case TextTypes.SelectText:
+                return selectText.gameObject.activeInHierarchy;
+            case TextTypes.NewWeaponTextHolder:
+                return newWeaponTextHolder.gameObject.activeInHierarchy;
+            default:
+                return false;
         }
     }
 

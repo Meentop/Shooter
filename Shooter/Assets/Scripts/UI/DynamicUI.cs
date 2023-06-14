@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.UI;
 
-public class DynamicInterface : MonoBehaviour
+public class DynamicUI : MonoBehaviour
 {
     [SerializeField] private GameObject interfacePanel;
     [SerializeField] private GameObject[] panelsToHide;

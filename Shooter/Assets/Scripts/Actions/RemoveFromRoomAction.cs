@@ -10,6 +10,7 @@ public class RemoveFromRoomAction : ActionBase
 
     public override void ExecuteAction(params ActionParameter[] parameters)
     {
-        room.RemoveEnemy(enemy);
+        if(room != null)
+            room.RemoveEnemy(enemy);
     }
 }

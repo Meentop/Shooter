@@ -16,7 +16,7 @@ public abstract class Weapon : MonoBehaviour, ICollectableItem
     private Player _player;
     private Collider _collider;
     private InfoInterface _infoInterface;
-    private DynamicInterface _dinemicInterface;
+    private DynamicUI _dinemicInterface;
     private PlayerDamage _playerDamage;
 
     private Transform _targetLook;
@@ -45,7 +45,7 @@ public abstract class Weapon : MonoBehaviour, ICollectableItem
             StopShooting();
     }
 
-    public void Init(Player player, Transform weaponHolder, Transform targetLook, InfoInterface infoInterface, DynamicInterface dinemicInterface, int selectedWeapon)
+    public void Init(Player player, Transform weaponHolder, Transform targetLook, InfoInterface infoInterface, DynamicUI dinemicInterface, int selectedWeapon)
     {
         _player = player;
         _weaponHolder = weaponHolder;

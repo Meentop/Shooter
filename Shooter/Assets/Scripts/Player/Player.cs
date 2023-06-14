@@ -15,7 +15,7 @@ public class Player : MonoBehaviour
     bool _isUpdated;
     private ICollectableItem _lastSavedWeapon;
     private InfoInterface _infoInterface;
-    private DynamicInterface _dinemicInterface;
+    private DynamicUI _dinemicInterface;
     private UIManager _uiManager;
 
     private void Update()
@@ -23,6 +23,7 @@ public class Player : MonoBehaviour
         SelectWeapon();
         InputScrollWeapon();
         ChengeWeapon();
+        TestButtonDetection();
     }
 
     void OnTriggerEnter(Collider other)
@@ -156,6 +157,25 @@ public class Player : MonoBehaviour
             _uiManager.SetActiveText(UIManager.TextTypes.SelectText, false);
             _uiManager.SetActiveText(UIManager.TextTypes.NewWeaponTextHolder, false);
         }      
+    }
+
+    private void TestButtonDetection()
+    {
+        if (Physics.Raycast(Camera.main.transform.position, Camera.main.transform.forward, out var hit, 4f))
+        {
+            if (hit.collider.TryGetComponent<TestEnemyButton>(out var testButton))
+            {
+                if (!_uiManager.GetActiveText(UIManager.TextTypes.SelectText))
+                    _uiManager.SetActiveText(UIManager.TextTypes.SelectText, true);
+                if (Input.GetKeyDown(KeyCode.F))
+                    testButton.SpawnEnemy();
+            }
+        }
+        else
+        {
+            if (_uiManager.GetActiveText(UIManager.TextTypes.SelectText))
+                _uiManager.SetActiveText(UIManager.TextTypes.SelectText, false);
+        }
     }
 }
 

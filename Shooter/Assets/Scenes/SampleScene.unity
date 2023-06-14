@@ -231,7 +231,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   numberOfRooms: 6
   roomSize: {x: 42, y: 42}
-  startRoom: {fileID: 5990737833800903788, guid: 57bad9941f279ac43bcfb702b210f19e, type: 3}
+  startRoom: {fileID: 5990737833800903788, guid: 80ad28c90fd14bd4a8951dd3c72617ca, type: 3}
   roomPrefabs:
   - {fileID: 5990737833800903788, guid: d236ec1283f7dc44a834934e4e8f62bd, type: 3}
   - {fileID: 5990737833800903788, guid: 7bf4fe6d7bc59f74a861eb5b148fc427, type: 3}
