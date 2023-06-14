@@ -1,4 +1,3 @@
-using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
@@ -20,32 +19,37 @@ public class RoomSpawner : MonoBehaviour
 
         for (int i = 0; i < numberOfRooms - 1; i++)
         {
-                var roomsWithEmptyNaighbours = _roomMap.Where(room => room.Value.Naighours.Any(naighour => naighour.Value == null));
-                var parentRoom = roomsWithEmptyNaighbours.ElementAt(Random.Range(0, roomsWithEmptyNaighbours.Count()));
-                var freePlaces = parentRoom.Value.Naighours.Where(naighour => naighour.Value == null);
-                var newRoomSpawnPos = freePlaces.ElementAt(Random.Range(0, freePlaces.Count()));
-                var spawnedRoom = SpawnRoom(parentRoom, newRoomSpawnPos);
-                spawnedRoom.Init(newRoomSpawnPos.Key);
-                UpdateRoomMap(spawnedRoom, newRoomSpawnPos.Key);
+            var roomsWithEmptyNaighbours = _roomMap.Where(room => room.Value.Naighours.Any(naighour => IsFreePlace(room, naighour)));
+            var parentRoom = roomsWithEmptyNaighbours.ElementAt(Random.Range(0, roomsWithEmptyNaighbours.Count()));
+            var freePlaces = parentRoom.Value.Naighours.Where(naighour => IsFreePlace(parentRoom, naighour));
+            var newRoomSpawnPos = freePlaces.ElementAt(Random.Range(0, freePlaces.Count()));
+            var spawnedRoom = SpawnRoom(parentRoom, newRoomSpawnPos);
+            spawnedRoom.Init(newRoomSpawnPos.Key);
+            UpdateRoomMap(spawnedRoom, newRoomSpawnPos.Key);
         }
     }
-    public static readonly Vector2Int[] directions = {Vector2Int.up, Vector2Int.right, Vector2Int.down, Vector2Int.left};
+
+    private bool IsFreePlace(KeyValuePair<Vector2Int, Room> room, KeyValuePair<Vector2Int, Room> naighbour)
+    {
+        return room.Value.HasDoorInDirection(naighbour.Key - room.Key) && naighbour.Value == null;
+    }
 
     private Room SpawnRoom(KeyValuePair<Vector2Int, Room> parentRoom, KeyValuePair<Vector2Int, Room> _newRoom)
     {
-        Vector2Int direction = _newRoom.Key - parentRoom.Key;
-        Vector3 flatPosition = new Vector3(direction.x, 0, direction.y) * roomSize.x + parentRoom.Value.transform.position;
+        var directionFromParent = _newRoom.Key - parentRoom.Key;
+        var directionFromNewRoom = parentRoom.Key - _newRoom.Key;
 
-        var suitablePrefabs = roomPrefabs.Where(roomPrefab => roomPrefab.HasDoorInDirection(parentRoom.Key - _newRoom.Key));
+        var suitablePrefabs = roomPrefabs.Where(roomPrefab => roomPrefab.HasDoorInDirection(directionFromNewRoom));
         var randomRoomPrefab = suitablePrefabs.ElementAt(Random.Range(0, suitablePrefabs.Count()));
 
-        float yPosition = parentRoom.Value.GetYPosition(direction) + -randomRoomPrefab.GetYPosition(-direction);
-        Vector3 position = new Vector3(flatPosition.x, flatPosition.y + yPosition, flatPosition.z);
+        var roomHeight = parentRoom.Value.place.y + parentRoom.Value.GetDoorHeight(directionFromParent) + randomRoomPrefab.GetDoorHeight(directionFromNewRoom);
+        var spawnPosition = new Vector3(_newRoom.Key.x, 0, _newRoom.Key.y) * roomSize.x + new Vector3(0, roomHeight, 0);
 
-        Room newRoom = Instantiate(randomRoomPrefab, position, Quaternion.identity);
-        newRoom.place = parentRoom.Value.place + direction;
-        newRoom.SetOpenDoor(parentRoom.Value.place - newRoom.place);
-        parentRoom.Value.SetOpenDoor(newRoom.place - parentRoom.Value.place);
+        Room newRoom = Instantiate(randomRoomPrefab, spawnPosition, Quaternion.identity);
+        newRoom.place = _newRoom.Key;
+        newRoom.SetOpenDoor(directionFromNewRoom);
+        parentRoom.Value.SetOpenDoor(directionFromParent);
+
         return newRoom;
     }
 

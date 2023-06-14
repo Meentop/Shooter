@@ -5,6 +5,8 @@ using UnityEngine;
 
 public class Room : MonoBehaviour
 {
+    private readonly Vector2Int[] _directions = { Vector2Int.up, Vector2Int.right, Vector2Int.down, Vector2Int.left };
+
     [HideInInspector] public Vector2Int place;
     [SerializeField] private Vector2Int[] directions;
     [SerializeField] private GameObject[] doors;
@@ -18,7 +20,7 @@ public class Room : MonoBehaviour
     public void Init(Vector2Int roomPos)
     {
         Naighours = new Dictionary<Vector2Int, Room>();
-        foreach (var direction in directions)
+        foreach (var direction in _directions)
         {
             Naighours.Add(roomPos + direction, null);
         }
@@ -55,7 +57,7 @@ public class Room : MonoBehaviour
         return false;
     }
 
-    public float GetYPosition(Vector2Int direction)
+    public float GetDoorHeight(Vector2Int direction)
     {
         return newRoomYPositions[Array.IndexOf(directions, direction)];
     }
@@ -76,7 +78,7 @@ public class Room : MonoBehaviour
     public void RemoveEnemy(Enemy enemy)
     {
         enemies.Remove(enemy);
-        if(enemies.Count == 0)
+        if (enemies.Count == 0)
         {
             SetDoors(false);
         }
@@ -96,7 +98,7 @@ public class Room : MonoBehaviour
         public SpawnEnemy[] enemies;
 
         [Serializable]
-        public struct SpawnEnemy 
+        public struct SpawnEnemy
         {
             public Enemy enemyPrefab;
             public Vector3 position;
