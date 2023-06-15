@@ -7,18 +7,19 @@ public class Room : MonoBehaviour
 {
     private readonly Vector2Int[] _directions = { Vector2Int.up, Vector2Int.right, Vector2Int.down, Vector2Int.left };
 
-    [HideInInspector] public Vector2Int place;
     [SerializeField] private Vector2Int[] directions;
     [SerializeField] private GameObject[] doors;
     [SerializeField] private float[] newRoomYPositions;
     [SerializeField] private EnemyGroup[] enemyGroups;
     [SerializeField] private List<Enemy> enemies = new List<Enemy>();
+    public float Height { get; private set; }
 
     private List<GameObject> activeDoors = new List<GameObject>();
     public Dictionary<Vector2Int, Room> Naighours;
 
-    public void Init(Vector2Int roomPos)
+    public void Init(Vector2Int roomPos, float roomHeight)
     {
+        Height = roomHeight;
         Naighours = new Dictionary<Vector2Int, Room>();
         foreach (var direction in _directions)
         {

@@ -14,7 +14,7 @@ public class RoomSpawner : MonoBehaviour
     public void Init()
     {
         Room startRoom = Instantiate(this.startRoom.gameObject, Vector3.zero, Quaternion.identity).GetComponent<Room>();
-        startRoom.Init(Vector2Int.zero);
+        startRoom.Init(Vector2Int.zero, 0);
         _roomMap = new Dictionary<Vector2Int, Room>() { { Vector2Int.zero, startRoom } };
 
         for (int i = 0; i < numberOfRooms - 1; i++)
@@ -24,7 +24,6 @@ public class RoomSpawner : MonoBehaviour
             var freePlaces = parentRoom.Value.Naighours.Where(naighour => IsFreePlace(parentRoom, naighour));
             var newRoomSpawnPos = freePlaces.ElementAt(Random.Range(0, freePlaces.Count()));
             var spawnedRoom = SpawnRoom(parentRoom, newRoomSpawnPos);
-            spawnedRoom.Init(newRoomSpawnPos.Key);
             UpdateRoomMap(spawnedRoom, newRoomSpawnPos.Key);
         }
     }
@@ -41,15 +40,15 @@ public class RoomSpawner : MonoBehaviour
 
         var suitablePrefabs = roomPrefabs.Where(roomPrefab => roomPrefab.HasDoorInDirection(directionFromNewRoom));
         var randomRoomPrefab = suitablePrefabs.ElementAt(Random.Range(0, suitablePrefabs.Count()));
-
-        var roomHeight = parentRoom.Value.place.y + parentRoom.Value.GetDoorHeight(directionFromParent) + randomRoomPrefab.GetDoorHeight(directionFromNewRoom);
+        var roomHeight = parentRoom.Value.Height + parentRoom.Value.GetDoorHeight(directionFromParent) - randomRoomPrefab.GetDoorHeight(directionFromNewRoom);
         var spawnPosition = new Vector3(_newRoom.Key.x, 0, _newRoom.Key.y) * roomSize.x + new Vector3(0, roomHeight, 0);
 
         Room newRoom = Instantiate(randomRoomPrefab, spawnPosition, Quaternion.identity);
-        newRoom.place = _newRoom.Key;
         newRoom.SetOpenDoor(directionFromNewRoom);
-        parentRoom.Value.SetOpenDoor(directionFromParent);
+        newRoom.Init(_newRoom.Key, newRoom.transform.position.y);
 
+        parentRoom.Value.SetOpenDoor(directionFromParent);
+        
         return newRoom;
     }
 
