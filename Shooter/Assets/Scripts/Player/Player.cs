@@ -15,14 +15,14 @@ public class Player : MonoBehaviour
     bool _isUpdated;
     private ICollectableItem _lastSavedWeapon;
     private InfoInterface _infoInterface;
-    private DynamicUI _dinemicInterface;
+    private DynamicUI _dynamicInterface;
     private UIManager _uiManager;
 
     private void Update()
     {
         SelectWeapon();
         InputScrollWeapon();
-        ChengeWeapon();
+        ChangeWeapon();
         TestButtonDetection();
     }
 
@@ -63,9 +63,10 @@ public class Player : MonoBehaviour
     {
         _currentWeapon = Weapons[0];
         _infoInterface = uiManager.infoInterface;
-        _dinemicInterface = uiManager.dinemicInterface;
+        _dynamicInterface = uiManager.dinemicInterface;
         _uiManager = uiManager;
-        _currentWeapon.Init(this, weaponHolder, targetLook, uiManager.infoInterface, uiManager.dinemicInterface, _selectedSlot);
+        _currentWeapon.Init(this, weaponHolder, targetLook, uiManager.infoInterface, _selectedSlot);
+        _dynamicInterface.Init(this);
     }
 
     public void SelectWeapon()
@@ -91,7 +92,7 @@ public class Player : MonoBehaviour
         _currentWeapon.transform.gameObject.SetActive(false);
         _currentWeapon = weaponToSwap;
         _currentWeapon.transform.gameObject.SetActive(true);
-        _currentWeapon.Init(this, weaponHolder, targetLook, _infoInterface, _dinemicInterface, _selectedSlot);
+        _currentWeapon.Init(this, weaponHolder, targetLook, _infoInterface, _selectedSlot);
         _infoInterface.DiscardWeaponsIcon(CollectionsExtensions.GetNextIndex(Weapons, _selectedSlot));
     }
 
@@ -104,12 +105,12 @@ public class Player : MonoBehaviour
             if (!_isScrolling)
             {
                 _isScrolling = true;
-                StartCoroutine(ScrollDeleyRoutine());
+                StartCoroutine(ScrollDelayRoutine());
             }
         }
     }
     
-    private IEnumerator ScrollDeleyRoutine()
+    private IEnumerator ScrollDelayRoutine()
     {
         float scrollInput = Input.GetAxis("Mouse ScrollWheel");
 
@@ -123,7 +124,7 @@ public class Player : MonoBehaviour
         _isScrolling = false;
     }
 
-    private void ChengeWeapon()
+    private void ChangeWeapon()
     {
         if(_isCollecting)
         {
@@ -132,14 +133,14 @@ public class Player : MonoBehaviour
                 if (_lastSavedWeapon == null)
                     return;
 
-                _currentWeapon.DiscardWeaponFromPlayer(_lastSavedWeapon as Weapon);
+                _currentWeapon.DiscardFromPlayer(_lastSavedWeapon as Weapon);
 
                 _currentWeapon = _lastSavedWeapon as Weapon;
 
                 Weapons[_selectedSlot] = _currentWeapon;
 
-                _currentWeapon.Init(this, weaponHolder, targetLook, _infoInterface, _dinemicInterface, _selectedSlot);
-                _currentWeapon.ConectWeaponToPlayer();
+                _currentWeapon.Init(this, weaponHolder, targetLook, _infoInterface, _selectedSlot);
+                _currentWeapon.ConectToPlayer();
             }
         }
     }
@@ -150,7 +151,7 @@ public class Player : MonoBehaviour
         {
             _uiManager.SetActiveText(UIManager.TextTypes.SelectText, true);
             _uiManager.SetActiveText(UIManager.TextTypes.NewWeaponTextHolder, true);
-            _uiManager.UpdateNewWeaponDescription(_lastSavedWeapon.GetType().Name, CollectingWeapon.GetWeaponDamageRange(), CollectingWeapon.GetWeaponFiringSpeed());
+            _uiManager.UpdateNewWeaponDescription(_lastSavedWeapon.GetType().Name, CollectingWeapon.GetDamage(), CollectingWeapon.GetFiringSpeed());
         }
         else
         {
@@ -177,5 +178,11 @@ public class Player : MonoBehaviour
                 _uiManager.SetActiveText(UIManager.TextTypes.SelectText, false);
         }
     }
-}
 
+
+    public Weapon.Info[] GetWeaponsInfo()
+    {
+        Weapon.Info[] info = { Weapons[0].GetInfo(), Weapons[1].GetInfo() };
+        return info;
+    }
+}

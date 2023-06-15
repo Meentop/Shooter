@@ -15,7 +15,7 @@ public class Shotgun : Weapon
         if (!canShoot)
         {
             shootTimer += Time.deltaTime;
-            if (shootTimer >= shootDeley)
+            if (shootTimer >= firingSpeed)
             {
                 canShoot = true;
                 shootTimer = 0f;

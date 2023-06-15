@@ -7,16 +7,15 @@ public abstract class Weapon : MonoBehaviour, ICollectableItem
     [SerializeField] protected ParticleSystem decalPrefab;
     [SerializeField] protected Image weaponsIcon;
     [Space]
-    [SerializeField] protected Vector2Int damageRange;
+    [SerializeField] protected float damage;
+    [SerializeField] protected float firingSpeed;
     [SerializeField] protected Vector3 weaponOnCollectRot;
-    [SerializeField] protected float shootDeley;
-
+    
     public CollectableItems ItemType => CollectableItems.Weapon;
 
     private Player _player;
     private Collider _collider;
     private InfoInterface _infoInterface;
-    private DynamicUI _dinemicInterface;
     private PlayerDamage _playerDamage;
 
     private Transform _targetLook;
@@ -25,14 +24,26 @@ public abstract class Weapon : MonoBehaviour, ICollectableItem
     private bool _isInited;
 
     [System.Serializable]
-    public struct WeaponDescription
+    public struct Description
     {
         public Text WeaponNameText;
         public Text DamageText;
         public Text FiringSpeed;
     }
 
-        
+    public struct Info
+    {
+        public Info(string name, float damage, float firingSpeed)
+        {
+            Name = name;
+            Damage = damage;
+            FiringSpeed = firingSpeed;
+        }
+
+        public string Name;
+        public float Damage;
+        public float FiringSpeed;
+    }
 
     protected virtual void Update()
     {
@@ -45,7 +56,7 @@ public abstract class Weapon : MonoBehaviour, ICollectableItem
             StopShooting();
     }
 
-    public void Init(Player player, Transform weaponHolder, Transform targetLook, InfoInterface infoInterface, DynamicUI dinemicInterface, int selectedWeapon)
+    public void Init(Player player, Transform weaponHolder, Transform targetLook, InfoInterface infoInterface, int selectedWeapon)
     {
         _player = player;
         _weaponHolder = weaponHolder;
@@ -53,9 +64,7 @@ public abstract class Weapon : MonoBehaviour, ICollectableItem
         _collider = GetComponent<Collider>();
         gameObject.layer = LayerMask.NameToLayer("Weapon");
         _infoInterface = infoInterface;
-        _dinemicInterface = dinemicInterface;
         _infoInterface.UpdateInfoIcon(InfoInterface.InfoIconEnum.SelectWeaponsIcon, weaponsIcon, selectedWeapon);
-        _dinemicInterface.UpdateWeaponInfo(selectedWeapon, GetType().Name, damageRange, shootDeley);
         _playerDamage = _player.GetComponent<PlayerDamage>();
 
         _isInited = true;
@@ -68,7 +77,12 @@ public abstract class Weapon : MonoBehaviour, ICollectableItem
 
     public abstract void StopShooting();
 
-    public void DiscardWeaponFromPlayer(Weapon savedWeapon)
+    public Info GetInfo()
+    {
+        return new Info(GetName(), GetDamage(), GetFiringSpeed());
+    }
+
+    public void DiscardFromPlayer(Weapon savedWeapon)
     {
         GetComponent<Weapon>().enabled = false;
         transform.GetComponent<RotateObject>().enabled = true;
@@ -79,7 +93,7 @@ public abstract class Weapon : MonoBehaviour, ICollectableItem
         gameObject.layer = LayerMask.NameToLayer("Default");
     }
 
-    public void ConectWeaponToPlayer()
+    public void ConectToPlayer()
     {
         GetComponent<Weapon>().enabled = true;
         _collider.enabled = false;
@@ -91,19 +105,19 @@ public abstract class Weapon : MonoBehaviour, ICollectableItem
         gameObject.layer = LayerMask.NameToLayer("Weapon");
     }
 
-    public string GetWeaponName()
+    public string GetName()
     {
         return GetType().Name;
     }
 
-    public Vector2Int GetWeaponDamageRange()
+    public float GetDamage()
     {
-        return damageRange;
+        return damage;
     }
 
-    public float GetWeaponFiringSpeed()
+    public float GetFiringSpeed()
     {
-        return shootDeley;
+        return firingSpeed;
     }
 
     public void OnCollect()
@@ -113,7 +127,7 @@ public abstract class Weapon : MonoBehaviour, ICollectableItem
 
     protected float DamageModifired()
     {
-        return Random.Range(damageRange.x, damageRange.y) * _playerDamage.damagePower;
+        return damage * _playerDamage.damagePower;
     }
 
     public void RaycastShoot(Vector3 direction)

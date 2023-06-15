@@ -6,7 +6,6 @@ using UnityEngine;
 public class Gold : MonoBehaviour, IPoolable
 {
     [SerializeField] private float pickDistance, speed;
-    [HideInInspector] public int gold;
     public GameObject GameObject => gameObject;
 
     private Transform _player;

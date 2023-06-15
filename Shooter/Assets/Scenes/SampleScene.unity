@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 705507994}
-  m_IndirectSpecularColor: {r: 0.44657898, g: 0.4964133, b: 0.5748178, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657844, g: 0.49641222, b: 0.57481694, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -481,17 +481,6 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 7157593366589273503, guid: 5dabf89771060884e956222b099303a1, type: 3}
   m_PrefabInstance: {fileID: 1697727722191368257}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &1028440861 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 791146952377522299, guid: 83c9ad56a38022b4899e1e1eec2c3fab, type: 3}
-  m_PrefabInstance: {fileID: 2565003241933251663}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5f7201a12d95ffc409449d95f23cf332, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &1082036342 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 6843760474800303378, guid: 83c9ad56a38022b4899e1e1eec2c3fab, type: 3}
@@ -503,17 +492,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 916e022ebd3a69b45a358e94c05edf61, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &1203294181 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 7199203489344972578, guid: 83c9ad56a38022b4899e1e1eec2c3fab, type: 3}
-  m_PrefabInstance: {fileID: 2565003241933251663}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5f7201a12d95ffc409449d95f23cf332, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &1227402695 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 3612983673286525886, guid: 83c9ad56a38022b4899e1e1eec2c3fab, type: 3}
@@ -523,17 +501,6 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &1544548175 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 8257368084647483700, guid: 83c9ad56a38022b4899e1e1eec2c3fab, type: 3}
-  m_PrefabInstance: {fileID: 2565003241933251663}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5f7201a12d95ffc409449d95f23cf332, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!20 &1573259695 stripped
@@ -575,7 +542,7 @@ PrefabInstance:
     - target: {fileID: 511640773994085659, guid: 5dabf89771060884e956222b099303a1, type: 3}
       propertyPath: weaponsDescription.DamageText
       value: 
-      objectReference: {fileID: 1028440861}
+      objectReference: {fileID: 0}
     - target: {fileID: 511640773994085659, guid: 5dabf89771060884e956222b099303a1, type: 3}
       propertyPath: weaponsDescription.FiringRange
       value: 
@@ -583,11 +550,11 @@ PrefabInstance:
     - target: {fileID: 511640773994085659, guid: 5dabf89771060884e956222b099303a1, type: 3}
       propertyPath: weaponsDescription.FiringSpeed
       value: 
-      objectReference: {fileID: 1203294181}
+      objectReference: {fileID: 0}
     - target: {fileID: 511640773994085659, guid: 5dabf89771060884e956222b099303a1, type: 3}
       propertyPath: weaponsDescription.WeaponNameText
       value: 
-      objectReference: {fileID: 1544548175}
+      objectReference: {fileID: 0}
     - target: {fileID: 1178393481496247189, guid: 5dabf89771060884e956222b099303a1, type: 3}
       propertyPath: m_IsActive
       value: 1

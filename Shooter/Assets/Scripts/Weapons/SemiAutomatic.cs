@@ -18,7 +18,7 @@ public class SemiAutomatic : Weapon
         {
             RaycastShoot(Camera.main.transform.forward);
             shootEffect.Play();
-            yield return new WaitForSeconds(shootDeley);
+            yield return new WaitForSeconds(firingSpeed);
         }
     }
 

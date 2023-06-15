@@ -5074,10 +5074,9 @@ MonoBehaviour:
   shootEffect: {fileID: 3161802147564303021}
   decalPrefab: {fileID: 198000010535933408, guid: f55c9bf640b6fd34aa8924a3dc6673dd, type: 3}
   weaponsIcon: {fileID: 358132371581820940, guid: 7322eeca72c65f44c8d628954f2f38c7, type: 3}
-  damageRange: {x: 20, y: 25}
+  damage: 10
   weaponOnCollectRot: {x: -90, y: 180, z: 0}
-  range: 50
-  shootDeley: 0.5
+  firingSpeed: 0.5
   pelletsCount: 5
   spread: 0.1
 --- !u!65 &7729926444301364067

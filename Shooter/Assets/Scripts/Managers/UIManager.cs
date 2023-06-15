@@ -7,7 +7,7 @@ public class UIManager : MonoBehaviour
 {
     [SerializeField] private TextMeshProUGUI selectText;
     [SerializeField] private Image newWeaponTextHolder;
-    [SerializeField] private Weapon.WeaponDescription newWeaponDescriptions;
+    [SerializeField] private Weapon.Description newWeaponDescriptions;
     [SerializeField] private InfoInterface _infoInterface;
     [SerializeField] private DynamicUI _dinemicInterface;
 
@@ -46,7 +46,7 @@ public class UIManager : MonoBehaviour
         }
     }
 
-    public void UpdateNewWeaponDescription(string weaponName, Vector2Int damage, float firingSpeed)
+    public void UpdateNewWeaponDescription(string weaponName, float damage, float firingSpeed)
     {
         newWeaponDescriptions.WeaponNameText.text = weaponName;
         newWeaponDescriptions.DamageText.text = "Damage " + damage.ToString();
