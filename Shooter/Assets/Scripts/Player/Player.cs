@@ -18,6 +18,21 @@ public class Player : MonoBehaviour
     private DynamicUI _dynamicInterface;
     private UIManager _uiManager;
 
+    [SerializeField] private List<Modifier> freeModifiers;
+    [SerializeField] private Sprite testSprite;
+
+    private void Start()
+    {
+        freeModifiers.Add(new Modifier(testSprite, "POISON", "+10% poison damage"));
+        freeModifiers.Add(new Modifier(testSprite, "DARK", "+10% dark damage"));
+        freeModifiers.Add(new Modifier(testSprite, "DARK", "+10% dark damage"));
+        freeModifiers.Add(new Modifier(testSprite, "DARK", "+10% dark damage"));
+        freeModifiers.Add(new Modifier(testSprite, "DARK", "+10% dark damage"));
+        freeModifiers.Add(new Modifier(testSprite, "DARK", "+10% dark damage"));
+        freeModifiers.Add(new Modifier(testSprite, "DARK", "+10% dark damage"));
+        freeModifiers.Add(new Modifier(testSprite, "DARK", "+10% dark damage"));
+    }
+
     private void Update()
     {
         SelectWeapon();
@@ -184,5 +199,10 @@ public class Player : MonoBehaviour
     {
         Weapon.Info[] info = { Weapons[0].GetInfo(), Weapons[1].GetInfo() };
         return info;
+    }
+
+    public List<Modifier> GetFreeModifiers()
+    {
+        return freeModifiers;
     }
 }

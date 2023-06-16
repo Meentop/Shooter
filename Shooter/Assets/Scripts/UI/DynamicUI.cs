@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -7,6 +8,8 @@ public class DynamicUI : MonoBehaviour
     [SerializeField] private GameObject[] panelsToHide;
     [SerializeField] private Image backgroundBlur;
     [SerializeField] private Weapon.Description[] localWeaponDescriptions;
+    [SerializeField] private Transform freeModifierHolder;
+    [SerializeField] private ModifierUI modifierPrefab;
     private bool _panelEnabled = false;
     private Player _player;
 
@@ -30,6 +33,7 @@ public class DynamicUI : MonoBehaviour
             if (_panelEnabled)
             {
                 UpdateWeaponsInfo(_player.GetWeaponsInfo());
+                UpdateFreeModifierInfo(_player.GetFreeModifiers());
             }
         }
     }
@@ -49,6 +53,15 @@ public class DynamicUI : MonoBehaviour
             localWeaponDescriptions[i].WeaponNameText.text = info[i].Name;
             localWeaponDescriptions[i].DamageText.text = "Damage " + info[i].Damage.ToString();
             localWeaponDescriptions[i].FiringSpeed.text = "FiringSpeed " + info[i].FiringSpeed.ToString();
+        }
+    }
+
+    public void UpdateFreeModifierInfo(List<Modifier> freeModifier)
+    {
+        foreach (var modifier in freeModifier)
+        {
+            ModifierUI modifierUI = Instantiate(modifierPrefab, freeModifierHolder);
+            modifierUI.Set(modifier.GetSprite(), modifier.GetTitle(), modifier.GetDescription());
         }
     }
 }
