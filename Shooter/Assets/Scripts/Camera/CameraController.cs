@@ -11,10 +11,26 @@ public class CameraController : MonoBehaviour
 
     private void Start()
     {
-        Cursor.lockState = CursorLockMode.Locked;
+        LockCursor();
     }
 
     private void FixedUpdate()
+    {
+        if (!Pause.pause)
+            Rotate();
+    }
+
+    public void LockCursor()
+    {
+        Cursor.lockState = CursorLockMode.Locked;
+    }
+
+    public void UnlockCursor()
+    {
+        Cursor.lockState = CursorLockMode.None;
+    }
+
+    private void Rotate()
     {
         float mouseX = Input.GetAxisRaw("Mouse X") * cameraConfig.sensivity;
         float mouseY = Input.GetAxisRaw("Mouse Y") * cameraConfig.sensivity;

@@ -8,7 +8,7 @@ public class Pistol : Weapon
     protected override void Update()
     {
         base.Update();
-        if (!canShoot)
+        if (!Pause.pause && !canShoot)
         {
             shootTimer += Time.deltaTime;
             if (shootTimer >= firingSpeed)
@@ -20,7 +20,7 @@ public class Pistol : Weapon
     }
     public override void Shoot()
     {
-        if (canShoot)
+        if (!Pause.pause && canShoot)
         {
             RaycastShoot(Camera.main.transform.forward);
 

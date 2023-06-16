@@ -35,10 +35,13 @@ public class Player : MonoBehaviour
 
     private void Update()
     {
-        SelectWeapon();
-        InputScrollWeapon();
-        ChangeWeapon();
-        TestButtonDetection();
+        if (!Pause.pause)
+        {
+            SelectWeapon();
+            InputScrollWeapon();
+            ChangeWeapon();
+            TestButtonDetection();
+        }
     }
 
     void OnTriggerEnter(Collider other)
@@ -74,14 +77,14 @@ public class Player : MonoBehaviour
         }
     }
 
-    public void Init(UIManager uiManager)
+    public void Init(UIManager uiManager, CameraController cameraController)
     {
         _currentWeapon = Weapons[0];
         _infoInterface = uiManager.infoInterface;
         _dynamicInterface = uiManager.dinemicInterface;
         _uiManager = uiManager;
         _currentWeapon.Init(this, weaponHolder, targetLook, uiManager.infoInterface, _selectedSlot);
-        _dynamicInterface.Init(this);
+        _dynamicInterface.Init(this, cameraController);
     }
 
     public void SelectWeapon()

@@ -12,7 +12,7 @@ public class Shotgun : Weapon
     protected override void Update()
     {
         base.Update();
-        if (!canShoot)
+        if (!Pause.pause && !canShoot)
         {
             shootTimer += Time.deltaTime;
             if (shootTimer >= firingSpeed)
@@ -25,7 +25,7 @@ public class Shotgun : Weapon
 
     public override void Shoot()
     {
-        if(canShoot)
+        if(!Pause.pause && canShoot)
         {
             for (int i = 0; i < pelletsCount; i++)
             {

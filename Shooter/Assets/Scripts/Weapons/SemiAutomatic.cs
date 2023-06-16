@@ -14,7 +14,7 @@ public class SemiAutomatic : Weapon
 
     IEnumerator ShootCoroutine()
     {
-        while (_isShooting && GetComponent<Weapon>().enabled == true)
+        while (!Pause.pause && _isShooting && GetComponent<Weapon>().enabled == true)
         {
             RaycastShoot(Camera.main.transform.forward);
             shootEffect.Play();

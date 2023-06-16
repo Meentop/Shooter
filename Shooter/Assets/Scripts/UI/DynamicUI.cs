@@ -12,6 +12,7 @@ public class DynamicUI : MonoBehaviour
     [SerializeField] private ModifierUI modifierPrefab;
     private bool _panelEnabled = false;
     private Player _player;
+    private CameraController _cameraController;
 
     private void Start()
     {
@@ -19,9 +20,10 @@ public class DynamicUI : MonoBehaviour
         backgroundBlur.gameObject.SetActive(false);
     }
 
-    public void Init(Player player)
+    public void Init(Player player, CameraController cameraController)
     {
         _player = player;
+        _cameraController = cameraController;
     }
 
     private void Update()
@@ -34,7 +36,13 @@ public class DynamicUI : MonoBehaviour
             {
                 UpdateWeaponsInfo(_player.GetWeaponsInfo());
                 UpdateFreeModifierInfo(_player.GetFreeModifiers());
+                _cameraController.UnlockCursor();
             }
+            else
+            {
+                _cameraController.LockCursor();
+            }
+            Pause.pause = _panelEnabled;
         }
     }
 

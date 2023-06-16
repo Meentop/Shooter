@@ -23,31 +23,33 @@ public class PlayerController : MonoBehaviour
 
     private void Update()
     {
-        _grounded = Physics.Raycast(transform.position, Vector3.down, 1.3f, LayerMask.GetMask("Solid"));
-
-        MyInput();
-        SpeedControl();
-
-        if (_grounded && !_dashing)
-            _rb.drag = playerConfig.groundDrag;
-        else
-            _rb.drag = 0;  
-
-        if(_dashTimer > 0)
+        if (!Pause.pause)
         {
-            _dashTimer -= Time.deltaTime;
-        }
+            _grounded = Physics.Raycast(transform.position, Vector3.down, 1.3f, LayerMask.GetMask("Solid"));
 
-        if (Input.GetKeyDown(KeyCode.LeftShift) && _dashTimer <= 0)
-        {
-            Dash();
-        }
+            MyInput();
+            SpeedControl();
 
+            if (_grounded && !_dashing)
+                _rb.drag = playerConfig.groundDrag;
+            else
+                _rb.drag = 0;
+
+            if (_dashTimer > 0)
+            {
+                _dashTimer -= Time.deltaTime;
+            }
+
+            if (Input.GetKeyDown(KeyCode.LeftShift) && _dashTimer <= 0)
+            {
+                Dash();
+            }
+        }
     }
 
     private void FixedUpdate()
     {
-        if(!_dashing)
+        if (!Pause.pause && !_dashing)
         {
             Movement();
         }    
