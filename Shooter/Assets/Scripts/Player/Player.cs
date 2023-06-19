@@ -24,13 +24,6 @@ public class Player : MonoBehaviour
     private void Start()
     {
         freeModifiers.Add(new Modifier(testSprite, "POISON", "+10% poison damage"));
-        freeModifiers.Add(new Modifier(testSprite, "DARK", "+10% dark damage"));
-        freeModifiers.Add(new Modifier(testSprite, "DARK", "+10% dark damage"));
-        freeModifiers.Add(new Modifier(testSprite, "DARK", "+10% dark damage"));
-        freeModifiers.Add(new Modifier(testSprite, "DARK", "+10% dark damage"));
-        freeModifiers.Add(new Modifier(testSprite, "DARK", "+10% dark damage"));
-        freeModifiers.Add(new Modifier(testSprite, "DARK", "+10% dark damage"));
-        freeModifiers.Add(new Modifier(testSprite, "DARK", "+10% dark damage"));
     }
 
     private void Update()
@@ -77,14 +70,14 @@ public class Player : MonoBehaviour
         }
     }
 
-    public void Init(UIManager uiManager, CameraController cameraController)
+    public void Init(UIManager uiManager, CameraController cameraController, Camera mainCamera, RectTransform canvas, Transform modifierDragHolder, ModifiersManager modifiersManager)
     {
         _currentWeapon = Weapons[0];
         _infoInterface = uiManager.infoInterface;
         _dynamicInterface = uiManager.dinemicInterface;
         _uiManager = uiManager;
         _currentWeapon.Init(this, weaponHolder, targetLook, uiManager.infoInterface, _selectedSlot);
-        _dynamicInterface.Init(this, cameraController);
+        _dynamicInterface.Init(this, cameraController, mainCamera, canvas, modifierDragHolder, modifiersManager);
     }
 
     public void SelectWeapon()
