@@ -180,10 +180,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   weaponHolder: {fileID: 0}
   targetLook: {fileID: 0}
-  Weapons:
-  - {fileID: 0}
-  - {fileID: 0}
+  weapons: []
   scrollDeley: 0.3
+  freeModifiers: []
+  testSprite: {fileID: 0}
 --- !u!114 &8814092693866201418
 MonoBehaviour:
   m_ObjectHideFlags: 0

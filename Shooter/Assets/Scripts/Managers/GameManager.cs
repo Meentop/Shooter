@@ -8,9 +8,13 @@ public class GameManager : MonoBehaviour
     [SerializeField] private Player player;
     [SerializeField] private UIManager uiManager;
     [SerializeField] private RoomSpawner roomSpawner;
+    [SerializeField] private Camera mainCamera;
+    [SerializeField] private RectTransform canvas;
+    [SerializeField] private Transform modifierDragHolder;
+
     private void Awake()
     {
-        player.Init(uiManager, cameraController);
+        player.Init(uiManager, cameraController, mainCamera, canvas, modifierDragHolder);
         roomSpawner.Init();
     }
 }

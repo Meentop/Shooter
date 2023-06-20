@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -10,6 +11,7 @@ public abstract class Weapon : MonoBehaviour, ICollectableItem
     [SerializeField] protected float damage;
     [SerializeField] protected float firingSpeed;
     [SerializeField] protected Vector3 weaponOnCollectRot;
+    [SerializeField] protected int maxNumberOfModifiers = 1;
     
     public CollectableItems ItemType => CollectableItems.Weapon;
 
@@ -22,6 +24,7 @@ public abstract class Weapon : MonoBehaviour, ICollectableItem
     private Transform _weaponHolder;
 
     private bool _isInited;
+    [SerializeField] private List<Modifier> _modifiers = new List<Modifier>();
 
     [System.Serializable]
     public struct Description
@@ -29,20 +32,7 @@ public abstract class Weapon : MonoBehaviour, ICollectableItem
         public Text WeaponNameText;
         public Text DamageText;
         public Text FiringSpeed;
-    }
-
-    public struct Info
-    {
-        public Info(string name, float damage, float firingSpeed)
-        {
-            Name = name;
-            Damage = damage;
-            FiringSpeed = firingSpeed;
-        }
-
-        public string Name;
-        public float Damage;
-        public float FiringSpeed;
+        public Transform ModifiersHolder;
     }
 
     protected virtual void Update()
@@ -76,11 +66,6 @@ public abstract class Weapon : MonoBehaviour, ICollectableItem
     public abstract void Shoot();
 
     public abstract void StopShooting();
-
-    public Info GetInfo()
-    {
-        return new Info(GetName(), GetDamage(), GetFiringSpeed());
-    }
 
     public void DiscardFromPlayer(Weapon savedWeapon)
     {
@@ -118,6 +103,11 @@ public abstract class Weapon : MonoBehaviour, ICollectableItem
     public float GetFiringSpeed()
     {
         return firingSpeed;
+    }
+
+    public int GetMaxNumbersOfModifiers()
+    {
+        return maxNumberOfModifiers;
     }
 
     public void OnCollect()
@@ -159,5 +149,26 @@ public abstract class Weapon : MonoBehaviour, ICollectableItem
         var decal = Instantiate(decalPrefab, solidHit.point + solidHit.normal * 0.001f, Quaternion.LookRotation(solidHit.normal));
         decal.transform.SetParent(solidHit.transform);
         Destroy(decal, 5);
+    }
+
+
+    public int GetModifiersCount()
+    {
+        return _modifiers.Count;
+    }
+
+    public Modifier GetModifier(int index)
+    {
+        return _modifiers[index];
+    }
+
+    public void AddModifier(Modifier modifier)
+    {
+        _modifiers.Add(modifier);
+    }
+
+    public void RemoveModifier(Modifier modifier)
+    {
+        _modifiers.Remove(modifier);
     }
 }
