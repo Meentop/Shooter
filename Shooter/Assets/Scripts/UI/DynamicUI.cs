@@ -7,7 +7,7 @@ public class DynamicUI : MonoBehaviour
     [SerializeField] private GameObject interfacePanel;
     [SerializeField] private GameObject[] panelsToHide;
     [SerializeField] private Image backgroundBlur;
-    [SerializeField] private WeaponModifierHolderUI weaponModifierHolder;
+    [SerializeField] private WeaponModifierHolderUI weaponModifierHolderPrefab;
     [SerializeField] private Weapon.Description[] localWeaponDescriptions;
     [SerializeField] private RectTransform freeModifierHolder;
     [SerializeField] private ModifierUI modifierPrefab;
@@ -81,7 +81,7 @@ public class DynamicUI : MonoBehaviour
             }
             for (int j = 0; j < weapons[i].GetMaxNumbersOfModifiers(); j++)
             {          
-                WeaponModifierHolderUI holder = Instantiate(weaponModifierHolder, localWeaponDescriptions[i].ModifiersHolder);
+                WeaponModifierHolderUI holder = Instantiate(weaponModifierHolderPrefab, localWeaponDescriptions[i].ModifiersHolder);
                 holder.Init(_modifierDragHolder, _player);
                 holder.SetWeapon(weapons[i]);
 

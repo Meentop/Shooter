@@ -378,7 +378,6 @@ GameObject:
   - component: {fileID: 760817649}
   - component: {fileID: 760817650}
   - component: {fileID: 760817648}
-  - component: {fileID: 760817651}
   m_Layer: 0
   m_Name: Managers
   m_TagString: Untagged
@@ -439,21 +438,7 @@ MonoBehaviour:
   roomSpawner: {fileID: 308214503}
   mainCamera: {fileID: 1573259695}
   canvas: {fileID: 1026115379}
-  modifierDragHolder: {fileID: 1632265459}
---- !u!114 &760817651
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 760817647}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3684ff9b58b9aa743be61fd488d15733, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  activeHolder: {fileID: 0}
-  modifierDragHolder: {fileID: 1632265459}
+  modifierDragHolder: {fileID: 2565003241933251671}
 --- !u!1 &764468801
 GameObject:
   m_ObjectHideFlags: 0
@@ -636,11 +621,6 @@ MonoBehaviour:
 Camera:
   m_CorrespondingSourceObject: {fileID: 1697727722218239972, guid: 5dabf89771060884e956222b099303a1, type: 3}
   m_PrefabInstance: {fileID: 1697727722191368257}
-  m_PrefabAsset: {fileID: 0}
---- !u!224 &1632265459 stripped
-RectTransform:
-  m_CorrespondingSourceObject: {fileID: 7881495202032477798, guid: 83c9ad56a38022b4899e1e1eec2c3fab, type: 3}
-  m_PrefabInstance: {fileID: 2565003241933251663}
   m_PrefabAsset: {fileID: 0}
 --- !u!1 &1774115134
 GameObject:
@@ -927,9 +907,17 @@ PrefabInstance:
       propertyPath: m_AnchorMax.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 800920619689016338, guid: 83c9ad56a38022b4899e1e1eec2c3fab, type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3558922737211348766, guid: 83c9ad56a38022b4899e1e1eec2c3fab, type: 3}
       propertyPath: m_AnchoredPosition.y
       value: 78.51758
+      objectReference: {fileID: 0}
+    - target: {fileID: 3812685321228723286, guid: 83c9ad56a38022b4899e1e1eec2c3fab, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0.000019336236
       objectReference: {fileID: 0}
     - target: {fileID: 3970181966446831125, guid: 83c9ad56a38022b4899e1e1eec2c3fab, type: 3}
       propertyPath: m_AnchorMax.x
@@ -1120,6 +1108,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 422cde4999e1acc42929853b6324d8fc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!224 &2565003241933251671 stripped
+RectTransform:
+  m_CorrespondingSourceObject: {fileID: 8344552775141833015, guid: 83c9ad56a38022b4899e1e1eec2c3fab, type: 3}
+  m_PrefabInstance: {fileID: 2565003241933251663}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &6655776286918135550
 PrefabInstance:
   m_ObjectHideFlags: 0
