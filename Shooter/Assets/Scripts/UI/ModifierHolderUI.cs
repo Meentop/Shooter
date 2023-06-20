@@ -4,44 +4,24 @@ using UnityEngine;
 
 public abstract class ModifierHolderUI : MonoBehaviour
 {
-    private Transform _modifierDragHolder;
-    private ModifiersManager _modifiersManager;
+    protected Transform modifierDragHolder;
+    protected Player player;
 
-    public void Init(Transform modifierDragHolder, ModifiersManager modifiersManager)
+    public void Init(Transform modifierDragHolder, Player player)
     {
-        _modifierDragHolder = modifierDragHolder;
-        _modifiersManager = modifiersManager;
-    }
-
-    private void OnTriggerEnter(Collider other)
-    {
-        
-    }
-
-    private void OnTriggerStay(Collider other)
-    {
-        if (_modifierDragHolder.childCount > 0 && _modifierDragHolder.GetChild(0) == other.transform)
-        {
-            if (_modifiersManager.activeHolder != null)
-            {
-                _modifiersManager.activeHolder.OnExit();
-            }
-            _modifiersManager.activeHolder = this;
-            OnEnter();
-        }
-    }
-
-    private void OnTriggerExit(Collider other)
-    {
-        if (_modifierDragHolder.childCount > 0 && _modifierDragHolder.GetChild(0) == other.transform)
-        {
-            OnExit();
-            if (_modifiersManager.activeHolder == this)
-                _modifiersManager.activeHolder = null;
-        }
+        this.modifierDragHolder = modifierDragHolder;
+        this.player = player;
     }
 
     public abstract void OnEnter();
 
     public abstract void OnExit();
+
+    public abstract void SetPosition(Transform modifier);
+
+    public abstract void AddModifier(ModifierUI modifier);
+
+    public abstract void RemoveModifier(ModifierUI modifier);
+
+    public abstract bool CanAddModifier();
 }

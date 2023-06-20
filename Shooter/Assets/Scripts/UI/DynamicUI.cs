@@ -7,19 +7,18 @@ public class DynamicUI : MonoBehaviour
     [SerializeField] private GameObject interfacePanel;
     [SerializeField] private GameObject[] panelsToHide;
     [SerializeField] private Image backgroundBlur;
-    [SerializeField] private ModifierHolderUI modifierHolder;
+    [SerializeField] private WeaponModifierHolderUI weaponModifierHolder;
     [SerializeField] private Weapon.Description[] localWeaponDescriptions;
     [SerializeField] private RectTransform freeModifierHolder;
     [SerializeField] private ModifierUI modifierPrefab;
     [SerializeField] private Transform dragModifierHolder;
-    [SerializeField] private FreeModifierHolderUI FreeModifierHolderUI;
+    [SerializeField] private FreeModifierHolderUI freeModifierHolderUI;
     private bool _panelEnabled = false;
     private Player _player;
     private CameraController _cameraController;
     private Camera _mainCamera;
     private RectTransform _canvas;
     private Transform _modifierDragHolder;
-    private ModifiersManager _modifiersManager;
 
     private void Start()
     {
@@ -27,15 +26,14 @@ public class DynamicUI : MonoBehaviour
         backgroundBlur.gameObject.SetActive(false);
     }
 
-    public void Init(Player player, CameraController cameraController, Camera mainCamera, RectTransform canvas, Transform modifierDragHolder, ModifiersManager modifiersManager)
+    public void Init(Player player, CameraController cameraController, Camera mainCamera, RectTransform canvas, Transform modifierDragHolder)
     {
         _player = player;
         _cameraController = cameraController;
         _mainCamera = mainCamera;
         _canvas = canvas;
         _modifierDragHolder = modifierDragHolder;
-        _modifiersManager = modifiersManager;
-        FreeModifierHolderUI.Init(dragModifierHolder, modifiersManager);
+        freeModifierHolderUI.Init(dragModifierHolder, player);
     }
 
     private void Update()
@@ -46,7 +44,7 @@ public class DynamicUI : MonoBehaviour
             SetTabInterface(_panelEnabled);
             if (_panelEnabled)
             {
-                UpdateWeaponsInfo(_player.GetWeaponsInfo());
+                UpdateWeaponsInfo(_player.GetWeapons());
                 UpdateFreeModifierInfo(_player.GetFreeModifiers());
                 _cameraController.UnlockCursor();
             }
@@ -70,17 +68,30 @@ public class DynamicUI : MonoBehaviour
             infoPanel.SetActive(!value);
     }
 
-    public void UpdateWeaponsInfo(Weapon.Info[] info)
+    public void UpdateWeaponsInfo(Weapon[] weapons)
     {       
         for (int i = 0; i < localWeaponDescriptions.Length; i++)
         {
-            localWeaponDescriptions[i].WeaponNameText.text = info[i].Name;
-            localWeaponDescriptions[i].DamageText.text = "Damage " + info[i].Damage.ToString();
-            localWeaponDescriptions[i].FiringSpeed.text = "FiringSpeed " + info[i].FiringSpeed.ToString();
-            for (int j = 0; j < info[i].MaxNumbersOfModifiers; j++)
+            localWeaponDescriptions[i].WeaponNameText.text = weapons[i].GetName();
+            localWeaponDescriptions[i].DamageText.text = "Damage " + weapons[i].GetDamage().ToString();
+            localWeaponDescriptions[i].FiringSpeed.text = "FiringSpeed " + weapons[i].GetFiringSpeed().ToString();
+            foreach (Transform modifierHolder in localWeaponDescriptions[i].ModifiersHolder)
             {
-                ModifierHolderUI holder = Instantiate(modifierHolder, localWeaponDescriptions[i].ModifiersHolder);
-                holder.Init(_modifierDragHolder, _modifiersManager);
+                Destroy(modifierHolder.gameObject);
+            }
+            for (int j = 0; j < weapons[i].GetMaxNumbersOfModifiers(); j++)
+            {          
+                WeaponModifierHolderUI holder = Instantiate(weaponModifierHolder, localWeaponDescriptions[i].ModifiersHolder);
+                holder.Init(_modifierDragHolder, _player);
+                holder.SetWeapon(weapons[i]);
+
+                if (weapons[i].GetModifiersCount() > j)
+                {
+                    ModifierUI modifierUI = Instantiate(modifierPrefab, holder.transform);
+                    Modifier modifier = weapons[i].GetModifier(j);
+                    modifierUI.Init(modifier.GetSprite(), modifier.GetTitle(), modifier.GetDescription(), this, _mainCamera, _canvas, holder, modifier);
+                    holder.SetPosition(modifierUI.transform);
+                }
             }
         }
     }
@@ -90,11 +101,25 @@ public class DynamicUI : MonoBehaviour
         foreach (var modifier in freeModifier)
         {
             ModifierUI modifierUI = Instantiate(modifierPrefab, freeModifierHolder);
-            modifierUI.Init(modifier.GetSprite(), modifier.GetTitle(), modifier.GetDescription(), this, _mainCamera, _canvas);
+            modifierUI.Init(modifier.GetSprite(), modifier.GetTitle(), modifier.GetDescription(), this, _mainCamera, _canvas, freeModifierHolderUI, modifier);
         }
-        float sizeY = freeModifier.Count * modifierPrefab.GetComponent<RectTransform>().sizeDelta.y;
-        sizeY += 5 * (freeModifier.Count - 1);
-        freeModifierHolder.sizeDelta = new Vector2(freeModifierHolder.sizeDelta.x, sizeY);
+        freeModifierHolderUI.SetFreeModifierHolderSize(freeModifier.Count, modifierPrefab.GetComponent<RectTransform>());
+    }
+
+    public void AddModifier(ModifierUI modifier, ModifierHolderUI holder)
+    {
+        if (holder != null && holder.CanAddModifier())
+        {
+            modifier.RemoveFromPastHolder();
+            modifier.AddNewHolder(holder);
+
+            holder.SetPosition(modifier.transform);
+            holder.AddModifier(modifier);
+        }
+        else
+        {
+            modifier.BackToPastHolder();
+        }
     }
 
     public Transform GetDragModifierHolder()

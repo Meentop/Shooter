@@ -5,7 +5,7 @@ public class Player : MonoBehaviour
 {
     [SerializeField] private Transform weaponHolder;
     [SerializeField] private Transform targetLook;
-    [SerializeField] private Weapon[] Weapons;
+    [SerializeField] private Weapon[] weapons;
     [SerializeField] private float scrollDeley;
 
     private Weapon _currentWeapon;
@@ -20,11 +20,6 @@ public class Player : MonoBehaviour
 
     [SerializeField] private List<Modifier> freeModifiers;
     [SerializeField] private Sprite testSprite;
-
-    private void Start()
-    {
-        freeModifiers.Add(new Modifier(testSprite, "POISON", "+10% poison damage"));
-    }
 
     private void Update()
     {
@@ -70,14 +65,14 @@ public class Player : MonoBehaviour
         }
     }
 
-    public void Init(UIManager uiManager, CameraController cameraController, Camera mainCamera, RectTransform canvas, Transform modifierDragHolder, ModifiersManager modifiersManager)
+    public void Init(UIManager uiManager, CameraController cameraController, Camera mainCamera, RectTransform canvas, Transform modifierDragHolder)
     {
-        _currentWeapon = Weapons[0];
+        _currentWeapon = weapons[0];
         _infoInterface = uiManager.infoInterface;
         _dynamicInterface = uiManager.dinemicInterface;
         _uiManager = uiManager;
         _currentWeapon.Init(this, weaponHolder, targetLook, uiManager.infoInterface, _selectedSlot);
-        _dynamicInterface.Init(this, cameraController, mainCamera, canvas, modifierDragHolder, modifiersManager);
+        _dynamicInterface.Init(this, cameraController, mainCamera, canvas, modifierDragHolder);
     }
 
     public void SelectWeapon()
@@ -85,13 +80,13 @@ public class Player : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Alpha1))
         {
             _selectedSlot = 0;
-            SwapWeapon(Weapons[_selectedSlot]);
+            SwapWeapon(weapons[_selectedSlot]);
         }
 
         if (Input.GetKeyDown(KeyCode.Alpha2))
         {
             _selectedSlot = 1;
-            SwapWeapon(Weapons[_selectedSlot]);
+            SwapWeapon(weapons[_selectedSlot]);
         }
     }
     
@@ -104,7 +99,7 @@ public class Player : MonoBehaviour
         _currentWeapon = weaponToSwap;
         _currentWeapon.transform.gameObject.SetActive(true);
         _currentWeapon.Init(this, weaponHolder, targetLook, _infoInterface, _selectedSlot);
-        _infoInterface.DiscardWeaponsIcon(CollectionsExtensions.GetNextIndex(Weapons, _selectedSlot));
+        _infoInterface.DiscardWeaponsIcon(CollectionsExtensions.GetNextIndex(weapons, _selectedSlot));
     }
 
     private void InputScrollWeapon()
@@ -127,8 +122,8 @@ public class Player : MonoBehaviour
 
         while (scrollInput != 0)
         {
-            _selectedSlot = CollectionsExtensions.GetNextIndex(Weapons, _selectedSlot);
-            SwapWeapon(Weapons[_selectedSlot]);
+            _selectedSlot = CollectionsExtensions.GetNextIndex(weapons, _selectedSlot);
+            SwapWeapon(weapons[_selectedSlot]);
             yield return new WaitForSeconds(scrollDeley);
             scrollInput = Input.GetAxis("Mouse ScrollWheel");
         }
@@ -148,7 +143,7 @@ public class Player : MonoBehaviour
 
                 _currentWeapon = _lastSavedWeapon as Weapon;
 
-                Weapons[_selectedSlot] = _currentWeapon;
+                weapons[_selectedSlot] = _currentWeapon;
 
                 _currentWeapon.Init(this, weaponHolder, targetLook, _infoInterface, _selectedSlot);
                 _currentWeapon.ConectToPlayer();
@@ -191,14 +186,32 @@ public class Player : MonoBehaviour
     }
 
 
-    public Weapon.Info[] GetWeaponsInfo()
+    public Weapon[] GetWeapons()
     {
-        Weapon.Info[] info = { Weapons[0].GetInfo(), Weapons[1].GetInfo() };
-        return info;
+        return weapons;
     }
 
     public List<Modifier> GetFreeModifiers()
     {
+        foreach (var item in freeModifiers)
+        {
+            print("current " + item.GetTitle());
+        }
         return freeModifiers;
+    }
+
+    public void RemoveFreeModifier(Modifier modifier)
+    {
+        print("removed " + freeModifiers.IndexOf(modifier));
+        freeModifiers.Remove(modifier);
+        foreach (var item in freeModifiers)
+        {
+            print("after remove " + item.GetTitle());
+        }
+    }
+
+    public void AddFreeModifier(Modifier modifier)
+    {
+        freeModifiers.Add(modifier);
     }
 }
