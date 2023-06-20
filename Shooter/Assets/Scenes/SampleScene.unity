@@ -440,7 +440,6 @@ MonoBehaviour:
   mainCamera: {fileID: 1573259695}
   canvas: {fileID: 1026115379}
   modifierDragHolder: {fileID: 1632265459}
-  modifiersManager: {fileID: 760817651}
 --- !u!114 &760817651
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -643,6 +642,52 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 7881495202032477798, guid: 83c9ad56a38022b4899e1e1eec2c3fab, type: 3}
   m_PrefabInstance: {fileID: 2565003241933251663}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1774115134
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1774115136}
+  - component: {fileID: 1774115135}
+  m_Layer: 0
+  m_Name: Modifier (3)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1774115135
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1774115134}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a22ba2031a1df454ba8644a4fba4e060, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sprite: {fileID: 0}
+  title: CRIT
+  description: +150% crit damage
+--- !u!4 &1774115136
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1774115134}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 44.52548, y: 1086.991, z: 12.928833}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 10
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1839111900
 GameObject:
   m_ObjectHideFlags: 0
@@ -1185,7 +1230,7 @@ PrefabInstance:
     - target: {fileID: 5417072423963475846, guid: 9e72b9e8f879a1147acd589cbd24cdd4, type: 3}
       propertyPath: freeModifiers.Array.data[11]
       value: 
-      objectReference: {fileID: 764468803}
+      objectReference: {fileID: 1774115135}
     - target: {fileID: 5440067626376647844, guid: 9e72b9e8f879a1147acd589cbd24cdd4, type: 3}
       propertyPath: _health
       value: 
