@@ -25,7 +25,7 @@ public class Shotgun : Weapon
 
     public override void Shoot()
     {
-        if(!Pause.pause && canShoot)
+        if (!Pause.pause && canShoot)
         {
             for (int i = 0; i < pelletsCount; i++)
             {

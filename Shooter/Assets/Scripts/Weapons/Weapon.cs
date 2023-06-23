@@ -123,7 +123,7 @@ public abstract class Weapon : MonoBehaviour, ICollectableItem
     public void RaycastShoot(Vector3 direction)
     {
         Physics.Raycast(Camera.main.transform.position, direction, out RaycastHit enemyHit, Mathf.Infinity, LayerMask.GetMask("Enemy"));
-        Physics.Raycast(Camera.main.transform.position, Camera.main.transform.forward, out RaycastHit solidHit, Mathf.Infinity, LayerMask.GetMask("Solid"));
+        Physics.Raycast(Camera.main.transform.position, direction, out RaycastHit solidHit, Mathf.Infinity, LayerMask.GetMask("Solid"));
 
         if (solidHit.collider == null && enemyHit.collider != null)
             SetDamageToEnemy(enemyHit);

@@ -1,0 +1,28 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: af28a73a53cd2f140ac17688c154fcab, type: 3}
+  m_Name: Status effect config
+  m_EditorClassIdentifier: 
+  sprites:
+  - {fileID: 21300000, guid: 7e87dad2ce177804cb0d7fcf9724b4aa, type: 3}
+  - {fileID: 21300000, guid: 0717413e5a7faeb4c9d4b24e40ef3e7a, type: 3}
+  - {fileID: 21300000, guid: 1d5a713b25a682341aee2b3b9c1610bf, type: 3}
+  - {fileID: 21300000, guid: a49ffc4aa0bc6cf4db565122f4a2226d, type: 3}
+  - {fileID: 21300000, guid: 497df1bce57d9d04f96981fa1ed023e5, type: 3}
+  - {fileID: 21300000, guid: d64d4189c3b77a446bff8be43e15ee59, type: 3}
+  colors:
+  - {r: 0.43921572, g: 0.909804, b: 0.09411766, a: 1}
+  - {r: 0.6901961, g: 0.95294124, b: 0.9490197, a: 1}
+  - {r: 1, g: 0.5686275, b: 0, a: 1}
+  - {r: 1, g: 0.9176471, b: 0.19215688, a: 1}
+  - {r: 0.050980397, g: 0.0627451, b: 0.2784314, a: 1}
+  - {r: 0.62352943, g: 0.078431375, b: 0.14901961, a: 1}

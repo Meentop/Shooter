@@ -6,18 +6,16 @@ using System.Linq;
 
 public abstract class Enemy : MonoBehaviour
 {
+    [SerializeField] protected Animator anim;
+    [SerializeField] protected float maxRadiansDelta, moveSpeed;
+    //maximum distance to move away from other enemies
+    [SerializeField] protected float trackingDistance;
+
     protected Rigidbody rb;
     protected Transform player;
     protected bool isAttacking, canMove = true;
     protected NavMeshPath path;
     protected Vector3 moveDirection;
-
-    [SerializeField] protected Animator anim;
-
-    [SerializeField] protected float maxRadiansDelta, moveSpeed;
-
-    //maximum distance to move away from other enemies
-    [SerializeField] protected float trackingDistance;
 
     protected virtual void Start()
     {
@@ -101,8 +99,7 @@ public abstract class Enemy : MonoBehaviour
     protected void Move()
     {
         //check if moveDirection is on nav mesh
-        NavMeshHit hit;
-        if (NavMesh.SamplePosition(transform.position + moveDirection, out hit, 1.0f, NavMesh.AllAreas))
+        if (NavMesh.SamplePosition(transform.position + moveDirection, out NavMeshHit hit, 1.0f, NavMesh.AllAreas))
         {
             moveDirection = (hit.position - transform.position).normalized;
         }
