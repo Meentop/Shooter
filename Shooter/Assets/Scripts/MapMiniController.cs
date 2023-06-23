@@ -5,28 +5,23 @@ using UnityEngine;
 public class MapMiniController : MonoBehaviour
 {
     [SerializeField] private GameObject miniRoomPrefab;
-    [SerializeField] private MapMiniController mapMiniController;
-    [SerializeField] private Vector2 minimapSize;
 
     private Dictionary<Vector2Int, GameObject> _miniRooms;
-    void Start()
+    
+    public void SpawnMiniMap(Vector3 spawnPosition, Vector2Int directionFromNewRoom, Vector2Int parentRoom)
     {
-
-    }
-
-    void Update()
-    {
-        
-    }
-
-    public void SpawnMiniMap(Vector3 spawnPosition, Vector2Int directionFromNewRoom, Vector2Int directionFromParent)
-    {
-        GameObject newMinimapRoom = Instantiate(miniRoomPrefab, mapMiniController.transform);
+        GameObject newMinimapRoom = Instantiate(miniRoomPrefab, transform);
         newMinimapRoom.transform.localPosition = new Vector3(spawnPosition.x, spawnPosition.z, 0);
         newMinimapRoom.transform.localScale = new Vector3(0.3f, 0.3f, 0.3f);
-        if (directionFromNewRoom != Vector2Int.zero)
-        {
-            newMinimapRoom.GetComponent<MiniRoom>().SetActiveHall(directionFromNewRoom);
-        }
+        _miniRooms.Add(new Vector2Int(parentRoom.x, parentRoom.y), newMinimapRoom);
+        newMinimapRoom.GetComponent<MiniRoom>().SetActiveHall(directionFromNewRoom);
+    }
+
+    public void SpawnMiniStartRoom()
+    {
+        GameObject miniStartRoom = Instantiate(miniRoomPrefab, transform);
+        miniStartRoom.transform.localPosition = Vector3.zero;
+        miniStartRoom.transform.localScale = new Vector3(0.3f, 0.3f, 0.3f);
+        _miniRooms = new Dictionary<Vector2Int, GameObject>() { { Vector2Int.zero, miniStartRoom } };
     }
 }
