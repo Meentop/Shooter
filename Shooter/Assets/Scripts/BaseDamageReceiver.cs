@@ -3,52 +3,39 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class BaseDamageReceiver : MonoBehaviour, IDamageReceiver
+public abstract class BaseDamageReceiver : MonoBehaviour, IDamageReceiver
 {
     [SerializeField] private ActionBase[] executeOnGetDamage;
     [SerializeField] private ActionBase[] executeOnHPBelowZero;
-    [SerializeField] private RectTransform canvas;
-    [SerializeField] private Image healthBarSprite;
-    [SerializeField] private Image afterHealthBarSprite;
-    [SerializeField] private Transform hPBarCanvas;
+    [SerializeField] protected RectTransform healthBar;
+    [SerializeField] private Image afterHealthBarImage;
     [SerializeField] private float reduceSpeed;
     [SerializeField] private float armor;
-
-    protected int curHP;
-
     [SerializeField] protected int maxHP;
+
+    protected int curHP;    
     private float _target = 1;
     private bool _isDead = false;
+    private Vector2 _startSizeDelta;
 
     protected virtual void Start()
     {
         curHP = maxHP;
+        _startSizeDelta = healthBar.sizeDelta;
         UpdateHealthBar(maxHP, curHP);
     }
 
     private void Update()
     { 
-        afterHealthBarSprite.transform.localScale = new Vector3(Mathf.MoveTowards(afterHealthBarSprite.transform.localScale.x, _target, reduceSpeed * Time.deltaTime), 1, 1);
+        afterHealthBarImage.transform.localScale = new Vector3(Mathf.MoveTowards(afterHealthBarImage.transform.localScale.x, _target, reduceSpeed * Time.deltaTime), 1, 1);
     }
 
-    private void LateUpdate()
-    {
-        if (hPBarCanvas != null)
-        {
-            Vector3 directionToCamera = hPBarCanvas.position - Camera.main.transform.position;
-            hPBarCanvas.rotation = Quaternion.LookRotation(directionToCamera, Vector3.up);
-        }
-    }
-
-    public void OnGetDamage(DamageData damageData)
+    public virtual void OnGetDamage(DamageData damageData)
     {
         if (!_isDead)
         {
             curHP -= (int)damageData.Damage;
             UpdateHealthBar(maxHP, curHP);
-
-            if (damageData.Hit.transform != null && damageData.Hit.transform.GetComponent<Enemy>())
-                DamageUI.Instance.AddText((int)damageData.Damage, damageData.Hit.transform, canvas);
 
             if (curHP <= 0)
             {
@@ -62,10 +49,10 @@ public class BaseDamageReceiver : MonoBehaviour, IDamageReceiver
 
     protected virtual void UpdateHealthBar(float maxHP, float currentHP)
     {
-        if (healthBarSprite == null)
+        if (healthBar == null)
             return;
 
         _target = currentHP / maxHP;
-        healthBarSprite.transform.localScale = new Vector3(currentHP / maxHP, 1, 1);
+        healthBar.sizeDelta = new Vector3((currentHP / maxHP) * _startSizeDelta.x, _startSizeDelta.y);
     }
 }

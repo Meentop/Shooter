@@ -606,6 +606,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 916e022ebd3a69b45a358e94c05edf61, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!224 &1138734283 stripped
+RectTransform:
+  m_CorrespondingSourceObject: {fileID: 2581879698760789382, guid: 83c9ad56a38022b4899e1e1eec2c3fab, type: 3}
+  m_PrefabInstance: {fileID: 2565003241933251663}
+  m_PrefabAsset: {fileID: 0}
 --- !u!114 &1227402695 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 3612983673286525886, guid: 83c9ad56a38022b4899e1e1eec2c3fab, type: 3}
@@ -1245,13 +1250,21 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 2565003241933251669}
     - target: {fileID: 5440067626376647844, guid: 9e72b9e8f879a1147acd589cbd24cdd4, type: 3}
-      propertyPath: reduceSpeed
-      value: 0.2
-      objectReference: {fileID: 0}
+      propertyPath: healthBar
+      value: 
+      objectReference: {fileID: 1138734283}
+    - target: {fileID: 5440067626376647844, guid: 9e72b9e8f879a1147acd589cbd24cdd4, type: 3}
+      propertyPath: healthBarImage
+      value: 
+      objectReference: {fileID: 2565003241933251665}
     - target: {fileID: 5440067626376647844, guid: 9e72b9e8f879a1147acd589cbd24cdd4, type: 3}
       propertyPath: healthBarSprite
       value: 
       objectReference: {fileID: 2565003241933251665}
+    - target: {fileID: 5440067626376647844, guid: 9e72b9e8f879a1147acd589cbd24cdd4, type: 3}
+      propertyPath: afterHealthBarImage
+      value: 
+      objectReference: {fileID: 2565003241933251664}
     - target: {fileID: 5440067626376647844, guid: 9e72b9e8f879a1147acd589cbd24cdd4, type: 3}
       propertyPath: afterHealthBarSprite
       value: 

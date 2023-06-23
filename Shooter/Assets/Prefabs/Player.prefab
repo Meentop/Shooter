@@ -217,10 +217,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   executeOnGetDamage: []
   executeOnHPBelowZero: []
-  canvas: {fileID: 0}
-  healthBarSprite: {fileID: 0}
-  afterHealthBarSprite: {fileID: 0}
-  hPBarCanvas: {fileID: 0}
+  healthBarImage: {fileID: 0}
+  afterHealthBarImage: {fileID: 0}
   reduceSpeed: 0.2
   armor: 0
   maxHP: 100
