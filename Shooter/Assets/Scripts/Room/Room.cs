@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -13,14 +14,16 @@ public class Room : MonoBehaviour
 
     public float Height { get; private set; }
 
+    private MapMiniController _miniController;
     private List<Enemy> enemies = new List<Enemy>();
 
     private List<GameObject> activeDoors = new List<GameObject>();
     public Dictionary<Vector2Int, Room> Naighours;
 
-    public void Init(Vector2Int roomPos, float roomHeight)
+    public void Init(Vector2Int roomPos, float roomHeight, MapMiniController miniController)
     {
         Height = roomHeight;
+        _miniController = miniController;
         Naighours = new Dictionary<Vector2Int, Room>();
         foreach (var direction in _directions)
         {
@@ -82,6 +85,23 @@ public class Room : MonoBehaviour
         foreach (var door in activeDoors)
         {
             door.SetActive(value);
+        }
+    }
+
+    public void UpdateMiniMapPos(float moveSpeed)
+    {
+        StartCoroutine(MoveMiniMap());
+        IEnumerator MoveMiniMap()
+        {
+            float elapsedTime = 0f;
+            while(elapsedTime < 1f)
+            {
+                elapsedTime += Time.deltaTime * moveSpeed;
+                Vector3 startPos = _miniController.MiniRoomsHolder.localPosition;
+                _miniController.MiniRoomsHolder.localPosition = Vector3.Lerp(startPos, new Vector3(-gameObject.transform.position.x, -gameObject.transform.position.z, 0) / 1.2f, elapsedTime);
+                yield return null;
+            }
+           
         }
     }
 

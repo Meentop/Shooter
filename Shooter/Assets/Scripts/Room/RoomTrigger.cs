@@ -14,7 +14,12 @@ public class RoomTrigger : MonoBehaviour
         {
             room.SpawnEnemies();
             room.SetDoors(true);
+            room.UpdateMiniMapPos(1f);
             enemiesActivated = true;
+        }
+        else if(other.gameObject.GetComponent<Player>())
+        {
+            room.UpdateMiniMapPos(1f);
         }
     }
 }

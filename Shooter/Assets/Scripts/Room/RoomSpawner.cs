@@ -16,7 +16,7 @@ public class RoomSpawner : MonoBehaviour
     {
         Room startRoom = Instantiate(this.startRoom.gameObject, Vector3.zero, Quaternion.identity).GetComponent<Room>();
         mapMiniController.SpawnMiniStartRoom();
-        startRoom.Init(Vector2Int.zero, 0);
+        startRoom.Init(Vector2Int.zero, 0, mapMiniController);
         _roomMap = new Dictionary<Vector2Int, Room>() { { Vector2Int.zero, startRoom } };
 
         for (int i = 0; i < numberOfRooms - 1; i++)
@@ -48,7 +48,7 @@ public class RoomSpawner : MonoBehaviour
         Room newRoom = Instantiate(randomRoomPrefab, spawnPosition, Quaternion.identity);
         mapMiniController.SpawnMiniMap(spawnPosition/1.2f, directionFromNewRoom, _newRoom.Key);
         newRoom.SetOpenDoor(directionFromNewRoom);
-        newRoom.Init(_newRoom.Key, newRoom.transform.position.y);
+        newRoom.Init(_newRoom.Key, newRoom.transform.position.y, mapMiniController);
 
         parentRoom.Value.SetOpenDoor(directionFromParent);
         
