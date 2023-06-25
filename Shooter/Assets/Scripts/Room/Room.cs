@@ -100,8 +100,7 @@ public class Room : MonoBehaviour
                 Vector3 startPos = _miniController.MiniRoomsHolder.localPosition;
                 _miniController.MiniRoomsHolder.localPosition = Vector3.Lerp(startPos, new Vector3(-gameObject.transform.position.x, -gameObject.transform.position.z, 0) / 1.2f, elapsedTime);
                 yield return null;
-            }
-           
+            } 
         }
     }
 

@@ -1552,7 +1552,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4030176bbc368fd46a9ee8bb84c523c5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  place: {x: 5, y: 7}
   directions:
   - {x: 0, y: 1}
   - {x: 1, y: 0}
@@ -2910,3 +2909,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   room: {fileID: 5990737833800903788}
+  battleRoom: 1
