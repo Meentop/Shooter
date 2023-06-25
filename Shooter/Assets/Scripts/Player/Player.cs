@@ -7,19 +7,17 @@ public class Player : MonoBehaviour
     [SerializeField] private Transform targetLook;
     [SerializeField] private Weapon[] weapons;
     [SerializeField] private float scrollDeley;
+    [SerializeField] private List<Modifier> freeModifiers;
+    [SerializeField] private Sprite testSprite;
+    [SerializeField] private float selectDistance = 4f;
 
     private Weapon _currentWeapon;
     private int _selectedSlot;
     private bool _isScrolling;
-    private bool _isCollecting;
-    bool _isUpdated;
-    private ISelectableItem _lastSavedChoosableItem;
+    private ISelectableItem _lastSavedSelectableItem;
     private InfoInterface _infoInterface;
     private DynamicUI _dynamicInterface;
     private UIManager _uiManager;
-
-    [SerializeField] private List<Modifier> freeModifiers;
-    [SerializeField] private Sprite testSprite;
 
     private void Update()
     {
@@ -27,7 +25,7 @@ public class Player : MonoBehaviour
         {
             SelectWeapon();
             InputScrollWeapon();
-            ChoosableItemsDetection();
+            SelectableItemsDetection();
             SelectItem();
         }
     }
@@ -101,69 +99,69 @@ public class Player : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.F))
         {
-            if (_lastSavedChoosableItem == null)
+            if (_lastSavedSelectableItem == null)
                 return;
  
-            switch (_lastSavedChoosableItem.ItemType)
+            switch (_lastSavedSelectableItem.ItemType)
             {
                 case SelectableItems.Weapon:
-                    _currentWeapon.DiscardFromPlayer(_lastSavedChoosableItem as Weapon);
-                    _currentWeapon = _lastSavedChoosableItem as Weapon;
+                    _currentWeapon.DiscardFromPlayer(_lastSavedSelectableItem as Weapon);
+                    _currentWeapon = _lastSavedSelectableItem as Weapon;
                     weapons[_selectedSlot] = _currentWeapon;
                     _currentWeapon.Init(this, weaponHolder, targetLook, _infoInterface, _selectedSlot);
                     _currentWeapon.ConectToPlayer();
                     break;
                 case SelectableItems.TestButton:
-                    _lastSavedChoosableItem.OnSelect();
+                    _lastSavedSelectableItem.OnSelect();
                     break;
             }
         }
     }
 
-    private void ChoosableItemsDetection()
+    private void SelectableItemsDetection()
     {
-        if (Physics.Raycast(Camera.main.transform.position, Camera.main.transform.forward, out var hit, 4f))
+        if (Physics.Raycast(Camera.main.transform.position, Camera.main.transform.forward, out var hit, selectDistance))
         {
             if (hit.collider.TryGetComponent<ISelectableItem>(out var item))
             {
-                _lastSavedChoosableItem = item;
+                _lastSavedSelectableItem = item;
                 OverChoosableItem();
             }
             else
-                ExitChoosableItem();
+                ExitSelectableItem();
         }
         else
-            ExitChoosableItem();
+            ExitSelectableItem();
     }
 
     void OverChoosableItem()
     {
         if (!_uiManager.GetActiveText(UIManager.TextTypes.SelectText))
             _uiManager.SetActiveText(UIManager.TextTypes.SelectText, true);
-        switch (_lastSavedChoosableItem.ItemType)
+        switch (_lastSavedSelectableItem.ItemType)
         {
             case SelectableItems.Weapon:
-                Weapon collectingWeapon = _lastSavedChoosableItem as Weapon;
+                Weapon collectingWeapon = _lastSavedSelectableItem as Weapon;
                 _uiManager.SetActiveText(UIManager.TextTypes.NewWeaponTextHolder, true);
-                _uiManager.UpdateNewWeaponDescription(_lastSavedChoosableItem.GetType().Name, collectingWeapon.GetDamage(), collectingWeapon.GetFiringSpeed());
+                _uiManager.UpdateNewWeaponDescription(_lastSavedSelectableItem.GetType().Name, collectingWeapon.GetDamage(), collectingWeapon.GetFiringSpeed());
                 break;
         }
     }
 
-    void ExitChoosableItem()
+    void ExitSelectableItem()
     {
         if (_uiManager.GetActiveText(UIManager.TextTypes.SelectText))
             _uiManager.SetActiveText(UIManager.TextTypes.SelectText, false);
-        if (_lastSavedChoosableItem != null)
+        if (_lastSavedSelectableItem != null)
         {
-            switch (_lastSavedChoosableItem.ItemType)
+            switch (_lastSavedSelectableItem.ItemType)
             {
                 case SelectableItems.Weapon:
                     _uiManager.SetActiveText(UIManager.TextTypes.NewWeaponTextHolder, false);
                     break;
             }
         }
-        _lastSavedChoosableItem = null;
+        _lastSavedSelectableItem = null;
     }
 
 
