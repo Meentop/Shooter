@@ -5,8 +5,8 @@ using TMPro;
 
 public class UIManager : MonoBehaviour
 {
-    [SerializeField] private TextMeshProUGUI selectText;
-    [SerializeField] private Image newWeaponTextHolder;
+    [SerializeField] private GameObject selectText;
+    [SerializeField] private GameObject newWeaponTextHolder;
     [SerializeField] private Weapon.Description newWeaponDescriptions;
     [SerializeField] private InfoInterface _infoInterface;
     [SerializeField] private DynamicUI _dinemicInterface;
@@ -25,10 +25,10 @@ public class UIManager : MonoBehaviour
         switch (buttonTypes)
         {
             case TextTypes.SelectText:
-                selectText.gameObject.SetActive(isActive);
+                selectText.SetActive(isActive);
                 break;
             case TextTypes.NewWeaponTextHolder:
-                newWeaponTextHolder.gameObject.SetActive(isActive);
+                newWeaponTextHolder.SetActive(isActive);
                 break;
         }
     }
@@ -38,9 +38,9 @@ public class UIManager : MonoBehaviour
         switch (buttonTypes)
         {
             case TextTypes.SelectText:
-                return selectText.gameObject.activeInHierarchy;
+                return selectText.activeInHierarchy;
             case TextTypes.NewWeaponTextHolder:
-                return newWeaponTextHolder.gameObject.activeInHierarchy;
+                return newWeaponTextHolder.activeInHierarchy;
             default:
                 return false;
         }

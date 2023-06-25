@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public abstract class Weapon : MonoBehaviour, ICollectableItem
+public abstract class Weapon : MonoBehaviour, ISelectableItem
 {
     [SerializeField] protected ParticleSystem shootEffect;
     [SerializeField] protected ParticleSystem decalPrefab;
@@ -13,7 +13,7 @@ public abstract class Weapon : MonoBehaviour, ICollectableItem
     [SerializeField] protected Vector3 weaponOnCollectRot;
     [SerializeField] protected int maxNumberOfModifiers = 1;
     
-    public CollectableItems ItemType => CollectableItems.Weapon;
+    public SelectableItems ItemType => SelectableItems.Weapon;
 
     private Player _player;
     private Collider _collider;
@@ -110,7 +110,7 @@ public abstract class Weapon : MonoBehaviour, ICollectableItem
         return maxNumberOfModifiers;
     }
 
-    public void OnCollect()
+    public void OnSelect()
     {
         
     }

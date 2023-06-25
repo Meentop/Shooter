@@ -13,7 +13,7 @@ public class Player : MonoBehaviour
     private bool _isScrolling;
     private bool _isCollecting;
     bool _isUpdated;
-    private ICollectableItem _lastSavedWeapon;
+    private ISelectableItem _lastSavedChoosableItem;
     private InfoInterface _infoInterface;
     private DynamicUI _dynamicInterface;
     private UIManager _uiManager;
@@ -27,41 +27,8 @@ public class Player : MonoBehaviour
         {
             SelectWeapon();
             InputScrollWeapon();
-            ChangeWeapon();
-            TestButtonDetection();
-        }
-    }
-
-    void OnTriggerEnter(Collider other)
-    {
-        if (other.transform.TryGetComponent<ICollectableItem>(out var item))
-        {
-            switch (item.ItemType)
-            {
-                case CollectableItems.Weapon:
-                    _lastSavedWeapon = item;
-                    _isCollecting = true;
-                    UpdateNewWeaponInfo(_lastSavedWeapon as Weapon);
-                    break;
-            }
-        }
-    }
-
-    private void OnTriggerExit(Collider other)
-    {
-        if (other.transform.TryGetComponent<ICollectableItem>(out var item))
-        {
-            switch (item.ItemType)
-            {
-                case CollectableItems.Weapon:
-                    if (item == _lastSavedWeapon)
-                    {
-                        _lastSavedWeapon = null;
-                        _isCollecting = false;
-                        UpdateNewWeaponInfo(_lastSavedWeapon as Weapon);
-                    }
-                    break;
-            }
+            ChoosableItemsDetection();
+            SelectItem();
         }
     }
 
@@ -130,59 +97,73 @@ public class Player : MonoBehaviour
         _isScrolling = false;
     }
 
-    private void ChangeWeapon()
+    private void SelectItem()
     {
-        if(_isCollecting)
+        if (Input.GetKeyDown(KeyCode.F))
         {
-            if (Input.GetKeyDown(KeyCode.F))
+            if (_lastSavedChoosableItem == null)
+                return;
+ 
+            switch (_lastSavedChoosableItem.ItemType)
             {
-                if (_lastSavedWeapon == null)
-                    return;
-
-                _currentWeapon.DiscardFromPlayer(_lastSavedWeapon as Weapon);
-
-                _currentWeapon = _lastSavedWeapon as Weapon;
-
-                weapons[_selectedSlot] = _currentWeapon;
-
-                _currentWeapon.Init(this, weaponHolder, targetLook, _infoInterface, _selectedSlot);
-                _currentWeapon.ConectToPlayer();
+                case SelectableItems.Weapon:
+                    _currentWeapon.DiscardFromPlayer(_lastSavedChoosableItem as Weapon);
+                    _currentWeapon = _lastSavedChoosableItem as Weapon;
+                    weapons[_selectedSlot] = _currentWeapon;
+                    _currentWeapon.Init(this, weaponHolder, targetLook, _infoInterface, _selectedSlot);
+                    _currentWeapon.ConectToPlayer();
+                    break;
+                case SelectableItems.TestButton:
+                    _lastSavedChoosableItem.OnSelect();
+                    break;
             }
         }
     }
 
-    private void UpdateNewWeaponInfo(Weapon CollectingWeapon)
-    {
-        if(_isCollecting)
-        {
-            _uiManager.SetActiveText(UIManager.TextTypes.SelectText, true);
-            _uiManager.SetActiveText(UIManager.TextTypes.NewWeaponTextHolder, true);
-            _uiManager.UpdateNewWeaponDescription(_lastSavedWeapon.GetType().Name, CollectingWeapon.GetDamage(), CollectingWeapon.GetFiringSpeed());
-        }
-        else
-        {
-            _uiManager.SetActiveText(UIManager.TextTypes.SelectText, false);
-            _uiManager.SetActiveText(UIManager.TextTypes.NewWeaponTextHolder, false);
-        }      
-    }
-
-    private void TestButtonDetection()
+    private void ChoosableItemsDetection()
     {
         if (Physics.Raycast(Camera.main.transform.position, Camera.main.transform.forward, out var hit, 4f))
         {
-            if (hit.collider.TryGetComponent<TestEnemyButton>(out var testButton))
+            if (hit.collider.TryGetComponent<ISelectableItem>(out var item))
             {
-                if (!_uiManager.GetActiveText(UIManager.TextTypes.SelectText))
-                    _uiManager.SetActiveText(UIManager.TextTypes.SelectText, true);
-                if (Input.GetKeyDown(KeyCode.F))
-                    testButton.SpawnEnemy();
+                _lastSavedChoosableItem = item;
+                OverChoosableItem();
             }
+            else
+                ExitChoosableItem();
         }
         else
+            ExitChoosableItem();
+    }
+
+    void OverChoosableItem()
+    {
+        if (!_uiManager.GetActiveText(UIManager.TextTypes.SelectText))
+            _uiManager.SetActiveText(UIManager.TextTypes.SelectText, true);
+        switch (_lastSavedChoosableItem.ItemType)
         {
-            if (_uiManager.GetActiveText(UIManager.TextTypes.SelectText))
-                _uiManager.SetActiveText(UIManager.TextTypes.SelectText, false);
+            case SelectableItems.Weapon:
+                Weapon collectingWeapon = _lastSavedChoosableItem as Weapon;
+                _uiManager.SetActiveText(UIManager.TextTypes.NewWeaponTextHolder, true);
+                _uiManager.UpdateNewWeaponDescription(_lastSavedChoosableItem.GetType().Name, collectingWeapon.GetDamage(), collectingWeapon.GetFiringSpeed());
+                break;
         }
+    }
+
+    void ExitChoosableItem()
+    {
+        if (_uiManager.GetActiveText(UIManager.TextTypes.SelectText))
+            _uiManager.SetActiveText(UIManager.TextTypes.SelectText, false);
+        if (_lastSavedChoosableItem != null)
+        {
+            switch (_lastSavedChoosableItem.ItemType)
+            {
+                case SelectableItems.Weapon:
+                    _uiManager.SetActiveText(UIManager.TextTypes.NewWeaponTextHolder, false);
+                    break;
+            }
+        }
+        _lastSavedChoosableItem = null;
     }
 
 
