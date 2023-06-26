@@ -8,5 +8,6 @@ public interface ISelectableItem
 public enum SelectableItems
 {
     Weapon,
-    TestButton
+    TestButton,
+    Modifier
 }

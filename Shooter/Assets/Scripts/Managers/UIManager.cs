@@ -7,7 +7,9 @@ public class UIManager : MonoBehaviour
 {
     [SerializeField] private GameObject selectText;
     [SerializeField] private GameObject newWeaponTextHolder;
+    [SerializeField] private GameObject newModifierTextHolder;
     [SerializeField] private Weapon.Description newWeaponDescriptions;
+    [SerializeField] private Modifier.Info newModifierInfo;
     [SerializeField] private InfoInterface _infoInterface;
     [SerializeField] private DynamicUI _dinemicInterface;
 
@@ -17,7 +19,8 @@ public class UIManager : MonoBehaviour
     public enum TextTypes
     {
         SelectText,
-        NewWeaponTextHolder
+        NewWeaponTextHolder,
+        NewModifierTextHolder
     }
 
     public void SetActiveText(TextTypes buttonTypes, bool isActive)
@@ -30,6 +33,9 @@ public class UIManager : MonoBehaviour
             case TextTypes.NewWeaponTextHolder:
                 newWeaponTextHolder.SetActive(isActive);
                 break;
+            case TextTypes.NewModifierTextHolder:
+                newModifierTextHolder.SetActive(isActive);
+                break;
         }
     }
 
@@ -41,6 +47,8 @@ public class UIManager : MonoBehaviour
                 return selectText.activeInHierarchy;
             case TextTypes.NewWeaponTextHolder:
                 return newWeaponTextHolder.activeInHierarchy;
+            case TextTypes.NewModifierTextHolder:
+                return newModifierTextHolder.activeInHierarchy;
             default:
                 return false;
         }
@@ -51,5 +59,12 @@ public class UIManager : MonoBehaviour
         newWeaponDescriptions.WeaponNameText.text = weaponName;
         newWeaponDescriptions.DamageText.text = "Damage " + damage.ToString();
         newWeaponDescriptions.FiringSpeed.text = "FiringSpeed " + firingSpeed.ToString();
+    }
+
+    public void UpdateNewModifierInfo(Sprite sprite, string title, string description)
+    {
+        newModifierInfo.Image.sprite = sprite;
+        newModifierInfo.Title.text = title;
+        newModifierInfo.Description.text = description;
     }
 }

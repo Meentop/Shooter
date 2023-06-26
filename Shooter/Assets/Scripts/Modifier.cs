@@ -1,12 +1,23 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 [System.Serializable]
-public class Modifier : MonoBehaviour
+public class Modifier : MonoBehaviour, ISelectableItem
 {
     [SerializeField] private Sprite sprite;
     [SerializeField] private string title, description;
+
+    public SelectableItems ItemType => SelectableItems.Modifier;
+
+    [System.Serializable]
+    public struct Info
+    {
+        public Image Image;
+        public Text Title;
+        public Text Description;
+    }
 
     public Modifier(Sprite sprite, string title, string description)
     {
@@ -28,5 +39,10 @@ public class Modifier : MonoBehaviour
     public string GetDescription()
     {
         return description;
+    }
+
+    public void OnSelect()
+    {
+        Destroy(gameObject);
     }
 }

@@ -1,13 +1,13 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+
 public class Player : MonoBehaviour
 {
     [SerializeField] private Transform weaponHolder;
     [SerializeField] private Transform targetLook;
     [SerializeField] private Weapon[] weapons;
     [SerializeField] private float scrollDeley;
-    [SerializeField] private List<Modifier> freeModifiers;
     [SerializeField] private Sprite testSprite;
     [SerializeField] private float selectDistance = 4f;
 
@@ -15,6 +15,7 @@ public class Player : MonoBehaviour
     private int _selectedSlot;
     private bool _isScrolling;
     private ISelectableItem _lastSavedSelectableItem;
+    private List<Modifier> freeModifiers = new List<Modifier>();
     private InfoInterface _infoInterface;
     private DynamicUI _dynamicInterface;
     private UIManager _uiManager;
@@ -114,6 +115,10 @@ public class Player : MonoBehaviour
                 case SelectableItems.TestButton:
                     _lastSavedSelectableItem.OnSelect();
                     break;
+                case SelectableItems.Modifier:
+                    AddFreeModifier(_lastSavedSelectableItem as Modifier);
+                    _lastSavedSelectableItem.OnSelect();
+                    break;
             }
         }
     }
@@ -143,7 +148,12 @@ public class Player : MonoBehaviour
             case SelectableItems.Weapon:
                 Weapon collectingWeapon = _lastSavedSelectableItem as Weapon;
                 _uiManager.SetActiveText(UIManager.TextTypes.NewWeaponTextHolder, true);
-                _uiManager.UpdateNewWeaponDescription(_lastSavedSelectableItem.GetType().Name, collectingWeapon.GetDamage(), collectingWeapon.GetFiringSpeed());
+                _uiManager.UpdateNewWeaponDescription(collectingWeapon.GetName(), collectingWeapon.GetDamage(), collectingWeapon.GetFiringSpeed());
+                break;
+            case SelectableItems.Modifier:
+                Modifier collectingModifier = _lastSavedSelectableItem as Modifier;
+                _uiManager.SetActiveText(UIManager.TextTypes.NewModifierTextHolder, true);
+                _uiManager.UpdateNewModifierInfo(collectingModifier.GetSprite(), collectingModifier.GetTitle(), collectingModifier.GetDescription());
                 break;
         }
     }
@@ -159,9 +169,12 @@ public class Player : MonoBehaviour
                 case SelectableItems.Weapon:
                     _uiManager.SetActiveText(UIManager.TextTypes.NewWeaponTextHolder, false);
                     break;
+                case SelectableItems.Modifier:
+                    _uiManager.SetActiveText(UIManager.TextTypes.NewModifierTextHolder, false);
+                    break;
             }
+            _lastSavedSelectableItem = null;
         }
-        _lastSavedSelectableItem = null;
     }
 
 
@@ -172,21 +185,12 @@ public class Player : MonoBehaviour
 
     public List<Modifier> GetFreeModifiers()
     {
-        foreach (var item in freeModifiers)
-        {
-            print("current " + item.GetTitle());
-        }
         return freeModifiers;
     }
 
     public void RemoveFreeModifier(Modifier modifier)
     {
-        print("removed " + freeModifiers.IndexOf(modifier));
         freeModifiers.Remove(modifier);
-        foreach (var item in freeModifiers)
-        {
-            print("after remove " + item.GetTitle());
-        }
     }
 
     public void AddFreeModifier(Modifier modifier)
