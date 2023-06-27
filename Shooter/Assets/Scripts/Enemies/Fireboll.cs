@@ -32,7 +32,7 @@ public class Fireboll : MonoBehaviour, IPoolable
     {
         if (other.gameObject.GetComponent<Player>())
         {
-            other.gameObject.GetComponent<BaseDamageReceiver>().OnGetDamage(new DamageData(10f, new RaycastHit()));
+            other.gameObject.GetComponent<BaseDamageReceiver>().GetDamage(new DamageData(10));
             Reset();
         }
         else if(other.gameObject.tag == "Solid")

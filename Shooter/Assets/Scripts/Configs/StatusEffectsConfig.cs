@@ -7,6 +7,7 @@ public class StatusEffectsConfig : ScriptableObject
 {
     public Sprite[] sprites;
     public Color[] colors;
+    public float statsuEffectDeltaTime;
 }
 
 public enum StatusEffect

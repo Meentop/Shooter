@@ -25,12 +25,12 @@ public abstract class BaseDamageReceiver : MonoBehaviour, IDamageReceiver
         UpdateHealthBar(maxHP, curHP);
     }
 
-    private void Update()
+    protected virtual void Update()
     { 
         afterHealthBarImage.transform.localScale = new Vector3(Mathf.MoveTowards(afterHealthBarImage.transform.localScale.x, _target, reduceSpeed * Time.deltaTime), 1, 1);
     }
 
-    public virtual void OnGetDamage(DamageData damageData)
+    public virtual void GetDamage(DamageData damageData)
     {
         if (!_isDead)
         {

@@ -8,7 +8,7 @@ public abstract class Weapon : MonoBehaviour, ISelectableItem
     [SerializeField] protected ParticleSystem decalPrefab;
     [SerializeField] protected Image weaponsIcon;
     [Space]
-    [SerializeField] protected float damage;
+    [SerializeField] protected int damage;
     [SerializeField] protected float firingSpeed;
     [SerializeField] protected Vector3 weaponOnCollectRot;
     [SerializeField] protected int maxNumberOfModifiers = 1;
@@ -115,9 +115,9 @@ public abstract class Weapon : MonoBehaviour, ISelectableItem
         
     }
 
-    protected float DamageModifired()
+    protected int DamageModifired()
     {
-        return damage * _playerDamage.damagePower;
+        return (int)(damage * _playerDamage.damagePower);
     }
 
     public void RaycastShoot(Vector3 direction)
@@ -141,7 +141,7 @@ public abstract class Weapon : MonoBehaviour, ISelectableItem
     private void SetDamageToEnemy(RaycastHit enemyHit)
     {
         if (enemyHit.transform.TryGetComponent<IDamageReceiver>(out var damageReceiver))
-            damageReceiver.OnGetDamage(new DamageData(DamageModifired(), enemyHit));
+            damageReceiver.GetDamage(new DamageData(DamageModifired()));
     }
 
     private void SpawnDecal(RaycastHit solidHit)

@@ -15,9 +15,10 @@ public class EnemyHealth : BaseDamageReceiver
 
     protected override void Start()
     {
-        statusEffects.Add(StatusEffect.Poison, 10);
+        statusEffects.Add(StatusEffect.Poison, 200);
         statusEffects.Add(StatusEffect.Burn, 5);
         base.Start();
+        StartCoroutine(UpdateStatusEffects());
     }
 
     private void LateUpdate()
@@ -29,11 +30,29 @@ public class EnemyHealth : BaseDamageReceiver
         }
     }
 
-    public override void OnGetDamage(DamageData damageData)
+    private IEnumerator UpdateStatusEffects()
     {
-        base.OnGetDamage(damageData);
-        if (damageData.Hit.transform != null && damageData.Hit.transform.GetComponent<Enemy>())
-            DamageUI.Instance.AddText((int)damageData.Damage, damageData.Hit.transform, hPBarCanvas.GetComponent<RectTransform>());
+        while (true)
+        {
+            yield return new WaitForSeconds(statusEffectsConfig.statsuEffectDeltaTime);
+            if (statusEffects.ContainsKey(StatusEffect.Poison))
+            {
+                int damage = statusEffects[StatusEffect.Poison] / 2;
+                if (statusEffects[StatusEffect.Poison] == 1)
+                    damage = 1;
+                statusEffects[StatusEffect.Poison] -= damage;
+                GetDamage(new DamageData(damage));
+                if (statusEffects[StatusEffect.Poison] < 1)
+                    statusEffects.Remove(StatusEffect.Poison);
+            }
+            UpdateHealthBar(maxHP, curHP);
+        }
+    }   
+
+    public override void GetDamage(DamageData damageData)
+    {
+        base.GetDamage(damageData);
+        DamageUI.Instance.AddText(damageData.Damage, transform, hPBarCanvas.GetComponent<RectTransform>());
     }
 
     protected override void UpdateHealthBar(float maxHP, float currentHP)
