@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 885411906455123318}
   - component: {fileID: 885411906455123208}
   - component: {fileID: 885411906455123319}
+  - component: {fileID: 343335587616257281}
   m_Layer: 5
   m_Name: TextProDamage
   m_TagString: Untagged
@@ -134,3 +135,19 @@ MonoBehaviour:
   m_hasFontAssetChanged: 0
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
+--- !u!114 &343335587616257281
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 885411906455123317}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4a0914007724853469f07cef1f07ce5e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  lifeTime: 1
+  enemy: {fileID: 0}
+  randPos: {x: 0, y: 0, z: 0}
+  canvas: {fileID: 0}
