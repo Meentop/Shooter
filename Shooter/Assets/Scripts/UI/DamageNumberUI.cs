@@ -8,33 +8,37 @@ using Random = UnityEngine.Random;
 public class DamageNumberUI : MonoBehaviour, IPoolable
 {
     [SerializeField] private float lifeTime;
+    [SerializeField] private Vector2Int randomXRange;
+    [SerializeField] private AnimationCurve anim;
+    [SerializeField] private float animHeight;
+    [SerializeField] private AnimationCurve transparent;
 
     public GameObject GameObject => gameObject;
 
     public event Action<IPoolable> Destroyed;
     private TextMeshProUGUI text;
     private float timer;
-    private Transform enemy;
+    private EnemyHealth enemy;
     private Vector3 randPos;
     private RectTransform canvas;
 
     private void Update()
     {
-        timer -= Time.deltaTime;
-        if (timer <= 0)
+        timer += Time.deltaTime;
+        if (timer >= lifeTime)
             Reset();
         MoveText(Camera.main);
     }
 
-    public void Init(int amount, Transform enemy, RectTransform canvas)
+    public void Init(int amount, EnemyHealth enemy, RectTransform canvas)
     {
         text = GetComponent<TextMeshProUGUI>();
         text.text = amount.ToString();
         this.enemy = enemy;
         this.canvas = canvas;
 
-        timer = lifeTime;
-        randPos = new Vector3(Random.Range(-50, 50), Random.Range(100, 150), 0);
+        timer = 0;
+        randPos = new Vector3(Random.Range(randomXRange.x, randomXRange.y), 0, 0);
         MoveText(Camera.main);
     }
 
@@ -43,13 +47,10 @@ public class DamageNumberUI : MonoBehaviour, IPoolable
         Vector3 newPos = new Vector3();
         if (enemy != null)
         {
-            Vector3 viewportPos = camera.WorldToViewportPoint(enemy.position);
-            float distance = Vector3.Distance(camera.transform.position, enemy.position);
-            float yFarOffset = 400f;
-            float yNearOffset = 1300f;
-            float yOffset = Mathf.Lerp(yFarOffset, yNearOffset, distance / camera.farClipPlane);
-            float multiplier = Mathf.Lerp(1f, 3f, distance / camera.farClipPlane);
-            newPos = new Vector3(viewportPos.x * canvas.sizeDelta.x, viewportPos.y + yOffset, 0) + randPos * multiplier;
+            Vector3 viewportPos = camera.WorldToViewportPoint(enemy.GetDamageNumbersPos());
+            newPos = new Vector3(viewportPos.x * canvas.sizeDelta.x, (viewportPos.y * canvas.sizeDelta.y) + (anim.Evaluate(timer) * animHeight), 0) + randPos;
+            text.faceColor = new Color32(text.faceColor.r, text.faceColor.g, text.faceColor.b, (byte)transparent.Evaluate(timer));
+            text.outlineColor = new Color32(text.outlineColor.r, text.outlineColor.g, text.outlineColor.b, (byte)transparent.Evaluate(timer));
         }
         text.rectTransform.anchoredPosition = newPos;
     }

@@ -88,18 +88,18 @@ MonoBehaviour:
   m_spriteAsset: {fileID: 0}
   m_tintAllSprites: 0
   m_StyleSheet: {fileID: 0}
-  m_TextStyleHashCode: 2427
+  m_TextStyleHashCode: -1183493901
   m_overrideHtmlColors: 0
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 30
-  m_fontSizeBase: 30
+  m_fontSize: 17
+  m_fontSizeBase: 17
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
   m_fontSizeMax: 72
-  m_fontStyle: 0
+  m_fontStyle: 1
   m_HorizontalAlignment: 2
   m_VerticalAlignment: 512
   m_textAlignment: 65535
@@ -148,6 +148,53 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   lifeTime: 1
-  enemy: {fileID: 0}
-  randPos: {x: 0, y: 0, z: 0}
-  canvas: {fileID: 0}
+  randomXRange: {x: -40, y: 40}
+  anim:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 2.8332648
+      outSlope: 2.8332648
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0.037459284
+    - serializedVersion: 3
+      time: 1
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  animHeight: 20
+  transparent:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 255
+      inSlope: -7.5364165
+      outSlope: -7.5364165
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0.07980456
+    - serializedVersion: 3
+      time: 1
+      value: 0
+      inSlope: -823.7534
+      outSlope: -823.7534
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.042345285
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4

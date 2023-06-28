@@ -1,7 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using TMPro;
 
 public class DamageUI : MonoBehaviour
 {
@@ -9,18 +8,12 @@ public class DamageUI : MonoBehaviour
 
     [SerializeField] private DamageNumberUI textPrefab;
 
-    private Camera _camera;
     void Awake()
     {
         Instance = this;
     }
 
-    private void Start()
-    {
-        _camera = Camera.main;
-    }
-
-    public void AddText(int amount, Transform enemy, RectTransform canvas)
+    public void AddText(int amount, EnemyHealth enemy, RectTransform canvas)
     {
         var item = ObjectPool.Instance.GetObject(textPrefab);
         item.transform.SetParent(transform);

@@ -6,28 +6,35 @@ using UnityEngine.UI;
 public class EnemyHealth : BaseDamageReceiver
 {
     [SerializeField] private Transform hPBarCanvas;
+    [SerializeField] private float scaleMultiplier;
+    [SerializeField] private Transform damageNumbersPoint;
     [SerializeField] private StatusEffectsConfig statusEffectsConfig;
     [SerializeField] private StatusEffectUI statusEffectPrefab;
     [SerializeField] private Transform statusEffectParent;
     [SerializeField] private GameObject statsuEffectOnHPBar;
 
     private Dictionary<StatusEffect, int> statusEffects = new Dictionary<StatusEffect, int>();
+    private Transform player;
+    private Vector3 startScale;
 
     protected override void Start()
     {
         statusEffects.Add(StatusEffect.Poison, 200);
         statusEffects.Add(StatusEffect.Burn, 5);
+        player = FindObjectOfType<Player>().transform;
+        startScale = hPBarCanvas.localScale;
         base.Start();
         StartCoroutine(UpdateStatusEffects());
     }
 
     private void LateUpdate()
     {
-        if (hPBarCanvas != null)
-        {
-            Vector3 directionToCamera = hPBarCanvas.position - Camera.main.transform.position;
-            hPBarCanvas.rotation = Quaternion.LookRotation(directionToCamera, Vector3.up);
-        }
+        Vector3 directionToCamera = hPBarCanvas.position - Camera.main.transform.position;
+        hPBarCanvas.rotation = Quaternion.LookRotation(directionToCamera, Vector3.up);
+
+        float currentDistance = Vector3.Distance(transform.position, player.position);
+        float targetScale = currentDistance * scaleMultiplier;
+        hPBarCanvas.localScale = startScale * targetScale;
     }
 
     private IEnumerator UpdateStatusEffects()
@@ -52,7 +59,7 @@ public class EnemyHealth : BaseDamageReceiver
     public override void GetDamage(DamageData damageData)
     {
         base.GetDamage(damageData);
-        DamageUI.Instance.AddText(damageData.Damage, transform, hPBarCanvas.GetComponent<RectTransform>());
+        DamageUI.Instance.AddText(damageData.Damage, this, hPBarCanvas.GetComponent<RectTransform>());
     }
 
     protected override void UpdateHealthBar(float maxHP, float currentHP)
@@ -78,5 +85,10 @@ public class EnemyHealth : BaseDamageReceiver
             statusEffectHP.GetComponent<Image>().color = statusEffectsConfig.colors[(int)statusEffect.Key];
             statusEffectHP.sizeDelta = new Vector2((statusEffect.Value / maxHP) * 100, 100);
         }
+    }
+
+    public Vector3 GetDamageNumbersPos()
+    {
+        return damageNumbersPoint.position;
     }
 }
