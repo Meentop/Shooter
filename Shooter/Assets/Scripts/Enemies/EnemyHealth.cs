@@ -19,8 +19,6 @@ public class EnemyHealth : BaseDamageReceiver
 
     protected override void Start()
     {
-        statusEffects.Add(StatusEffect.Poison, 200);
-        statusEffects.Add(StatusEffect.Burn, 5);
         player = FindObjectOfType<Player>().transform;
         startScale = hPBarCanvas.localScale;
         base.Start();
@@ -53,7 +51,11 @@ public class EnemyHealth : BaseDamageReceiver
                 if (statusEffects[StatusEffect.Poison] < 1)
                     statusEffects.Remove(StatusEffect.Poison);
             }
-            GetDamage(new DamageData(0, null, statusEffectsDamage));
+            DamageData damageData = new DamageData()
+            {
+                StatusEffectsDamage = statusEffectsDamage
+            };
+            GetDamage(damageData);
             UpdateHealthBar(maxHP, curHP);
         }
     }   
@@ -63,25 +65,35 @@ public class EnemyHealth : BaseDamageReceiver
         base.GetDamage(damageData);
         if (damageData.Damage != 0)
             DamageUI.Instance.AddText(damageData.Damage, this, hPBarCanvas.GetComponent<RectTransform>(), Color.white);
-        if (damageData.StatusEffectsDamage != null)
-        {
-            foreach (var statusEffect in damageData.StatusEffectsDamage)
-            {
-                if (!_isDead)
-                {
-                    curHP -= statusEffect.Value;
-                    UpdateHealthBar(maxHP, curHP);
 
-                    if (curHP <= 0)
-                    {
-                        executeOnHPBelowZero.ExecuteAll();
-                        _isDead = true;
-                    }
-                    else
-                        executeOnGetDamage.ExecuteAll();
-                }
-                DamageUI.Instance.AddText(statusEffect.Value, this, hPBarCanvas.GetComponent<RectTransform>(), statusEffectsConfig.colors[(int)statusEffect.Key]);
+        for (int i = 0; i < 5; i++)
+        {
+            if (damageData.AddStatusEffects.ContainsKey((StatusEffect)i))
+            {
+                if (!statusEffects.ContainsKey((StatusEffect)i))
+                    statusEffects.Add((StatusEffect)i, damageData.AddStatusEffects[(StatusEffect)i]);
+                else
+                    statusEffects[(StatusEffect)i] += damageData.AddStatusEffects[(StatusEffect)i];
             }
+        }
+        UpdateHealthBar(maxHP, curHP);
+
+        foreach (var statusEffect in damageData.StatusEffectsDamage)
+        {
+            if (!_isDead)
+            {
+                curHP -= statusEffect.Value;
+                UpdateHealthBar(maxHP, curHP);
+
+                if (curHP <= 0)
+                {
+                    executeOnHPBelowZero.ExecuteAll();
+                    _isDead = true;
+                }
+                else
+                    executeOnGetDamage.ExecuteAll();
+            }
+            DamageUI.Instance.AddText(statusEffect.Value, this, hPBarCanvas.GetComponent<RectTransform>(), statusEffectsConfig.colors[(int)statusEffect.Key]);
         }
     }
 

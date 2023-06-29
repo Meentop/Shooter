@@ -8,6 +8,7 @@ public class Modifier : MonoBehaviour, ISelectableItem
 {
     [SerializeField] private Sprite sprite;
     [SerializeField] private string title, description;
+    [SerializeField] private List<ModifierBehaviour> behaviours;
 
     public SelectableItems ItemType => SelectableItems.Modifier;
 
@@ -39,6 +40,15 @@ public class Modifier : MonoBehaviour, ISelectableItem
     public string GetDescription()
     {
         return description;
+    }
+
+    public DamageData ApplyBehaviours(DamageData damageData)
+    {
+        foreach (var behaviour in behaviours)
+        {
+            damageData = behaviour.ApplyBehaviour(damageData);
+        }
+        return damageData;
     }
 
     public void OnSelect()

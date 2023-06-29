@@ -114,6 +114,7 @@ GameObject:
   - component: {fileID: 6880465767941103158}
   - component: {fileID: 908506131871254151}
   - component: {fileID: 5704854543323295174}
+  - component: {fileID: 7380043059389177406}
   m_Layer: 0
   m_Name: Modifier
   m_TagString: Untagged
@@ -223,8 +224,24 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   sprite: {fileID: 0}
-  title: DARK
-  description: +5% dark damage
+  title: POISON lvl2
+  description: Add 5 poison to enemy
+  behaviours:
+  - {fileID: 7380043059389177406}
+--- !u!114 &7380043059389177406
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 304382824105329962}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 168c1dfe23b611d48825ff37141e4b87, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  statusEffect: 0
+  value: 5
 --- !u!1 &805427895375757453
 GameObject:
   m_ObjectHideFlags: 0
@@ -2589,6 +2606,7 @@ GameObject:
   - component: {fileID: 8622885474015724375}
   - component: {fileID: 8606272496382069163}
   - component: {fileID: 1890079446747947905}
+  - component: {fileID: 8371023342220343043}
   m_Layer: 0
   m_Name: Modifier
   m_TagString: Untagged
@@ -2699,7 +2717,23 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   sprite: {fileID: 0}
   title: POISON
-  description: +10% poison damage
+  description: Add 2 poison to enemy
+  behaviours:
+  - {fileID: 8371023342220343043}
+--- !u!114 &8371023342220343043
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3111597413225996498}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 168c1dfe23b611d48825ff37141e4b87, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  statusEffect: 0
+  value: 2
 --- !u!1 &3348644679996930956
 GameObject:
   m_ObjectHideFlags: 0

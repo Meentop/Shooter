@@ -24,7 +24,7 @@ public abstract class Weapon : MonoBehaviour, ISelectableItem
     private Transform _weaponHolder;
 
     private bool _isInited;
-    [SerializeField] private List<Modifier> _modifiers = new List<Modifier>();
+    private List<Modifier> _modifiers = new List<Modifier>();
 
     [System.Serializable]
     public struct Description
@@ -141,7 +141,7 @@ public abstract class Weapon : MonoBehaviour, ISelectableItem
     private void SetDamageToEnemy(RaycastHit enemyHit)
     {
         if (enemyHit.transform.TryGetComponent<IDamageReceiver>(out var damageReceiver))
-            damageReceiver.GetDamage(new DamageData(DamageModifired()));
+            damageReceiver.GetDamage(GetDamageData());
     }
 
     private void SpawnDecal(RaycastHit solidHit)
@@ -170,5 +170,17 @@ public abstract class Weapon : MonoBehaviour, ISelectableItem
     public void RemoveModifier(Modifier modifier)
     {
         _modifiers.Remove(modifier);
+    }
+
+
+    private DamageData GetDamageData()
+    {
+        DamageData damageData = new DamageData();
+        damageData.Damage = DamageModifired();
+        foreach (var modifier in _modifiers)
+        {
+            damageData = modifier.ApplyBehaviours(damageData);
+        }
+        return damageData;
     }
 }

@@ -14,7 +14,7 @@ public class Bullet : MonoBehaviour
 
     void Update()
     {
-        transform.Translate(Vector3.forward * speed * Time.deltaTime);
+        transform.Translate(speed * Time.deltaTime * Vector3.forward);
 
         Debug.DrawLine(lastPos, transform.position);
 
@@ -22,7 +22,8 @@ public class Bullet : MonoBehaviour
         {
             if (hit.transform.TryGetComponent<IDamageReceiver>(out var damageReceiver))
             {
-                damageReceiver.GetDamage(new DamageData(damage));
+                DamageData damageData = new DamageData() { Damage = damage };
+                damageReceiver.GetDamage(damageData); ;
             }
             else
             {

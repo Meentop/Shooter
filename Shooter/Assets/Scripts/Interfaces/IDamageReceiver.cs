@@ -6,17 +6,10 @@ public interface IDamageReceiver
     void GetDamage(DamageData damageData);
 }
 
-public struct DamageData
+public class DamageData
 {
-    public readonly int Damage;
-    public readonly Dictionary<StatusEffect, int> AddStatusEffects;
-    public readonly Dictionary<StatusEffect, int> StatusEffectsDamage;
-
-    public DamageData(int damage, Dictionary<StatusEffect, int> addStatysEffects = null, Dictionary<StatusEffect, int> statuseffectsDamage = null)
-    {
-        Damage = damage;
-        AddStatusEffects = addStatysEffects;
-        StatusEffectsDamage = statuseffectsDamage;
-    }
+    public int Damage = 0;
+    public Dictionary<StatusEffect, int> AddStatusEffects = new Dictionary<StatusEffect, int>();
+    public Dictionary<StatusEffect, int> StatusEffectsDamage = new Dictionary<StatusEffect, int>();
 }
 
