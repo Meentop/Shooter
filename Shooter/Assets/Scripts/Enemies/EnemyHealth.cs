@@ -42,16 +42,18 @@ public class EnemyHealth : BaseDamageReceiver
         while (true)
         {
             yield return new WaitForSeconds(statusEffectsConfig.statsuEffectDeltaTime);
+            Dictionary<StatusEffect, int> statusEffectsDamage = new Dictionary<StatusEffect, int>();
             if (statusEffects.ContainsKey(StatusEffect.Poison))
             {
                 int damage = statusEffects[StatusEffect.Poison] / 2;
                 if (statusEffects[StatusEffect.Poison] == 1)
                     damage = 1;
                 statusEffects[StatusEffect.Poison] -= damage;
-                GetDamage(new DamageData(damage));
+                statusEffectsDamage.Add(StatusEffect.Poison, damage);
                 if (statusEffects[StatusEffect.Poison] < 1)
                     statusEffects.Remove(StatusEffect.Poison);
             }
+            GetDamage(new DamageData(0, null, statusEffectsDamage));
             UpdateHealthBar(maxHP, curHP);
         }
     }   
@@ -59,7 +61,28 @@ public class EnemyHealth : BaseDamageReceiver
     public override void GetDamage(DamageData damageData)
     {
         base.GetDamage(damageData);
-        DamageUI.Instance.AddText(damageData.Damage, this, hPBarCanvas.GetComponent<RectTransform>());
+        if (damageData.Damage != 0)
+            DamageUI.Instance.AddText(damageData.Damage, this, hPBarCanvas.GetComponent<RectTransform>(), Color.white);
+        if (damageData.StatusEffectsDamage != null)
+        {
+            foreach (var statusEffect in damageData.StatusEffectsDamage)
+            {
+                if (!_isDead)
+                {
+                    curHP -= statusEffect.Value;
+                    UpdateHealthBar(maxHP, curHP);
+
+                    if (curHP <= 0)
+                    {
+                        executeOnHPBelowZero.ExecuteAll();
+                        _isDead = true;
+                    }
+                    else
+                        executeOnGetDamage.ExecuteAll();
+                }
+                DamageUI.Instance.AddText(statusEffect.Value, this, hPBarCanvas.GetComponent<RectTransform>(), statusEffectsConfig.colors[(int)statusEffect.Key]);
+            }
+        }
     }
 
     protected override void UpdateHealthBar(float maxHP, float currentHP)

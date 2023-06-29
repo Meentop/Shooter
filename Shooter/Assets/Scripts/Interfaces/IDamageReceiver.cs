@@ -9,11 +9,14 @@ public interface IDamageReceiver
 public struct DamageData
 {
     public readonly int Damage;
-    //public readonly Dictionary<StatusEffect, int> statusEffects;
+    public readonly Dictionary<StatusEffect, int> AddStatusEffects;
+    public readonly Dictionary<StatusEffect, int> StatusEffectsDamage;
 
-    public DamageData(int damage)
+    public DamageData(int damage, Dictionary<StatusEffect, int> addStatysEffects = null, Dictionary<StatusEffect, int> statuseffectsDamage = null)
     {
         Damage = damage;
+        AddStatusEffects = addStatysEffects;
+        StatusEffectsDamage = statuseffectsDamage;
     }
 }
 

@@ -8,7 +8,7 @@ using Random = UnityEngine.Random;
 public class DamageNumberUI : MonoBehaviour, IPoolable
 {
     [SerializeField] private float lifeTime;
-    [SerializeField] private Vector2Int randomXRange;
+    [SerializeField] private Vector2Int randomXRange, randomYRange;
     [SerializeField] private AnimationCurve anim;
     [SerializeField] private float animHeight;
     [SerializeField] private AnimationCurve transparent;
@@ -30,15 +30,16 @@ public class DamageNumberUI : MonoBehaviour, IPoolable
         MoveText(Camera.main);
     }
 
-    public void Init(int amount, EnemyHealth enemy, RectTransform canvas)
+    public void Init(int amount, EnemyHealth enemy, RectTransform canvas, Color color)
     {
         text = GetComponent<TextMeshProUGUI>();
         text.text = amount.ToString();
         this.enemy = enemy;
         this.canvas = canvas;
+        text.color = color;
 
         timer = 0;
-        randPos = new Vector3(Random.Range(randomXRange.x, randomXRange.y), 0, 0);
+        randPos = new Vector3(Random.Range(randomXRange.x, randomXRange.y), Random.Range(randomYRange.x, randomYRange.y), 0);
         MoveText(Camera.main);
     }
 

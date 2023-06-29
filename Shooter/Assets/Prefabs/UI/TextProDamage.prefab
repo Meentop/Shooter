@@ -149,6 +149,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   lifeTime: 1
   randomXRange: {x: -40, y: 40}
+  randomYRange: {x: -10, y: 10}
   anim:
     serializedVersion: 2
     m_Curve:

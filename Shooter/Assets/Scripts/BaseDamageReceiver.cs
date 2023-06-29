@@ -5,8 +5,8 @@ using UnityEngine.UI;
 
 public abstract class BaseDamageReceiver : MonoBehaviour, IDamageReceiver
 {
-    [SerializeField] private ActionBase[] executeOnGetDamage;
-    [SerializeField] private ActionBase[] executeOnHPBelowZero;
+    [SerializeField] protected ActionBase[] executeOnGetDamage;
+    [SerializeField] protected ActionBase[] executeOnHPBelowZero;
     [SerializeField] protected RectTransform healthBar;
     [SerializeField] private Image afterHealthBarImage;
     [SerializeField] private float reduceSpeed;
@@ -15,7 +15,7 @@ public abstract class BaseDamageReceiver : MonoBehaviour, IDamageReceiver
 
     protected int curHP;    
     private float _target = 1;
-    private bool _isDead = false;
+    protected bool _isDead = false;
     private Vector2 _startSizeDelta;
 
     protected virtual void Start()
@@ -34,7 +34,7 @@ public abstract class BaseDamageReceiver : MonoBehaviour, IDamageReceiver
     {
         if (!_isDead)
         {
-            curHP -= (int)damageData.Damage;
+            curHP -= damageData.Damage;
             UpdateHealthBar(maxHP, curHP);
 
             if (curHP <= 0)
