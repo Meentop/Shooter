@@ -141,7 +141,7 @@ public abstract class Weapon : MonoBehaviour, ISelectableItem
     private void SetDamageToEnemy(RaycastHit enemyHit)
     {
         if (enemyHit.transform.TryGetComponent<IDamageReceiver>(out var damageReceiver))
-            damageReceiver.GetDamage(GetDamageData());
+            damageReceiver.GetDamage(GetDamageData(damageReceiver as EnemyHealth));
     }
 
     private void SpawnDecal(RaycastHit solidHit)
@@ -173,13 +173,15 @@ public abstract class Weapon : MonoBehaviour, ISelectableItem
     }
 
 
-    private DamageData GetDamageData()
+    private DamageData GetDamageData(EnemyHealth enemy)
     {
-        DamageData damageData = new DamageData();
-        damageData.Damage = DamageModifired();
+        DamageData damageData = new DamageData
+        {
+            Damage = DamageModifired()
+        };
         foreach (var modifier in _modifiers)
         {
-            damageData = modifier.ApplyBehaviours(damageData);
+            damageData = modifier.ApplyBehaviours(damageData, enemy);
         }
         return damageData;
     }

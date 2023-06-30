@@ -126,4 +126,25 @@ public class EnemyHealth : BaseDamageReceiver
     {
         return damageNumbersPoint.position;
     }
+
+
+    public void AddStatusEffect(StatusEffect key, int value)
+    {
+        if (!statusEffects.ContainsKey(key))
+            statusEffects.Add(key, value);
+        else
+            statusEffects[key] += value;
+    }
+
+    public int GetStatusEffectValue(StatusEffect key)
+    {
+        if (statusEffects.ContainsKey(key))
+            return statusEffects[key];
+        return 0;
+    }
+
+    public bool HasStatusEffect(StatusEffect statusEffect)
+    {
+        return statusEffects.ContainsKey(statusEffect);
+    }
 }

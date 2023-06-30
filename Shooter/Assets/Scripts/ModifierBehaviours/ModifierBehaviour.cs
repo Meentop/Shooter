@@ -5,5 +5,5 @@ using UnityEngine;
 [System.Serializable]
 public abstract class ModifierBehaviour : MonoBehaviour
 {
-    public abstract DamageData ApplyBehaviour(DamageData damageData);
+    public abstract DamageData ApplyBehaviour(DamageData damageData, EnemyHealth enemy);
 }

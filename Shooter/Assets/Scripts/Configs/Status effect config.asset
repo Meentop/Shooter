@@ -26,4 +26,4 @@ MonoBehaviour:
   - {r: 1, g: 0.9176471, b: 0.19215688, a: 1}
   - {r: 0.050980397, g: 0.0627451, b: 0.2784314, a: 1}
   - {r: 0.62352943, g: 0.078431375, b: 0.14901961, a: 1}
-  statsuEffectDeltaTime: 1
+  statsuEffectDeltaTime: 2
