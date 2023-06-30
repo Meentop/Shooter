@@ -14,6 +14,7 @@ public class RoomTrigger : MonoBehaviour
         if (other.gameObject.GetComponent<Player>())
         {
             room.UpdateMiniMapPos(1f);
+            room.SetActiveMiniRoom(true);
         }
         if (battleRoom && !enemiesActivated && other.gameObject.GetComponent<Player>())
         {
@@ -21,5 +22,13 @@ public class RoomTrigger : MonoBehaviour
             room.SetDoors(true);
             enemiesActivated = true;
         }       
+    }
+
+    private void OnTriggerExit(Collider other)
+    {
+        if (other.gameObject.GetComponent<Player>())
+        {
+            
+        }
     }
 }

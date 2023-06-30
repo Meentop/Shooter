@@ -103,6 +103,11 @@ public class Room : MonoBehaviour
             } 
         }
     }
+    
+    public void SetActiveMiniRoom(bool isActive)
+    {
+        _miniController.SetActiveMiniRoom(isActive, GetComponent<Room>());
+    }
 
     [Serializable]
     struct EnemyGroup

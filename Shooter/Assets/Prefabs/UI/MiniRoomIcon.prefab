@@ -397,3 +397,5 @@ MonoBehaviour:
   - {fileID: 3788632221235634336}
   - {fileID: 908280494322241607}
   - {fileID: 3745390557581071959}
+  unactiveColor: {r: 1, g: 1, b: 1, a: 1}
+  activeColor: {r: 1, g: 0, b: 0.08870983, a: 1}

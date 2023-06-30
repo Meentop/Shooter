@@ -218,8 +218,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1312454946881698513}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 2, z: 0}
-  m_LocalScale: {x: 38, y: 4, z: 38}
+  m_LocalPosition: {x: 0, y: 3.9, z: 0}
+  m_LocalScale: {x: 38, y: 9, z: 38}
   m_Children: []
   m_Father: {fileID: 2212382123985932032}
   m_RootOrder: 6
@@ -274,6 +274,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   room: {fileID: 2095637954864442707}
+  battleRoom: 0
 --- !u!1 &1502216441940118572
 GameObject:
   m_ObjectHideFlags: 0
