@@ -42,11 +42,11 @@ public class Modifier : MonoBehaviour, ISelectableItem
         return description;
     }
 
-    public DamageData ApplyBehaviours(DamageData damageData)
+    public DamageData ApplyBehaviours(DamageData damageData, EnemyHealth enemy)
     {
         foreach (var behaviour in behaviours)
         {
-            damageData = behaviour.ApplyBehaviour(damageData);
+            damageData = behaviour.ApplyBehaviour(damageData, enemy);
         }
         return damageData;
     }
