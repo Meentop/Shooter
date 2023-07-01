@@ -45,7 +45,6 @@ GameObject:
   - component: {fileID: 6655776285994737161}
   - component: {fileID: 6655776285994737154}
   - component: {fileID: 5417072423963475846}
-  - component: {fileID: 8814092693866201418}
   - component: {fileID: 5440067626376647844}
   - component: {fileID: 5121611369077538754}
   - component: {fileID: 3525798169318223742}
@@ -182,27 +181,8 @@ MonoBehaviour:
   targetLook: {fileID: 0}
   weapons: []
   scrollDeley: 0.3
-  freeModifiers: []
   testSprite: {fileID: 0}
---- !u!114 &8814092693866201418
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6655776285994737160}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 663c6ae96bba6ca439efec46a0f78ac0, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  maxLvlPoints: 100
-  healthLvlStep: 25
-  damageLvlStep: 0.1
-  lvlBar: {fileID: 0}
-  curLvlText: {fileID: 0}
-  nextLvlText: {fileID: 0}
-  playerDamage: {fileID: 5121611369077538754}
+  selectDistance: 4
 --- !u!114 &5440067626376647844
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -217,7 +197,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   executeOnGetDamage: []
   executeOnHPBelowZero: []
-  healthBarImage: {fileID: 0}
+  healthBar: {fileID: 0}
   afterHealthBarImage: {fileID: 0}
   reduceSpeed: 0.2
   armor: 0

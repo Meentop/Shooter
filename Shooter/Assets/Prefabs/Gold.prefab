@@ -158,4 +158,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   pickDistance: 3
   speed: 10
-  gold: 0
+  lifeTime: 3

@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class Gold : MonoBehaviour, IPoolable
 {
-    [SerializeField] private float pickDistance, speed;
+    [SerializeField] private float pickDistance, speed, lifeTime;
     public GameObject GameObject => gameObject;
 
     private Transform _player;
@@ -13,6 +13,7 @@ public class Gold : MonoBehaviour, IPoolable
     private Collider _collider;
 
     private bool _isPicked;
+    private float _timer;
 
     public event Action<IPoolable> Destroyed;
 
@@ -25,6 +26,12 @@ public class Gold : MonoBehaviour, IPoolable
 
     private void Update()
     {
+        if (!_isPicked)
+        {
+            _timer += Time.deltaTime;
+            if (_timer >= lifeTime)
+                Reset();
+        }
         if (!_isPicked && Vector3.Distance(_player.position, transform.position) <= pickDistance)
         {
             _rb.useGravity = false;
@@ -43,7 +50,7 @@ public class Gold : MonoBehaviour, IPoolable
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.GetComponent<PlayerLvl>())
+        if (other.gameObject.GetComponent<Player>())
         {
             PlayerGold.Instance.AddGold();
             Reset();
@@ -62,5 +69,6 @@ public class Gold : MonoBehaviour, IPoolable
         _collider.isTrigger = false;
         _isPicked = false;
         _rb.velocity = Vector3.zero;
+        _timer = 0;
     }
 }
