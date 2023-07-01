@@ -229,7 +229,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fd549f641a88d8249903aff4eb98bba6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  numberOfRooms: 8
+  numberOfRooms: 20
   roomSize: {x: 42, y: 42}
   startRoom: {fileID: 5990737833800903788, guid: 80ad28c90fd14bd4a8951dd3c72617ca, type: 3}
   roomPrefabs:
@@ -681,12 +681,16 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2511844202598012192, guid: 83c9ad56a38022b4899e1e1eec2c3fab, type: 3}
+      propertyPath: miniRoomPrefab
+      value: 
+      objectReference: {fileID: 9014632119250640615, guid: 8bec886b969840c499bfc2d8b047dff5, type: 3}
+    - target: {fileID: 2511844202598012192, guid: 83c9ad56a38022b4899e1e1eec2c3fab, type: 3}
       propertyPath: playerTransform
       value: 
       objectReference: {fileID: 6655776286918135551}
     - target: {fileID: 3812685321228723286, guid: 83c9ad56a38022b4899e1e1eec2c3fab, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -0.0000012923084
+      value: -0.000035453053
       objectReference: {fileID: 0}
     - target: {fileID: 3970181966446831125, guid: 83c9ad56a38022b4899e1e1eec2c3fab, type: 3}
       propertyPath: m_AnchorMax.x

@@ -21,12 +21,13 @@ public class RoomSpawner : MonoBehaviour
 
         for (int i = 0; i < numberOfRooms - 1; i++)
         {
-            var roomsWithEmptyNaighbours = _roomMap.Where(room => room.Value.Naighours.Any(naighour => IsFreePlace(room, naighour)));
+            var roomsWithEmptyNaighbours = _roomMap.Where(room => room.Value.Neighours.Any(naighour => IsFreePlace(room, naighour)));
             var parentRoom = roomsWithEmptyNaighbours.ElementAt(Random.Range(0, roomsWithEmptyNaighbours.Count()));
-            var freePlaces = parentRoom.Value.Naighours.Where(naighour => IsFreePlace(parentRoom, naighour));
+            var freePlaces = parentRoom.Value.Neighours.Where(naighour => IsFreePlace(parentRoom, naighour));
             var newRoomSpawnPos = freePlaces.ElementAt(Random.Range(0, freePlaces.Count()));
             var spawnedRoom = SpawnRoom(parentRoom, newRoomSpawnPos);
             UpdateRoomMap(spawnedRoom, newRoomSpawnPos.Key);
+            mapMiniController.SpawnMiniMap(spawnedRoom.transform.position / 1.2f, parentRoom.Key - newRoomSpawnPos.Key, new KeyValuePair<Vector2Int, Room>(newRoomSpawnPos.Key, spawnedRoom), parentRoom);
         }
     }
 
@@ -46,7 +47,6 @@ public class RoomSpawner : MonoBehaviour
         var spawnPosition = new Vector3(_newRoom.Key.x, 0, _newRoom.Key.y) * roomSize.x + new Vector3(0, roomHeight, 0);
 
         Room newRoom = Instantiate(randomRoomPrefab, spawnPosition, Quaternion.identity);
-        mapMiniController.SpawnMiniMap(spawnPosition/1.2f, directionFromNewRoom, newRoom);
         newRoom.SetOpenDoor(directionFromNewRoom);
         newRoom.Init(_newRoom.Key, newRoom.transform.position.y, mapMiniController);
 
@@ -57,13 +57,13 @@ public class RoomSpawner : MonoBehaviour
 
     private void UpdateRoomMap(Room spawnedRoom, Vector2Int spawnedRoomPos)
     {
-        for (int spawnedRoomNaighbourIndex = 0; spawnedRoomNaighbourIndex < spawnedRoom.Naighours.Count; spawnedRoomNaighbourIndex++)
+        for (int spawnedRoomNaighbourIndex = 0; spawnedRoomNaighbourIndex < spawnedRoom.Neighours.Count; spawnedRoomNaighbourIndex++)
         {
-            var naighbour = spawnedRoom.Naighours.ElementAt(spawnedRoomNaighbourIndex);
+            var naighbour = spawnedRoom.Neighours.ElementAt(spawnedRoomNaighbourIndex);
             if (_roomMap.ContainsKey(naighbour.Key))
             {
-                spawnedRoom.Naighours[naighbour.Key] = _roomMap[naighbour.Key];
-                _roomMap[naighbour.Key].Naighours[spawnedRoomPos] = spawnedRoom;
+                spawnedRoom.Neighours[naighbour.Key] = _roomMap[naighbour.Key];
+                _roomMap[naighbour.Key].Neighours[spawnedRoomPos] = spawnedRoom;
             }
         }
         _roomMap.Add(spawnedRoomPos, spawnedRoom);

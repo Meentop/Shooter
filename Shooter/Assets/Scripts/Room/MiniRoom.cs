@@ -12,6 +12,8 @@ public class MiniRoom : MonoBehaviour
     [SerializeField] private Color unactiveColor;
     [SerializeField] private Color activeColor;
 
+    public Dictionary<Vector2Int, MiniRoom> Neighours = new Dictionary<Vector2Int, MiniRoom>();
+
     private bool _isActive;
     public void SetActiveHall(Vector2Int direction)
     {

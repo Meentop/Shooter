@@ -16,18 +16,18 @@ public class Room : MonoBehaviour
 
     private MapMiniController _miniController;
     private List<Enemy> enemies = new List<Enemy>();
-
     private List<GameObject> activeDoors = new List<GameObject>();
-    public Dictionary<Vector2Int, Room> Naighours;
+
+    public Dictionary<Vector2Int, Room> Neighours;
 
     public void Init(Vector2Int roomPos, float roomHeight, MapMiniController miniController)
     {
         Height = roomHeight;
         _miniController = miniController;
-        Naighours = new Dictionary<Vector2Int, Room>();
+        Neighours = new Dictionary<Vector2Int, Room>();
         foreach (var direction in _directions)
         {
-            Naighours.Add(roomPos + direction, null);
+            Neighours.Add(roomPos + direction, null);
         }
     }
 
