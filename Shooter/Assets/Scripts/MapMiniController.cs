@@ -12,7 +12,7 @@ public class MapMiniController : MonoBehaviour
 
     public Transform MiniRoomsHolder { get { return miniRoomsHolder; } private set { miniRoomsHolder = value; } }
 
-    private Dictionary<Room, MiniRoom> _miniRooms;
+    private Dictionary<Room, MiniRoom> _miniRooms = new Dictionary<Room, MiniRoom>();
     private MiniRoom _lastSavedMiniRoom;
 
     private void Update()
@@ -59,6 +59,7 @@ public class MapMiniController : MonoBehaviour
         {
             var naighbour = currentRoom.Neighours.ElementAt(i);
             naighbour.Value.gameObject.SetActive(true);
+            naighbour.Value.SetTransparency();
         }
     }
 
@@ -69,7 +70,6 @@ public class MapMiniController : MonoBehaviour
             for (int i = 0; i < realRoom.Value.Neighours.Count; i++)
             {
                 var naighbour = realRoom.Value.Neighours.Keys.ElementAt(i);
-                print(naighbour);
                 if (!_miniRooms[realRoom.Value].Neighours.ContainsKey(naighbour))
                 {
                     _miniRooms[realRoom.Value].Neighours.Add(naighbour, spawnedRoom);
@@ -82,6 +82,10 @@ public class MapMiniController : MonoBehaviour
             if (!_miniRooms[parentRoom.Value].Neighours.ContainsKey(directionFromNewRoom))
             {
                 _miniRooms[parentRoom.Value].Neighours.Add(directionFromNewRoom, spawnedRoom);
+            }
+            else if (!_miniRooms[parentRoom.Value].Neighours.ContainsKey(-directionFromNewRoom))
+            {
+                _miniRooms[parentRoom.Value].Neighours.Add(-directionFromNewRoom, spawnedRoom);
             }
         }
     }

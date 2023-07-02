@@ -15,6 +15,7 @@ public class MiniRoom : MonoBehaviour
     public Dictionary<Vector2Int, MiniRoom> Neighours = new Dictionary<Vector2Int, MiniRoom>();
 
     private bool _isActive;
+    private bool _isActivated = false;
     public void SetActiveHall(Vector2Int direction)
     {
         int index = Array.IndexOf(directions, direction);
@@ -24,14 +25,36 @@ public class MiniRoom : MonoBehaviour
     public void SetColor(bool isActive)
     {
         if (isActive)
+        {
             gameObject.GetComponent<Image>().color = activeColor;
+        }    
         else
+        {
             gameObject.GetComponent<Image>().color = unactiveColor;
+        }
+        SetTransparency();
     }
 
     public void SetActiveMiniRoom(bool isActive)
     {
         _isActive = isActive;
+        _isActivated = true;
         SetColor(_isActive);
+    }
+
+    public void SetTransparency()
+    {
+        if(!_isActivated)
+        {
+            Color color = gameObject.GetComponent<Image>().color;
+            color.a = 0.5f;
+            gameObject.GetComponent<Image>().color = color;
+        }
+        else
+        {
+            Color color = gameObject.GetComponent<Image>().color;
+            color.a = 1f;
+            gameObject.GetComponent<Image>().color = color;
+        }
     }
 }
