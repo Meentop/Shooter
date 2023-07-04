@@ -1589,7 +1589,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4f1550f02fe495c4c98a4e5880816ac7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  miniRoomPrefab: {fileID: 7382944097301079551, guid: 8bec886b969840c499bfc2d8b047dff5, type: 3}
+  miniRoomPrefab: {fileID: 9014632119250640615, guid: 8bec886b969840c499bfc2d8b047dff5, type: 3}
   miniRoomsHolder: {fileID: 7540090016765199324}
   mapMiniRotateHolder: {fileID: 4531930013317117560}
   playerTransform: {fileID: 0}

@@ -69,7 +69,6 @@ public class MapMiniController : MonoBehaviour
             for (int i = 0; i < realRoom.Value.Neighours.Count; i++)
             {
                 var naighbour = realRoom.Value.Neighours.Keys.ElementAt(i);
-                print(naighbour);
                 if (!_miniRooms[realRoom.Value].Neighours.ContainsKey(naighbour))
                 {
                     _miniRooms[realRoom.Value].Neighours.Add(naighbour, spawnedRoom);
