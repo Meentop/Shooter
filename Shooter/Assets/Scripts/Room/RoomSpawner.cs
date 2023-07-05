@@ -16,7 +16,7 @@ public class RoomSpawner : MonoBehaviour
     {
         Room startRoom = Instantiate(this.startRoom.gameObject, Vector3.zero, Quaternion.identity).GetComponent<Room>();
         mapMiniController.SpawnMiniStartRoom(startRoom);
-        startRoom.Init(Vector2Int.zero, 0, mapMiniController);
+        startRoom.Init(Vector2Int.zero, 0, mapMiniController, AwardType.None);
         _roomMap = new Dictionary<Vector2Int, Room>() { { Vector2Int.zero, startRoom } };
 
         for (int i = 0; i < numberOfRooms - 1; i++)
@@ -47,7 +47,8 @@ public class RoomSpawner : MonoBehaviour
 
         Room newRoom = Instantiate(randomRoomPrefab, spawnPosition, Quaternion.identity);
         newRoom.SetOpenDoor(directionFromNewRoom);
-        newRoom.Init(_newRoom.Key, newRoom.transform.position.y, mapMiniController);
+        AwardType randomAwardType = randomRoomPrefab.IsBattleRoom() ? (AwardType)Random.Range(1, (int)AwardType.ActiveSkill) : AwardType.None;
+        newRoom.Init(_newRoom.Key, newRoom.transform.position.y, mapMiniController, randomAwardType);
 
         parentRoom.Value.SetOpenDoor(directionFromParent);
         

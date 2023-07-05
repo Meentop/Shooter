@@ -11,6 +11,8 @@ public class Room : MonoBehaviour
     [SerializeField] private GameObject[] doors;
     [SerializeField] private float[] newRoomYPositions;
     [SerializeField] private EnemyGroup[] enemyGroups;
+    [SerializeField] private bool isBattleRoom;
+    [SerializeField] private AwardType awardType;
 
     public float Height { get; private set; }
 
@@ -20,11 +22,12 @@ public class Room : MonoBehaviour
 
     public Dictionary<Vector2Int, Room> Neighours;
 
-    public void Init(Vector2Int roomPos, float roomHeight, MapMiniController miniController)
+    public void Init(Vector2Int roomPos, float roomHeight, MapMiniController miniController, AwardType awardType)
     {
         Height = roomHeight;
         _miniController = miniController;
         Neighours = new Dictionary<Vector2Int, Room>();
+        this.awardType = awardType;
         foreach (var direction in _directions)
         {
             Neighours.Add(roomPos + direction, null);
@@ -109,6 +112,11 @@ public class Room : MonoBehaviour
         _miniController.SetActiveMiniRoom(isActive, GetComponent<Room>());
     }
 
+    public bool IsBattleRoom()
+    {
+        return isBattleRoom;
+    }
+
     [Serializable]
     struct EnemyGroup
     {
@@ -123,3 +131,15 @@ public class Room : MonoBehaviour
     }
 }
 
+public enum AwardType
+{
+    None,
+    Gold,
+    Health,
+    Weapon,
+    Modifier,
+    Implant,
+    WeaponUpgrade,
+    ModifierImplantUpgrade,
+    ActiveSkill
+}
