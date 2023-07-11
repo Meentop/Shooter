@@ -11,15 +11,14 @@ public class Room : MonoBehaviour
     [SerializeField] private GameObject[] doors;
     [SerializeField] private float[] newRoomYPositions;
     [SerializeField] private EnemyGroup[] enemyGroups;
-    [SerializeField] private bool isBattleRoom;  
-    [SerializeField] private Transform awardPos;
+    [SerializeField] private bool isBattleRoom;
+    [SerializeField] private AwardType awardType;
 
     public float Height { get; private set; }
 
     private MapMiniController _miniController;
     private List<Enemy> enemies = new List<Enemy>();
     private List<GameObject> activeDoors = new List<GameObject>();
-    private AwardType awardType;
 
     public Dictionary<Vector2Int, Room> Neighours;
 

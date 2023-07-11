@@ -25,10 +25,8 @@ public class DropPullableItemsAction : ActionBase
 
     private void PushItem(Transform item)
     {
-        Vector3 pos = (Random.insideUnitSphere * config.randomInsideSphereSize) + dropPoint.position;
-        item.position = pos;
-        print(pos);
+        item.position = (Random.insideUnitSphere * config.randomInsideSphereSize) + dropPoint.position;
         Vector3 randVector = new Vector3(Random.Range(config.XZMin, config.XZMax), Random.Range(config.YMin, config.YMax), Random.Range(config.XZMin, config.XZMax));
-        //item.GetComponent<Rigidbody>().AddForce(randVector, ForceMode.Impulse);
+        item.GetComponent<Rigidbody>().AddForce(randVector, ForceMode.Impulse);
     }
 }
