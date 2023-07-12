@@ -13,6 +13,8 @@ public class Room : MonoBehaviour
     [SerializeField] private EnemyGroup[] enemyGroups;
     [SerializeField] private bool isBattleRoom;
     [SerializeField] private AwardType awardType;
+    [SerializeField] private Transform awardSpawnPoint;
+    [SerializeField] private RoomAwardsConfig awardConfig;
 
     public float Height { get; private set; }
 
@@ -80,6 +82,7 @@ public class Room : MonoBehaviour
         if (enemies.Count == 0)
         {
             SetDoors(false);
+            SpawnAward(awardType);
         }
     }
 
@@ -117,6 +120,12 @@ public class Room : MonoBehaviour
         return isBattleRoom;
     }
 
+    public void SpawnAward(AwardType award)
+    {
+        if (awardConfig.awards[(int)award] != null)
+            Instantiate(awardConfig.awards[(int)award], awardSpawnPoint);
+    }
+
     [Serializable]
     struct EnemyGroup
     {
@@ -131,15 +140,3 @@ public class Room : MonoBehaviour
     }
 }
 
-public enum AwardType
-{
-    None,
-    Gold,
-    Health,
-    Weapon,
-    Modifier,
-    Implant,
-    WeaponUpgrade,
-    ModifierImplantUpgrade,
-    ActiveSkill
-}

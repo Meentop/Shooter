@@ -102,7 +102,7 @@ public class Player : MonoBehaviour
         {
             if (_lastSavedSelectableItem == null)
                 return;
- 
+            
             switch (_lastSavedSelectableItem.ItemType)
             {
                 case SelectableItems.Weapon:
@@ -112,14 +112,11 @@ public class Player : MonoBehaviour
                     _currentWeapon.Init(this, weaponHolder, targetLook, _infoInterface, _selectedSlot);
                     _currentWeapon.ConectToPlayer();
                     break;
-                case SelectableItems.TestButton:
-                    _lastSavedSelectableItem.OnSelect();
-                    break;
                 case SelectableItems.Modifier:
                     AddFreeModifier(_lastSavedSelectableItem as Modifier);
-                    _lastSavedSelectableItem.OnSelect();
                     break;
             }
+            _lastSavedSelectableItem.OnSelect();
         }
     }
 

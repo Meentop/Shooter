@@ -9,5 +9,7 @@ public enum SelectableItems
 {
     Weapon,
     TestButton,
-    Modifier
+    Modifier,
+    AwardButton,
+    GoldAward
 }

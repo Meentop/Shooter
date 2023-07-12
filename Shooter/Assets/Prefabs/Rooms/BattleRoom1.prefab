@@ -1537,6 +1537,7 @@ Transform:
   - {fileID: 8546893414656737695}
   - {fileID: 1808753854960225240}
   - {fileID: 177560535740302673}
+  - {fileID: 8984486841070731021}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -1597,6 +1598,8 @@ MonoBehaviour:
       position: {x: -0.036165, y: 4.000002, z: 5.157671}
   isBattleRoom: 1
   awardType: 0
+  awardSpawnPoint: {fileID: 8984486841070731021}
+  awardConfig: {fileID: 11400000, guid: 025a26754e47d5b4da935a1cebc3096c, type: 2}
 --- !u!1 &1324928463148254925
 GameObject:
   m_ObjectHideFlags: 0
@@ -2108,6 +2111,36 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!1 &4771384764861979565
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 8984486841070731021}
+  m_Layer: 0
+  m_Name: RoomAward
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &8984486841070731021
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4771384764861979565}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 4, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1324928463127226328}
+  m_RootOrder: 12
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &5100018442899932703
 GameObject:
   m_ObjectHideFlags: 0
