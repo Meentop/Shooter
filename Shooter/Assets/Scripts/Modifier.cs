@@ -51,7 +51,7 @@ public class Modifier : MonoBehaviour, ISelectableItem
         return damageData;
     }
 
-    public void OnSelect()
+    public void OnSelect(Player player)
     {
         Destroy(gameObject);
     }

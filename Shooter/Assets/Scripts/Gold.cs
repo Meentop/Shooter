@@ -56,9 +56,9 @@ public class Gold : MonoBehaviour, IPoolable
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.GetComponent<Player>())
+        if (other.gameObject.TryGetComponent<Player>(out var player))
         {
-            PlayerGold.Instance.AddGold();
+            player.gold.Add();
             Reset();
         }
     }

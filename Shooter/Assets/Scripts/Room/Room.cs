@@ -122,6 +122,8 @@ public class Room : MonoBehaviour
 
     public void SpawnAward(AwardType award)
     {
+        if(awardSpawnPoint.childCount > 0)
+            Destroy(awardSpawnPoint.GetChild(0).gameObject);
         if (awardConfig.awards[(int)award] != null)
             Instantiate(awardConfig.awards[(int)award], awardSpawnPoint);
     }

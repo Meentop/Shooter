@@ -5,11 +5,16 @@ using UnityEngine;
 public class GoldChest : MonoBehaviour, ISelectableItem
 {
     [SerializeField] private ActionBase dropPullableItems;
+    private bool _wasUsed;
 
     public SelectableItems ItemType => SelectableItems.GoldAward;
 
-    public void OnSelect()
+    public void OnSelect(Player player)
     {
-        dropPullableItems.ExecuteAction();
+        if (!_wasUsed)
+        {
+            dropPullableItems.ExecuteAction();
+            _wasUsed = true;
+        }
     }
 }

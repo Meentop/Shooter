@@ -11,6 +11,9 @@ public class Player : MonoBehaviour
     [SerializeField] private Sprite testSprite;
     [SerializeField] private float selectDistance = 4f;
 
+    public PlayerHealth health { get; private set; }
+    public PlayerGold gold { get; private set; }
+
     private Weapon _currentWeapon;
     private int _selectedSlot;
     private bool _isScrolling;
@@ -33,6 +36,8 @@ public class Player : MonoBehaviour
 
     public void Init(UIManager uiManager, CameraController cameraController, Camera mainCamera, RectTransform canvas, Transform modifierDragHolder)
     {
+        health = GetComponent<PlayerHealth>();
+        gold = GetComponent<PlayerGold>();
         _currentWeapon = weapons[0];
         _infoInterface = uiManager.infoInterface;
         _dynamicInterface = uiManager.dinemicInterface;
@@ -116,7 +121,7 @@ public class Player : MonoBehaviour
                     AddFreeModifier(_lastSavedSelectableItem as Modifier);
                     break;
             }
-            _lastSavedSelectableItem.OnSelect();
+            _lastSavedSelectableItem.OnSelect(this);
         }
     }
 
