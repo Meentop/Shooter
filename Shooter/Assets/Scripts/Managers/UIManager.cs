@@ -8,20 +8,20 @@ public class UIManager : MonoBehaviour
     [SerializeField] private GameObject selectText;
     [SerializeField] private GameObject newWeaponTextHolder;
     [SerializeField] private GameObject newModifierTextHolder;
+    [SerializeField] private GameObject buyHealthHolder;
     [SerializeField] private Weapon.Description newWeaponDescriptions;
     [SerializeField] private Modifier.Info newModifierInfo;
+    [Header("Buy Health")]
+    [SerializeField] private Text buyHealthPrice;
+    [SerializeField] private Text buyHealthCount;
+    [SerializeField] private GameObject buyHealthWasUsed;
+    [SerializeField] private Color normalColor, notEnoughColor;
+    [Header("Other")]
     [SerializeField] private InfoInterface _infoInterface;
     [SerializeField] private DynamicUI _dinemicInterface;
 
     public InfoInterface infoInterface { get { return _infoInterface; } private set { _infoInterface = value; } }
-    public DynamicUI dinemicInterface { get { return _dinemicInterface; } private set { _dinemicInterface = value; } }
-
-    public enum TextTypes
-    {
-        SelectText,
-        NewWeaponTextHolder,
-        NewModifierTextHolder
-    }
+    public DynamicUI dinemicInterface { get { return _dinemicInterface; } private set { _dinemicInterface = value; } }    
 
     public void SetActiveText(TextTypes buttonTypes, bool isActive)
     {
@@ -36,6 +36,9 @@ public class UIManager : MonoBehaviour
             case TextTypes.NewModifierTextHolder:
                 newModifierTextHolder.SetActive(isActive);
                 break;
+            case TextTypes.BuyHealthHolder: 
+                buyHealthHolder.SetActive(isActive);
+                break;
         }
     }
 
@@ -49,6 +52,8 @@ public class UIManager : MonoBehaviour
                 return newWeaponTextHolder.activeInHierarchy;
             case TextTypes.NewModifierTextHolder:
                 return newModifierTextHolder.activeInHierarchy;
+            case TextTypes.BuyHealthHolder:
+                return buyHealthHolder.activeInHierarchy;
             default:
                 return false;
         }
@@ -67,4 +72,21 @@ public class UIManager : MonoBehaviour
         newModifierInfo.Title.text = title;
         newModifierInfo.Description.text = description;
     }
+
+    public void UpdateBuyHealthText(bool hasGold, int price, int healthCount, bool isUsed)
+    {
+        buyHealthPrice.text = price.ToString();
+        buyHealthPrice.color = hasGold ? normalColor : notEnoughColor;
+        buyHealthCount.text = healthCount.ToString();
+        buyHealthWasUsed.SetActive(isUsed);
+    }
+}
+
+
+public enum TextTypes
+{
+    SelectText,
+    NewWeaponTextHolder,
+    NewModifierTextHolder,
+    BuyHealthHolder
 }

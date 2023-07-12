@@ -18,4 +18,8 @@ public class HealthAward : MonoBehaviour, ISelectableItem
             _wasUsed = true;
         }
     }
+
+    public int GetAddHealth() { return addHealth; }
+    public int GetPrice() { return price; }
+    public bool IsUsed() { return _wasUsed; }
 }
