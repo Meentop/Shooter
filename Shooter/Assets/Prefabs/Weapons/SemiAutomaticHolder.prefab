@@ -4892,6 +4892,7 @@ MonoBehaviour:
   firingSpeed: 0.1
   weaponOnCollectRot: {x: 0, y: -90, z: 0}
   maxNumberOfModifiers: 3
+  price: 25
 --- !u!65 &3124322557215765905
 BoxCollider:
   m_ObjectHideFlags: 0

@@ -12,6 +12,7 @@ public abstract class Weapon : MonoBehaviour, ISelectableItem
     [SerializeField] protected float firingSpeed;
     [SerializeField] protected Vector3 weaponOnCollectRot;
     [SerializeField] protected int maxNumberOfModifiers = 1;
+    [SerializeField] private int price;
     
     public SelectableItems ItemType => SelectableItems.Weapon;
 
@@ -25,6 +26,7 @@ public abstract class Weapon : MonoBehaviour, ISelectableItem
 
     private bool _isInited;
     private List<Modifier> _modifiers = new List<Modifier>();
+    public bool bought { get; private set; }
 
     [System.Serializable]
     public struct Description
@@ -33,6 +35,8 @@ public abstract class Weapon : MonoBehaviour, ISelectableItem
         public Text DamageText;
         public Text FiringSpeed;
         public Transform ModifiersHolder;
+        public GameObject BuyPanel;
+        public Text PriceText;
     }
 
     protected virtual void Update()
@@ -58,6 +62,7 @@ public abstract class Weapon : MonoBehaviour, ISelectableItem
         _playerDamage = _player.GetComponent<PlayerDamage>();
 
         _isInited = true;
+        bought = true;
         OnInit();
     }
 
@@ -108,6 +113,11 @@ public abstract class Weapon : MonoBehaviour, ISelectableItem
     public int GetMaxNumbersOfModifiers()
     {
         return maxNumberOfModifiers;
+    }
+
+    public int GetPrice()
+    {
+        return price;
     }
 
     public void OnSelect(Player player)

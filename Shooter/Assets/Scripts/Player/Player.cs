@@ -111,14 +111,26 @@ public class Player : MonoBehaviour
             switch (_lastSavedSelectableItem.ItemType)
             {
                 case SelectableItems.Weapon:
-                    _currentWeapon.DiscardFromPlayer(_lastSavedSelectableItem as Weapon);
-                    _currentWeapon = _lastSavedSelectableItem as Weapon;
-                    weapons[_selectedSlot] = _currentWeapon;
-                    _currentWeapon.Init(this, weaponHolder, targetLook, _infoInterface, _selectedSlot);
-                    _currentWeapon.ConectToPlayer();
+                    Weapon selectWeapon = _lastSavedSelectableItem as Weapon;
+                    if (gold.HasCount(selectWeapon.GetPrice()) || selectWeapon.bought)
+                    {
+                        if(!selectWeapon.bought)
+                            gold.Remove(selectWeapon.GetPrice());
+                        _currentWeapon.DiscardFromPlayer(selectWeapon);
+                        _currentWeapon = selectWeapon;
+                        weapons[_selectedSlot] = _currentWeapon;
+                        _currentWeapon.Init(this, weaponHolder, targetLook, _infoInterface, _selectedSlot);
+                        _currentWeapon.ConectToPlayer();
+                    }
                     break;
                 case SelectableItems.Modifier:
-                    AddFreeModifier(_lastSavedSelectableItem as Modifier);
+                    Modifier selectModifier = _lastSavedSelectableItem as Modifier;
+                    if (gold.HasCount(selectModifier.GetPrice()))
+                    {
+                        gold.Remove(selectModifier.GetPrice());
+                        AddFreeModifier(selectModifier);
+                        Destroy(selectModifier.gameObject);
+                    }
                     break;
             }
             _lastSavedSelectableItem.OnSelect(this);
@@ -148,16 +160,16 @@ public class Player : MonoBehaviour
         switch (_lastSavedSelectableItem.ItemType)
         {
             case SelectableItems.Weapon:
-                Weapon collectingWeapon = _lastSavedSelectableItem as Weapon;
-                _uiManager.UpdateNewWeaponDescription(collectingWeapon.GetName(), collectingWeapon.GetDamage(), collectingWeapon.GetFiringSpeed());
+                Weapon selectingWeapon = _lastSavedSelectableItem as Weapon;
+                _uiManager.UpdateNewWeaponDescription(gold.HasCount(selectingWeapon.GetPrice()), selectingWeapon);
                 break;
             case SelectableItems.Modifier:
-                Modifier collectingModifier = _lastSavedSelectableItem as Modifier; 
-                _uiManager.UpdateNewModifierInfo(collectingModifier.GetSprite(), collectingModifier.GetTitle(), collectingModifier.GetDescription());
+                Modifier selectingModifier = _lastSavedSelectableItem as Modifier; 
+                _uiManager.UpdateNewModifierInfo(gold.HasCount(selectingModifier.GetPrice()), selectingModifier);
                 break;
             case SelectableItems.HealthAward:
                 HealthAward healthAward = _lastSavedSelectableItem as HealthAward;
-                _uiManager.UpdateBuyHealthText(gold.HasCount(healthAward.GetPrice()), healthAward.GetPrice(), healthAward.GetAddHealth(), healthAward.IsUsed());
+                _uiManager.UpdateBuyHealthText(gold.HasCount(healthAward.GetPrice()), healthAward);
                 break;
         }
         SetActiveTextTypes(true);

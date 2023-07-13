@@ -104,8 +104,10 @@ MonoBehaviour:
   decalPrefab: {fileID: 198000010535933408, guid: f55c9bf640b6fd34aa8924a3dc6673dd, type: 3}
   weaponsIcon: {fileID: 9055946841289149757, guid: a223e949e21eb8a4fa1aebd03dc5cada, type: 3}
   damage: 30
-  weaponOnCollectRot: {x: 0, y: 0, z: 0}
   firingSpeed: 0.3
+  weaponOnCollectRot: {x: 0, y: 0, z: 0}
+  maxNumberOfModifiers: 1
+  price: 20
 --- !u!65 &4599686081341117006
 BoxCollider:
   m_ObjectHideFlags: 0
