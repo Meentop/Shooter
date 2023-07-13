@@ -20,7 +20,7 @@ public class DamageNumberUI : MonoBehaviour, IPoolable
     private float timer;
     private EnemyHealth enemy;
     private Vector3 randPos;
-    private RectTransform canvas;
+    private Vector2 canvasSizeDelta;
 
     private void Update()
     {
@@ -30,12 +30,12 @@ public class DamageNumberUI : MonoBehaviour, IPoolable
         MoveText(Camera.main);
     }
 
-    public void Init(int amount, EnemyHealth enemy, RectTransform canvas, Color color)
+    public void Init(int amount, EnemyHealth enemy, RectTransform enemyCanvas, Color color)
     {
         text = GetComponent<TextMeshProUGUI>();
         text.text = amount.ToString();
         this.enemy = enemy;
-        this.canvas = canvas;
+        canvasSizeDelta = enemyCanvas.sizeDelta;
         text.color = color;
 
         timer = 0;
@@ -43,16 +43,17 @@ public class DamageNumberUI : MonoBehaviour, IPoolable
         MoveText(Camera.main);
     }
 
+    Vector3 lastEnemyPos = new Vector3();
     public void MoveText(Camera camera)
     {
-        Vector3 newPos = new Vector3();
         if (enemy != null)
         {
-            Vector3 viewportPos = camera.WorldToViewportPoint(enemy.GetDamageNumbersPos());
-            newPos = new Vector3(viewportPos.x * canvas.sizeDelta.x, (viewportPos.y * canvas.sizeDelta.y) + (anim.Evaluate(timer) * animHeight), 0) + randPos;
-            text.faceColor = new Color32(text.faceColor.r, text.faceColor.g, text.faceColor.b, (byte)transparent.Evaluate(timer));
-            text.outlineColor = new Color32(text.outlineColor.r, text.outlineColor.g, text.outlineColor.b, (byte)transparent.Evaluate(timer));
+            lastEnemyPos = enemy.GetDamageNumbersPos();
         }
+        Vector3 viewportPos = camera.WorldToViewportPoint(lastEnemyPos);
+        Vector3 newPos = new Vector3(viewportPos.x * canvasSizeDelta.x, (viewportPos.y * canvasSizeDelta.y) + (anim.Evaluate(timer) * animHeight), 0) + randPos;
+        text.faceColor = new Color32(text.faceColor.r, text.faceColor.g, text.faceColor.b, (byte)transparent.Evaluate(timer));
+        text.outlineColor = new Color32(text.outlineColor.r, text.outlineColor.g, text.outlineColor.b, (byte)transparent.Evaluate(timer));
         text.rectTransform.anchoredPosition = newPos;
     }
 

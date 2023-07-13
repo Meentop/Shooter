@@ -13,13 +13,13 @@ public class DamageUI : MonoBehaviour
         Instance = this;
     }
 
-    public void AddText(int amount, EnemyHealth enemy, RectTransform canvas, Color color)
+    public void AddText(int amount, EnemyHealth enemy, RectTransform enemyCanvas, Color color)
     {
         var item = ObjectPool.Instance.GetObject(textPrefab);
         item.transform.SetParent(transform);
         item.transform.localScale = Vector3.one;
         item.transform.localRotation = Quaternion.identity;
         item.transform.localPosition = new Vector3(item.transform.localPosition.x, item.transform.localPosition.y, 0);
-        item.Init(amount, enemy, canvas, color);
+        item.Init(amount, enemy, enemyCanvas, color);
     }
 }
