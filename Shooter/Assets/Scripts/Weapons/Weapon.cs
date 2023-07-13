@@ -110,7 +110,7 @@ public abstract class Weapon : MonoBehaviour, ISelectableItem
         return maxNumberOfModifiers;
     }
 
-    public void OnSelect()
+    public void OnSelect(Player player)
     {
         
     }

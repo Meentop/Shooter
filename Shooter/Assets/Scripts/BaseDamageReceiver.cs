@@ -47,6 +47,14 @@ public abstract class BaseDamageReceiver : MonoBehaviour, IDamageReceiver
         }
     }
 
+    public virtual void AddHealth(int health)
+    {
+        curHP += health;
+        if (curHP > maxHP)
+            curHP = maxHP;
+        UpdateHealthBar(maxHP, curHP);
+    }
+
     protected virtual void UpdateHealthBar(float maxHP, float currentHP)
     {
         if (healthBar == null)

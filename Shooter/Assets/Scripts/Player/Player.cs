@@ -11,6 +11,9 @@ public class Player : MonoBehaviour
     [SerializeField] private Sprite testSprite;
     [SerializeField] private float selectDistance = 4f;
 
+    public PlayerHealth health { get; private set; }
+    public PlayerGold gold { get; private set; }
+
     private Weapon _currentWeapon;
     private int _selectedSlot;
     private bool _isScrolling;
@@ -33,6 +36,8 @@ public class Player : MonoBehaviour
 
     public void Init(UIManager uiManager, CameraController cameraController, Camera mainCamera, RectTransform canvas, Transform modifierDragHolder)
     {
+        health = GetComponent<PlayerHealth>();
+        gold = GetComponent<PlayerGold>();
         _currentWeapon = weapons[0];
         _infoInterface = uiManager.infoInterface;
         _dynamicInterface = uiManager.dinemicInterface;
@@ -102,7 +107,7 @@ public class Player : MonoBehaviour
         {
             if (_lastSavedSelectableItem == null)
                 return;
- 
+            
             switch (_lastSavedSelectableItem.ItemType)
             {
                 case SelectableItems.Weapon:
@@ -112,14 +117,11 @@ public class Player : MonoBehaviour
                     _currentWeapon.Init(this, weaponHolder, targetLook, _infoInterface, _selectedSlot);
                     _currentWeapon.ConectToPlayer();
                     break;
-                case SelectableItems.TestButton:
-                    _lastSavedSelectableItem.OnSelect();
-                    break;
                 case SelectableItems.Modifier:
                     AddFreeModifier(_lastSavedSelectableItem as Modifier);
-                    _lastSavedSelectableItem.OnSelect();
                     break;
             }
+            _lastSavedSelectableItem.OnSelect(this);
         }
     }
 
@@ -139,41 +141,52 @@ public class Player : MonoBehaviour
             ExitSelectableItem();
     }
 
-    void OverChoosableItem()
+    private void OverChoosableItem()
     {
-        if (!_uiManager.GetActiveText(UIManager.TextTypes.SelectText))
-            _uiManager.SetActiveText(UIManager.TextTypes.SelectText, true);
+        if (!_uiManager.GetActiveText(TextTypes.SelectText))
+            _uiManager.SetActiveText(TextTypes.SelectText, true);
         switch (_lastSavedSelectableItem.ItemType)
         {
             case SelectableItems.Weapon:
                 Weapon collectingWeapon = _lastSavedSelectableItem as Weapon;
-                _uiManager.SetActiveText(UIManager.TextTypes.NewWeaponTextHolder, true);
                 _uiManager.UpdateNewWeaponDescription(collectingWeapon.GetName(), collectingWeapon.GetDamage(), collectingWeapon.GetFiringSpeed());
                 break;
             case SelectableItems.Modifier:
-                Modifier collectingModifier = _lastSavedSelectableItem as Modifier;
-                _uiManager.SetActiveText(UIManager.TextTypes.NewModifierTextHolder, true);
+                Modifier collectingModifier = _lastSavedSelectableItem as Modifier; 
                 _uiManager.UpdateNewModifierInfo(collectingModifier.GetSprite(), collectingModifier.GetTitle(), collectingModifier.GetDescription());
                 break;
+            case SelectableItems.HealthAward:
+                HealthAward healthAward = _lastSavedSelectableItem as HealthAward;
+                _uiManager.UpdateBuyHealthText(gold.HasCount(healthAward.GetPrice()), healthAward.GetPrice(), healthAward.GetAddHealth(), healthAward.IsUsed());
+                break;
+        }
+        SetActiveTextTypes(true);
+    }
+
+    private void ExitSelectableItem()
+    {
+        if (_uiManager.GetActiveText(TextTypes.SelectText))
+            _uiManager.SetActiveText(TextTypes.SelectText, false);
+        if (_lastSavedSelectableItem != null)
+        {
+            SetActiveTextTypes(false);
+            _lastSavedSelectableItem = null;
         }
     }
 
-    void ExitSelectableItem()
+    private void SetActiveTextTypes(bool active)
     {
-        if (_uiManager.GetActiveText(UIManager.TextTypes.SelectText))
-            _uiManager.SetActiveText(UIManager.TextTypes.SelectText, false);
-        if (_lastSavedSelectableItem != null)
+        switch (_lastSavedSelectableItem.ItemType)
         {
-            switch (_lastSavedSelectableItem.ItemType)
-            {
-                case SelectableItems.Weapon:
-                    _uiManager.SetActiveText(UIManager.TextTypes.NewWeaponTextHolder, false);
-                    break;
-                case SelectableItems.Modifier:
-                    _uiManager.SetActiveText(UIManager.TextTypes.NewModifierTextHolder, false);
-                    break;
-            }
-            _lastSavedSelectableItem = null;
+            case SelectableItems.Weapon:
+                _uiManager.SetActiveText(TextTypes.NewWeaponTextHolder, active);
+                break;
+            case SelectableItems.Modifier:
+                _uiManager.SetActiveText(TextTypes.NewModifierTextHolder, active);
+                break;
+            case SelectableItems.HealthAward:
+                _uiManager.SetActiveText(TextTypes.BuyHealthHolder, active);
+                break;
         }
     }
 

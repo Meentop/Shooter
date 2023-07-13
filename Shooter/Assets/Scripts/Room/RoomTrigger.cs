@@ -5,7 +5,6 @@ using UnityEngine;
 public class RoomTrigger : MonoBehaviour
 {
     [SerializeField] private Room room;
-    [SerializeField] private bool battleRoom;
 
     private bool enemiesActivated = false;
 
@@ -16,7 +15,7 @@ public class RoomTrigger : MonoBehaviour
             room.UpdateMiniMapPos(1f);
             room.SetActiveMiniRoom(true);
         }
-        if (battleRoom && !enemiesActivated && other.gameObject.GetComponent<Player>())
+        if (room.IsBattleRoom() && !enemiesActivated && other.gameObject.GetComponent<Player>())
         {
             room.SpawnEnemies();
             room.SetDoors(true);

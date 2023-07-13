@@ -159,3 +159,4 @@ MonoBehaviour:
   pickDistance: 3
   speed: 10
   lifeTime: 3
+  unpullableTime: 1

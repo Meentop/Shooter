@@ -9,7 +9,7 @@ public class TestEnemyButton : MonoBehaviour, ISelectableItem
 
     public SelectableItems ItemType => SelectableItems.TestButton;
 
-    public void OnSelect()
+    public void OnSelect(Player player)
     {
         Instantiate(enemyPrefab, spawnPoint.position, Quaternion.identity);
     }

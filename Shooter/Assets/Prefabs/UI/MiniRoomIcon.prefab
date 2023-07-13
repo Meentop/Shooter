@@ -398,4 +398,4 @@ MonoBehaviour:
   - {fileID: 908280494322241607}
   - {fileID: 3745390557581071959}
   unactiveColor: {r: 1, g: 1, b: 1, a: 1}
-  activeColor: {r: 1, g: 0, b: 0.08870983, a: 1}
+  activeColor: {r: 0.15477037, g: 0.71314037, b: 0.8867924, a: 1}
