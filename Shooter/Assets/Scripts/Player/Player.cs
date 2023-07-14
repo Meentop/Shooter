@@ -127,6 +127,8 @@ public class Player : MonoBehaviour
                     Modifier selectModifier = _lastSavedSelectableItem as Modifier;
                     if (gold.HasCount(selectModifier.GetPrice()))
                     {
+                        if (selectModifier.transform.parent.parent.TryGetComponent<ModifierAward>(out var modifierAward))
+                            modifierAward.DeleteOtherModifiers(selectModifier.transform.parent);
                         gold.Remove(selectModifier.GetPrice());
                         AddFreeModifier(selectModifier);
                         Destroy(selectModifier.gameObject);
