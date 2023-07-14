@@ -5033,10 +5033,10 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2981266108835833279}
+  - component: {fileID: 4040175810477204425}
+  - component: {fileID: 5091006727798916490}
   - component: {fileID: 2981266108737814653}
   - component: {fileID: 7729926444301364067}
-  - component: {fileID: 5091006727798916490}
-  - component: {fileID: 4040175810477204425}
   - component: {fileID: 6730050111927926067}
   m_Layer: 0
   m_Name: Reaper
@@ -5054,7 +5054,7 @@ Transform:
   m_GameObject: {fileID: 2981266108836067743}
   m_LocalRotation: {x: 0, y: 0.7071068, z: 0.7071068, w: 0}
   m_LocalPosition: {x: 0.7315664, y: 0.02977135, z: -0.11757183}
-  m_LocalScale: {x: 0.2, y: 0.2, z: 0.2}
+  m_LocalScale: {x: 0.0870912, y: 0.0870912, z: 0.0870912}
   m_Children:
   - {fileID: 2981266108835833269}
   - {fileID: 2977337052703187879}
@@ -5063,41 +5063,14 @@ Transform:
   m_Father: {fileID: 2162788818056508649}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: -90, y: 180, z: 0}
---- !u!114 &2981266108737814653
-MonoBehaviour:
+--- !u!33 &4040175810477204425
+MeshFilter:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2981266108836067743}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0d2ce56ac286ff74c97eba216fb57a1d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  shootEffect: {fileID: 3161802147564303021}
-  decalPrefab: {fileID: 198000010535933408, guid: f55c9bf640b6fd34aa8924a3dc6673dd, type: 3}
-  weaponsIcon: {fileID: 358132371581820940, guid: 7322eeca72c65f44c8d628954f2f38c7, type: 3}
-  damage: 10
-  firingSpeed: 0.5
-  weaponOnCollectRot: {x: -90, y: 180, z: 0}
-  maxNumberOfModifiers: 1
-  price: 30
-  pelletsCount: 5
-  spread: 0.1
---- !u!65 &7729926444301364067
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2981266108836067743}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 11.591853, y: 4.504833, z: 5.718683}
-  m_Center: {x: 2.5935292, y: -0.00993311, z: -0.38054073}
+  m_Mesh: {fileID: 4300000, guid: 3eaebbe5e705a484ba05ab5aca72e007, type: 3}
 --- !u!23 &5091006727798916490
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -5139,14 +5112,42 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!33 &4040175810477204425
-MeshFilter:
+--- !u!114 &2981266108737814653
+MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2981266108836067743}
-  m_Mesh: {fileID: 4300000, guid: 3eaebbe5e705a484ba05ab5aca72e007, type: 3}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0d2ce56ac286ff74c97eba216fb57a1d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  shootEffect: {fileID: 3161802147564303021}
+  decalPrefab: {fileID: 198000010535933408, guid: f55c9bf640b6fd34aa8924a3dc6673dd, type: 3}
+  weaponsIcon: {fileID: 358132371581820940, guid: 7322eeca72c65f44c8d628954f2f38c7, type: 3}
+  boxCollider: {fileID: 7729926444301364067}
+  damage: 10
+  firingSpeed: 0.5
+  weaponOnCollectRot: {x: -90, y: 180, z: 0}
+  maxNumberOfModifiers: 1
+  price: 30
+  pelletsCount: 5
+  spread: 0.1
+--- !u!65 &7729926444301364067
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2981266108836067743}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 11.591853, y: 4.504833, z: 5.718683}
+  m_Center: {x: 2.5935292, y: -0.00993311, z: -0.38054073}
 --- !u!114 &6730050111927926067
 MonoBehaviour:
   m_ObjectHideFlags: 0

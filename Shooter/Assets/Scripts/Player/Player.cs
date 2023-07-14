@@ -116,7 +116,7 @@ public class Player : MonoBehaviour
                     {
                         if(!selectWeapon.bought)
                             gold.Remove(selectWeapon.GetPrice());
-                        _currentWeapon.DiscardFromPlayer(selectWeapon);
+                        _currentWeapon.ConnectToStand(selectWeapon.transform.parent.parent);
                         _currentWeapon = selectWeapon;
                         weapons[_selectedSlot] = _currentWeapon;
                         _currentWeapon.Init(this, weaponHolder, targetLook, _infoInterface, _selectedSlot);

@@ -30,7 +30,7 @@ Transform:
   m_GameObject: {fileID: 5448778960478802547}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 0.435456, y: 0.435456, z: 0.435456}
   m_Children:
   - {fileID: 6687861214149937088}
   m_Father: {fileID: 5837850366297924653}
@@ -103,6 +103,7 @@ MonoBehaviour:
   shootEffect: {fileID: 6800809668263106250}
   decalPrefab: {fileID: 198000010535933408, guid: f55c9bf640b6fd34aa8924a3dc6673dd, type: 3}
   weaponsIcon: {fileID: 9055946841289149757, guid: a223e949e21eb8a4fa1aebd03dc5cada, type: 3}
+  boxCollider: {fileID: 4599686081341117006}
   damage: 30
   firingSpeed: 0.3
   weaponOnCollectRot: {x: 0, y: 0, z: 0}
