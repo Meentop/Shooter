@@ -9,9 +9,9 @@ public class PlayerGold : MonoBehaviour
 
     [SerializeField] private Text text;
 
-    public void Add()
+    public void Add(int addGold = 1)
     {
-        _gold++;
+        _gold += addGold;
         UpdateUI();
     }
 

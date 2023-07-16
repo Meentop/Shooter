@@ -12,5 +12,6 @@ public enum SelectableItems
     Modifier,
     AwardButton,
     GoldAward,
-    HealthAward
+    HealthAward,
+    GoldButton
 }

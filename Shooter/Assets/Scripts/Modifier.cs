@@ -9,6 +9,7 @@ public class Modifier : MonoBehaviour, ISelectableItem
     [SerializeField] private Sprite sprite;
     [SerializeField] private string title, description;
     [SerializeField] private List<ModifierBehaviour> behaviours;
+    [SerializeField] private int price;
 
     public SelectableItems ItemType => SelectableItems.Modifier;
 
@@ -18,6 +19,7 @@ public class Modifier : MonoBehaviour, ISelectableItem
         public Image Image;
         public Text Title;
         public Text Description;
+        public Text Price;
     }
 
     public Modifier(Sprite sprite, string title, string description)
@@ -42,6 +44,11 @@ public class Modifier : MonoBehaviour, ISelectableItem
         return description;
     }
 
+    public int GetPrice()
+    {
+        return price;
+    }
+
     public DamageData ApplyBehaviours(DamageData damageData, EnemyHealth enemy)
     {
         foreach (var behaviour in behaviours)
@@ -53,6 +60,6 @@ public class Modifier : MonoBehaviour, ISelectableItem
 
     public void OnSelect(Player player)
     {
-        Destroy(gameObject);
+        
     }
 }

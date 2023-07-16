@@ -7,24 +7,24 @@ public abstract class Weapon : MonoBehaviour, ISelectableItem
     [SerializeField] protected ParticleSystem shootEffect;
     [SerializeField] protected ParticleSystem decalPrefab;
     [SerializeField] protected Image weaponsIcon;
+    [SerializeField] private Collider boxCollider;
     [Space]
     [SerializeField] protected int damage;
     [SerializeField] protected float firingSpeed;
     [SerializeField] protected Vector3 weaponOnCollectRot;
     [SerializeField] protected int maxNumberOfModifiers = 1;
+    [SerializeField] private int price;
     
     public SelectableItems ItemType => SelectableItems.Weapon;
 
     private Player _player;
-    private Collider _collider;
     private InfoInterface _infoInterface;
     private PlayerDamage _playerDamage;
-
     private Transform _targetLook;
     private Transform _weaponHolder;
-
     private bool _isInited;
     private List<Modifier> _modifiers = new List<Modifier>();
+    public bool bought { get; private set; }
 
     [System.Serializable]
     public struct Description
@@ -33,6 +33,8 @@ public abstract class Weapon : MonoBehaviour, ISelectableItem
         public Text DamageText;
         public Text FiringSpeed;
         public Transform ModifiersHolder;
+        public GameObject BuyPanel;
+        public Text PriceText;
     }
 
     protected virtual void Update()
@@ -51,13 +53,13 @@ public abstract class Weapon : MonoBehaviour, ISelectableItem
         _player = player;
         _weaponHolder = weaponHolder;
         _targetLook = targetLook;
-        _collider = GetComponent<Collider>();
         gameObject.layer = LayerMask.NameToLayer("Weapon");
         _infoInterface = infoInterface;
         _infoInterface.UpdateInfoIcon(InfoInterface.InfoIconEnum.SelectWeaponsIcon, weaponsIcon, selectedWeapon);
         _playerDamage = _player.GetComponent<PlayerDamage>();
 
         _isInited = true;
+        bought = true;
         OnInit();
     }
 
@@ -67,25 +69,27 @@ public abstract class Weapon : MonoBehaviour, ISelectableItem
 
     public abstract void StopShooting();
 
-    public void DiscardFromPlayer(Weapon savedWeapon)
+    public void ConnectToStand(Transform stand)
     {
-        GetComponent<Weapon>().enabled = false;
+        enabled = false;
         transform.GetComponent<RotateObject>().enabled = true;
-        transform.parent.parent = savedWeapon.transform.parent.parent;
+        transform.parent.parent = stand;
         transform.parent.localRotation = Quaternion.identity;
-        transform.parent.position = (transform.parent.parent.position + new Vector3(0, 1f, 0)) + (transform.parent.position - transform.position);
-        _collider.enabled = true;
+        transform.parent.position = transform.parent.parent.position + new Vector3(0, 1f, 0) + (transform.parent.position - transform.position);
+        boxCollider.enabled = true;
         gameObject.layer = LayerMask.NameToLayer("Default");
     }
 
     public void ConectToPlayer()
     {
-        GetComponent<Weapon>().enabled = true;
-        _collider.enabled = false;
+        enabled = true;
+        if (transform.parent.parent.parent.TryGetComponent<WeaponAward>(out var weaponAward))
+            weaponAward.DeleteOtherWeapons(transform.parent.parent);
+        boxCollider.enabled = false;
         transform.GetComponent<RotateObject>().enabled = false;
         transform.localRotation = Quaternion.Euler(weaponOnCollectRot);
-        transform.parent.transform.parent = _weaponHolder.transform;
-        transform.parent.localPosition = new Vector3(0, 0, 0);
+        transform.parent.parent = _weaponHolder.transform;
+        transform.parent.localPosition = Vector3.zero;
         transform.parent.localRotation = Quaternion.identity;
         gameObject.layer = LayerMask.NameToLayer("Weapon");
     }
@@ -108,6 +112,11 @@ public abstract class Weapon : MonoBehaviour, ISelectableItem
     public int GetMaxNumbersOfModifiers()
     {
         return maxNumberOfModifiers;
+    }
+
+    public int GetPrice()
+    {
+        return price;
     }
 
     public void OnSelect(Player player)

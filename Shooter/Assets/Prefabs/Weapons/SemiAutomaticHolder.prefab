@@ -4817,8 +4817,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 9132770346699166632}
   m_LocalRotation: {x: -0, y: -0.7071068, z: -0, w: 0.7071068}
-  m_LocalPosition: {x: 2.15, y: 0.39, z: -0.6780014}
-  m_LocalScale: {x: 2.1112597, y: 2.1112614, z: 2.1112597}
+  m_LocalPosition: {x: 0.58, y: -0.04, z: -0.16}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 2606420350890088314}
   m_Father: {fileID: 1107907119291167400}
@@ -4888,10 +4888,12 @@ MonoBehaviour:
   shootEffect: {fileID: 2781684655017903728}
   decalPrefab: {fileID: 198000010535933408, guid: f55c9bf640b6fd34aa8924a3dc6673dd, type: 3}
   weaponsIcon: {fileID: 7442524080799220309, guid: b3c006987ae349e489a71c2d75563cfd, type: 3}
+  boxCollider: {fileID: 3124322557215765905}
   damage: 10
   firingSpeed: 0.1
   weaponOnCollectRot: {x: 0, y: -90, z: 0}
   maxNumberOfModifiers: 3
+  price: 25
 --- !u!65 &3124322557215765905
 BoxCollider:
   m_ObjectHideFlags: 0

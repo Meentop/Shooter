@@ -9,13 +9,13 @@ public class UIManager : MonoBehaviour
     [SerializeField] private GameObject newWeaponTextHolder;
     [SerializeField] private GameObject newModifierTextHolder;
     [SerializeField] private GameObject buyHealthHolder;
+    [SerializeField] private Color normalBuyColor, notEnoughColor;
     [SerializeField] private Weapon.Description newWeaponDescriptions;
     [SerializeField] private Modifier.Info newModifierInfo;
     [Header("Buy Health")]
     [SerializeField] private Text buyHealthPrice;
     [SerializeField] private Text buyHealthCount;
     [SerializeField] private GameObject buyHealthWasUsed;
-    [SerializeField] private Color normalColor, notEnoughColor;
     [Header("Other")]
     [SerializeField] private InfoInterface _infoInterface;
     [SerializeField] private DynamicUI _dinemicInterface;
@@ -59,26 +59,31 @@ public class UIManager : MonoBehaviour
         }
     }
 
-    public void UpdateNewWeaponDescription(string weaponName, float damage, float firingSpeed)
+    public void UpdateNewWeaponDescription(bool hasGold, Weapon weapon)
     {
-        newWeaponDescriptions.WeaponNameText.text = weaponName;
-        newWeaponDescriptions.DamageText.text = "Damage " + damage.ToString();
-        newWeaponDescriptions.FiringSpeed.text = "FiringSpeed " + firingSpeed.ToString();
+        newWeaponDescriptions.BuyPanel.SetActive(!weapon.bought);
+        newWeaponDescriptions.WeaponNameText.text = weapon.GetName();
+        newWeaponDescriptions.DamageText.text = "Damage " + weapon.GetDamage().ToString();
+        newWeaponDescriptions.FiringSpeed.text = "FiringSpeed " + weapon.GetFiringSpeed().ToString();
+        newWeaponDescriptions.PriceText.text = weapon.GetPrice().ToString();
+        newWeaponDescriptions.PriceText.color = hasGold ? normalBuyColor : notEnoughColor;
     }
 
-    public void UpdateNewModifierInfo(Sprite sprite, string title, string description)
+    public void UpdateNewModifierInfo(bool hasGold, Modifier modifier)
     {
-        newModifierInfo.Image.sprite = sprite;
-        newModifierInfo.Title.text = title;
-        newModifierInfo.Description.text = description;
+        newModifierInfo.Image.sprite = modifier.GetSprite();
+        newModifierInfo.Title.text = modifier.GetTitle();
+        newModifierInfo.Description.text = modifier.GetDescription();
+        newModifierInfo.Price.text = modifier.GetPrice().ToString();
+        newModifierInfo.Price.color = hasGold ? normalBuyColor : notEnoughColor;
     }
 
-    public void UpdateBuyHealthText(bool hasGold, int price, int healthCount, bool isUsed)
+    public void UpdateBuyHealthText(bool hasGold, HealthAward healthAward)
     {
-        buyHealthPrice.text = price.ToString();
-        buyHealthPrice.color = hasGold ? normalColor : notEnoughColor;
-        buyHealthCount.text = healthCount.ToString();
-        buyHealthWasUsed.SetActive(isUsed);
+        buyHealthPrice.text = healthAward.GetPrice().ToString();
+        buyHealthPrice.color = hasGold ? normalBuyColor : notEnoughColor;
+        buyHealthCount.text = healthAward.GetAddHealth().ToString();
+        buyHealthWasUsed.SetActive(healthAward.IsUsed());
     }
 }
 
