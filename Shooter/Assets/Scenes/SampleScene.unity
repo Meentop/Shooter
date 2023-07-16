@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 705507994}
-  m_IndirectSpecularColor: {r: 0.44657844, g: 0.49641222, b: 0.57481694, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657898, g: 0.4964133, b: 0.5748178, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -240,14 +240,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fd549f641a88d8249903aff4eb98bba6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  numberOfRooms: 6
-  roomSize: {x: 42, y: 42}
-  startRoom: {fileID: 5990737833800903788, guid: 80ad28c90fd14bd4a8951dd3c72617ca, type: 3}
-  portalRoom: {fileID: 5990737833800903788, guid: d3f0ea4758470af429cc254897cd6e0c, type: 3}
-  battleRoomPrefabs:
-  - {fileID: 5990737833800903788, guid: d236ec1283f7dc44a834934e4e8f62bd, type: 3}
-  - {fileID: 5990737833800903788, guid: 7bf4fe6d7bc59f74a861eb5b148fc427, type: 3}
-  - {fileID: 5990737833800903788, guid: 8f3c535e5a4efe9478ba072d4155f019, type: 3}
   mapMiniController: {fileID: 2078637963}
 --- !u!4 &308214504
 Transform:
@@ -393,6 +385,7 @@ GameObject:
   - component: {fileID: 760817649}
   - component: {fileID: 760817650}
   - component: {fileID: 760817648}
+  - component: {fileID: 760817651}
   m_Layer: 0
   m_Name: Managers
   m_TagString: Untagged
@@ -475,6 +468,21 @@ MonoBehaviour:
   mainCamera: {fileID: 1573259695}
   canvas: {fileID: 1026115379}
   modifierDragHolder: {fileID: 2565003241933251671}
+  floorSpawner: {fileID: 760817651}
+--- !u!114 &760817651
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 760817647}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4c3aa6b6915ff184fb88f4ad213b00c2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  roomSpawner: {fileID: 308214503}
+  floorManagerConfig: {fileID: 11400000, guid: d5b8c67b3b69690429bbab73affaf594, type: 2}
 --- !u!114 &787724149 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 7346437907303352126, guid: 5dabf89771060884e956222b099303a1, type: 3}

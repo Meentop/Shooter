@@ -4,22 +4,24 @@ using UnityEngine;
 
 public class RoomSpawner : MonoBehaviour
 {
-    [SerializeField] private int numberOfRooms;
-    [SerializeField] private Vector2 roomSize;
-    [SerializeField] private Room startRoom, portalRoom;
-    [SerializeField] private Room[] battleRoomPrefabs;
     [SerializeField] private MapMiniController mapMiniController;
 
     private Dictionary<Vector2Int, Room> _roomMap;
+    private RoomSpawnerInfo _roomSpawnerInfo;
 
+    public void SetRoomSpawnerInfo(RoomSpawnerInfo roomSpawnerInfo)
+    {
+        _roomSpawnerInfo = roomSpawnerInfo;
+    }
+    
     public void Init()
     {
-        Room startRoom = Instantiate(this.startRoom.gameObject, Vector3.zero, Quaternion.identity).GetComponent<Room>();
+        Room startRoom = Instantiate(_roomSpawnerInfo.StartRoom.gameObject, Vector3.zero, Quaternion.identity).GetComponent<Room>();
         mapMiniController.SpawnMiniStartRoom(startRoom);
         startRoom.Init(Vector2Int.zero, 0, mapMiniController, AwardType.None);
         _roomMap = new Dictionary<Vector2Int, Room>() { { Vector2Int.zero, startRoom } };
 
-        for (int i = 0; i < numberOfRooms - 1; i++)
+        for (int i = 0; i < _roomSpawnerInfo.NumberOfRooms - 1; i++)
         {
             var roomsWithEmptyNaighbours = _roomMap.Where(room => room.Value.Neighours.Any(naighour => IsFreePlace(room, naighour)));
             var parentRoom = roomsWithEmptyNaighbours.ElementAt(Random.Range(0, roomsWithEmptyNaighbours.Count()));
@@ -43,7 +45,7 @@ public class RoomSpawner : MonoBehaviour
         
         var randomRoomPrefab = DefineRandomRoom(directionFromNewRoom, iteration);
         var roomHeight = parentRoom.Value.Height + parentRoom.Value.GetDoorHeight(directionFromParent) - randomRoomPrefab.GetDoorHeight(directionFromNewRoom);
-        var spawnPosition = new Vector3(_newRoom.Key.x, 0, _newRoom.Key.y) * roomSize.x + new Vector3(0, roomHeight, 0);
+        var spawnPosition = new Vector3(_newRoom.Key.x, 0, _newRoom.Key.y) * _roomSpawnerInfo.RoomSize.x + new Vector3(0, roomHeight, 0);
 
         Room newRoom = Instantiate(randomRoomPrefab, spawnPosition, Quaternion.identity);
         newRoom.SetOpenDoor(directionFromNewRoom);
@@ -57,9 +59,9 @@ public class RoomSpawner : MonoBehaviour
 
     private Room DefineRandomRoom(Vector2Int directionFromNewRoom, int iteration)
     {
-        if (iteration == numberOfRooms - 2)
-            return portalRoom;
-        var suitablePrefabs = battleRoomPrefabs.Where(roomPrefab => roomPrefab.HasDoorInDirection(directionFromNewRoom));
+        if (iteration == _roomSpawnerInfo.NumberOfRooms - 2)
+            return _roomSpawnerInfo.EndRoom;
+        var suitablePrefabs = _roomSpawnerInfo.BattleRoomPrefabs.Where(roomPrefab => roomPrefab.HasDoorInDirection(directionFromNewRoom));
         return suitablePrefabs.ElementAt(Random.Range(0, suitablePrefabs.Count()));
     }
 
