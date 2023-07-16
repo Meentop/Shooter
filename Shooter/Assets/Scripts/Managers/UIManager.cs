@@ -9,9 +9,11 @@ public class UIManager : MonoBehaviour
     [SerializeField] private GameObject newWeaponTextHolder;
     [SerializeField] private GameObject newModifierTextHolder;
     [SerializeField] private GameObject buyHealthHolder;
+    [SerializeField] private GameObject newActiveSkillHolder;
     [SerializeField] private Color normalBuyColor, notEnoughColor;
     [SerializeField] private Weapon.Description newWeaponDescriptions;
     [SerializeField] private Modifier.Info newModifierInfo;
+    [SerializeField] private ActiveSkill.Info newActiveSkillInfo;
     [Header("Buy Health")]
     [SerializeField] private Text buyHealthPrice;
     [SerializeField] private Text buyHealthCount;
@@ -36,6 +38,9 @@ public class UIManager : MonoBehaviour
             case TextTypes.NewModifierTextHolder:
                 newModifierTextHolder.SetActive(isActive);
                 break;
+            case TextTypes.NewActiveSkillTextHolder:
+                newActiveSkillHolder.SetActive(isActive);
+                break;
             case TextTypes.BuyHealthHolder: 
                 buyHealthHolder.SetActive(isActive);
                 break;
@@ -52,6 +57,8 @@ public class UIManager : MonoBehaviour
                 return newWeaponTextHolder.activeInHierarchy;
             case TextTypes.NewModifierTextHolder:
                 return newModifierTextHolder.activeInHierarchy;
+            case TextTypes.NewActiveSkillTextHolder:
+                return newActiveSkillHolder.activeInHierarchy;
             case TextTypes.BuyHealthHolder:
                 return buyHealthHolder.activeInHierarchy;
             default:
@@ -78,6 +85,16 @@ public class UIManager : MonoBehaviour
         newModifierInfo.Price.color = hasGold ? normalBuyColor : notEnoughColor;
     }
 
+    public void UpdateNewActiveSkillInfo(bool hasGold, ActiveSkill skill)
+    {
+        newActiveSkillInfo.Image.sprite = skill.GetSprite();
+        newActiveSkillInfo.Title.text = skill.GetTitle();
+        newActiveSkillInfo.Description.text = skill.GetDescription();
+        newActiveSkillInfo.DamageToReload.text = "Damage to reload: " + skill.GetDamagaeToReturn().ToString();
+        newActiveSkillInfo.Price.text = skill.GetPrice().ToString();
+        newActiveSkillInfo.Price.color = hasGold ? normalBuyColor : notEnoughColor;
+    }
+
     public void UpdateBuyHealthText(bool hasGold, HealthAward healthAward)
     {
         buyHealthPrice.text = healthAward.GetPrice().ToString();
@@ -93,5 +110,6 @@ public enum TextTypes
     SelectText,
     NewWeaponTextHolder,
     NewModifierTextHolder,
+    NewActiveSkillTextHolder,
     BuyHealthHolder
 }
