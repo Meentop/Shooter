@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
@@ -11,10 +12,25 @@ public class GameManager : MonoBehaviour
     [SerializeField] private Camera mainCamera;
     [SerializeField] private RectTransform canvas;
     [SerializeField] private Transform modifierDragHolder;
+    [SerializeField] private FloorSpawner floorSpawner;
 
     private void Awake()
     {
         player.Init(uiManager, cameraController, mainCamera, canvas, modifierDragHolder);
-        roomSpawner.Init();
+        floorSpawner.UpdateFloor(player);
     }
+
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.G))
+        {
+            floorSpawner.SaveToFile("saveData.json");
+            SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+        }
+    }
+}
+
+public class SaveData
+{
+    public int currentFlorNumber;
 }
