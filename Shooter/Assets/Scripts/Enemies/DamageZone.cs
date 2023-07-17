@@ -12,10 +12,7 @@ public class DamageZone : MonoBehaviour
         {
             if (other.gameObject.transform.TryGetComponent<IDamageReceiver>(out var damageReceiver))
             {
-                DamageData damageData = new DamageData
-                {
-                    Damage = damage
-                };
+                DamageData damageData = new DamageData(damage: damage);
                 damageReceiver.GetDamage(damageData);
             }
         }

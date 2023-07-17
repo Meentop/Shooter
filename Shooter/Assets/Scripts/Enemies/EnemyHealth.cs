@@ -51,10 +51,7 @@ public class EnemyHealth : BaseDamageReceiver
                 if (statusEffects[StatusEffect.Poison] < 1)
                     statusEffects.Remove(StatusEffect.Poison);
             }
-            DamageData damageData = new DamageData()
-            {
-                StatusEffectsDamage = statusEffectsDamage
-            };
+            DamageData damageData = new DamageData(statusEffectsDamage: statusEffectsDamage);
             GetDamage(damageData);
             UpdateHealthBar(maxHP, curHP);
         }

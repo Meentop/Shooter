@@ -29,25 +29,13 @@ public class Modifier : MonoBehaviour, ISelectableItem
         this.description = description;
     }
 
-    public Sprite GetSprite()
-    {
-        return sprite;
-    }
+    public Sprite GetSprite() => sprite;
 
-    public string GetTitle()
-    {
-        return title;
-    }
+    public string GetTitle() => title;
 
-    public string GetDescription()
-    {
-        return description;
-    }
+    public string GetDescription() => description;
 
-    public int GetPrice()
-    {
-        return price;
-    }
+    public int GetPrice() => price;
 
     public DamageData ApplyBehaviours(DamageData damageData, EnemyHealth enemy)
     {

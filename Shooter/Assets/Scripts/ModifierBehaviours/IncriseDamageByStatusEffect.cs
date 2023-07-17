@@ -10,7 +10,7 @@ public class IncriseDamageByStatusEffect : ModifierBehaviour
     public override DamageData ApplyBehaviour(DamageData damageData, EnemyHealth enemy)
     {
         if (enemy.HasStatusEffect(statusEffect))
-            damageData.Damage = (int)(damageData.Damage * increase);
+            damageData.SetDamage((int)(damageData.Damage * increase));
         return damageData;
     }
 }

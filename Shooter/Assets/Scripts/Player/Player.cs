@@ -14,7 +14,7 @@ public class Player : MonoBehaviour
     public PlayerGold gold { get; private set; }
 
     private Weapon _currentWeapon;
-    [SerializeField] private ActiveSkill _activeSkill;
+    private ActiveSkill _activeSkill;
     private int _selectedSlot;
     private bool _isScrolling;
     private ISelectableItem _lastSavedSelectableItem;
@@ -104,7 +104,7 @@ public class Player : MonoBehaviour
 
     private void SelectItem()
     {
-        if (Input.GetKeyDown(KeyCode.F))
+        if (Input.GetKeyDown(KeyCode.E))
         {
             if (_lastSavedSelectableItem == null)
                 return;
@@ -223,20 +223,23 @@ public class Player : MonoBehaviour
 
     private void UseActiveSkill()
     {
-        if (Input.GetMouseButtonDown(1) && _activeSkill != null)
-            _activeSkill.OnActivated();
+        if (Input.GetMouseButtonDown(1))
+        {
+            try
+            {
+                _activeSkill.OnActivated();
+            }
+            catch 
+            {
+                print("error active skill not found");
+            }
+        }
     }
 
 
-    public Weapon[] GetWeapons()
-    {
-        return weapons;
-    }
+    public Weapon[] GetWeapons() => weapons;
 
-    public List<Modifier> GetFreeModifiers()
-    {
-        return freeModifiers;
-    }
+    public List<Modifier> GetFreeModifiers() => freeModifiers;
 
     public void RemoveFreeModifier(Modifier modifier)
     {
