@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 using UnityEngine.UI;
-using static Weapon;
 
 public abstract class ActiveSkill : MonoBehaviour, ISelectableItem
 {
@@ -16,6 +15,7 @@ public abstract class ActiveSkill : MonoBehaviour, ISelectableItem
     public SelectableItems ItemType => SelectableItems.ActiveSkill;
 
     private float curDamageTimer;
+    private Image reloadImage;
 
     [System.Serializable]
     public struct Info
@@ -27,7 +27,40 @@ public abstract class ActiveSkill : MonoBehaviour, ISelectableItem
         public Text Price;
     }
 
-    public abstract void OnActivated();
+    public void Init(Image reloadImage)
+    {
+        curDamageTimer = damageToReload;
+        this.reloadImage = reloadImage;
+        reloadImage.sprite = sprite;
+        UpdateUI();
+    }
+
+    public void Activate()
+    {
+        if (curDamageTimer >= damageToReload)
+        {
+            OnActivated();
+            curDamageTimer = 0;
+            UpdateUI();
+        }
+        else
+            print("need damage");
+    }
+
+    protected abstract void OnActivated();
+
+    public void AddDamageToTimer(int damage)
+    {
+        curDamageTimer += damage;
+        if(curDamageTimer > damageToReload)
+            curDamageTimer = damageToReload;
+        UpdateUI();
+    }
+
+    private void UpdateUI()
+    {
+        reloadImage.fillAmount = curDamageTimer / damageToReload;
+    }
 
     public Sprite GetSprite() => sprite;
 

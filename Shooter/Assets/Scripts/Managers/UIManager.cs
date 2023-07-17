@@ -14,6 +14,7 @@ public class UIManager : MonoBehaviour
     [SerializeField] private Weapon.Description newWeaponDescriptions;
     [SerializeField] private Modifier.Info newModifierInfo;
     [SerializeField] private ActiveSkill.Info newActiveSkillInfo;
+    [SerializeField] private Image activeSkillReloadImage;
     [Header("Buy Health")]
     [SerializeField] private Text buyHealthPrice;
     [SerializeField] private Text buyHealthCount;
@@ -102,6 +103,8 @@ public class UIManager : MonoBehaviour
         buyHealthCount.text = healthAward.GetAddHealth().ToString();
         buyHealthWasUsed.SetActive(healthAward.IsUsed());
     }
+
+    public Image GetActiveSkillReloadImage() => activeSkillReloadImage;
 }
 
 

@@ -22,7 +22,7 @@ public class Bullet : MonoBehaviour
         {
             if (hit.transform.TryGetComponent<IDamageReceiver>(out var damageReceiver))
             {
-                DamageData damageData = new DamageData(damage: damage);
+                DamageData damageData = new DamageData(FindAnyObjectByType<Player>(), damage: damage);
                 damageReceiver.GetDamage(damageData); ;
             }
             else

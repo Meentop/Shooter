@@ -227,7 +227,7 @@ public class Player : MonoBehaviour
         {
             try
             {
-                _activeSkill.OnActivated();
+                _activeSkill.Activate();
             }
             catch 
             {
@@ -254,5 +254,18 @@ public class Player : MonoBehaviour
     private void AddActiveSkill(ActiveSkill skill)
     {
         _activeSkill = skill;
+        _activeSkill.Init(_uiManager.GetActiveSkillReloadImage());
+    }
+
+    public void AddDamageToActiveSkill(int damage)
+    {
+        try
+        {
+            _activeSkill.AddDamageToTimer(damage);
+        }
+        catch
+        {
+            print("error active skill not found");
+        }
     }
 }

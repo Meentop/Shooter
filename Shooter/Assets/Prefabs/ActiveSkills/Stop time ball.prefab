@@ -108,8 +108,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9eb8716f57659d848a3e9393bc0eaabf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sprite: {fileID: 0}
+  sprite: {fileID: 21300000, guid: a2975c468466b4d4498c14a876fc0aee, type: 3}
   title: STOPTIME
   description: Freeze enemy to 5 sec
-  damageToReload: 200
+  damageToReload: 400
   price: 25

@@ -6,15 +6,16 @@ public interface IDamageReceiver
     void GetDamage(DamageData damageData);
 }
 
-public class DamageData
+public class DamageData 
 {
-    public DamageData(int damage = 0, Dictionary<StatusEffect, int> addStatusEffects = null, Dictionary<StatusEffect, int> statusEffectsDamage = null)
+    public DamageData(Player player, int damage = 0, Dictionary<StatusEffect, int> addStatusEffects = null, Dictionary<StatusEffect, int> statusEffectsDamage = null)
     {
         Damage = damage;
         AddStatusEffects = addStatusEffects;
         StatusEffectsDamage = statusEffectsDamage;
         AddStatusEffects ??= new Dictionary<StatusEffect, int>();
         StatusEffectsDamage ??= new Dictionary<StatusEffect, int>();
+        //player.AddDamageToActiveSkill(Damage);
     }
 
     public int Damage { get; private set; }

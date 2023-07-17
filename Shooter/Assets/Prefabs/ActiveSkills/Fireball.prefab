@@ -108,7 +108,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6ed4d7823430885438e1f8d1041f37f9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sprite: {fileID: 0}
+  sprite: {fileID: 21300000, guid: 2d66143ad96632d4d8b3a5b6f3ca6759, type: 3}
   title: FIREBALL
   description: Shoot fireball
   damageToReload: 180

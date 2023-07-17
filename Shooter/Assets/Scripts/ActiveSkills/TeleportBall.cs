@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class TeleportBall : ActiveSkill
 {
-    public override void OnActivated()
+    protected override void OnActivated()
     {
         print("teleportBall");
     }

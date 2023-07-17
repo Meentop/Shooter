@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class StopTimeBall : ActiveSkill
 {
-    public override void OnActivated()
+    protected override void OnActivated()
     {
         print("stop time ball");
     }
