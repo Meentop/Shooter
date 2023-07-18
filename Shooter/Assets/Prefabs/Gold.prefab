@@ -156,7 +156,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fe748a2adbe974e44809f3b868c2bc15, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  pickDistance: 3
+  pullDistance: 3
+  pickDistance: 0.3
   speed: 10
   lifeTime: 3
   unpullableTime: 1

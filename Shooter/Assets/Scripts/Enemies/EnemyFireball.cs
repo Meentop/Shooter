@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Fireboll : MonoBehaviour, IPoolable
+public class EnemyFireball : MonoBehaviour, IPoolable
 {
     [SerializeField] private float speed;
     [SerializeField] private float maxRadiansDelta;

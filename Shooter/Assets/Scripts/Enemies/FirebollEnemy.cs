@@ -6,7 +6,7 @@ public class FirebollEnemy : Enemy
 {
     [SerializeField] private float maxShootDistance;
 
-    [SerializeField] private Fireboll fireboll;
+    [SerializeField] private EnemyFireball fireboll;
 
     [SerializeField] private Transform shootPoint;
 
@@ -36,7 +36,7 @@ public class FirebollEnemy : Enemy
 
     public void Shoot()
     {
-        Fireboll fireboll = ObjectPool.Instance.GetObject(this.fireboll);
+        EnemyFireball fireboll = ObjectPool.Instance.GetObject(this.fireboll);
         fireboll.transform.position = shootPoint.position;
         fireboll.transform.rotation = Quaternion.LookRotation((player.position - shootPoint.position).normalized);
     }

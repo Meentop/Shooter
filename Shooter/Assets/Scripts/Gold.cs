@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class Gold : MonoBehaviour, IPoolable
 {
-    [SerializeField] private float pickDistance, speed, lifeTime, unpullableTime;
+    [SerializeField] private float pullDistance, pickDistance, speed, lifeTime, unpullableTime;
     public GameObject GameObject => gameObject;
 
     private Transform _player;
@@ -38,11 +38,16 @@ public class Gold : MonoBehaviour, IPoolable
             if(_unpullableTimer >= unpullableTime)
                 _canPull = true;
         }
-        if (!_isPicked && _canPull && Vector3.Distance(_player.position, transform.position) <= pickDistance)
+        if (!_isPicked && _canPull && Vector3.Distance(_player.position, transform.position) <= pullDistance)
         {
             _rb.useGravity = false;
             _collider.isTrigger = true;
             _isPicked = true;
+        }
+        if (_isPicked && Vector3.Distance(_player.position, transform.position) <= pickDistance)
+        {
+            _player.GetComponent<Player>().gold.Add();
+            Reset();
         }
     }
 
@@ -51,15 +56,6 @@ public class Gold : MonoBehaviour, IPoolable
         if (_isPicked)
         {
             _rb.velocity = (_player.position - transform.position).normalized * speed;
-        }
-    }
-
-    private void OnTriggerEnter(Collider other)
-    {
-        if (other.gameObject.TryGetComponent<Player>(out var player))
-        {
-            player.gold.Add();
-            Reset();
         }
     }
 
