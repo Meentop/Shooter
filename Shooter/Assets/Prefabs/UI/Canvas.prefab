@@ -6381,6 +6381,12 @@ MonoBehaviour:
   miniMap: {fileID: 6915425892900332414}
   activeWeaponsIcon: {fileID: 3508801258913019876, guid: d2381fd110bc64d4cbd7257d58269bb7, type: 3}
   inactiveWeaponsIcon: {fileID: 6232494266667643165, guid: 08f6ac46beded06409b003b312d0ab99, type: 3}
+  objectsForDisable:
+  - {fileID: 2672805079970742602}
+  - {fileID: 8228167796806504458}
+  - {fileID: 7837351731130974756}
+  - {fileID: 4607658593683480177}
+  - {fileID: 2702115112883139420}
 --- !u!1 &8099069506872597118
 GameObject:
   m_ObjectHideFlags: 0

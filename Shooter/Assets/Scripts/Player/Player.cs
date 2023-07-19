@@ -139,6 +139,8 @@ public class Player : MonoBehaviour
                     ActiveSkill selectSkill = _lastSavedSelectableItem as ActiveSkill;
                     if (Gold.HasCount(selectSkill.GetPrice()))
                     {
+                        if (selectSkill.transform.parent.parent.TryGetComponent<ActiveSkillAward>(out var skillAward))
+                            skillAward.DeleteOtherSkills(selectSkill.transform.parent);
                         Gold.Remove(selectSkill.GetPrice());
                         AddActiveSkill(selectSkill);
                         Destroy(selectSkill.gameObject);
