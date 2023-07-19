@@ -46,7 +46,7 @@ public class Gold : MonoBehaviour, IPoolable
         }
         if (_isPicked && Vector3.Distance(_player.position, transform.position) <= pickDistance)
         {
-            _player.GetComponent<Player>().gold.Add();
+            _player.GetComponent<Player>().Gold.Add();
             Reset();
         }
     }

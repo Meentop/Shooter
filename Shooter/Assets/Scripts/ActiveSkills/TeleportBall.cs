@@ -4,8 +4,10 @@ using UnityEngine;
 
 public class TeleportBall : ActiveSkill
 {
+    [SerializeField] private GameObject teleportBall;
+
     protected override void OnActivated()
     {
-        print("teleportBall");
+        Instantiate(teleportBall, mainCamera.position, mainCamera.rotation);
     }
 }

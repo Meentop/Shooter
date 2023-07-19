@@ -16,6 +16,7 @@ public abstract class ActiveSkill : MonoBehaviour, ISelectableItem
 
     private float curDamageTimer;
     private Image reloadImage;
+    protected Transform mainCamera;
 
     [System.Serializable]
     public struct Info
@@ -27,11 +28,12 @@ public abstract class ActiveSkill : MonoBehaviour, ISelectableItem
         public Text Price;
     }
 
-    public void Init(Image reloadImage)
+    public void Init(Image reloadImage, Transform camera)
     {
         curDamageTimer = damageToReload;
         this.reloadImage = reloadImage;
         reloadImage.sprite = sprite;
+        mainCamera = camera;
         UpdateUI();
     }
 

@@ -163,7 +163,7 @@ public abstract class Weapon : MonoBehaviour, ISelectableItem
 
     private DamageData GetDamageData(EnemyHealth enemy)
     {
-        DamageData damageData = new DamageData(_player, damage: DamageModifired());
+        DamageData damageData = new DamageData(damage: DamageModifired());
         foreach (var modifier in _modifiers)
         {
             damageData = modifier.ApplyBehaviours(damageData, enemy);

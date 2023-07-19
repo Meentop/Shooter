@@ -10,6 +10,6 @@ public class TestGoldButton : MonoBehaviour, ISelectableItem
 
     public void OnSelect(Player player)
     {
-        player.gold.Add(addGold);
+        player.Gold.Add(addGold);
     }
 }
