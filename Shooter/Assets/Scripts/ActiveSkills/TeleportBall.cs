@@ -4,10 +4,11 @@ using UnityEngine;
 
 public class TeleportBall : ActiveSkill
 {
-    [SerializeField] private GameObject teleportBall;
+    [SerializeField] private TeleportProjectile teleportBall;
 
     protected override void OnActivated()
     {
-        Instantiate(teleportBall, mainCamera.position, mainCamera.rotation);
+        TeleportProjectile projectile = Instantiate(teleportBall, mainCamera.position, mainCamera.rotation);
+        projectile.Init(player);
     }
 }

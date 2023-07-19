@@ -254,7 +254,7 @@ public class Player : MonoBehaviour
     private void AddActiveSkill(ActiveSkill skill)
     {
         _activeSkill = skill;
-        _activeSkill.Init(_uiManager.GetActiveSkillReloadImage(), Camera.main.transform);
+        _activeSkill.Init(_uiManager.GetActiveSkillReloadImage(), Camera.main.transform, this);
     }
 
     public void AddDamageToActiveSkill(int damage)
