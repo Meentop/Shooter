@@ -10,6 +10,7 @@ public enum SelectableItems
     Weapon,
     TestButton,
     Modifier,
+    ActiveSkill,
     AwardButton,
     GoldAward,
     HealthAward,

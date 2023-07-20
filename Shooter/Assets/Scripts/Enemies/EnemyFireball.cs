@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Fireboll : MonoBehaviour, IPoolable
+public class EnemyFireball : MonoBehaviour, IPoolable
 {
     [SerializeField] private float speed;
     [SerializeField] private float maxRadiansDelta;
@@ -21,7 +21,7 @@ public class Fireboll : MonoBehaviour, IPoolable
 
     private void Update()
     {
-        transform.Translate(Vector3.forward * speed * Time.deltaTime);
+        transform.Translate(speed * Time.deltaTime * Vector3.forward);
 
         Vector3 targetDirection = player.position - transform.position;
         Vector3 newDirection = Vector3.RotateTowards(transform.forward, targetDirection, maxRadiansDelta, 0.0f);
@@ -32,11 +32,11 @@ public class Fireboll : MonoBehaviour, IPoolable
     {
         if (other.gameObject.GetComponent<Player>())
         {
-            DamageData damageData = new DamageData() { Damage = 10 };
+            DamageData damageData = new DamageData(damage: 10);
             other.gameObject.GetComponent<BaseDamageReceiver>().GetDamage(damageData);
             Reset();
         }
-        else if(other.gameObject.tag == "Solid")
+        else if(other.gameObject.CompareTag("Solid"))
         {
             Reset();
         }

@@ -14,13 +14,15 @@ public class EnemyHealth : BaseDamageReceiver
     [SerializeField] private GameObject statsuEffectOnHPBar;
 
     private Dictionary<StatusEffect, int> statusEffects = new Dictionary<StatusEffect, int>();
-    private Transform player;
-    private Vector3 startScale;
+    private Transform _player;
+    private Player _playerComponent;
+    private Vector3 _startScale;
 
     protected override void Start()
     {
-        player = FindObjectOfType<Player>().transform;
-        startScale = hPBarCanvas.localScale;
+        _player = FindObjectOfType<Player>().transform;
+        _playerComponent = _player.GetComponent<Player>();
+        _startScale = hPBarCanvas.localScale;
         base.Start();
         StartCoroutine(UpdateStatusEffects());
     }
@@ -30,9 +32,9 @@ public class EnemyHealth : BaseDamageReceiver
         Vector3 directionToCamera = hPBarCanvas.position - Camera.main.transform.position;
         hPBarCanvas.rotation = Quaternion.LookRotation(directionToCamera, Vector3.up);
 
-        float currentDistance = Vector3.Distance(transform.position, player.position);
+        float currentDistance = Vector3.Distance(transform.position, _player.position);
         float targetScale = currentDistance * scaleMultiplier;
-        hPBarCanvas.localScale = startScale * targetScale;
+        hPBarCanvas.localScale = _startScale * targetScale;
     }
 
     private IEnumerator UpdateStatusEffects()
@@ -51,10 +53,7 @@ public class EnemyHealth : BaseDamageReceiver
                 if (statusEffects[StatusEffect.Poison] < 1)
                     statusEffects.Remove(StatusEffect.Poison);
             }
-            DamageData damageData = new DamageData()
-            {
-                StatusEffectsDamage = statusEffectsDamage
-            };
+            DamageData damageData = new DamageData(statusEffectsDamage: statusEffectsDamage);
             GetDamage(damageData);
             UpdateHealthBar(maxHP, curHP);
         }
@@ -62,6 +61,7 @@ public class EnemyHealth : BaseDamageReceiver
 
     public override void GetDamage(DamageData damageData)
     {
+        _playerComponent.AddDamageToActiveSkill(Mathf.Clamp(damageData.Damage, 0, curHP));
         base.GetDamage(damageData);
         if (damageData.Damage != 0)
             DamageUI.Instance.AddText(damageData.Damage, this, hPBarCanvas.GetComponent<RectTransform>(), Color.white);
@@ -82,7 +82,8 @@ public class EnemyHealth : BaseDamageReceiver
         {
             if (!_isDead)
             {
-                curHP -= statusEffect.Value;
+                _playerComponent.AddDamageToActiveSkill(Mathf.Clamp(statusEffect.Value, 0, curHP));
+                curHP -= statusEffect.Value; 
                 UpdateHealthBar(maxHP, curHP);
 
                 if (curHP <= 0)

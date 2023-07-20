@@ -94,30 +94,15 @@ public abstract class Weapon : MonoBehaviour, ISelectableItem
         gameObject.layer = LayerMask.NameToLayer("Weapon");
     }
 
-    public string GetName()
-    {
-        return GetType().Name;
-    }
+    public string GetName() => GetType().Name;
 
-    public float GetDamage()
-    {
-        return damage;
-    }
+    public float GetDamage() => damage;
 
-    public float GetFiringSpeed()
-    {
-        return firingSpeed;
-    }
+    public float GetFiringSpeed() => firingSpeed;
 
-    public int GetMaxNumbersOfModifiers()
-    {
-        return maxNumberOfModifiers;
-    }
+    public int GetMaxNumbersOfModifiers() => maxNumberOfModifiers;
 
-    public int GetPrice()
-    {
-        return price;
-    }
+    public int GetPrice() => price;
 
     public void OnSelect(Player player)
     {
@@ -161,15 +146,9 @@ public abstract class Weapon : MonoBehaviour, ISelectableItem
     }
 
 
-    public int GetModifiersCount()
-    {
-        return _modifiers.Count;
-    }
+    public int GetModifiersCount() => _modifiers.Count;
 
-    public Modifier GetModifier(int index)
-    {
-        return _modifiers[index];
-    }
+    public Modifier GetModifier(int index) => _modifiers[index];
 
     public void AddModifier(Modifier modifier)
     {
@@ -184,10 +163,7 @@ public abstract class Weapon : MonoBehaviour, ISelectableItem
 
     private DamageData GetDamageData(EnemyHealth enemy)
     {
-        DamageData damageData = new DamageData
-        {
-            Damage = DamageModifired()
-        };
+        DamageData damageData = new DamageData(damage: DamageModifired());
         foreach (var modifier in _modifiers)
         {
             damageData = modifier.ApplyBehaviours(damageData, enemy);

@@ -13,7 +13,7 @@ public class OnlyStatusEffectDamage : ModifierBehaviour
             damageData.AddStatusEffects.Add(statusEffect, (int)(damageData.Damage * statusEffectDamage));
         else
             damageData.AddStatusEffects[statusEffect] += (int)(damageData.Damage * statusEffectDamage);
-        damageData.Damage = 0;
+        damageData.SetDamage(0);
         return damageData;
     }
 }

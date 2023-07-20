@@ -7,14 +7,14 @@ public class Player : MonoBehaviour
     [SerializeField] private Transform weaponHolder;
     [SerializeField] private Transform targetLook;
     [SerializeField] private Weapon[] weapons;
-    [SerializeField] private float scrollDeley;
-    [SerializeField] private Sprite testSprite;
+    [SerializeField] private float scrollDelay;
     [SerializeField] private float selectDistance = 4f;
 
-    public PlayerHealth health { get; private set; }
-    public PlayerGold gold { get; private set; }
+    public PlayerHealth Health { get; private set; }
+    public PlayerGold Gold { get; private set; }
 
     private Weapon _currentWeapon;
+    private ActiveSkill _activeSkill;
     private int _selectedSlot;
     private bool _isScrolling;
     private ISelectableItem _lastSavedSelectableItem;
@@ -29,6 +29,7 @@ public class Player : MonoBehaviour
         {
             SelectWeapon();
             InputScrollWeapon();
+            UseActiveSkill();
             SelectableItemsDetection();
             SelectItem();
         }
@@ -36,8 +37,8 @@ public class Player : MonoBehaviour
 
     public void Init(UIManager uiManager, CameraController cameraController, Camera mainCamera, RectTransform canvas, Transform modifierDragHolder)
     {
-        health = GetComponent<PlayerHealth>();
-        gold = GetComponent<PlayerGold>();
+        Health = GetComponent<PlayerHealth>();
+        Gold = GetComponent<PlayerGold>();
         _currentWeapon = weapons[0];
         _infoInterface = uiManager.infoInterface;
         _dynamicInterface = uiManager.dinemicInterface;
@@ -95,7 +96,7 @@ public class Player : MonoBehaviour
         {
             _selectedSlot = CollectionsExtensions.GetNextIndex(weapons, _selectedSlot);
             SwapWeapon(weapons[_selectedSlot]);
-            yield return new WaitForSeconds(scrollDeley);
+            yield return new WaitForSeconds(scrollDelay);
             scrollInput = Input.GetAxis("Mouse ScrollWheel");
         }
         _isScrolling = false;
@@ -103,7 +104,7 @@ public class Player : MonoBehaviour
 
     private void SelectItem()
     {
-        if (Input.GetKeyDown(KeyCode.F))
+        if (Input.GetKeyDown(KeyCode.E))
         {
             if (_lastSavedSelectableItem == null)
                 return;
@@ -112,10 +113,10 @@ public class Player : MonoBehaviour
             {
                 case SelectableItems.Weapon:
                     Weapon selectWeapon = _lastSavedSelectableItem as Weapon;
-                    if (gold.HasCount(selectWeapon.GetPrice()) || selectWeapon.bought)
+                    if (Gold.HasCount(selectWeapon.GetPrice()) || selectWeapon.bought)
                     {
                         if(!selectWeapon.bought)
-                            gold.Remove(selectWeapon.GetPrice());
+                            Gold.Remove(selectWeapon.GetPrice());
                         _currentWeapon.ConnectToStand(selectWeapon.transform.parent.parent);
                         _currentWeapon = selectWeapon;
                         weapons[_selectedSlot] = _currentWeapon;
@@ -125,13 +126,24 @@ public class Player : MonoBehaviour
                     break;
                 case SelectableItems.Modifier:
                     Modifier selectModifier = _lastSavedSelectableItem as Modifier;
-                    if (gold.HasCount(selectModifier.GetPrice()))
+                    if (Gold.HasCount(selectModifier.GetPrice()))
                     {
                         if (selectModifier.transform.parent.parent.TryGetComponent<ModifierAward>(out var modifierAward))
                             modifierAward.DeleteOtherModifiers(selectModifier.transform.parent);
-                        gold.Remove(selectModifier.GetPrice());
+                        Gold.Remove(selectModifier.GetPrice());
                         AddFreeModifier(selectModifier);
                         Destroy(selectModifier.gameObject);
+                    }
+                    break;
+                case SelectableItems.ActiveSkill:
+                    ActiveSkill selectSkill = _lastSavedSelectableItem as ActiveSkill;
+                    if (Gold.HasCount(selectSkill.GetPrice()))
+                    {
+                        if (selectSkill.transform.parent.parent.TryGetComponent<ActiveSkillAward>(out var skillAward))
+                            skillAward.DeleteOtherSkills(selectSkill.transform.parent);
+                        Gold.Remove(selectSkill.GetPrice());
+                        AddActiveSkill(selectSkill);
+                        Destroy(selectSkill.gameObject);
                     }
                     break;
             }
@@ -163,15 +175,19 @@ public class Player : MonoBehaviour
         {
             case SelectableItems.Weapon:
                 Weapon selectingWeapon = _lastSavedSelectableItem as Weapon;
-                _uiManager.UpdateNewWeaponDescription(gold.HasCount(selectingWeapon.GetPrice()), selectingWeapon);
+                _uiManager.UpdateNewWeaponDescription(Gold.HasCount(selectingWeapon.GetPrice()), selectingWeapon);
                 break;
             case SelectableItems.Modifier:
                 Modifier selectingModifier = _lastSavedSelectableItem as Modifier; 
-                _uiManager.UpdateNewModifierInfo(gold.HasCount(selectingModifier.GetPrice()), selectingModifier);
+                _uiManager.UpdateNewModifierInfo(Gold.HasCount(selectingModifier.GetPrice()), selectingModifier);
+                break;
+            case SelectableItems.ActiveSkill:
+                ActiveSkill selectingSkill = _lastSavedSelectableItem as ActiveSkill;
+                _uiManager.UpdateNewActiveSkillInfo(Gold.HasCount(selectingSkill.GetPrice()), selectingSkill);
                 break;
             case SelectableItems.HealthAward:
                 HealthAward healthAward = _lastSavedSelectableItem as HealthAward;
-                _uiManager.UpdateBuyHealthText(gold.HasCount(healthAward.GetPrice()), healthAward);
+                _uiManager.UpdateBuyHealthText(Gold.HasCount(healthAward.GetPrice()), healthAward);
                 break;
         }
         SetActiveTextTypes(true);
@@ -198,22 +214,34 @@ public class Player : MonoBehaviour
             case SelectableItems.Modifier:
                 _uiManager.SetActiveText(TextTypes.NewModifierTextHolder, active);
                 break;
+            case SelectableItems.ActiveSkill:
+                _uiManager.SetActiveText(TextTypes.NewActiveSkillTextHolder, active);
+                break;
             case SelectableItems.HealthAward:
                 _uiManager.SetActiveText(TextTypes.BuyHealthHolder, active);
                 break;
         }
     }
 
-
-    public Weapon[] GetWeapons()
+    private void UseActiveSkill()
     {
-        return weapons;
+        if (Input.GetMouseButtonDown(1))
+        {
+            try
+            {
+                _activeSkill.Activate();
+            }
+            catch 
+            {
+                print("error active skill not found");
+            }
+        }
     }
 
-    public List<Modifier> GetFreeModifiers()
-    {
-        return freeModifiers;
-    }
+
+    public Weapon[] GetWeapons() => weapons;
+
+    public List<Modifier> GetFreeModifiers() => freeModifiers;
 
     public void RemoveFreeModifier(Modifier modifier)
     {
@@ -223,5 +251,23 @@ public class Player : MonoBehaviour
     public void AddFreeModifier(Modifier modifier)
     {
         freeModifiers.Add(modifier);
+    }
+
+    private void AddActiveSkill(ActiveSkill skill)
+    {
+        _activeSkill = skill;
+        _activeSkill.Init(_uiManager.GetActiveSkillReloadImage(), Camera.main.transform, this);
+    }
+
+    public void AddDamageToActiveSkill(int damage)
+    {
+        try
+        {
+            _activeSkill.AddDamageToTimer(damage);
+        }
+        catch
+        {
+            print("error active skill not found");
+        }
     }
 }

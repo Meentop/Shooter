@@ -11,10 +11,10 @@ public class HealthAward : MonoBehaviour, ISelectableItem
 
     public void OnSelect(Player player)
     {
-        if (!_wasUsed && player.gold.HasCount(price))
+        if (!_wasUsed && player.Gold.HasCount(price))
         {
-            player.health.AddHealth(addHealth);
-            player.gold.Remove(price);
+            player.Health.AddHealth(addHealth);
+            player.Gold.Remove(price);
             _wasUsed = true;
         }
     }
