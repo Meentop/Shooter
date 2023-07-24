@@ -7,12 +7,12 @@ public class UIManager : MonoBehaviour
 {
     [SerializeField] private GameObject selectText;
     [SerializeField] private GameObject newWeaponTextHolder;
-    [SerializeField] private GameObject newModifierTextHolder;
+    [SerializeField] private GameObject newModuleTextHolder;
     [SerializeField] private GameObject buyHealthHolder;
     [SerializeField] private GameObject newActiveSkillHolder;
     [SerializeField] private Color normalBuyColor, notEnoughColor;
     [SerializeField] private Weapon.Description newWeaponDescriptions;
-    [SerializeField] private Modifier.Info newModifierInfo;
+    [SerializeField] private Module.Info newModuleInfo;
     [SerializeField] private ActiveSkill.Info newActiveSkillInfo;
     [SerializeField] private Image activeSkillReloadImage;
     [Header("Buy Health")]
@@ -36,8 +36,8 @@ public class UIManager : MonoBehaviour
             case TextTypes.NewWeaponTextHolder:
                 newWeaponTextHolder.SetActive(isActive);
                 break;
-            case TextTypes.NewModifierTextHolder:
-                newModifierTextHolder.SetActive(isActive);
+            case TextTypes.NewModuleTextHolder:
+                newModuleTextHolder.SetActive(isActive);
                 break;
             case TextTypes.NewActiveSkillTextHolder:
                 newActiveSkillHolder.SetActive(isActive);
@@ -56,8 +56,8 @@ public class UIManager : MonoBehaviour
                 return selectText.activeInHierarchy;
             case TextTypes.NewWeaponTextHolder:
                 return newWeaponTextHolder.activeInHierarchy;
-            case TextTypes.NewModifierTextHolder:
-                return newModifierTextHolder.activeInHierarchy;
+            case TextTypes.NewModuleTextHolder:
+                return newModuleTextHolder.activeInHierarchy;
             case TextTypes.NewActiveSkillTextHolder:
                 return newActiveSkillHolder.activeInHierarchy;
             case TextTypes.BuyHealthHolder:
@@ -77,13 +77,17 @@ public class UIManager : MonoBehaviour
         newWeaponDescriptions.PriceText.color = hasGold ? normalBuyColor : notEnoughColor;
     }
 
-    public void UpdateNewModifierInfo(bool hasGold, Modifier modifier)
+    public void UpdateNewModuleInfo(bool hasGold, Module module)
     {
-        newModifierInfo.Image.sprite = modifier.GetSprite();
-        newModifierInfo.Title.text = modifier.GetTitle();
-        newModifierInfo.Description.text = modifier.GetDescription();
-        newModifierInfo.Price.text = modifier.GetPrice().ToString();
-        newModifierInfo.Price.color = hasGold ? normalBuyColor : notEnoughColor;
+        if (module.GetType() == typeof(WeaponModule))
+            newModuleInfo.Type.text = "WEAPON MODULE";
+        else if (module.GetType() == typeof(BionicModule))
+            newModuleInfo.Type.text = "BIONIC MODULE";
+        newModuleInfo.Image.sprite = module.GetSprite();
+        newModuleInfo.Title.text = module.GetTitle();
+        newModuleInfo.Description.text = module.GetDescription();
+        newModuleInfo.Price.text = module.GetPrice().ToString();
+        newModuleInfo.Price.color = hasGold ? normalBuyColor : notEnoughColor;
     }
 
     public void UpdateNewActiveSkillInfo(bool hasGold, ActiveSkill skill)
@@ -112,7 +116,7 @@ public enum TextTypes
 {
     SelectText,
     NewWeaponTextHolder,
-    NewModifierTextHolder,
+    NewModuleTextHolder,
     NewActiveSkillTextHolder,
     BuyHealthHolder
 }

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [System.Serializable]
-public abstract class ModifierBehaviour : MonoBehaviour
+public abstract class WeaponModuleBehaviour : MonoBehaviour
 {
     public abstract DamageData ApplyBehaviour(DamageData damageData, EnemyHealth enemy);
 }

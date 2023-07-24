@@ -12,7 +12,7 @@ public abstract class Weapon : MonoBehaviour, ISelectableItem
     [SerializeField] protected int damage;
     [SerializeField] protected float firingSpeed;
     [SerializeField] protected Vector3 weaponOnCollectRot;
-    [SerializeField] protected int maxNumberOfModifiers = 1;
+    [SerializeField] protected int maxNumberOfModules = 1;
     [SerializeField] private int price;
     
     public SelectableItems ItemType => SelectableItems.Weapon;
@@ -23,7 +23,7 @@ public abstract class Weapon : MonoBehaviour, ISelectableItem
     private Transform _targetLook;
     private Transform _weaponHolder;
     private bool _isInited;
-    private List<Modifier> _modifiers = new List<Modifier>();
+    private List<WeaponModule> _weaponModules = new List<WeaponModule>();
     public bool bought { get; private set; }
 
     [System.Serializable]
@@ -32,7 +32,7 @@ public abstract class Weapon : MonoBehaviour, ISelectableItem
         public Text WeaponNameText;
         public Text DamageText;
         public Text FiringSpeed;
-        public Transform ModifiersHolder;
+        public Transform ModulesHolder;
         public GameObject BuyPanel;
         public Text PriceText;
     }
@@ -100,7 +100,7 @@ public abstract class Weapon : MonoBehaviour, ISelectableItem
 
     public float GetFiringSpeed() => firingSpeed;
 
-    public int GetMaxNumbersOfModifiers() => maxNumberOfModifiers;
+    public int GetMaxNumbersOfModules() => maxNumberOfModules;
 
     public int GetPrice() => price;
 
@@ -146,25 +146,25 @@ public abstract class Weapon : MonoBehaviour, ISelectableItem
     }
 
 
-    public int GetModifiersCount() => _modifiers.Count;
+    public int GetModulesCount() => _weaponModules.Count;
 
-    public Modifier GetModifier(int index) => _modifiers[index];
+    public WeaponModule GetModule(int index) => _weaponModules[index];
 
-    public void AddModifier(Modifier modifier)
+    public void AddModule(WeaponModule module)
     {
-        _modifiers.Add(modifier);
+        _weaponModules.Add(module);
     }
 
-    public void RemoveModifier(Modifier modifier)
+    public void RemoveModule(WeaponModule module)
     {
-        _modifiers.Remove(modifier);
+        _weaponModules.Remove(module);
     }
 
 
     private DamageData GetDamageData(EnemyHealth enemy)
     {
         DamageData damageData = new DamageData(damage: DamageModifired());
-        foreach (var modifier in _modifiers)
+        foreach (var modifier in _weaponModules)
         {
             damageData = modifier.ApplyBehaviours(damageData, enemy);
         }

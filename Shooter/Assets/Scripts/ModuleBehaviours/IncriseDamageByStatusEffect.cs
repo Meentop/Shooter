@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class IncriseDamageByStatusEffect : ModifierBehaviour
+public class IncriseDamageByStatusEffect : WeaponModuleBehaviour
 {
     [SerializeField] private StatusEffect statusEffect;
     [SerializeField] private float increase;

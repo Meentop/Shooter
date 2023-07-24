@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class OnlyStatusEffectDamage : ModifierBehaviour
+public class OnlyStatusEffectDamage : WeaponModuleBehaviour
 {
     [SerializeField] private StatusEffect statusEffect;
     [SerializeField] private float statusEffectDamage;

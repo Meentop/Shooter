@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class WeaponModifierHolderUI : ModifierHolderUI
+public class WeaponModuleHolderUI : ModuleHolderUI
 {
     [SerializeField] private Color activeColor, unactiveColor;
     private Image _image;
@@ -29,24 +29,24 @@ public class WeaponModifierHolderUI : ModifierHolderUI
         _image.color = unactiveColor;
     }
 
-    public override void SetPosition(Transform modifier)
+    public override void SetPosition(Transform module)
     {
-        modifier.SetParent(transform);
-        modifier.position = transform.position;
+        module.SetParent(transform);
+        module.position = transform.position;
     }
 
-    public override void AddModifier(ModifierUI modifier)
+    public override void AddModule(ModuleUI module)
     {
-        _weapon.AddModifier(modifier.modifier);
+        _weapon.AddModule(module.Module as WeaponModule);
     }
 
-    public override bool CanAddModifier()
+    public override bool CanAddModule(ModuleUI module)
     {
-        return transform.childCount == 0;
+        return transform.childCount == 0 && module.Module.GetType() == typeof(WeaponModule);
     }
 
-    public override void RemoveModifier(ModifierUI modifier)
+    public override void RemoveModule(ModuleUI module)
     {
-        _weapon.RemoveModifier(modifier.modifier);
+        _weapon.RemoveModule(module.Module as WeaponModule);
     }
 }

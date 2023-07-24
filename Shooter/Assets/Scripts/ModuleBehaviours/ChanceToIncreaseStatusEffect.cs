@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ChanceToIncreaseStatusEffect : ModifierBehaviour
+public class ChanceToIncreaseStatusEffect : WeaponModuleBehaviour
 {
     [SerializeField] private StatusEffect statusEffect;
     [SerializeField] private int chance;

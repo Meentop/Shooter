@@ -5131,7 +5131,7 @@ MonoBehaviour:
   damage: 10
   firingSpeed: 0.5
   weaponOnCollectRot: {x: -90, y: 180, z: 0}
-  maxNumberOfModifiers: 1
+  maxNumberOfModules: 2
   price: 30
   pelletsCount: 5
   spread: 0.1

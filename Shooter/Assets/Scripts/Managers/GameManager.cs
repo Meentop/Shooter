@@ -11,12 +11,11 @@ public class GameManager : MonoBehaviour
     [SerializeField] private RoomSpawner roomSpawner;
     [SerializeField] private Camera mainCamera;
     [SerializeField] private RectTransform canvas;
-    [SerializeField] private Transform modifierDragHolder;
     [SerializeField] private FloorSpawner floorSpawner;
 
     private void Awake()
     {
-        player.Init(uiManager, cameraController, mainCamera, canvas, modifierDragHolder);
+        player.Init(uiManager, cameraController, mainCamera, canvas);
         floorSpawner.UpdateFloor(player);
     }
 

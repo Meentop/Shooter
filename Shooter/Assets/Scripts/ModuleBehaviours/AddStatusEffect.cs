@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class AddStatusEffect : ModifierBehaviour
+public class AddStatusEffect : WeaponModuleBehaviour
 {
     [SerializeField] private StatusEffect statusEffect;
     [SerializeField] private int value;

@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 6871596536740538185}
   - component: {fileID: 7188937369103399639}
   m_Layer: 5
-  m_Name: WeaponModifierHolder
+  m_Name: ModuleHolder
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -102,6 +102,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 29539ea87ab107946adcbb456e999953, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  modifierDragHolder: {fileID: 0}
   activeColor: {r: 0.81960785, g: 0.105882354, b: 0.105882354, a: 1}
   unactiveColor: {r: 0.18823531, g: 0.18823531, b: 0.18823531, a: 1}

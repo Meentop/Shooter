@@ -4,21 +4,22 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
 
-public class ModifierUI : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDragHandler
+public class ModuleUI : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDragHandler
 {
     [SerializeField] private Image image;
     [SerializeField] private Text title, description;
+    public Module Module { get; private set; }
+
     private DynamicUI _dynamicUI;
     private Camera _mainCamera;
     private RectTransform _canvas;
     private Vector3 _offset;
-    private ModifierHolderUI _holder;
-    public Modifier modifier { get; private set; }
+    private ModuleHolderUI _holder;
     private bool _drag = false;
-    private List<ModifierHolderUI> _holders = new List<ModifierHolderUI>();
-    private ModifierHolderUI _activeHolder;
+    private List<ModuleHolderUI> _holders = new List<ModuleHolderUI>();
+    private ModuleHolderUI _activeHolder;
 
-    public void Init(Sprite sprite, string title, string description, DynamicUI dynamicUI, Camera mainCamera, RectTransform canvas, ModifierHolderUI holder, Modifier modifier)
+    public void Init(Sprite sprite, string title, string description, DynamicUI dynamicUI, Camera mainCamera, RectTransform canvas, ModuleHolderUI holder, Module module)
     {
         image.sprite = sprite;
         this.title.text = title;
@@ -27,12 +28,12 @@ public class ModifierUI : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDr
         _mainCamera = mainCamera;
         _canvas = canvas;
         _holder = holder;
-        this.modifier = modifier;
+        this.Module = module;
     }
 
     public void OnBeginDrag(PointerEventData eventData)
     {
-        transform.SetParent(_dynamicUI.GetDragModifierHolder());
+        transform.SetParent(_dynamicUI.GetDragModuleHolder());
         Vector3 viewportMouse = _mainCamera.ScreenToViewportPoint(Input.mousePosition);
         Vector3 mousePos = new Vector3(viewportMouse.x * _canvas.sizeDelta.x, viewportMouse.y * _canvas.sizeDelta.y, 0);
 
@@ -50,7 +51,7 @@ public class ModifierUI : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDr
 
     public void OnEndDrag(PointerEventData eventData)
     {
-        _dynamicUI.AddModifier(this, _activeHolder);
+        _dynamicUI.AddModule(this, _activeHolder);
         _holders.Clear();
         if (_activeHolder != null)
             _activeHolder.OnExit();
@@ -60,7 +61,7 @@ public class ModifierUI : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDr
 
     private void OnTriggerEnter(Collider other)
     {
-        if (_drag && other.TryGetComponent<ModifierHolderUI>(out var holder))
+        if (_drag && other.TryGetComponent<ModuleHolderUI>(out var holder))
         {
             _holders.Add(holder);
             UpdateActiveHolder(holder);
@@ -69,7 +70,7 @@ public class ModifierUI : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDr
 
     private void OnTriggerExit(Collider other)
     {
-        if (_drag && other.TryGetComponent<ModifierHolderUI>(out var holder))
+        if (_drag && other.TryGetComponent<ModuleHolderUI>(out var holder))
         {
             _holders.Remove(holder);
             _activeHolder = null;
@@ -82,7 +83,7 @@ public class ModifierUI : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDr
         }
     }
 
-    private void UpdateActiveHolder(ModifierHolderUI holder)
+    private void UpdateActiveHolder(ModuleHolderUI holder)
     {
         if(_activeHolder != null)
             _activeHolder.OnExit();
@@ -92,10 +93,10 @@ public class ModifierUI : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDr
 
     public void RemoveFromPastHolder()
     {
-        _holder.RemoveModifier(this);
+        _holder.RemoveModule(this);
     }
 
-    public void AddNewHolder(ModifierHolderUI holder)
+    public void AddNewHolder(ModuleHolderUI holder)
     {
         _holder = holder;
     }

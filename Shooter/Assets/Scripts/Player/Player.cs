@@ -18,7 +18,9 @@ public class Player : MonoBehaviour
     private int _selectedSlot;
     private bool _isScrolling;
     private ISelectableItem _lastSavedSelectableItem;
-    private List<Modifier> freeModifiers = new List<Modifier>();
+    private List<WeaponModule> _freeWeaponModules = new List<WeaponModule>();
+    private List<BionicModule> _freeBionicModules = new List<BionicModule>();
+    private List<BionicModule> _installedBionicModules = new List<BionicModule>();
     private InfoInterface _infoInterface;
     private DynamicUI _dynamicInterface;
     private UIManager _uiManager;
@@ -35,7 +37,7 @@ public class Player : MonoBehaviour
         }
     }
 
-    public void Init(UIManager uiManager, CameraController cameraController, Camera mainCamera, RectTransform canvas, Transform modifierDragHolder)
+    public void Init(UIManager uiManager, CameraController cameraController, Camera mainCamera, RectTransform canvas)
     {
         Health = GetComponent<PlayerHealth>();
         Gold = GetComponent<PlayerGold>();
@@ -44,7 +46,7 @@ public class Player : MonoBehaviour
         _dynamicInterface = uiManager.dinemicInterface;
         _uiManager = uiManager;
         _currentWeapon.Init(this, weaponHolder, targetLook, uiManager.infoInterface, _selectedSlot);
-        _dynamicInterface.Init(this, cameraController, mainCamera, canvas, modifierDragHolder);
+        _dynamicInterface.Init(this, cameraController, mainCamera, canvas);
     }
 
     public void SelectWeapon()
@@ -124,15 +126,15 @@ public class Player : MonoBehaviour
                         _currentWeapon.ConectToPlayer();
                     }
                     break;
-                case SelectableItems.Modifier:
-                    Modifier selectModifier = _lastSavedSelectableItem as Modifier;
-                    if (Gold.HasCount(selectModifier.GetPrice()))
+                case SelectableItems.Module:
+                    Module selectModule = _lastSavedSelectableItem as Module;
+                    if (Gold.HasCount(selectModule.GetPrice()))
                     {
-                        if (selectModifier.transform.parent.parent.TryGetComponent<ModifierAward>(out var modifierAward))
-                            modifierAward.DeleteOtherModifiers(selectModifier.transform.parent);
-                        Gold.Remove(selectModifier.GetPrice());
-                        AddFreeModifier(selectModifier);
-                        Destroy(selectModifier.gameObject);
+                        if (selectModule.transform.parent.parent.TryGetComponent<ModifierAward>(out var modifierAward))
+                            modifierAward.DeleteOtherModifiers(selectModule.transform.parent);
+                        Gold.Remove(selectModule.GetPrice());
+                        AddFreeModule(selectModule);
+                        Destroy(selectModule.gameObject);
                     }
                     break;
                 case SelectableItems.ActiveSkill:
@@ -177,9 +179,9 @@ public class Player : MonoBehaviour
                 Weapon selectingWeapon = _lastSavedSelectableItem as Weapon;
                 _uiManager.UpdateNewWeaponDescription(Gold.HasCount(selectingWeapon.GetPrice()), selectingWeapon);
                 break;
-            case SelectableItems.Modifier:
-                Modifier selectingModifier = _lastSavedSelectableItem as Modifier; 
-                _uiManager.UpdateNewModifierInfo(Gold.HasCount(selectingModifier.GetPrice()), selectingModifier);
+            case SelectableItems.Module:
+                Module selectingModule = _lastSavedSelectableItem as Module; 
+                _uiManager.UpdateNewModuleInfo(Gold.HasCount(selectingModule.GetPrice()), selectingModule);
                 break;
             case SelectableItems.ActiveSkill:
                 ActiveSkill selectingSkill = _lastSavedSelectableItem as ActiveSkill;
@@ -211,8 +213,8 @@ public class Player : MonoBehaviour
             case SelectableItems.Weapon:
                 _uiManager.SetActiveText(TextTypes.NewWeaponTextHolder, active);
                 break;
-            case SelectableItems.Modifier:
-                _uiManager.SetActiveText(TextTypes.NewModifierTextHolder, active);
+            case SelectableItems.Module:
+                _uiManager.SetActiveText(TextTypes.NewModuleTextHolder, active);
                 break;
             case SelectableItems.ActiveSkill:
                 _uiManager.SetActiveText(TextTypes.NewActiveSkillTextHolder, active);
@@ -241,16 +243,42 @@ public class Player : MonoBehaviour
 
     public Weapon[] GetWeapons() => weapons;
 
-    public List<Modifier> GetFreeModifiers() => freeModifiers;
+    public List<WeaponModule> GetFreeWeaponModules() => _freeWeaponModules;
+    public List<BionicModule> GetFreeBionicModules() => _freeBionicModules;
+    public List<BionicModule> GetInstalledBionicModules() => _installedBionicModules;
 
-    public void RemoveFreeModifier(Modifier modifier)
+    public void RemoveFreeModule(Module module)
     {
-        freeModifiers.Remove(modifier);
+        if (module.GetType() == typeof(WeaponModule))
+        {
+            _freeWeaponModules.Remove(module as WeaponModule);
+        }
+        else if (module.GetType() == typeof(BionicModule))
+        {
+            _freeBionicModules.Remove(module as BionicModule);
+        }
     }
 
-    public void AddFreeModifier(Modifier modifier)
+    public void AddFreeModule(Module module)
     {
-        freeModifiers.Add(modifier);
+        if(module.GetType() == typeof(WeaponModule))
+        {
+            _freeWeaponModules.Add(module as WeaponModule);
+        }
+        else if(module.GetType() == typeof(BionicModule))
+        {
+            _freeBionicModules.Add(module as BionicModule);
+        }
+    }
+
+    public void AddInstalledBionicModule(BionicModule module)
+    {
+        _installedBionicModules.Add(module);
+    }
+
+    public void RemoveInstalledBionicModule(BionicModule bionic)
+    {
+        _installedBionicModules.Remove(bionic);
     }
 
     private void AddActiveSkill(ActiveSkill skill)
