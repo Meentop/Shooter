@@ -19,7 +19,7 @@ public class Room : MonoBehaviour
     public float Height { get; private set; }
 
     private MapMiniController _miniController;
-    private List<Enemy> enemies = new List<Enemy>();
+    private List<Agent> enemies = new List<Agent>();
     private List<GameObject> activeDoors = new List<GameObject>();
 
     public Dictionary<Vector2Int, Room> Neighours;
@@ -42,9 +42,9 @@ public class Room : MonoBehaviour
         {
             foreach (var enemy in enemyGroups[UnityEngine.Random.Range(0, enemyGroups.Length)].enemies)
             {
-                Enemy enemy1 = Instantiate(enemy.enemyPrefab, transform.position + enemy.position, Quaternion.identity);
+                Agent enemy1 = Instantiate(enemy.enemyPrefab, transform.position + enemy.position, Quaternion.identity).GetComponentInChildren<Agent>();
                 enemies.Add(enemy1);
-                enemy1.GetComponent<RemoveFromRoomAction>().room = this;
+                enemy1.GetComponentInParent<RemoveFromRoomAction>().room = this;
             }
         }
     }
@@ -76,7 +76,7 @@ public class Room : MonoBehaviour
         return newRoomYPositions[Array.IndexOf(directions, direction)];
     }
 
-    public void RemoveEnemy(Enemy enemy)
+    public void RemoveEnemy(Agent enemy)
     {
         enemies.Remove(enemy);
         if (enemies.Count == 0)
@@ -136,7 +136,7 @@ public class Room : MonoBehaviour
         [Serializable]
         public struct SpawnEnemy
         {
-            public Enemy enemyPrefab;
+            public GameObject enemyPrefab;
             public Vector3 position;
         }
     }

@@ -295,7 +295,7 @@ public class Player : MonoBehaviour
         }
         catch
         {
-            print("error active skill not found");
+            
         }
     }
 }

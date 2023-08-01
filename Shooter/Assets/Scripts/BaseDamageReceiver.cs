@@ -9,8 +9,7 @@ public abstract class BaseDamageReceiver : MonoBehaviour, IDamageReceiver
     [SerializeField] protected ActionBase[] executeOnHPBelowZero;
     [SerializeField] protected RectTransform healthBar;
     [SerializeField] private Image afterHealthBarImage;
-    [SerializeField] private float reduceSpeed;
-    [SerializeField] private float armor;
+    [SerializeField] private float UIReduceSpeed = 0.2f;
     [SerializeField] protected int maxHP;
 
     protected int curHP;    
@@ -27,7 +26,7 @@ public abstract class BaseDamageReceiver : MonoBehaviour, IDamageReceiver
 
     protected virtual void Update()
     { 
-        afterHealthBarImage.transform.localScale = new Vector3(Mathf.MoveTowards(afterHealthBarImage.transform.localScale.x, _target, reduceSpeed * Time.deltaTime), 1, 1);
+        afterHealthBarImage.transform.localScale = new Vector3(Mathf.MoveTowards(afterHealthBarImage.transform.localScale.x, _target, UIReduceSpeed * Time.deltaTime), 1, 1);
     }
 
     public virtual void GetDamage(DamageData damageData)

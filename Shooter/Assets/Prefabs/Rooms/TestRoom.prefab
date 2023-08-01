@@ -450,7 +450,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0acd8973214eb514786425893ce06086, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enemyPrefab: {fileID: 5587077259902345156, guid: c61c6495134d8a24cbaa6ed46c03b901, type: 3}
+  enemyPrefab: {fileID: 5587077259902345155, guid: e52489b002100e041b126520bf917105, type: 3}
   spawnPoint: {fileID: 6999733935667592555}
 --- !u!1 &913083955725042724
 GameObject:
@@ -2984,7 +2984,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0acd8973214eb514786425893ce06086, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enemyPrefab: {fileID: 1498340833107021634, guid: feca398dd300d4a46a03bed884e235ee, type: 3}
+  enemyPrefab: {fileID: 5502814733913550371, guid: c9b23c255be0bdf4aa532af5d5b95a03, type: 3}
   spawnPoint: {fileID: 6999733935667592555}
 --- !u!1 &2053706291174255829
 GameObject:
@@ -6570,7 +6570,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0acd8973214eb514786425893ce06086, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enemyPrefab: {fileID: 7390107758359913957, guid: d7fdcab166ecdb0458882adf197b95c2, type: 3}
+  enemyPrefab: {fileID: 5502814733913550371, guid: 4e4a62bb94b114b41b72ee7d81170eaa, type: 3}
   spawnPoint: {fileID: 6999733935667592555}
 --- !u!1 &8880123445850117363
 GameObject:

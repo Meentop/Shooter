@@ -45457,7 +45457,7 @@ AnimationClip:
   m_HasMotionFloatCurves: 0
   m_Events:
   - time: 1
-    functionName: SetEndPunch
+    functionName: Handle_EndPunch
     data: 
     objectReferenceParameter: {fileID: 0}
     floatParameter: 0

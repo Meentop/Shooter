@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class TestEnemyButton : MonoBehaviour, ISelectableItem
 {
-    [SerializeField] private Enemy enemyPrefab;
+    [SerializeField] private GameObject enemyPrefab;
     [SerializeField] private Transform spawnPoint;
 
     public SelectableItems ItemType => SelectableItems.TestButton;

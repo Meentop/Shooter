@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class RemoveFromRoomAction : ActionBase
 {
-    [SerializeField] private Enemy enemy;
+    [SerializeField] private Agent enemy;
 
     [HideInInspector] public Room room;
 

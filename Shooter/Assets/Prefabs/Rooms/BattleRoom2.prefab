@@ -1651,31 +1651,31 @@ MonoBehaviour:
   - 0
   enemyGroups:
   - enemies:
-    - enemyPrefab: {fileID: 1498340833107021634, guid: feca398dd300d4a46a03bed884e235ee, type: 3}
+    - enemyPrefab: {fileID: 5502814733913550371, guid: c9b23c255be0bdf4aa532af5d5b95a03, type: 3}
       position: {x: -5.0032825, y: 4, z: -5.379351}
-    - enemyPrefab: {fileID: 1498340833107021634, guid: feca398dd300d4a46a03bed884e235ee, type: 3}
+    - enemyPrefab: {fileID: 5502814733913550371, guid: c9b23c255be0bdf4aa532af5d5b95a03, type: 3}
       position: {x: 5.11, y: 4, z: -5.54}
-    - enemyPrefab: {fileID: 1498340833107021634, guid: feca398dd300d4a46a03bed884e235ee, type: 3}
+    - enemyPrefab: {fileID: 5502814733913550371, guid: c9b23c255be0bdf4aa532af5d5b95a03, type: 3}
       position: {x: 5.72, y: 4, z: 5.38}
-    - enemyPrefab: {fileID: 1498340833107021634, guid: feca398dd300d4a46a03bed884e235ee, type: 3}
+    - enemyPrefab: {fileID: 5502814733913550371, guid: c9b23c255be0bdf4aa532af5d5b95a03, type: 3}
       position: {x: -5.61, y: 4, z: 5.38}
   - enemies:
-    - enemyPrefab: {fileID: 7390107758359913957, guid: d7fdcab166ecdb0458882adf197b95c2, type: 3}
+    - enemyPrefab: {fileID: 5502814733913550371, guid: 4e4a62bb94b114b41b72ee7d81170eaa, type: 3}
       position: {x: -3.7350044, y: 4, z: -0.13844681}
-    - enemyPrefab: {fileID: 7390107758359913957, guid: d7fdcab166ecdb0458882adf197b95c2, type: 3}
+    - enemyPrefab: {fileID: 5502814733913550371, guid: 4e4a62bb94b114b41b72ee7d81170eaa, type: 3}
       position: {x: 4.4490643, y: 4, z: 0.5660305}
-    - enemyPrefab: {fileID: 5587077259902345156, guid: c61c6495134d8a24cbaa6ed46c03b901, type: 3}
+    - enemyPrefab: {fileID: 5587077259902345155, guid: e52489b002100e041b126520bf917105, type: 3}
       position: {x: -0.0647459, y: 3.999998, z: -5.0479717}
-    - enemyPrefab: {fileID: 5587077259902345156, guid: c61c6495134d8a24cbaa6ed46c03b901, type: 3}
+    - enemyPrefab: {fileID: 5587077259902345155, guid: e52489b002100e041b126520bf917105, type: 3}
       position: {x: 0.3033359, y: 3.999998, z: 4.694624}
   - enemies:
-    - enemyPrefab: {fileID: 7390107758359913957, guid: d7fdcab166ecdb0458882adf197b95c2, type: 3}
+    - enemyPrefab: {fileID: 5502814733913550371, guid: c9b23c255be0bdf4aa532af5d5b95a03, type: 3}
       position: {x: -4.895529, y: 4, z: 0.103731155}
-    - enemyPrefab: {fileID: 7390107758359913957, guid: d7fdcab166ecdb0458882adf197b95c2, type: 3}
+    - enemyPrefab: {fileID: 5502814733913550371, guid: c9b23c255be0bdf4aa532af5d5b95a03, type: 3}
       position: {x: 5.3115, y: 4, z: 0.705925}
-    - enemyPrefab: {fileID: 7390107758359913957, guid: d7fdcab166ecdb0458882adf197b95c2, type: 3}
+    - enemyPrefab: {fileID: 5502814733913550371, guid: 4e4a62bb94b114b41b72ee7d81170eaa, type: 3}
       position: {x: -0.038516283, y: 4, z: -5.331152}
-    - enemyPrefab: {fileID: 7390107758359913957, guid: d7fdcab166ecdb0458882adf197b95c2, type: 3}
+    - enemyPrefab: {fileID: 5587077259902345155, guid: e52489b002100e041b126520bf917105, type: 3}
       position: {x: -0.036165, y: 4.000002, z: 5.157671}
   isBattleRoom: 1
   awardType: 0
