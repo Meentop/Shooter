@@ -5,7 +5,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.WSA;
 
-public class DynamicUI : MonoBehaviour
+public class ModulesPanelUI : MonoBehaviour
 {
     [SerializeField] private GameObject[] panelsToShow;
     [SerializeField] private GameObject[] panelsToHide;

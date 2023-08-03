@@ -214,7 +214,7 @@ GameObject:
   - component: {fileID: 2961627800281841563}
   - component: {fileID: 8549876527203640274}
   m_Layer: 6
-  m_Name: ModifierAwardButton
+  m_Name: WeaponModuleAwardButton
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2874,7 +2874,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: MODIFIER/IMPLANT UPGRADE
+  m_Text: MODULE UPGRADE
 --- !u!1 &1990360889889948315
 GameObject:
   m_ObjectHideFlags: 0
@@ -3164,7 +3164,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: IMPLANT
+  m_Text: BIONIC MODULE
 --- !u!1 &2237717862888091429
 GameObject:
   m_ObjectHideFlags: 0
@@ -3179,6 +3179,7 @@ GameObject:
   - component: {fileID: 5552769444977910488}
   - component: {fileID: 2223300847585090391}
   - component: {fileID: 4096732675744887691}
+  - component: {fileID: 5511921321082149362}
   m_Layer: 0
   m_Name: BionicModule
   m_TagString: Untagged
@@ -3288,9 +3289,24 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   sprite: {fileID: 0}
-  title: Greed
-  description: More gold - more damage
+  title: Extra dash
+  description: Plus dash charge, but increased dash recharge time
   price: 20
+  behaviours:
+  - {fileID: 5511921321082149362}
+--- !u!114 &5511921321082149362
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2237717862888091429}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cc397ff144730f04bba83ae5c9654d54, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  addDashReload: 0.5
 --- !u!1 &2354161850188003449
 GameObject:
   m_ObjectHideFlags: 0
@@ -3417,6 +3433,7 @@ MonoBehaviour:
   title: Vampire
   description: More damage after heal
   price: 20
+  behaviours: []
 --- !u!1 &2425147708951915734
 GameObject:
   m_ObjectHideFlags: 0
@@ -5259,7 +5276,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: MODIFIER
+  m_Text: WEAPON MODULE
 --- !u!1 &6718218080146673019
 GameObject:
   m_ObjectHideFlags: 0
@@ -5595,7 +5612,7 @@ GameObject:
   - component: {fileID: 8218441926844399154}
   - component: {fileID: 8383966844791162961}
   m_Layer: 6
-  m_Name: MIUpgradeAwardButton
+  m_Name: ModuleUpgradeAwardButton
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -6364,7 +6381,7 @@ GameObject:
   - component: {fileID: 3077898073139292538}
   - component: {fileID: 7094294815434044275}
   m_Layer: 6
-  m_Name: ImplantAwardButton
+  m_Name: BionicModuleAwardButton
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

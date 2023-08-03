@@ -7,11 +7,11 @@ public class WeaponModule : Module
 {
     [SerializeField] private List<WeaponModuleBehaviour> behaviours;
 
-    public DamageData ApplyBehaviours(DamageData damageData, EnemyHealth enemy)
+    public DamageData ApplyBehaviours(DamageData damageData, InfoForWeaponModule info)
     {
         foreach (var behaviour in behaviours)
         {
-            damageData = behaviour.ApplyBehaviour(damageData, enemy);
+            damageData = behaviour.ApplyBehaviour(damageData, info);
         }
         return damageData;
     }

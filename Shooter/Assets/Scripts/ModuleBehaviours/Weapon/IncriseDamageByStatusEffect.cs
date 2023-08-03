@@ -7,9 +7,9 @@ public class IncriseDamageByStatusEffect : WeaponModuleBehaviour
     [SerializeField] private StatusEffect statusEffect;
     [SerializeField] private float increase;
 
-    public override DamageData ApplyBehaviour(DamageData damageData, EnemyHealth enemy)
+    public override DamageData ApplyBehaviour(DamageData damageData, InfoForWeaponModule info)
     {
-        if (enemy.HasStatusEffect(statusEffect))
+        if (info.enemyStatusEffects.ContainsKey(statusEffect))
             damageData.SetDamage((int)(damageData.Damage * increase));
         return damageData;
     }

@@ -12,6 +12,7 @@ public class Player : MonoBehaviour
 
     public PlayerHealth Health { get; private set; }
     public PlayerGold Gold { get; private set; }
+    public PlayerController Controller { get; private set; }
 
     private Weapon _currentWeapon;
     private ActiveSkill _activeSkill;
@@ -22,8 +23,9 @@ public class Player : MonoBehaviour
     private List<BionicModule> _freeBionicModules = new List<BionicModule>();
     private List<BionicModule> _installedBionicModules = new List<BionicModule>();
     private InfoInterface _infoInterface;
-    private DynamicUI _dynamicInterface;
+    private ModulesPanelUI _dynamicInterface;
     private UIManager _uiManager;
+    [SerializeField] private PlayerMovement _movement;
 
     private void Update()
     {
@@ -41,6 +43,7 @@ public class Player : MonoBehaviour
     {
         Health = GetComponent<PlayerHealth>();
         Gold = GetComponent<PlayerGold>();
+        Controller = GetComponent<PlayerController>();
         _currentWeapon = weapons[0];
         _infoInterface = uiManager.infoInterface;
         _dynamicInterface = uiManager.dinemicInterface;
@@ -130,7 +133,7 @@ public class Player : MonoBehaviour
                     Module selectModule = _lastSavedSelectableItem as Module;
                     if (Gold.HasCount(selectModule.GetPrice()))
                     {
-                        if (selectModule.transform.parent.parent.TryGetComponent<ModifierAward>(out var modifierAward))
+                        if (selectModule.transform.parent.parent.TryGetComponent<WeaponModuleAward>(out var modifierAward))
                             modifierAward.DeleteOtherModifiers(selectModule.transform.parent);
                         Gold.Remove(selectModule.GetPrice());
                         AddFreeModule(selectModule);
@@ -297,5 +300,25 @@ public class Player : MonoBehaviour
         {
             
         }
+    }
+
+
+    public PlayerMovement GetMovement()
+    {
+        PlayerMovement movement = new PlayerMovement(_movement);
+        InfoForBionicModule info = new InfoForBionicModule();
+        foreach (var module in _installedBionicModules)
+        {
+            movement = module.ApplyBehaviours(movement, info);
+        }
+        return movement;
+    }
+
+    
+
+
+    public void SetDashInfo(float dashReload, int dashCharges)
+    {
+        _infoInterface.SetDashInfo(dashReload, dashCharges);
     }
 }

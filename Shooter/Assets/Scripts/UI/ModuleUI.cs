@@ -10,7 +10,7 @@ public class ModuleUI : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDrag
     [SerializeField] private Text title, description;
     public Module Module { get; private set; }
 
-    private DynamicUI _dynamicUI;
+    private ModulesPanelUI _dynamicUI;
     private Camera _mainCamera;
     private RectTransform _canvas;
     private Vector3 _offset;
@@ -19,7 +19,7 @@ public class ModuleUI : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDrag
     private List<ModuleHolderUI> _holders = new List<ModuleHolderUI>();
     private ModuleHolderUI _activeHolder;
 
-    public void Init(Sprite sprite, string title, string description, DynamicUI dynamicUI, Camera mainCamera, RectTransform canvas, ModuleHolderUI holder, Module module)
+    public void Init(Sprite sprite, string title, string description, ModulesPanelUI dynamicUI, Camera mainCamera, RectTransform canvas, ModuleHolderUI holder, Module module)
     {
         image.sprite = sprite;
         this.title.text = title;

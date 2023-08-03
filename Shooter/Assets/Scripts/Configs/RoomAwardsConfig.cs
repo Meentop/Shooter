@@ -14,9 +14,9 @@ public enum AwardType
     Gold,
     Health,
     Weapon,
-    Modifier,
-    Implant,
+    WeaponModule,
+    BionicModule,
     WeaponUpgrade,
-    ModifierImplantUpgrade,
+    ModuleUpgrade,
     ActiveSkill
 }

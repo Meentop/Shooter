@@ -7,7 +7,7 @@ public class AddStatusEffect : WeaponModuleBehaviour
     [SerializeField] private StatusEffect statusEffect;
     [SerializeField] private int value;
 
-    public override DamageData ApplyBehaviour(DamageData damageData, EnemyHealth enemy)
+    public override DamageData ApplyBehaviour(DamageData damageData, InfoForWeaponModule info)
     {
         if (!damageData.AddStatusEffects.ContainsKey(statusEffect))
             damageData.AddStatusEffects.Add(statusEffect, value);

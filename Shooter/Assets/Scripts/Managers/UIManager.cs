@@ -21,10 +21,10 @@ public class UIManager : MonoBehaviour
     [SerializeField] private GameObject buyHealthWasUsed;
     [Header("Other")]
     [SerializeField] private InfoInterface _infoInterface;
-    [SerializeField] private DynamicUI _dinemicInterface;
+    [SerializeField] private ModulesPanelUI _dinemicInterface;
 
     public InfoInterface infoInterface { get { return _infoInterface; } private set { _infoInterface = value; } }
-    public DynamicUI dinemicInterface { get { return _dinemicInterface; } private set { _dinemicInterface = value; } }    
+    public ModulesPanelUI dinemicInterface { get { return _dinemicInterface; } private set { _dinemicInterface = value; } }    
 
     public void SetActiveText(TextTypes buttonTypes, bool isActive)
     {

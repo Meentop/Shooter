@@ -8,16 +8,16 @@ public class ChanceToIncreaseStatusEffect : WeaponModuleBehaviour
     [SerializeField] private int chance;
     [SerializeField] private float increase;
 
-    public override DamageData ApplyBehaviour(DamageData damageData, EnemyHealth enemy)
+    public override DamageData ApplyBehaviour(DamageData damageData, InfoForWeaponModule info)
     {
-        if(enemy.HasStatusEffect(statusEffect))
+        if(info.enemyStatusEffects.ContainsKey(statusEffect))
         {
             if (1 == Random.Range(1, chance)) 
             {
                 if (!damageData.AddStatusEffects.ContainsKey(statusEffect))
-                    damageData.AddStatusEffects.Add(statusEffect, (int)(enemy.GetStatusEffectValue(statusEffect) * increase));
+                    damageData.AddStatusEffects.Add(statusEffect, (int)(info.enemyStatusEffects[statusEffect] * increase));
                 else
-                    damageData.AddStatusEffects[statusEffect] += (int)(enemy.GetStatusEffectValue(statusEffect) * increase);
+                    damageData.AddStatusEffects[statusEffect] += (int)(info.enemyStatusEffects[statusEffect] * increase);
                 print("chance");
             }
         }

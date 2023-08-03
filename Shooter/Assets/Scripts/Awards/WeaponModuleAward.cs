@@ -2,21 +2,21 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ModifierAward : MonoBehaviour
+public class WeaponModuleAward : MonoBehaviour
 {
     [SerializeField] private Transform[] stands;
-    [SerializeField] private List<WeaponModule> modifiers;
-    [SerializeField] private float modifierHeight;
+    [SerializeField] private List<WeaponModule> modules;
+    [SerializeField] private float moduleHeight;
 
     private void Start()
     {
         foreach (var stand in stands)
         {
-            int randomNumber = Random.Range(0, modifiers.Count);
-            WeaponModule modifier = modifiers[randomNumber];
-            modifiers.RemoveAt(randomNumber);
+            int randomNumber = Random.Range(0, modules.Count);
+            WeaponModule modifier = modules[randomNumber];
+            modules.RemoveAt(randomNumber);
             Transform modifierTransform = Instantiate(modifier, stand).transform;
-            modifierTransform.localPosition = new Vector3(0, modifierHeight, 0);
+            modifierTransform.localPosition = new Vector3(0, moduleHeight, 0);
         }
     }
 

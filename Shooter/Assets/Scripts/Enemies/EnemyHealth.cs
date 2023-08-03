@@ -137,6 +137,11 @@ public class EnemyHealth : BaseDamageReceiver
             statusEffects[key] += value;
     }
 
+    public Dictionary<StatusEffect, int> GetStatusEffects()
+    {
+        return statusEffects;
+    }
+
     public int GetStatusEffectValue(StatusEffect key)
     {
         if (statusEffects.ContainsKey(key))

@@ -164,9 +164,13 @@ public abstract class Weapon : MonoBehaviour, ISelectableItem
     private DamageData GetDamageData(EnemyHealth enemy)
     {
         DamageData damageData = new DamageData(damage: DamageModifired());
-        foreach (var modifier in _weaponModules)
+        InfoForWeaponModule info = new InfoForWeaponModule
         {
-            damageData = modifier.ApplyBehaviours(damageData, enemy);
+            enemyStatusEffects = enemy.GetStatusEffects()
+        };
+        foreach (var module in _weaponModules)
+        {
+            damageData = module.ApplyBehaviours(damageData, info);
         }
         return damageData;
     }
