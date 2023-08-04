@@ -12,6 +12,7 @@ public class UIManager : MonoBehaviour
     [SerializeField] private GameObject newActiveSkillHolder;
     [SerializeField] private Color normalBuyColor, notEnoughColor;
     [SerializeField] private Weapon.Description newWeaponDescriptions;
+    [SerializeField] private GameObject hollowModuleHolderPrefab;
     [SerializeField] private Module.Info newModuleInfo;
     [SerializeField] private ActiveSkill.Info newActiveSkillInfo;
     [SerializeField] private Image activeSkillReloadImage;
@@ -69,10 +70,19 @@ public class UIManager : MonoBehaviour
 
     public void UpdateNewWeaponDescription(bool hasGold, Weapon weapon)
     {
-        newWeaponDescriptions.BuyPanel.SetActive(!weapon.bought);
-        newWeaponDescriptions.WeaponNameText.text = weapon.GetName();
+        newWeaponDescriptions.BuyPanel.SetActive(!weapon.Bought);
+        newWeaponDescriptions.Image.sprite = weapon.GetSprite();
+        newWeaponDescriptions.NameText.text = weapon.GetName();
         newWeaponDescriptions.DamageText.text = "Damage " + weapon.GetDamage().ToString();
         newWeaponDescriptions.FiringSpeed.text = "FiringSpeed " + weapon.GetFiringSpeed().ToString();
+        foreach (Transform modulesHolder in newWeaponDescriptions.ModulesHolder)
+        {
+            Destroy(modulesHolder.gameObject);
+        }
+        for (int j = 0; j < weapon.GetMaxNumbersOfModules(); j++)
+        {
+            Instantiate(hollowModuleHolderPrefab, newWeaponDescriptions.ModulesHolder);
+        }
         newWeaponDescriptions.PriceText.text = weapon.GetPrice().ToString();
         newWeaponDescriptions.PriceText.color = hasGold ? normalBuyColor : notEnoughColor;
     }

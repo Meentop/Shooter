@@ -52,7 +52,6 @@ public class PlayerController : MonoBehaviour
                 Dash();
             }
             _player.SetDashInfo(_dashTimer / _player.GetMovement().dashReloadTime, _curDashCharges);
-            print(_player.GetMovement().dashCharges);
         }
     }
 

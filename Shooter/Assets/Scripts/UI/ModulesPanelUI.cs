@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using UnityEngine.UI;
-using UnityEngine.WSA;
 
 public class ModulesPanelUI : MonoBehaviour
 {
@@ -90,7 +89,8 @@ public class ModulesPanelUI : MonoBehaviour
     {       
         for (int i = 0; i < localWeaponDescriptions.Length; i++)
         {
-            localWeaponDescriptions[i].WeaponNameText.text = weapons[i].GetName();
+            localWeaponDescriptions[i].Image.sprite = weapons[i].GetSprite();
+            localWeaponDescriptions[i].NameText.text = weapons[i].GetName();
             localWeaponDescriptions[i].DamageText.text = "Damage " + weapons[i].GetDamage().ToString();
             localWeaponDescriptions[i].FiringSpeed.text = "FiringSpeed " + weapons[i].GetFiringSpeed().ToString();
             foreach (Transform modulesHolder in localWeaponDescriptions[i].ModulesHolder)

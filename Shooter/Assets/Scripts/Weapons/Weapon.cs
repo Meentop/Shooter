@@ -9,12 +9,16 @@ public abstract class Weapon : MonoBehaviour, ISelectableItem
     [SerializeField] protected Image weaponsIcon;
     [SerializeField] private Collider boxCollider;
     [Space]
+    [SerializeField] protected Sprite sprite;
+    [SerializeField] protected string weaponName;
     [SerializeField] protected int damage;
     [SerializeField] protected float firingSpeed;
-    [SerializeField] protected Vector3 weaponOnCollectRot;
-    [SerializeField] protected int maxNumberOfModules = 1;
+    [SerializeField] protected Vector3 weaponOnCollectRot; 
     [SerializeField] private int price;
-    
+
+    protected int maxNumberOfModules = 1;
+    protected int level = 0;
+
     public SelectableItems ItemType => SelectableItems.Weapon;
 
     private Player _player;
@@ -24,12 +28,13 @@ public abstract class Weapon : MonoBehaviour, ISelectableItem
     private Transform _weaponHolder;
     private bool _isInited;
     private List<WeaponModule> _weaponModules = new List<WeaponModule>();
-    public bool bought { get; private set; }
+    public bool Bought { get; private set; }
 
     [System.Serializable]
     public struct Description
     {
-        public Text WeaponNameText;
+        public Image Image;
+        public Text NameText;
         public Text DamageText;
         public Text FiringSpeed;
         public Transform ModulesHolder;
@@ -59,7 +64,7 @@ public abstract class Weapon : MonoBehaviour, ISelectableItem
         _playerDamage = _player.GetComponent<PlayerDamage>();
 
         _isInited = true;
-        bought = true;
+        Bought = true;
         OnInit();
     }
 
@@ -77,6 +82,9 @@ public abstract class Weapon : MonoBehaviour, ISelectableItem
         transform.parent.localRotation = Quaternion.identity;
         transform.parent.position = transform.parent.parent.position + new Vector3(0, 1f, 0) + (transform.parent.position - transform.position);
         boxCollider.enabled = true;
+        foreach (var module in _weaponModules)
+            _player.AddFreeModule(module);
+        _weaponModules.Clear();
         gameObject.layer = LayerMask.NameToLayer("Default");
     }
 
@@ -94,7 +102,9 @@ public abstract class Weapon : MonoBehaviour, ISelectableItem
         gameObject.layer = LayerMask.NameToLayer("Weapon");
     }
 
-    public string GetName() => GetType().Name;
+    public Sprite GetSprite() => sprite;
+
+    public string GetName() => weaponName + " " + (level + 1).ToString() + " lvl";
 
     public float GetDamage() => damage;
 

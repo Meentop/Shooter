@@ -118,9 +118,9 @@ public class Player : MonoBehaviour
             {
                 case SelectableItems.Weapon:
                     Weapon selectWeapon = _lastSavedSelectableItem as Weapon;
-                    if (Gold.HasCount(selectWeapon.GetPrice()) || selectWeapon.bought)
+                    if (Gold.HasCount(selectWeapon.GetPrice()) || selectWeapon.Bought)
                     {
-                        if(!selectWeapon.bought)
+                        if(!selectWeapon.Bought)
                             Gold.Remove(selectWeapon.GetPrice());
                         _currentWeapon.ConnectToStand(selectWeapon.transform.parent.parent);
                         _currentWeapon = selectWeapon;
