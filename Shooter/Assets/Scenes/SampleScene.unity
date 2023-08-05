@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 705507994}
-  m_IndirectSpecularColor: {r: 0.44657844, g: 0.49641222, b: 0.57481694, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657898, g: 0.4964133, b: 0.5748178, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -429,6 +429,8 @@ GameObject:
   - component: {fileID: 760817650}
   - component: {fileID: 760817648}
   - component: {fileID: 760817651}
+  - component: {fileID: 760817653}
+  - component: {fileID: 760817652}
   m_Layer: 0
   m_Name: Managers
   m_TagString: Untagged
@@ -534,6 +536,8 @@ MonoBehaviour:
   mainCamera: {fileID: 1573259695}
   canvas: {fileID: 1026115379}
   floorSpawner: {fileID: 760817651}
+  load: {fileID: 760817652}
+  save: {fileID: 760817653}
 --- !u!114 &760817651
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -548,6 +552,35 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   roomSpawner: {fileID: 308214503}
   floorManagerConfig: {fileID: 11400000, guid: d5b8c67b3b69690429bbab73affaf594, type: 2}
+  load: {fileID: 760817652}
+--- !u!114 &760817652
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 760817647}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5c9447181d95adb438bbb5d1848eeab3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  floorSpawner: {fileID: 760817651}
+  playerHealth: {fileID: 968565426}
+--- !u!114 &760817653
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 760817647}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ac388bba28644464eb1b6ac1cbe444f1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  floorSpawner: {fileID: 760817651}
+  playerHealth: {fileID: 968565426}
 --- !u!114 &787724149 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 7346437907303352126, guid: 5dabf89771060884e956222b099303a1, type: 3}
@@ -602,6 +635,17 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 6769000026264619068, guid: 83c9ad56a38022b4899e1e1eec2c3fab, type: 3}
   m_PrefabInstance: {fileID: 2565003241933251663}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &968565426 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 5440067626376647844, guid: 9e72b9e8f879a1147acd589cbd24cdd4, type: 3}
+  m_PrefabInstance: {fileID: 6655776286918135550}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0e56e51f77cb78a43aebb41b41f87f2d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!4 &987962129 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 3517441006931142457, guid: 5dabf89771060884e956222b099303a1, type: 3}
@@ -903,6 +947,18 @@ PrefabInstance:
       propertyPath: m_AnchorMax.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1103152984367234684, guid: 83c9ad56a38022b4899e1e1eec2c3fab, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 191.44855
+      objectReference: {fileID: 0}
+    - target: {fileID: 1468264466417391216, guid: 83c9ad56a38022b4899e1e1eec2c3fab, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 191.44855
+      objectReference: {fileID: 0}
+    - target: {fileID: 2054185272347780470, guid: 83c9ad56a38022b4899e1e1eec2c3fab, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 191.44855
+      objectReference: {fileID: 0}
     - target: {fileID: 2174199797796789387, guid: 83c9ad56a38022b4899e1e1eec2c3fab, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
@@ -1080,6 +1136,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1697727722191368258}
     - target: {fileID: 8186398520376592131, guid: 83c9ad56a38022b4899e1e1eec2c3fab, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 191.44855
+      objectReference: {fileID: 0}
+    - target: {fileID: 8369733628446374111, guid: 83c9ad56a38022b4899e1e1eec2c3fab, type: 3}
       propertyPath: m_AnchoredPosition.x
       value: 191.44855
       objectReference: {fileID: 0}

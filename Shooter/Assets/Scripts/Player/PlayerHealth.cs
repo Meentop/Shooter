@@ -20,4 +20,6 @@ public class PlayerHealth : BaseDamageReceiver
         base.UpdateHealthBar(maxHP, currentHP);
         _health.text = currentHP.ToString() + " / " + maxHP.ToString();
     }
+
+    public int GetPlayerHelth() => curHP;
 }
