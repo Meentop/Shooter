@@ -9,10 +9,11 @@ public enum SelectableItems
 {
     Weapon,
     TestButton,
-    Modifier,
+    Module,
     ActiveSkill,
     AwardButton,
     GoldAward,
     HealthAward,
-    GoldButton
+    GoldButton,
+    UpgradeWeapon
 }

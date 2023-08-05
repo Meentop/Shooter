@@ -8,9 +8,11 @@ public interface IDamageReceiver
 
 public class DamageData 
 {
-    public DamageData(int damage = 0, Dictionary<StatusEffect, int> addStatusEffects = null, Dictionary<StatusEffect, int> statusEffectsDamage = null)
+    public DamageData(int damage = 0, int critChance = 0, int critDamageMultiplier = 3, Dictionary<StatusEffect, int> addStatusEffects = null, Dictionary<StatusEffect, int> statusEffectsDamage = null)
     {
         Damage = damage;
+        CritChance = critChance;
+        CritDamageMultiplier = critDamageMultiplier;
         AddStatusEffects = addStatusEffects;
         StatusEffectsDamage = statusEffectsDamage;
         AddStatusEffects ??= new Dictionary<StatusEffect, int>();
@@ -18,9 +20,13 @@ public class DamageData
     }
 
     public int Damage { get; private set; }
+    public int CritChance { get; private set; }
+    public int CritDamageMultiplier { get; private set; }
     public Dictionary<StatusEffect, int> AddStatusEffects { get; private set; }
     public Dictionary<StatusEffect, int> StatusEffectsDamage { get; private set; }
 
     public void SetDamage(int damage) => Damage = damage;
+    public void AddCritChance(int critChance) => CritChance += critChance;
+    public void AddCritDamage(int addCritDamage) => CritDamageMultiplier += addCritDamage;
 }
 

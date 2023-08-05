@@ -10,8 +10,10 @@ public class InfoInterface : MonoBehaviour
     [SerializeField] private Image miniMap;
     [SerializeField] private Image activeWeaponsIcon;
     [SerializeField] private Image inactiveWeaponsIcon;
+    [SerializeField] private Image dashReloadIcon;
+    [SerializeField] private Text dashCharges;
 
-    public void UpdateInfoIcon(InfoIconEnum infoIconEnum ,Image newIcon, int number)
+    public void UpdateInfoIcon(InfoIconEnum infoIconEnum, Image newIcon, int number)
     {
         switch (infoIconEnum)
         {
@@ -33,6 +35,12 @@ public class InfoInterface : MonoBehaviour
     public void DiscardWeaponsIcon(int number)
     {
         weaponsIconHoldear[number].color = inactiveWeaponsIcon.color;
+    }
+
+    public void SetDashInfo(float dashReload, int dashCharges)
+    {
+        dashReloadIcon.fillAmount = dashReload;
+        this.dashCharges.text = dashCharges.ToString();
     }
 
     public enum InfoIconEnum

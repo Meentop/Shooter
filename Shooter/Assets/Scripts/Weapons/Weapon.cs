@@ -9,12 +9,18 @@ public abstract class Weapon : MonoBehaviour, ISelectableItem
     [SerializeField] protected Image weaponsIcon;
     [SerializeField] private Collider boxCollider;
     [Space]
-    [SerializeField] protected int damage;
+    [SerializeField] protected Sprite sprite;
+    [SerializeField] protected string weaponName;
+    [SerializeField] protected int[] damage = new int[3];
     [SerializeField] protected float firingSpeed;
     [SerializeField] protected Vector3 weaponOnCollectRot;
-    [SerializeField] protected int maxNumberOfModifiers = 1;
     [SerializeField] private int price;
-    
+    [SerializeField] private int[] upgradePrices;
+
+    protected int maxNumberOfModules = 1;
+    protected int level = 0;
+    protected const int maxLevel = 2;
+
     public SelectableItems ItemType => SelectableItems.Weapon;
 
     private Player _player;
@@ -23,16 +29,17 @@ public abstract class Weapon : MonoBehaviour, ISelectableItem
     private Transform _targetLook;
     private Transform _weaponHolder;
     private bool _isInited;
-    private List<Modifier> _modifiers = new List<Modifier>();
-    public bool bought { get; private set; }
+    private List<WeaponModule> _weaponModules = new List<WeaponModule>();
+    public bool Bought { get; private set; }
 
     [System.Serializable]
     public struct Description
     {
-        public Text WeaponNameText;
+        public Image Image;
+        public Text NameText;
         public Text DamageText;
         public Text FiringSpeed;
-        public Transform ModifiersHolder;
+        public Transform ModulesHolder;
         public GameObject BuyPanel;
         public Text PriceText;
     }
@@ -59,7 +66,7 @@ public abstract class Weapon : MonoBehaviour, ISelectableItem
         _playerDamage = _player.GetComponent<PlayerDamage>();
 
         _isInited = true;
-        bought = true;
+        Bought = true;
         OnInit();
     }
 
@@ -77,6 +84,9 @@ public abstract class Weapon : MonoBehaviour, ISelectableItem
         transform.parent.localRotation = Quaternion.identity;
         transform.parent.position = transform.parent.parent.position + new Vector3(0, 1f, 0) + (transform.parent.position - transform.position);
         boxCollider.enabled = true;
+        foreach (var module in _weaponModules)
+            _player.AddFreeModule(module);
+        _weaponModules.Clear();
         gameObject.layer = LayerMask.NameToLayer("Default");
     }
 
@@ -94,15 +104,27 @@ public abstract class Weapon : MonoBehaviour, ISelectableItem
         gameObject.layer = LayerMask.NameToLayer("Weapon");
     }
 
-    public string GetName() => GetType().Name;
+    public Sprite GetSprite() => sprite;
 
-    public float GetDamage() => damage;
+    public string GetName() => weaponName + " " + (level + 1).ToString() + " lvl";
+
+    public string GetUpgradedName() => weaponName + " " + (level + 2).ToString() + " lvl";
+
+    public float GetDamage() => damage[level];
+
+    public float GetUpgradedDamage() => damage[level + 1];
 
     public float GetFiringSpeed() => firingSpeed;
 
-    public int GetMaxNumbersOfModifiers() => maxNumberOfModifiers;
+    public int GetMaxNumbersOfModules() => maxNumberOfModules;
+
+    public int GetUpgradedMaxNumbersOfModules() => maxNumberOfModules + 1;
 
     public int GetPrice() => price;
+
+    public int GetUpgradePrice() => upgradePrices.Length > level ? upgradePrices[level] : 0;
+
+    public bool CouldBeUpgraded() => level < maxLevel;
 
     public void OnSelect(Player player)
     {
@@ -111,7 +133,7 @@ public abstract class Weapon : MonoBehaviour, ISelectableItem
 
     protected int DamageModifired()
     {
-        return (int)(damage * _playerDamage.damagePower);
+        return (int)(damage[level] * _playerDamage.damagePower);
     }
 
     public void RaycastShoot(Vector3 direction)
@@ -146,28 +168,39 @@ public abstract class Weapon : MonoBehaviour, ISelectableItem
     }
 
 
-    public int GetModifiersCount() => _modifiers.Count;
+    public int GetModulesCount() => _weaponModules.Count;
 
-    public Modifier GetModifier(int index) => _modifiers[index];
+    public WeaponModule GetModule(int index) => _weaponModules[index];
 
-    public void AddModifier(Modifier modifier)
+    public void AddModule(WeaponModule module)
     {
-        _modifiers.Add(modifier);
+        _weaponModules.Add(module);
     }
 
-    public void RemoveModifier(Modifier modifier)
+    public void RemoveModule(WeaponModule module)
     {
-        _modifiers.Remove(modifier);
+        _weaponModules.Remove(module);
     }
 
 
     private DamageData GetDamageData(EnemyHealth enemy)
     {
         DamageData damageData = new DamageData(damage: DamageModifired());
-        foreach (var modifier in _modifiers)
+        InfoForWeaponModule info = new InfoForWeaponModule
         {
-            damageData = modifier.ApplyBehaviours(damageData, enemy);
+            enemyStatusEffects = enemy.GetStatusEffects()
+        };
+        foreach (var module in _weaponModules)
+        {
+            damageData = module.ApplyBehaviours(damageData, info);
         }
         return damageData;
+    }
+
+
+    public void UpgradeWeapon()
+    {
+        level++;
+        maxNumberOfModules++;
     }
 }

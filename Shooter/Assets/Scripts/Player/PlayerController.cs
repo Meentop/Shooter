@@ -5,8 +5,7 @@ using UnityEngine;
 public class PlayerController : MonoBehaviour
 {
     [SerializeField] private Transform checkOnGroundPoint;
-    [SerializeField] private PlayerConfig playerConfig;
-    [SerializeField] private KeyCode jumpKey = KeyCode.Space;
+    private KeyCode jumpKey = KeyCode.Space;
 
     private Rigidbody _rb;
     private bool _grounded, _exitingSlope, _dashing;
@@ -14,11 +13,14 @@ public class PlayerController : MonoBehaviour
     private float _horizontalInput, _verticalInput;
     private Vector3 _moveDirection;
     private RaycastHit _slopeHit;
+    private Player _player;
+    private int _curDashCharges = 0;
 
     private void Start()
     {
         _rb = GetComponent<Rigidbody>();
         _rb.freezeRotation = true;
+        _player = GetComponent<Player>();
     }
 
     private void Update()
@@ -31,19 +33,25 @@ public class PlayerController : MonoBehaviour
             SpeedControl();
 
             if (_grounded && !_dashing)
-                _rb.drag = playerConfig.groundDrag;
+                _rb.drag = _player.GetMovement().groundDrag;
             else
                 _rb.drag = 0;
 
-            if (_dashTimer > 0)
+            if (_dashTimer < _player.GetMovement().dashReloadTime && _curDashCharges < _player.GetMovement().dashCharges)
             {
-                _dashTimer -= Time.deltaTime;
+                _dashTimer += Time.deltaTime;
+            }
+            if( _dashTimer >= _player.GetMovement().dashReloadTime && _curDashCharges < _player.GetMovement().dashCharges)
+            {
+                _dashTimer = 0;
+                _curDashCharges++;
             }
 
-            if (Input.GetKeyDown(KeyCode.LeftShift) && _dashTimer <= 0)
+            if (Input.GetKeyDown(KeyCode.LeftShift) && _curDashCharges > 0 && !_dashing)
             {
                 Dash();
             }
+            _player.SetDashInfo(_dashTimer / _player.GetMovement().dashReloadTime, _curDashCharges);
         }
     }
 
@@ -74,15 +82,15 @@ public class PlayerController : MonoBehaviour
 
         if (OnSlope() && !_exitingSlope)
         {
-            _rb.AddForce(GetSlopeMoveDirection() * playerConfig.movementSpeed * 20f, ForceMode.Force);
+            _rb.AddForce(20f * _player.GetMovement().movementSpeed * GetSlopeMoveDirection(), ForceMode.Force);
 
             if (_moveDirection != Vector3.zero)
                 _rb.AddForce(Vector3.down * 80f, ForceMode.Force);
         }
         else if (_grounded)
-            _rb.AddForce(_moveDirection * playerConfig.movementSpeed * 20f, ForceMode.Force);
+            _rb.AddForce(20f * _player.GetMovement().movementSpeed * _moveDirection, ForceMode.Force);
         else if(!_grounded)
-            _rb.AddForce(_moveDirection * playerConfig.movementSpeed * 20f * playerConfig.airMultiplayer, ForceMode.Force);
+            _rb.AddForce(20f * _player.GetMovement().airMultiplayer * _player.GetMovement().movementSpeed * _moveDirection, ForceMode.Force);
 
         _rb.useGravity = !OnSlope();
     }
@@ -93,15 +101,15 @@ public class PlayerController : MonoBehaviour
         {
             if (OnSlope() && !_exitingSlope)
             {
-                if (_rb.velocity.magnitude > playerConfig.movementSpeed)
-                    _rb.velocity = _rb.velocity.normalized * playerConfig.movementSpeed;
+                if (_rb.velocity.magnitude > _player.GetMovement().movementSpeed)
+                    _rb.velocity = _rb.velocity.normalized * _player.GetMovement().movementSpeed;
             }
             else
             {
                 Vector3 flatVel = new Vector3(_rb.velocity.x, 0, _rb.velocity.z);
-                if (flatVel.magnitude > playerConfig.movementSpeed)
+                if (flatVel.magnitude > _player.GetMovement().movementSpeed)
                 {
-                    Vector3 limitedVel = flatVel.normalized * playerConfig.movementSpeed;
+                    Vector3 limitedVel = flatVel.normalized * _player.GetMovement().movementSpeed;
                     _rb.velocity = new Vector3(limitedVel.x, _rb.velocity.y, limitedVel.z);
                 }
             }
@@ -113,7 +121,7 @@ public class PlayerController : MonoBehaviour
         _exitingSlope = true;
         _rb.velocity = new Vector3(_rb.velocity.x, 0f, _rb.velocity.z);
 
-        _rb.AddForce(transform.up * playerConfig.jumpStrength, ForceMode.Impulse);
+        _rb.AddForce(transform.up * _player.GetMovement().jumpStrength, ForceMode.Impulse);
     }
 
     private void ResetJump()
@@ -126,7 +134,7 @@ public class PlayerController : MonoBehaviour
         if(Physics.Raycast(transform.position, Vector3.down, out _slopeHit, 1.4f))
         {
             float angle = Vector3.Angle(Vector3.up, _slopeHit.normal);
-            return angle < playerConfig.maxSlopeAngle && angle != 0;
+            return angle < _player.GetMovement().maxSlopeAngle && angle != 0;
         }
         return false;
     }
@@ -146,14 +154,15 @@ public class PlayerController : MonoBehaviour
         Vector3 direction = new Vector3(Input.GetAxis("Horizontal"), 0, Input.GetAxis("Vertical")).normalized;
         if (Input.GetAxis("Horizontal") == 0 && Input.GetAxis("Vertical") == 0)
             direction = Vector3.forward;
+        _curDashCharges--;
         _dashing = true;
-        _dashTimer = playerConfig.dashReloadTime;
-        float dashTimer = playerConfig.dashDuration;
+        _dashTimer = 0;
+        float dashTimer = _player.GetMovement().dashDuration;
         _rb.velocity = new Vector3(_rb.velocity.x, 0, _rb.velocity.z);
         _rb.useGravity = false;
         while (dashTimer > 0)
         {
-            Vector3 dashDirection = transform.TransformDirection(direction) * playerConfig.dashStrength;
+            Vector3 dashDirection = transform.TransformDirection(direction) * _player.GetMovement().dashStrength;
             _rb.velocity = new Vector3(dashDirection.x, _rb.velocity.y, dashDirection.z);
             dashTimer -= Time.fixedDeltaTime;
             yield return new WaitForFixedUpdate();
