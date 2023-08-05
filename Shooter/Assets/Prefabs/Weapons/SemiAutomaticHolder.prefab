@@ -4892,7 +4892,7 @@ MonoBehaviour:
   sprite: {fileID: 0}
   weaponName: Semi Automatic
   damage: 0a0000000d00000010000000
-  firingSpeed: 0.1
+  firingSpeed: 0.15
   weaponOnCollectRot: {x: 0, y: -90, z: 0}
   price: 25
   upgradePrices: 1e00000028000000

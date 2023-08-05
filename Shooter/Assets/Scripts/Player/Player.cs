@@ -138,7 +138,8 @@ public class Player : MonoBehaviour
                             modifierAward.DeleteOtherModifiers(selectModule.transform.parent);
                         Gold.Remove(selectModule.GetPrice());
                         AddFreeModule(selectModule);
-                        Destroy(selectModule.gameObject);
+                        if (!selectModule.undestroyable)
+                            Destroy(selectModule.gameObject);
                     }
                     break;
                 case SelectableItems.ActiveSkill:

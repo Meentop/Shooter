@@ -61,10 +61,27 @@ public class EnemyHealth : BaseDamageReceiver
 
     public override void GetDamage(DamageData damageData)
     {
+        bool crit = Random.Range(0, 100) < damageData.CritChance;
+        if (crit) damageData.SetDamage(damageData.Damage * damageData.CritDamageMultiplier);
+
         _playerComponent.AddDamageToActiveSkill(Mathf.Clamp(damageData.Damage, 0, curHP));
-        base.GetDamage(damageData);
+
+        if (!_isDead)
+        {
+            curHP -= damageData.Damage;
+            UpdateHealthBar(maxHP, curHP);
+
+            if (curHP <= 0)
+            {
+                executeOnHPBelowZero.ExecuteAll();
+                _isDead = true;
+            }
+            else
+                executeOnGetDamage.ExecuteAll();
+        }
+
         if (damageData.Damage != 0)
-            DamageUI.Instance.AddText(damageData.Damage, this, hPBarCanvas.GetComponent<RectTransform>(), Color.white);
+            DamageUI.Instance.AddText(damageData.Damage, this, hPBarCanvas.GetComponent<RectTransform>(), crit ? Color.red : Color.white);
 
         for (int i = 0; i < 5; i++)
         {

@@ -9,6 +9,7 @@ public abstract class Module : MonoBehaviour, ISelectableItem
     [SerializeField] private string title, description;
     //[SerializeField] private List<ModifierBehaviour> behaviours;
     [SerializeField] private int price;
+    public bool undestroyable = false;
 
     public SelectableItems ItemType => SelectableItems.Module;
 
