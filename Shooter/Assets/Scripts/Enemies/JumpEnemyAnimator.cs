@@ -4,14 +4,8 @@ using UnityEngine;
 
 public class JumpEnemyAnimator : MonoBehaviour
 {
-    [SerializeField] private Turning turning;
     [SerializeField] private Punch punch;
     [SerializeField] private JumpAttack attack;
-
-    public void Handle_EndTurning()
-    {
-        turning.Handle_EndTurning();
-    }
 
     public void Handle_EndPunch()
     {

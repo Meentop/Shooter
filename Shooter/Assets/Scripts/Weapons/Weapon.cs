@@ -11,13 +11,15 @@ public abstract class Weapon : MonoBehaviour, ISelectableItem
     [Space]
     [SerializeField] protected Sprite sprite;
     [SerializeField] protected string weaponName;
-    [SerializeField] protected int damage;
+    [SerializeField] protected int[] damage = new int[3];
     [SerializeField] protected float firingSpeed;
-    [SerializeField] protected Vector3 weaponOnCollectRot; 
+    [SerializeField] protected Vector3 weaponOnCollectRot;
     [SerializeField] private int price;
+    [SerializeField] private int[] upgradePrices;
 
     protected int maxNumberOfModules = 1;
     protected int level = 0;
+    protected const int maxLevel = 2;
 
     public SelectableItems ItemType => SelectableItems.Weapon;
 
@@ -106,13 +108,23 @@ public abstract class Weapon : MonoBehaviour, ISelectableItem
 
     public string GetName() => weaponName + " " + (level + 1).ToString() + " lvl";
 
-    public float GetDamage() => damage;
+    public string GetUpgradedName() => weaponName + " " + (level + 2).ToString() + " lvl";
+
+    public float GetDamage() => damage[level];
+
+    public float GetUpgradedDamage() => damage[level + 1];
 
     public float GetFiringSpeed() => firingSpeed;
 
     public int GetMaxNumbersOfModules() => maxNumberOfModules;
 
+    public int GetUpgradedMaxNumbersOfModules() => maxNumberOfModules + 1;
+
     public int GetPrice() => price;
+
+    public int GetUpgradePrice() => upgradePrices.Length > level ? upgradePrices[level] : 0;
+
+    public bool CouldBeUpgraded() => level < maxLevel;
 
     public void OnSelect(Player player)
     {
@@ -121,7 +133,7 @@ public abstract class Weapon : MonoBehaviour, ISelectableItem
 
     protected int DamageModifired()
     {
-        return (int)(damage * _playerDamage.damagePower);
+        return (int)(damage[level] * _playerDamage.damagePower);
     }
 
     public void RaycastShoot(Vector3 direction)
@@ -183,5 +195,12 @@ public abstract class Weapon : MonoBehaviour, ISelectableItem
             damageData = module.ApplyBehaviours(damageData, info);
         }
         return damageData;
+    }
+
+
+    public void UpgradeWeapon()
+    {
+        level++;
+        maxNumberOfModules++;
     }
 }

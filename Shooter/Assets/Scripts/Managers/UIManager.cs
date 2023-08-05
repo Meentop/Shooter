@@ -10,12 +10,17 @@ public class UIManager : MonoBehaviour
     [SerializeField] private GameObject newModuleTextHolder;
     [SerializeField] private GameObject buyHealthHolder;
     [SerializeField] private GameObject newActiveSkillHolder;
+    [SerializeField] private GameObject upgradeWeaponHolder;
     [SerializeField] private Color normalBuyColor, notEnoughColor;
     [SerializeField] private Weapon.Description newWeaponDescriptions;
     [SerializeField] private GameObject hollowModuleHolderPrefab;
     [SerializeField] private Module.Info newModuleInfo;
     [SerializeField] private ActiveSkill.Info newActiveSkillInfo;
     [SerializeField] private Image activeSkillReloadImage;
+    [SerializeField] private Weapon.Description curWeaponDescriptions;
+    [SerializeField] private Weapon.Description upgradedWeaponDescriptions;
+    [SerializeField] private GameObject weaponUpgraderBlockPanel;
+    [SerializeField] private Text weaponUpgraderBlockPanelText;
     [Header("Buy Health")]
     [SerializeField] private Text buyHealthPrice;
     [SerializeField] private Text buyHealthCount;
@@ -31,20 +36,23 @@ public class UIManager : MonoBehaviour
     {
         switch (buttonTypes)
         {
-            case TextTypes.SelectText:
+            case TextTypes.Select:
                 selectText.SetActive(isActive);
                 break;
-            case TextTypes.NewWeaponTextHolder:
+            case TextTypes.NewWeapon:
                 newWeaponTextHolder.SetActive(isActive);
                 break;
-            case TextTypes.NewModuleTextHolder:
+            case TextTypes.NewModule:
                 newModuleTextHolder.SetActive(isActive);
                 break;
-            case TextTypes.NewActiveSkillTextHolder:
+            case TextTypes.NewActiveSkill:
                 newActiveSkillHolder.SetActive(isActive);
                 break;
-            case TextTypes.BuyHealthHolder: 
+            case TextTypes.BuyHealth: 
                 buyHealthHolder.SetActive(isActive);
+                break;
+            case TextTypes.UpdateWeapon:
+                upgradeWeaponHolder.SetActive(isActive);
                 break;
         }
     }
@@ -53,16 +61,18 @@ public class UIManager : MonoBehaviour
     {
         switch (buttonTypes)
         {
-            case TextTypes.SelectText:
+            case TextTypes.Select:
                 return selectText.activeInHierarchy;
-            case TextTypes.NewWeaponTextHolder:
+            case TextTypes.NewWeapon:
                 return newWeaponTextHolder.activeInHierarchy;
-            case TextTypes.NewModuleTextHolder:
+            case TextTypes.NewModule:
                 return newModuleTextHolder.activeInHierarchy;
-            case TextTypes.NewActiveSkillTextHolder:
+            case TextTypes.NewActiveSkill:
                 return newActiveSkillHolder.activeInHierarchy;
-            case TextTypes.BuyHealthHolder:
+            case TextTypes.BuyHealth:
                 return buyHealthHolder.activeInHierarchy;
+            case TextTypes.UpdateWeapon:
+                return upgradeWeaponHolder.activeInHierarchy;
             default:
                 return false;
         }
@@ -118,15 +128,72 @@ public class UIManager : MonoBehaviour
         buyHealthWasUsed.SetActive(healthAward.IsUsed());
     }
 
+    public void UpdateUpgradeWeaponText(bool hasGold, UpgradeWeaponAward upgrader, Weapon weapon)
+    {
+        curWeaponDescriptions.Image.sprite = weapon.GetSprite();
+        curWeaponDescriptions.NameText.text = weapon.GetName();
+        curWeaponDescriptions.DamageText.text = "Damage " + weapon.GetDamage().ToString();
+        curWeaponDescriptions.FiringSpeed.text = "FiringSpeed " + weapon.GetFiringSpeed().ToString();
+        foreach (Transform modulesHolder in curWeaponDescriptions.ModulesHolder)
+        {
+            Destroy(modulesHolder.gameObject);
+        }
+        for (int j = 0; j < weapon.GetMaxNumbersOfModules(); j++)
+        {
+            Instantiate(hollowModuleHolderPrefab, curWeaponDescriptions.ModulesHolder);
+        }
+
+        bool cantUpgrade = upgrader.IsUsed() || !weapon.CouldBeUpgraded();
+        upgradedWeaponDescriptions.BuyPanel.SetActive(!cantUpgrade);
+
+        weaponUpgraderBlockPanel.SetActive(cantUpgrade);
+        if (upgrader.IsUsed())
+            weaponUpgraderBlockPanelText.text = "USED";
+        if(!weapon.CouldBeUpgraded())
+            weaponUpgraderBlockPanelText.text = "MAX UPGRADE";
+        if (cantUpgrade)
+        {
+            upgradedWeaponDescriptions.Image.sprite = weapon.GetSprite();
+            upgradedWeaponDescriptions.NameText.text = weapon.GetName();
+            upgradedWeaponDescriptions.DamageText.text = "Damage " + weapon.GetDamage().ToString();
+            upgradedWeaponDescriptions.FiringSpeed.text = "FiringSpeed " + weapon.GetFiringSpeed().ToString();
+            foreach (Transform modulesHolder in upgradedWeaponDescriptions.ModulesHolder)
+            {
+                Destroy(modulesHolder.gameObject);
+            }
+            for (int j = 0; j < weapon.GetMaxNumbersOfModules(); j++)
+            {
+                Instantiate(hollowModuleHolderPrefab, upgradedWeaponDescriptions.ModulesHolder);
+            }
+            return;
+        }
+
+        upgradedWeaponDescriptions.Image.sprite = weapon.GetSprite();
+        upgradedWeaponDescriptions.NameText.text = weapon.GetUpgradedName();
+        upgradedWeaponDescriptions.DamageText.text = "Damage " + weapon.GetUpgradedDamage().ToString();
+        upgradedWeaponDescriptions.FiringSpeed.text = "FiringSpeed " + weapon.GetFiringSpeed().ToString();
+        foreach (Transform modulesHolder in upgradedWeaponDescriptions.ModulesHolder)
+        {
+            Destroy(modulesHolder.gameObject);
+        }
+        for (int j = 0; j < weapon.GetUpgradedMaxNumbersOfModules(); j++)
+        {
+            Instantiate(hollowModuleHolderPrefab, upgradedWeaponDescriptions.ModulesHolder);
+        }
+        upgradedWeaponDescriptions.PriceText.text = weapon.GetUpgradePrice().ToString();
+        upgradedWeaponDescriptions.PriceText.color = hasGold ? normalBuyColor : notEnoughColor;
+    }
+
     public Image GetActiveSkillReloadImage() => activeSkillReloadImage;
 }
 
 
 public enum TextTypes
 {
-    SelectText,
-    NewWeaponTextHolder,
-    NewModuleTextHolder,
-    NewActiveSkillTextHolder,
-    BuyHealthHolder
+    Select,
+    NewWeapon,
+    NewModule,
+    NewActiveSkill,
+    BuyHealth,
+    UpdateWeapon
 }

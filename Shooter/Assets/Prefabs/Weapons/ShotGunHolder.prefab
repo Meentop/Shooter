@@ -5128,13 +5128,13 @@ MonoBehaviour:
   decalPrefab: {fileID: 198000010535933408, guid: f55c9bf640b6fd34aa8924a3dc6673dd, type: 3}
   weaponsIcon: {fileID: 358132371581820940, guid: 7322eeca72c65f44c8d628954f2f38c7, type: 3}
   boxCollider: {fileID: 7729926444301364067}
+  sprite: {fileID: 0}
   weaponName: Shotgun
-  level: 0
-  damage: 10
+  damage: 0a0000000d00000010000000
   firingSpeed: 0.5
   weaponOnCollectRot: {x: -90, y: 180, z: 0}
-  maxNumberOfModules: 2
   price: 30
+  upgradePrices: 1e00000028000000
   pelletsCount: 5
   spread: 0.1
 --- !u!65 &7729926444301364067

@@ -846,7 +846,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   rb: {fileID: 5587077259902345157}
-  normalMaxSpeed: 5
+  normalMaxSpeed: 7
   normalAccel: 20
   normalRotationSpeed: 200
 --- !u!114 &223671751757384091
@@ -861,7 +861,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ed8dbfb05a7be6b4cb66f84b5fb3c066, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  turning: {fileID: 0}
   punch: {fileID: 1567236795819354401}
   attack: {fileID: 8472109373173999199}
 --- !u!1 &4795288749897339574

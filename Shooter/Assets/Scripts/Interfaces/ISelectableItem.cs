@@ -14,5 +14,6 @@ public enum SelectableItems
     AwardButton,
     GoldAward,
     HealthAward,
-    GoldButton
+    GoldButton,
+    UpgradeWeapon
 }

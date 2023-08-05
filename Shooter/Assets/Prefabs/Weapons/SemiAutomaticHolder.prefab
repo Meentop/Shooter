@@ -4889,13 +4889,13 @@ MonoBehaviour:
   decalPrefab: {fileID: 198000010535933408, guid: f55c9bf640b6fd34aa8924a3dc6673dd, type: 3}
   weaponsIcon: {fileID: 7442524080799220309, guid: b3c006987ae349e489a71c2d75563cfd, type: 3}
   boxCollider: {fileID: 3124322557215765905}
+  sprite: {fileID: 0}
   weaponName: Semi Automatic
-  level: 0
-  damage: 10
+  damage: 0a0000000d00000010000000
   firingSpeed: 0.1
   weaponOnCollectRot: {x: 0, y: -90, z: 0}
-  maxNumberOfModules: 3
   price: 25
+  upgradePrices: 1e00000028000000
 --- !u!65 &3124322557215765905
 BoxCollider:
   m_ObjectHideFlags: 0

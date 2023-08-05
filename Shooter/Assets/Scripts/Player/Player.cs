@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -16,7 +17,7 @@ public class Player : MonoBehaviour
 
     private Weapon _currentWeapon;
     private ActiveSkill _activeSkill;
-    private int _selectedSlot;
+    private int _selectedWeaponSlot;
     private bool _isScrolling;
     private ISelectableItem _lastSavedSelectableItem;
     private List<WeaponModule> _freeWeaponModules = new List<WeaponModule>();
@@ -48,7 +49,7 @@ public class Player : MonoBehaviour
         _infoInterface = uiManager.infoInterface;
         _dynamicInterface = uiManager.dinemicInterface;
         _uiManager = uiManager;
-        _currentWeapon.Init(this, weaponHolder, targetLook, uiManager.infoInterface, _selectedSlot);
+        _currentWeapon.Init(this, weaponHolder, targetLook, uiManager.infoInterface, _selectedWeaponSlot);
         _dynamicInterface.Init(this, cameraController, mainCamera, canvas);
     }
 
@@ -56,14 +57,14 @@ public class Player : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Alpha1))
         {
-            _selectedSlot = 0;
-            SwapWeapon(weapons[_selectedSlot]);
+            _selectedWeaponSlot = 0;
+            SwapWeapon(weapons[_selectedWeaponSlot]);
         }
 
         if (Input.GetKeyDown(KeyCode.Alpha2))
         {
-            _selectedSlot = 1;
-            SwapWeapon(weapons[_selectedSlot]);
+            _selectedWeaponSlot = 1;
+            SwapWeapon(weapons[_selectedWeaponSlot]);
         }
     }
     
@@ -75,8 +76,8 @@ public class Player : MonoBehaviour
         _currentWeapon.transform.gameObject.SetActive(false);
         _currentWeapon = weaponToSwap;
         _currentWeapon.transform.gameObject.SetActive(true);
-        _currentWeapon.Init(this, weaponHolder, targetLook, _infoInterface, _selectedSlot);
-        _infoInterface.DiscardWeaponsIcon(CollectionsExtensions.GetNextIndex(weapons, _selectedSlot));
+        _currentWeapon.Init(this, weaponHolder, targetLook, _infoInterface, _selectedWeaponSlot);
+        _infoInterface.DiscardWeaponsIcon(CollectionsExtensions.GetNextIndex(weapons, _selectedWeaponSlot));
     }
 
     private void InputScrollWeapon()
@@ -99,8 +100,8 @@ public class Player : MonoBehaviour
 
         while (scrollInput != 0)
         {
-            _selectedSlot = CollectionsExtensions.GetNextIndex(weapons, _selectedSlot);
-            SwapWeapon(weapons[_selectedSlot]);
+            _selectedWeaponSlot = CollectionsExtensions.GetNextIndex(weapons, _selectedWeaponSlot);
+            SwapWeapon(weapons[_selectedWeaponSlot]);
             yield return new WaitForSeconds(scrollDelay);
             scrollInput = Input.GetAxis("Mouse ScrollWheel");
         }
@@ -124,8 +125,8 @@ public class Player : MonoBehaviour
                             Gold.Remove(selectWeapon.GetPrice());
                         _currentWeapon.ConnectToStand(selectWeapon.transform.parent.parent);
                         _currentWeapon = selectWeapon;
-                        weapons[_selectedSlot] = _currentWeapon;
-                        _currentWeapon.Init(this, weaponHolder, targetLook, _infoInterface, _selectedSlot);
+                        weapons[_selectedWeaponSlot] = _currentWeapon;
+                        _currentWeapon.Init(this, weaponHolder, targetLook, _infoInterface, _selectedWeaponSlot);
                         _currentWeapon.ConectToPlayer();
                     }
                     break;
@@ -151,6 +152,15 @@ public class Player : MonoBehaviour
                         Destroy(selectSkill.gameObject);
                     }
                     break;
+                case SelectableItems.UpgradeWeapon:
+                    Weapon curWeapon = weapons[_selectedWeaponSlot];
+                    UpgradeWeaponAward upgrader = _lastSavedSelectableItem as UpgradeWeaponAward;
+                    if (Gold.HasCount(curWeapon.GetUpgradePrice()) && !upgrader.IsUsed() && curWeapon.CouldBeUpgraded())
+                    {
+                        Gold.Remove(curWeapon.GetUpgradePrice());
+                        curWeapon.UpgradeWeapon();
+                    }
+                    break;
             }
             _lastSavedSelectableItem.OnSelect(this);
         }
@@ -174,8 +184,8 @@ public class Player : MonoBehaviour
 
     private void OverChoosableItem()
     {
-        if (!_uiManager.GetActiveText(TextTypes.SelectText))
-            _uiManager.SetActiveText(TextTypes.SelectText, true);
+        if (!_uiManager.GetActiveText(TextTypes.Select))
+            _uiManager.SetActiveText(TextTypes.Select, true);
         switch (_lastSavedSelectableItem.ItemType)
         {
             case SelectableItems.Weapon:
@@ -194,14 +204,19 @@ public class Player : MonoBehaviour
                 HealthAward healthAward = _lastSavedSelectableItem as HealthAward;
                 _uiManager.UpdateBuyHealthText(Gold.HasCount(healthAward.GetPrice()), healthAward);
                 break;
+            case SelectableItems.UpgradeWeapon:
+                Weapon curWeapon = weapons[_selectedWeaponSlot];
+                UpgradeWeaponAward upgrader = _lastSavedSelectableItem as UpgradeWeaponAward;
+                _uiManager.UpdateUpgradeWeaponText(Gold.HasCount(curWeapon.GetUpgradePrice()), upgrader, curWeapon);
+                break;
         }
         SetActiveTextTypes(true);
     }
 
     private void ExitSelectableItem()
     {
-        if (_uiManager.GetActiveText(TextTypes.SelectText))
-            _uiManager.SetActiveText(TextTypes.SelectText, false);
+        if (_uiManager.GetActiveText(TextTypes.Select))
+            _uiManager.SetActiveText(TextTypes.Select, false);
         if (_lastSavedSelectableItem != null)
         {
             SetActiveTextTypes(false);
@@ -214,16 +229,19 @@ public class Player : MonoBehaviour
         switch (_lastSavedSelectableItem.ItemType)
         {
             case SelectableItems.Weapon:
-                _uiManager.SetActiveText(TextTypes.NewWeaponTextHolder, active);
+                _uiManager.SetActiveText(TextTypes.NewWeapon, active);
                 break;
             case SelectableItems.Module:
-                _uiManager.SetActiveText(TextTypes.NewModuleTextHolder, active);
+                _uiManager.SetActiveText(TextTypes.NewModule, active);
                 break;
             case SelectableItems.ActiveSkill:
-                _uiManager.SetActiveText(TextTypes.NewActiveSkillTextHolder, active);
+                _uiManager.SetActiveText(TextTypes.NewActiveSkill, active);
                 break;
             case SelectableItems.HealthAward:
-                _uiManager.SetActiveText(TextTypes.BuyHealthHolder, active);
+                _uiManager.SetActiveText(TextTypes.BuyHealth, active);
+                break;
+            case SelectableItems.UpgradeWeapon:
+                _uiManager.SetActiveText(TextTypes.UpdateWeapon, active);
                 break;
         }
     }
@@ -245,6 +263,7 @@ public class Player : MonoBehaviour
 
 
     public Weapon[] GetWeapons() => weapons;
+    public Weapon GetSelectedWeapon() => weapons[_selectedWeaponSlot];
 
     public List<WeaponModule> GetFreeWeaponModules() => _freeWeaponModules;
     public List<BionicModule> GetFreeBionicModules() => _freeBionicModules;
