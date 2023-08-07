@@ -2,6 +2,8 @@ public interface ISelectableItem
 {
     public SelectableItems ItemType { get; }
 
+    public string Text { get; }
+
     public void OnSelect(Player player);
 }
 
@@ -15,5 +17,6 @@ public enum SelectableItems
     GoldAward,
     HealthAward,
     GoldButton,
-    UpgradeWeapon
+    UpgradeWeapon,
+    StartRun
 }

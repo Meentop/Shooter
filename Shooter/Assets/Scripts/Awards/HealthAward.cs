@@ -9,6 +9,8 @@ public class HealthAward : MonoBehaviour, ISelectableItem
 
     public SelectableItems ItemType => SelectableItems.HealthAward;
 
+    public string Text => _wasUsed ? "" : "Press E to buy health";
+
     public void OnSelect(Player player)
     {
         if (!_wasUsed && player.Gold.HasCount(price))

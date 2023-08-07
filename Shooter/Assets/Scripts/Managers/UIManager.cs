@@ -5,7 +5,7 @@ using TMPro;
 
 public class UIManager : MonoBehaviour
 {
-    [SerializeField] private GameObject selectText;
+    [SerializeField] private Text selectText;
     [SerializeField] private GameObject newWeaponTextHolder;
     [SerializeField] private GameObject newModuleTextHolder;
     [SerializeField] private GameObject buyHealthHolder;
@@ -37,7 +37,7 @@ public class UIManager : MonoBehaviour
         switch (buttonTypes)
         {
             case TextTypes.Select:
-                selectText.SetActive(isActive);
+                selectText.gameObject.SetActive(isActive);
                 break;
             case TextTypes.NewWeapon:
                 newWeaponTextHolder.SetActive(isActive);
@@ -59,23 +59,21 @@ public class UIManager : MonoBehaviour
 
     public bool GetActiveText(TextTypes buttonTypes)
     {
-        switch (buttonTypes)
+        return buttonTypes switch
         {
-            case TextTypes.Select:
-                return selectText.activeInHierarchy;
-            case TextTypes.NewWeapon:
-                return newWeaponTextHolder.activeInHierarchy;
-            case TextTypes.NewModule:
-                return newModuleTextHolder.activeInHierarchy;
-            case TextTypes.NewActiveSkill:
-                return newActiveSkillHolder.activeInHierarchy;
-            case TextTypes.BuyHealth:
-                return buyHealthHolder.activeInHierarchy;
-            case TextTypes.UpdateWeapon:
-                return upgradeWeaponHolder.activeInHierarchy;
-            default:
-                return false;
-        }
+            TextTypes.Select => selectText.gameObject.activeInHierarchy,
+            TextTypes.NewWeapon => newWeaponTextHolder.activeInHierarchy,
+            TextTypes.NewModule => newModuleTextHolder.activeInHierarchy,
+            TextTypes.NewActiveSkill => newActiveSkillHolder.activeInHierarchy,
+            TextTypes.BuyHealth => buyHealthHolder.activeInHierarchy,
+            TextTypes.UpdateWeapon => upgradeWeaponHolder.activeInHierarchy,
+            _ => false,
+        };
+    }
+
+    public void SetSelectText(string text)
+    {
+        selectText.text = text;
     }
 
     public void UpdateNewWeaponDescription(bool hasGold, Weapon weapon)

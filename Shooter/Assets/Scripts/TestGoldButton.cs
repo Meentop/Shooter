@@ -8,6 +8,8 @@ public class TestGoldButton : MonoBehaviour, ISelectableItem
 
     public SelectableItems ItemType => SelectableItems.GoldButton;
 
+    public string Text => "E";
+
     public void OnSelect(Player player)
     {
         player.Gold.Add(addGold);

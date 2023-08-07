@@ -6,10 +6,10 @@ public abstract class Weapon : MonoBehaviour, ISelectableItem
 {
     [SerializeField] protected ParticleSystem shootEffect;
     [SerializeField] protected ParticleSystem decalPrefab;
-    [SerializeField] protected Image weaponsIcon;
     [SerializeField] private Collider boxCollider;
     [Space]
-    [SerializeField] protected Sprite sprite;
+    [SerializeField] protected Image weaponsIcon;
+    [SerializeField] protected Sprite sprite; //remove
     [SerializeField] protected string weaponName;
     [SerializeField] protected int[] damage = new int[3];
     [SerializeField] protected float firingSpeed;
@@ -22,6 +22,8 @@ public abstract class Weapon : MonoBehaviour, ISelectableItem
     protected const int maxLevel = 2;
 
     public SelectableItems ItemType => SelectableItems.Weapon;
+
+    public string Text => Bought ? "Press E to buy" : "Press E to equip";
 
     private Player _player;
     private InfoInterface _infoInterface;
@@ -79,11 +81,13 @@ public abstract class Weapon : MonoBehaviour, ISelectableItem
     public void ConnectToStand(Transform stand)
     {
         enabled = false;
-        transform.GetComponent<RotateObject>().enabled = true;
+        if (transform.TryGetComponent<RotateObject>(out var component))
+            component.enabled = true;
         transform.parent.parent = stand;
         transform.parent.localRotation = Quaternion.identity;
         transform.parent.position = transform.parent.parent.position + new Vector3(0, 1f, 0) + (transform.parent.position - transform.position);
-        boxCollider.enabled = true;
+        if (boxCollider != null)
+            boxCollider.enabled = true;
         foreach (var module in _weaponModules)
             _player.AddFreeModule(module);
         _weaponModules.Clear();
@@ -202,5 +206,10 @@ public abstract class Weapon : MonoBehaviour, ISelectableItem
     {
         level++;
         maxNumberOfModules++;
+    }
+
+    public void SetBought()
+    {
+        Bought = true;
     }
 }

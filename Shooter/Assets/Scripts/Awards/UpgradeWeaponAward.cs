@@ -9,12 +9,16 @@ public class UpgradeWeaponAward : MonoBehaviour, ISelectableItem
 
     public SelectableItems ItemType => SelectableItems.UpgradeWeapon;
 
+    public string Text => _wasUsed ? "" : "Press E to buy upgrade";
+
     public void OnSelect(Player player)
     {
-        if (!_wasUsed && player.Gold.HasCount(player.GetSelectedWeapon().GetUpgradePrice()) && player.GetSelectedWeapon().CouldBeUpgraded())
-        {
-            _wasUsed = true;
-        }
+
+    }
+
+    public void SetWasUsed()
+    {
+        _wasUsed = true;
     }
 
     public bool IsUsed() => _wasUsed;

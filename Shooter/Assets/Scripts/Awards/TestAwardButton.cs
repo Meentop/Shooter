@@ -9,6 +9,8 @@ public class TestAwardButton : MonoBehaviour, ISelectableItem
 
     public SelectableItems ItemType => SelectableItems.TestButton;
 
+    public string Text => "E";
+
     public void OnSelect(Player player)
     {
         room.SpawnAward(award);

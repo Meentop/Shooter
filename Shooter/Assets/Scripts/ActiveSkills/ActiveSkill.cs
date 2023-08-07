@@ -14,6 +14,8 @@ public abstract class ActiveSkill : MonoBehaviour, ISelectableItem
 
     public SelectableItems ItemType => SelectableItems.ActiveSkill;
 
+    public string Text => "Press E to buy";
+
     private float curDamageTimer;
     private Image reloadImage;
     protected Transform mainCamera;

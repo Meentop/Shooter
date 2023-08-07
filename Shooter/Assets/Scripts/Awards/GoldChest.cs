@@ -9,6 +9,8 @@ public class GoldChest : MonoBehaviour, ISelectableItem
 
     public SelectableItems ItemType => SelectableItems.GoldAward;
 
+    public string Text => "Press E to open";
+
     public void OnSelect(Player player)
     {
         if (!_wasUsed)

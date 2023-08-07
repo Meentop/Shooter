@@ -160,6 +160,7 @@ public class Player : MonoBehaviour
                     {
                         Gold.Remove(curWeapon.GetUpgradePrice());
                         curWeapon.UpgradeWeapon();
+                        upgrader.SetWasUsed();
                     }
                     break;
             }
@@ -187,6 +188,7 @@ public class Player : MonoBehaviour
     {
         if (!_uiManager.GetActiveText(TextTypes.Select))
             _uiManager.SetActiveText(TextTypes.Select, true);
+        _uiManager.SetSelectText(_lastSavedSelectableItem.Text);
         switch (_lastSavedSelectableItem.ItemType)
         {
             case SelectableItems.Weapon:

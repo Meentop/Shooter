@@ -13,6 +13,8 @@ public abstract class Module : MonoBehaviour, ISelectableItem
 
     public SelectableItems ItemType => SelectableItems.Module;
 
+    public string Text => "Press E to buy";
+
     [System.Serializable]
     public struct Info
     {

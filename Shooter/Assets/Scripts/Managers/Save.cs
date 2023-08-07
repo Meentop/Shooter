@@ -17,10 +17,8 @@ public class Save : MonoBehaviour
         string json = JsonUtility.ToJson(_saveData);
         string filePath = Path.Combine(Application.persistentDataPath, fileName);
 
-        using (StreamWriter writer = new StreamWriter(filePath))
-        {
-            writer.WriteLine(json);
-        }
+        using StreamWriter writer = new StreamWriter(filePath);
+        writer.WriteLine(json);
     }
 }
 

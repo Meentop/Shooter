@@ -13,17 +13,15 @@ public class Load : MonoBehaviour
         string filePath = Path.Combine(Application.persistentDataPath, fileName);
         if (File.Exists(filePath))
         {
-            using (StreamReader reader = new StreamReader(filePath))
-            {
-                string json = reader.ReadToEnd();
-                SaveData saveData = new SaveData();
-                saveData = JsonUtility.FromJson<SaveData>(json);
-                floorSpawner.UpdateFloor(saveData.currentFlorNumber);
-            }
+            using StreamReader reader = new StreamReader(filePath);
+            string json = reader.ReadToEnd();
+            SaveData saveData = new SaveData();
+            saveData = JsonUtility.FromJson<SaveData>(json);
+            floorSpawner.UpdateFloor(saveData.currentFlorNumber);
         }
         else
         {
-            floorSpawner.UpdateFloor(new Vector3Int(Vector3Int.zero.x, Vector3Int.zero.y, Vector3Int.zero.z).y);
+            floorSpawner.UpdateFloor(0);
         }
     }
 }
