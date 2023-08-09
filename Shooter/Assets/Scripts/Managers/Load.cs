@@ -6,7 +6,7 @@ using System.IO;
 public class Load : MonoBehaviour
 {
     [SerializeField] private FloorSpawner floorSpawner;
-    [SerializeField] private PlayerHealth playerHealth;
+    [SerializeField] private Player player;
 
     public void LoadFromFile(string fileName)
     {
@@ -18,10 +18,11 @@ public class Load : MonoBehaviour
             SaveData saveData = new SaveData();
             saveData = JsonUtility.FromJson<SaveData>(json);
             floorSpawner.UpdateFloor(saveData.currentFlorNumber);
+            player.Health.SetCurHealth(saveData.currentPlayerHP);
         }
         else
         {
-            floorSpawner.UpdateFloor(0);
+            Debug.LogError("no save");
         }
     }
 }

@@ -102,8 +102,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   shootEffect: {fileID: 6800809668263106250}
   decalPrefab: {fileID: 198000010535933408, guid: f55c9bf640b6fd34aa8924a3dc6673dd, type: 3}
-  weaponsIcon: {fileID: 9055946841289149757, guid: a223e949e21eb8a4fa1aebd03dc5cada, type: 3}
   boxCollider: {fileID: 4599686081341117006}
+  number: 1
+  weaponsIcon: {fileID: 9055946841289149757, guid: a223e949e21eb8a4fa1aebd03dc5cada, type: 3}
   sprite: {fileID: 0}
   weaponName: Pistol
   damage: 14000000190000001e000000

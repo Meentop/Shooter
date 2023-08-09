@@ -50,11 +50,7 @@ MonoBehaviour:
   - {fileID: 1588887624532617791}
   - {fileID: 2068600875829877266}
   - {fileID: 2997425410659855200}
-  modules:
-  - {fileID: 8442224213974460412, guid: 69c9128715fff5144b5673ce047fad05, type: 3}
-  - {fileID: 922040955494109867, guid: caa283e76d162cb4889184d582d4cfc4, type: 3}
-  - {fileID: 1478418213787723457, guid: 61e61e6c22dd9d94a9ba9309a018da95, type: 3}
-  - {fileID: 1094162078505256686, guid: 69a21a47b16938f4c96a88a8ae32e062, type: 3}
+  config: {fileID: 11400000, guid: fd2808706ce919042acf4f109e9a8909, type: 2}
   moduleHeight: 0.896
 --- !u!1001 &5994857243185157076
 PrefabInstance:

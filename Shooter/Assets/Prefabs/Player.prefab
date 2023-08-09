@@ -208,6 +208,7 @@ MonoBehaviour:
   afterHealthBarImage: {fileID: 0}
   UIReduceSpeed: 0.2
   maxHP: 100
+  _startSizeDelta: {x: 321.55, y: 22.448}
   _health: {fileID: 0}
 --- !u!114 &5121611369077538754
 MonoBehaviour:

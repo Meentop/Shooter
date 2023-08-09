@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu(menuName = "Pullable/Config")]
+[CreateAssetMenu(fileName = "PullableConfig", menuName = "ScriptableObjects/PullableConfig")]
 public class PullableConfig : ScriptableObject
 {
     public float randomInsideSphereSize;

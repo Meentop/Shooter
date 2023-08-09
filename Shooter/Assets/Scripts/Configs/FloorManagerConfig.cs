@@ -1,12 +1,12 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu(menuName = "FloorManager/Config")]
+[CreateAssetMenu(fileName = "FloormanagerConfig", menuName = "ScriptableObjects/FloorManagerConfig")]
 
 [System.Serializable]
 public class FloorManagerConfig : ScriptableObject
 {
-    [SerializeField] public List<RoomSpawnerInfo> roomSpawnerConfigs = new List<RoomSpawnerInfo>();
+    public List<RoomSpawnerInfo> roomSpawnerConfigs = new List<RoomSpawnerInfo>();
 }
 
 [System.Serializable]

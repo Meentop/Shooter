@@ -13,20 +13,20 @@ public abstract class BaseDamageReceiver : MonoBehaviour, IDamageReceiver
     [SerializeField] protected int maxHP;
 
     protected int curHP;    
-    private float _target = 1;
+    private float _barSizeRatio = 1;
     protected bool _isDead = false;
-    private Vector2 _startSizeDelta;
+    protected Vector2 _startSizeDelta;
 
     protected virtual void Start()
     {
         curHP = maxHP;
         _startSizeDelta = healthBar.sizeDelta;
-        UpdateHealthBar(maxHP, curHP);
+        UpdateHealthBar();
     }
 
     protected virtual void Update()
     { 
-        afterHealthBarImage.transform.localScale = new Vector3(Mathf.MoveTowards(afterHealthBarImage.transform.localScale.x, _target, UIReduceSpeed * Time.deltaTime), 1, 1);
+        afterHealthBarImage.transform.localScale = new Vector3(Mathf.MoveTowards(afterHealthBarImage.transform.localScale.x, _barSizeRatio, UIReduceSpeed * Time.deltaTime), 1, 1);
     }
 
     public virtual void GetDamage(DamageData damageData)
@@ -34,7 +34,7 @@ public abstract class BaseDamageReceiver : MonoBehaviour, IDamageReceiver
         if (!_isDead)
         {
             curHP -= damageData.Damage;
-            UpdateHealthBar(maxHP, curHP);
+            UpdateHealthBar();
 
             if (curHP <= 0)
             {
@@ -51,15 +51,16 @@ public abstract class BaseDamageReceiver : MonoBehaviour, IDamageReceiver
         curHP += health;
         if (curHP > maxHP)
             curHP = maxHP;
-        UpdateHealthBar(maxHP, curHP);
+        UpdateHealthBar();
     }
 
-    protected virtual void UpdateHealthBar(float maxHP, float currentHP)
+    protected virtual void UpdateHealthBar()
     {
         if (healthBar == null)
             return;
 
-        _target = currentHP / maxHP;
-        healthBar.sizeDelta = new Vector3((currentHP / maxHP) * _startSizeDelta.x, _startSizeDelta.y);
+        _barSizeRatio = (float)curHP / maxHP;
+        healthBar.sizeDelta = new Vector3(_barSizeRatio * _startSizeDelta.x, _startSizeDelta.y);
+        print(_barSizeRatio.ToString() + " * " + _startSizeDelta.x.ToString());
     }
 }

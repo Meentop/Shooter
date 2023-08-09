@@ -5,15 +5,17 @@ using UnityEngine;
 public class WeaponAward : MonoBehaviour
 {
     [SerializeField] private Transform[] stands;
-    [SerializeField] private List<GameObject> weaponHolders;
+    [SerializeField] private WeaponConfig weaponConfig;
 
     private void Start()
     {
+        List<GameObject> weapons = new List<GameObject>();
+        weapons.AddRange(weaponConfig.weapons);
         foreach (var stand in stands)
         {
-            int randomNumber = Random.Range(0, weaponHolders.Count);
-            GameObject randWeaponHolder = weaponHolders[randomNumber];
-            weaponHolders.RemoveAt(randomNumber);
+            int randomNumber = Random.Range(1, weapons.Count);
+            GameObject randWeaponHolder = weapons[randomNumber];
+            weapons.RemoveAt(randomNumber);
             Weapon weapon = Instantiate(randWeaponHolder, stand).GetComponentInChildren<Weapon>();
             weapon.ConnectToStand(stand);
         }

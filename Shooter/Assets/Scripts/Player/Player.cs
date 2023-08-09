@@ -267,6 +267,15 @@ public class Player : MonoBehaviour
 
     public Weapon[] GetWeapons() => weapons;
     public Weapon GetSelectedWeapon() => weapons[_selectedWeaponSlot];
+    public List<WeaponSave> GetWeaponSaves()
+    {
+        List<WeaponSave> weapons = new List<WeaponSave>();
+        foreach (var weapon in this.weapons)
+        {
+            weapons.Add(weapon.GetSave());
+        }
+        return weapons;
+    }
 
     public List<WeaponModule> GetFreeWeaponModules() => _freeWeaponModules;
     public List<BionicModule> GetFreeBionicModules() => _freeBionicModules;

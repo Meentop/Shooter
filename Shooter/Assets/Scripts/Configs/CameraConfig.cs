@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu(menuName = "Camera/Config")]
+[CreateAssetMenu(fileName = "CameraConfig", menuName = "ScriptableObjects/CameraConfig")]
 public class CameraConfig : ScriptableObject
 {
     public float sensivity;

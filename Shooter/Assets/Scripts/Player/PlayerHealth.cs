@@ -7,19 +7,33 @@ public class PlayerHealth : BaseDamageReceiver
 {
     [SerializeField] private Text _health;
 
+    protected override void Start()
+    {
+        
+    }
+
     public void AddMaxHealth(int add)
     {
         float coefficient = curHP / (float)maxHP;
         maxHP += add;
         curHP = Mathf.RoundToInt(maxHP * coefficient);
-        UpdateHealthBar(maxHP, curHP);
+        UpdateHealthBar();
     }
 
-    protected override void UpdateHealthBar(float maxHP, float currentHP)
+    protected override void UpdateHealthBar()
     {
-        base.UpdateHealthBar(maxHP, currentHP);
-        _health.text = currentHP.ToString() + " / " + maxHP.ToString();
+        base.UpdateHealthBar();
+        _health.text = curHP.ToString() + " / " + maxHP.ToString();
     }
 
-    public int GetPlayerHelth() => curHP;
+    public int GetHealth() => curHP;
+
+    public int GetMaxHealth() => maxHP;
+
+    public void SetCurHealth(int health)
+    {
+        curHP = health;
+        _startSizeDelta = healthBar.sizeDelta;
+        UpdateHealthBar();
+    }
 }

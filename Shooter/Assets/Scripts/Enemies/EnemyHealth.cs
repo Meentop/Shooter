@@ -55,7 +55,6 @@ public class EnemyHealth : BaseDamageReceiver
             }
             DamageData damageData = new DamageData(statusEffectsDamage: statusEffectsDamage);
             GetDamage(damageData);
-            UpdateHealthBar(maxHP, curHP);
         }
     }   
 
@@ -69,7 +68,6 @@ public class EnemyHealth : BaseDamageReceiver
         if (!_isDead)
         {
             curHP -= damageData.Damage;
-            UpdateHealthBar(maxHP, curHP);
 
             if (curHP <= 0)
             {
@@ -93,7 +91,6 @@ public class EnemyHealth : BaseDamageReceiver
                     statusEffects[(StatusEffect)i] += damageData.AddStatusEffects[(StatusEffect)i];
             }
         }
-        UpdateHealthBar(maxHP, curHP);
 
         foreach (var statusEffect in damageData.StatusEffectsDamage)
         {
@@ -101,7 +98,6 @@ public class EnemyHealth : BaseDamageReceiver
             {
                 _playerComponent.AddDamageToActiveSkill(Mathf.Clamp(statusEffect.Value, 0, curHP));
                 curHP -= statusEffect.Value; 
-                UpdateHealthBar(maxHP, curHP);
 
                 if (curHP <= 0)
                 {
@@ -113,11 +109,12 @@ public class EnemyHealth : BaseDamageReceiver
             }
             DamageUI.Instance.AddText(statusEffect.Value, this, hPBarCanvas.GetComponent<RectTransform>(), statusEffectsConfig.colors[(int)statusEffect.Key]);
         }
+        UpdateHealthBar();
     }
 
-    protected override void UpdateHealthBar(float maxHP, float currentHP)
+    protected override void UpdateHealthBar()
     {
-        base.UpdateHealthBar(maxHP, currentHP);
+        base.UpdateHealthBar();
         foreach (Transform child in statusEffectParent)
         {
             Destroy(child.gameObject);
@@ -136,7 +133,7 @@ public class EnemyHealth : BaseDamageReceiver
         {
             RectTransform statusEffectHP = Instantiate(statsuEffectOnHPBar, healthBar).GetComponent<RectTransform>();
             statusEffectHP.GetComponent<Image>().color = statusEffectsConfig.colors[(int)statusEffect.Key];
-            statusEffectHP.sizeDelta = new Vector2((statusEffect.Value / maxHP) * 100, 100);
+            statusEffectHP.sizeDelta = new Vector2(((float)statusEffect.Value / maxHP) * 100, 100);
         }
     }
 

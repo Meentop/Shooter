@@ -18,9 +18,9 @@ public class GameManager : MonoBehaviour
 
     private void Awake()
     {
+        player.Init(uiManager, cameraController, mainCamera, canvas);
         if (SceneManager.GetActiveScene() == SceneManager.GetSceneByName("Run"))
             load.LoadFromFile("saveData.json");
-        player.Init(uiManager, cameraController, mainCamera, canvas);
     }
 
     private void Update()
@@ -32,7 +32,6 @@ public class GameManager : MonoBehaviour
         }
         if (Input.GetKeyDown(KeyCode.R))
         { 
-            Debug.Log("RABOTAET");
             DeleteFromFile("saveData.json");
             SceneManager.LoadScene(SceneManager.GetActiveScene().name);
         }

@@ -50,10 +50,7 @@ MonoBehaviour:
   - {fileID: 1588887624532617791}
   - {fileID: 2068600875829877266}
   - {fileID: 2997425410659855200}
-  weaponHolders:
-  - {fileID: 6326213263480613786, guid: 22947d7ca094aab45a3066d32938a7d8, type: 3}
-  - {fileID: 2375438750422303458, guid: be6f9770983ba1c42a7b2eb7d30b3fcc, type: 3}
-  - {fileID: 2162788818056508648, guid: bf6922ff3993097449c8df0241a8c114, type: 3}
+  weaponConfig: {fileID: 11400000, guid: 9e47c26e340d1f44a88c8fe251ae30e7, type: 2}
 --- !u!1001 &5994857243185157076
 PrefabInstance:
   m_ObjectHideFlags: 0

@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "Status effect config")]
+[CreateAssetMenu(fileName = "WeaponConfig", menuName = "ScriptableObjects/StatusEffectConfig")]
 public class StatusEffectsConfig : ScriptableObject
 {
     public Sprite[] sprites;

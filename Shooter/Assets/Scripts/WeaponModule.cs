@@ -15,4 +15,14 @@ public class WeaponModule : Module
         }
         return damageData;
     }
+
+    public WeaponModuleSave GetSave()
+    {
+        WeaponModuleSave weaponModuleSave = new WeaponModuleSave
+        { 
+            number = Number,
+            level = level
+        };
+        return weaponModuleSave;
+    }
 }

@@ -5,11 +5,13 @@ using UnityEngine;
 public class WeaponModuleAward : MonoBehaviour
 {
     [SerializeField] private Transform[] stands;
-    [SerializeField] private List<WeaponModule> modules;
+    [SerializeField] private WeaponModuleConfig config;
     [SerializeField] private float moduleHeight;
 
     private void Start()
     {
+        List<WeaponModule> modules = new List<WeaponModule>();
+        modules.AddRange(config.modules);
         foreach (var stand in stands)
         {
             int randomNumber = Random.Range(0, modules.Count);

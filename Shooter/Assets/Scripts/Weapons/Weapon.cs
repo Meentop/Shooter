@@ -25,6 +25,7 @@ public abstract class Weapon : MonoBehaviour, ISelectableItem
 
     public string Text => Bought ? "Press E to buy" : "Press E to equip";
 
+    [HideInInspector] public int Number;
     private Player _player;
     private InfoInterface _infoInterface;
     private PlayerDamage _playerDamage;
@@ -211,5 +212,21 @@ public abstract class Weapon : MonoBehaviour, ISelectableItem
     public void SetBought()
     {
         Bought = true;
+    }
+
+    public WeaponSave GetSave()
+    {
+        List<WeaponModuleSave> modules = new List<WeaponModuleSave>();
+        foreach (var module in _weaponModules)
+        {
+            modules.Add(module.GetSave());
+        }
+        WeaponSave weaponSave = new WeaponSave
+        {
+            number = Number,
+            level = level,
+            modules = modules
+        };
+        return weaponSave;
     }
 }

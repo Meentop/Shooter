@@ -7,13 +7,14 @@ public abstract class Module : MonoBehaviour, ISelectableItem
 {
     [SerializeField] private Sprite sprite;
     [SerializeField] private string title, description;
-    //[SerializeField] private List<ModifierBehaviour> behaviours;
     [SerializeField] private int price;
     public bool undestroyable = false;
 
     public SelectableItems ItemType => SelectableItems.Module;
 
     public string Text => "Press E to buy";
+    protected int level;
+    [HideInInspector] public int Number;
 
     [System.Serializable]
     public struct Info

@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "Room awards config")]
+[CreateAssetMenu(fileName = "RoomAwardConfig", menuName = "ScriptableObjects/RoomAwardConfig")]
 public class RoomAwardsConfig : ScriptableObject
 {
     public GameObject[] awards;
