@@ -5,6 +5,7 @@ using UnityEngine.UI;
 
 public abstract class Module : MonoBehaviour, ISelectableItem
 {
+    [SerializeField] protected int number;
     [SerializeField] private Sprite sprite;
     [SerializeField] private string title, description;
     [SerializeField] private int price;
@@ -14,7 +15,7 @@ public abstract class Module : MonoBehaviour, ISelectableItem
 
     public string Text => "Press E to buy";
     protected int level;
-    [HideInInspector] public int Number;
+    
 
     [System.Serializable]
     public struct Info
@@ -25,12 +26,10 @@ public abstract class Module : MonoBehaviour, ISelectableItem
         public Text Description;
         public Text Price;
     }
+
     public Sprite GetSprite() => sprite;
-
     public string GetTitle() => title;
-
     public string GetDescription() => description;
-
     public int GetPrice() => price;
 
     public void OnSelect(Player player)

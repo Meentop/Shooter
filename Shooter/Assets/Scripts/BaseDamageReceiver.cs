@@ -61,6 +61,5 @@ public abstract class BaseDamageReceiver : MonoBehaviour, IDamageReceiver
 
         _barSizeRatio = (float)curHP / maxHP;
         healthBar.sizeDelta = new Vector3(_barSizeRatio * _startSizeDelta.x, _startSizeDelta.y);
-        print(_barSizeRatio.ToString() + " * " + _startSizeDelta.x.ToString());
     }
 }

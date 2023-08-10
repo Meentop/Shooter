@@ -20,7 +20,7 @@ public class WeaponModule : Module
     {
         WeaponModuleSave weaponModuleSave = new WeaponModuleSave
         { 
-            number = Number,
+            number = number,
             level = level
         };
         return weaponModuleSave;

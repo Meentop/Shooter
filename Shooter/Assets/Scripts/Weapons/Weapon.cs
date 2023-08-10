@@ -8,6 +8,7 @@ public abstract class Weapon : MonoBehaviour, ISelectableItem
     [SerializeField] protected ParticleSystem decalPrefab;
     [SerializeField] private Collider boxCollider;
     [Space]
+    [SerializeField] private int number;
     [SerializeField] protected Image weaponsIcon;
     [SerializeField] protected Sprite sprite; //remove
     [SerializeField] protected string weaponName;
@@ -24,8 +25,7 @@ public abstract class Weapon : MonoBehaviour, ISelectableItem
     public SelectableItems ItemType => SelectableItems.Weapon;
 
     public string Text => Bought ? "Press E to buy" : "Press E to equip";
-
-    [HideInInspector] public int Number;
+    
     private Player _player;
     private InfoInterface _infoInterface;
     private PlayerDamage _playerDamage;
@@ -98,10 +98,12 @@ public abstract class Weapon : MonoBehaviour, ISelectableItem
     public void ConectToPlayer()
     {
         enabled = true;
-        if (transform.parent.parent.parent.TryGetComponent<WeaponAward>(out var weaponAward))
-            weaponAward.DeleteOtherWeapons(transform.parent.parent);
-        boxCollider.enabled = false;
-        transform.GetComponent<RotateObject>().enabled = false;
+        if (transform.GetComponentInParent<WeaponAward>())
+            transform.GetComponentInParent<WeaponAward>().DeleteOtherWeapons(transform.parent.parent);
+        if (boxCollider != null)
+            boxCollider.enabled = false;
+        if (transform.TryGetComponent<RotateObject>(out var component))
+            component.enabled = false;
         transform.localRotation = Quaternion.Euler(weaponOnCollectRot);
         transform.parent.parent = _weaponHolder.transform;
         transform.parent.localPosition = Vector3.zero;
@@ -209,6 +211,12 @@ public abstract class Weapon : MonoBehaviour, ISelectableItem
         maxNumberOfModules++;
     }
 
+    public void SetLevel(int level)
+    {
+        this.level = level;
+        maxNumberOfModules = level + 1;
+    }
+
     public void SetBought()
     {
         Bought = true;
@@ -223,7 +231,7 @@ public abstract class Weapon : MonoBehaviour, ISelectableItem
         }
         WeaponSave weaponSave = new WeaponSave
         {
-            number = Number,
+            number = number,
             level = level,
             modules = modules
         };

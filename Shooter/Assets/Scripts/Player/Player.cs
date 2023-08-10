@@ -10,6 +10,8 @@ public class Player : MonoBehaviour
     [SerializeField] private Weapon[] weapons;
     [SerializeField] private float scrollDelay;
     [SerializeField] private float selectDistance = 4f;
+    [SerializeField] private WeaponConfig weaponConfig;
+    [SerializeField] private WeaponModuleConfig weaponModuleConfig;
 
     public PlayerHealth Health { get; private set; }
     public PlayerGold Gold { get; private set; }
@@ -76,7 +78,7 @@ public class Player : MonoBehaviour
         _currentWeapon.transform.gameObject.SetActive(false);
         _currentWeapon = weaponToSwap;
         _currentWeapon.transform.gameObject.SetActive(true);
-        _currentWeapon.Init(this, weaponHolder, targetLook, _infoInterface, _selectedWeaponSlot);
+        _currentWeapon.Init(this, weaponHolder, targetLook, _infoInterface, _selectedWeaponSlot);//wtf is this?
         _infoInterface.DiscardWeaponsIcon(CollectionsExtensions.GetNextIndex(weapons, _selectedWeaponSlot));
     }
 
@@ -275,6 +277,28 @@ public class Player : MonoBehaviour
             weapons.Add(weapon.GetSave());
         }
         return weapons;
+    }
+
+    public void LoadWeapons(List<WeaponSave> weaponSaves)
+    {
+        for (int i = 0; i < weaponSaves.Count; i++)
+        {
+            GameObject weaponHolder = Instantiate(weaponConfig.weapons[weaponSaves[i].number]);
+            Weapon weapon = weaponHolder.GetComponentInChildren<Weapon>();
+            Destroy(weapons[i].transform.parent.gameObject);
+            weapons[i] = weapon;
+            weapon.Init(this, this.weaponHolder, targetLook, _infoInterface, i);
+            weapon.ConectToPlayer();
+            weapon.SetLevel(weaponSaves[i].level);
+
+            foreach (var module in weaponSaves[i].modules)
+            {
+                weapon.AddModule(weaponModuleConfig.modules[module.number]);
+            }
+        }
+        _currentWeapon = weapons[0];
+        weapons[1].transform.gameObject.SetActive(false);
+        _infoInterface.DiscardWeaponsIcon(CollectionsExtensions.GetNextIndex(weapons, _selectedWeaponSlot));
     }
 
     public List<WeaponModule> GetFreeWeaponModules() => _freeWeaponModules;

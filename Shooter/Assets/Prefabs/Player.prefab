@@ -167,6 +167,8 @@ MonoBehaviour:
   weapons: []
   scrollDelay: 0.4
   selectDistance: 4
+  weaponConfig: {fileID: 11400000, guid: 9e47c26e340d1f44a88c8fe251ae30e7, type: 2}
+  weaponModuleConfig: {fileID: 11400000, guid: fd2808706ce919042acf4f109e9a8909, type: 2}
   _movement:
     movementSpeed: 6
     groundDrag: 10
@@ -208,7 +210,6 @@ MonoBehaviour:
   afterHealthBarImage: {fileID: 0}
   UIReduceSpeed: 0.2
   maxHP: 100
-  _startSizeDelta: {x: 321.55, y: 22.448}
   _health: {fileID: 0}
 --- !u!114 &5121611369077538754
 MonoBehaviour:

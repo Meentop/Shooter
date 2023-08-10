@@ -19,6 +19,7 @@ public class Load : MonoBehaviour
             saveData = JsonUtility.FromJson<SaveData>(json);
             floorSpawner.UpdateFloor(saveData.currentFlorNumber);
             player.Health.SetCurHealth(saveData.currentPlayerHP);
+            player.LoadWeapons(saveData.weapons);
         }
         else
         {
