@@ -5128,8 +5128,7 @@ MonoBehaviour:
   decalPrefab: {fileID: 198000010535933408, guid: f55c9bf640b6fd34aa8924a3dc6673dd, type: 3}
   boxCollider: {fileID: 7729926444301364067}
   number: 3
-  weaponsIcon: {fileID: 358132371581820940, guid: 7322eeca72c65f44c8d628954f2f38c7, type: 3}
-  sprite: {fileID: 0}
+  sprite: {fileID: 21300000, guid: 4f3012bd5d70cd841b352ad5afdb9c3c, type: 3}
   weaponName: Shotgun
   damage: 0a0000000d00000010000000
   firingSpeed: 0.5

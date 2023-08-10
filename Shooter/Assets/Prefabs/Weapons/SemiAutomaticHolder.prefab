@@ -4889,8 +4889,7 @@ MonoBehaviour:
   decalPrefab: {fileID: 198000010535933408, guid: f55c9bf640b6fd34aa8924a3dc6673dd, type: 3}
   boxCollider: {fileID: 3124322557215765905}
   number: 2
-  weaponsIcon: {fileID: 7442524080799220309, guid: b3c006987ae349e489a71c2d75563cfd, type: 3}
-  sprite: {fileID: 0}
+  sprite: {fileID: 21300000, guid: e884030ede1e6034d84629a0b4acb5be, type: 3}
   weaponName: Semi Automatic
   damage: 0a0000000d00000010000000
   firingSpeed: 0.15

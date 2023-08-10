@@ -51,7 +51,7 @@ public class Player : MonoBehaviour
         _infoInterface = uiManager.infoInterface;
         _dynamicInterface = uiManager.dinemicInterface;
         _uiManager = uiManager;
-        _currentWeapon.Init(this, weaponHolder, targetLook, uiManager.infoInterface, _selectedWeaponSlot);
+        //_currentWeapon.Init(this, weaponHolder, targetLook, uiManager.infoInterface, _selectedWeaponSlot);
         _dynamicInterface.Init(this, cameraController, mainCamera, canvas);
     }
 
@@ -78,8 +78,8 @@ public class Player : MonoBehaviour
         _currentWeapon.transform.gameObject.SetActive(false);
         _currentWeapon = weaponToSwap;
         _currentWeapon.transform.gameObject.SetActive(true);
-        _currentWeapon.Init(this, weaponHolder, targetLook, _infoInterface, _selectedWeaponSlot);//wtf is this?
-        _infoInterface.DiscardWeaponsIcon(CollectionsExtensions.GetNextIndex(weapons, _selectedWeaponSlot));
+        _infoInterface.SetActiveWeaponIcon(false, CollectionsExtensions.GetNextIndex(weapons, _selectedWeaponSlot));
+        _infoInterface.SetActiveWeaponIcon(true, _selectedWeaponSlot);
     }
 
     private void InputScrollWeapon()
@@ -285,11 +285,10 @@ public class Player : MonoBehaviour
         {
             GameObject weaponHolder = Instantiate(weaponConfig.weapons[weaponSaves[i].number]);
             Weapon weapon = weaponHolder.GetComponentInChildren<Weapon>();
-            Destroy(weapons[i].transform.parent.gameObject);
             weapons[i] = weapon;
+            weapon.SetLevel(weaponSaves[i].level);
             weapon.Init(this, this.weaponHolder, targetLook, _infoInterface, i);
             weapon.ConectToPlayer();
-            weapon.SetLevel(weaponSaves[i].level);
 
             foreach (var module in weaponSaves[i].modules)
             {
@@ -298,7 +297,7 @@ public class Player : MonoBehaviour
         }
         _currentWeapon = weapons[0];
         weapons[1].transform.gameObject.SetActive(false);
-        _infoInterface.DiscardWeaponsIcon(CollectionsExtensions.GetNextIndex(weapons, _selectedWeaponSlot));
+        _infoInterface.SetActiveWeaponIcon(true, 0);
     }
 
     public List<WeaponModule> GetFreeWeaponModules() => _freeWeaponModules;

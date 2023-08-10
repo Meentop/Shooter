@@ -46,14 +46,15 @@ MonoBehaviour:
   shootEffect: {fileID: 0}
   decalPrefab: {fileID: 0}
   boxCollider: {fileID: 0}
-  weaponsIcon: {fileID: 9055946841289149757, guid: e6e2283a27b685449ba02bd24af8b266, type: 3}
-  sprite: {fileID: 0}
+  number: 0
+  sprite: {fileID: 21300000, guid: dfcc201f2cac247418588a8f8601299a, type: 3}
   weaponName: 
   damage: 000000000000000000000000
   firingSpeed: 0
   weaponOnCollectRot: {x: 0, y: 0, z: 0}
   price: 0
   upgradePrices: 
+  maxNumberOfModules: 0
 --- !u!1 &6326213263480613786
 GameObject:
   m_ObjectHideFlags: 0

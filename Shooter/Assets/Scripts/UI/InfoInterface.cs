@@ -4,49 +4,26 @@ using UnityEngine.UI;
 
 public class InfoInterface : MonoBehaviour
 {
-    [SerializeField] private Image[] weaponsFillerIcon;
+    [SerializeField] private Image[] weaponsIcon;
     [SerializeField] private Image[] weaponsIconHoldear;
-    [SerializeField] private Image[] skillIcon;
-    [SerializeField] private Image miniMap;
-    [SerializeField] private Image activeWeaponsIcon;
-    [SerializeField] private Image inactiveWeaponsIcon;
+    [SerializeField] private Color activeWeaponColor;
+    [SerializeField] private Color inactiveWeaponColor;
     [SerializeField] private Image dashReloadIcon;
     [SerializeField] private Text dashCharges;
 
-    public void UpdateInfoIcon(InfoIconEnum infoIconEnum, Image newIcon, int number)
+    public void SetWeaponIcon(Sprite sprite, int number)
     {
-        switch (infoIconEnum)
-        {
-            case InfoIconEnum.SelectWeaponsIcon:
-                weaponsFillerIcon[number].sprite = newIcon.sprite;
-                weaponsFillerIcon[number].color = newIcon.color;
-                weaponsIconHoldear[number].color = activeWeaponsIcon.color;
-                break;
-            case InfoIconEnum.SkillIcon:
-                skillIcon[number].sprite = newIcon.sprite;
-                skillIcon[number].color = newIcon.color;
-                break;
-            case InfoIconEnum.DiscardWeaponsIcon:
-                
-                break;
-        }
+        weaponsIcon[number].sprite = sprite;
     }
 
-    public void DiscardWeaponsIcon(int number)
+    public void SetActiveWeaponIcon(bool active, int number)
     {
-        weaponsIconHoldear[number].color = inactiveWeaponsIcon.color;
+        weaponsIconHoldear[number].color = active ? activeWeaponColor : inactiveWeaponColor;
     }
 
     public void SetDashInfo(float dashReload, int dashCharges)
     {
         dashReloadIcon.fillAmount = dashReload;
         this.dashCharges.text = dashCharges.ToString();
-    }
-
-    public enum InfoIconEnum
-    {
-        SelectWeaponsIcon,
-        DiscardWeaponsIcon,
-        SkillIcon
     }
 }

@@ -9,8 +9,7 @@ public abstract class Weapon : MonoBehaviour, ISelectableItem
     [SerializeField] private Collider boxCollider;
     [Space]
     [SerializeField] private int number;
-    [SerializeField] protected Image weaponsIcon;
-    [SerializeField] protected Sprite sprite; //remove
+    [SerializeField] protected Sprite sprite;
     [SerializeField] protected string weaponName;
     [SerializeField] protected int[] damage = new int[3];
     [SerializeField] protected float firingSpeed;
@@ -65,7 +64,7 @@ public abstract class Weapon : MonoBehaviour, ISelectableItem
         _targetLook = targetLook;
         gameObject.layer = LayerMask.NameToLayer("Weapon");
         _infoInterface = infoInterface;
-        _infoInterface.UpdateInfoIcon(InfoInterface.InfoIconEnum.SelectWeaponsIcon, weaponsIcon, selectedWeapon);
+        _infoInterface.SetWeaponIcon(sprite, selectedWeapon);
         _playerDamage = _player.GetComponent<PlayerDamage>();
 
         _isInited = true;
@@ -112,25 +111,19 @@ public abstract class Weapon : MonoBehaviour, ISelectableItem
     }
 
     public Sprite GetSprite() => sprite;
-
     public string GetName() => weaponName + " " + (level + 1).ToString() + " lvl";
-
     public string GetUpgradedName() => weaponName + " " + (level + 2).ToString() + " lvl";
-
     public float GetDamage() => damage[level];
-
     public float GetUpgradedDamage() => damage[level + 1];
-
     public float GetFiringSpeed() => firingSpeed;
-
-    public int GetMaxNumbersOfModules() => maxNumberOfModules;
-
+    public int GetMaxNumbersOfModules()
+    {
+        print(maxNumberOfModules); 
+        return maxNumberOfModules;
+    }
     public int GetUpgradedMaxNumbersOfModules() => maxNumberOfModules + 1;
-
     public int GetPrice() => price;
-
     public int GetUpgradePrice() => upgradePrices.Length > level ? upgradePrices[level] : 0;
-
     public bool CouldBeUpgraded() => level < maxLevel;
 
     public void OnSelect(Player player)

@@ -19,8 +19,10 @@ public class GameManager : MonoBehaviour
     private void Awake()
     {
         player.Init(uiManager, cameraController, mainCamera, canvas);
-        if (SceneManager.GetActiveScene() == SceneManager.GetSceneByName("Run"))
-            load.LoadFromFile("saveData.json");
+        if (SceneManager.GetActiveScene() == SceneManager.GetSceneByName("Hub"))
+            DeleteFromFile("saveData.json");
+        //if (SceneManager.GetActiveScene() == SceneManager.GetSceneByName("Run"))
+        load.LoadFromFile("saveData.json");
     }
 
     private void Update()

@@ -36,4 +36,11 @@ public class PlayerHealth : BaseDamageReceiver
         _startSizeDelta = healthBar.sizeDelta;
         UpdateHealthBar();
     }
+
+    public void SetMaxHealth()
+    {
+        curHP = maxHP;
+        _startSizeDelta = healthBar.sizeDelta;
+        UpdateHealthBar();
+    }
 }
