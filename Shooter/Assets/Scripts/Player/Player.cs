@@ -12,6 +12,7 @@ public class Player : MonoBehaviour
     [SerializeField] private float selectDistance = 4f;
     [SerializeField] private WeaponConfig weaponConfig;
     [SerializeField] private WeaponModuleConfig weaponModuleConfig;
+    [SerializeField] private BionicModuleConfig bionicModuleConfig;
 
     public PlayerHealth Health { get; private set; }
     public PlayerGold Gold { get; private set; }
@@ -279,11 +280,42 @@ public class Player : MonoBehaviour
         return weapons;
     }
 
+    public List<WeaponModuleSave> GetFreeWeaponModulesSave()
+    {
+        List<WeaponModuleSave> modules = new List<WeaponModuleSave>();
+        foreach (var module in _freeWeaponModules)
+        {
+            modules.Add(module.GetSave());
+        }
+        return modules;
+    }
+
+    public List<BionicModuleSave> GetInstalledBionicModulesSave()
+    {
+        List<BionicModuleSave> modules = new List<BionicModuleSave>();
+        foreach (var module in _installedBionicModules)
+        {
+            modules.Add(module.GetSave());
+        }
+        return modules;
+    }
+    public List<BionicModuleSave> GetFreeBionicModulesSave()
+    {
+        List<BionicModuleSave> modules = new List<BionicModuleSave>();
+        foreach (var module in _freeBionicModules)
+        {
+            modules.Add(module.GetSave());
+        }
+        return modules;
+    }
+
+
+
     public void LoadWeapons(List<WeaponSave> weaponSaves)
     {
         for (int i = 0; i < weaponSaves.Count; i++)
         {
-            GameObject weaponHolder = Instantiate(weaponConfig.weapons[weaponSaves[i].number]);
+            GameObject weaponHolder = Instantiate(weaponConfig.Weapons[weaponSaves[i].number]);
             Weapon weapon = weaponHolder.GetComponentInChildren<Weapon>();
             weapons[i] = weapon;
             weapon.SetLevel(weaponSaves[i].level);
@@ -292,12 +324,36 @@ public class Player : MonoBehaviour
 
             foreach (var module in weaponSaves[i].modules)
             {
-                weapon.AddModule(weaponModuleConfig.modules[module.number]);
+                weapon.AddModule(weaponModuleConfig.Modules[module.number]);
             }
         }
         _currentWeapon = weapons[0];
         weapons[1].transform.gameObject.SetActive(false);
         _infoInterface.SetActiveWeaponIcon(true, 0);
+    }
+
+    public void LoadFreeWeaponModules(List<WeaponModuleSave> modules)
+    {
+        foreach (var module in modules)
+        {
+            _freeWeaponModules.Add(weaponModuleConfig.Modules[module.number]);
+        }
+    }
+
+    public void LoadInstalledBionicModules(List<BionicModuleSave> modules)
+    {
+        foreach (var module in modules)
+        {
+            _installedBionicModules.Add(bionicModuleConfig.Modules[module.number]);
+        }
+    }
+
+    public void LoadFreeBionicModules(List<BionicModuleSave> modules)
+    {
+        foreach (var module in modules)
+        {
+            _freeBionicModules.Add(bionicModuleConfig.Modules[module.number]);
+        }
     }
 
     public List<WeaponModule> GetFreeWeaponModules() => _freeWeaponModules;

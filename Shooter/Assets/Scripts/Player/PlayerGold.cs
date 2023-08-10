@@ -20,6 +20,11 @@ public class PlayerGold : MonoBehaviour
         return _gold >= count;
     }
 
+    public int GetCount()
+    {
+        return _gold;
+    }
+
     public void Remove(int count)
     {
         _gold -= count;

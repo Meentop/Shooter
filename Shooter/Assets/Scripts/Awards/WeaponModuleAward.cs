@@ -11,7 +11,7 @@ public class WeaponModuleAward : MonoBehaviour
     private void Start()
     {
         List<WeaponModule> modules = new List<WeaponModule>();
-        modules.AddRange(config.modules);
+        modules.AddRange(config.Modules);
         foreach (var stand in stands)
         {
             int randomNumber = Random.Range(0, modules.Count);

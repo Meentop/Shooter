@@ -17,6 +17,10 @@ public class Save : MonoBehaviour
         {
             _saveData.currentFlorNumber = floorSpawner.GetFloorCount() + 1;
             _saveData.currentPlayerHP = player.Health.GetHealth();
+            _saveData.freeWeaponModules = player.GetFreeWeaponModulesSave();
+            _saveData.gold = player.Gold.GetCount();
+            _saveData.installedBionicModules = player.GetInstalledBionicModulesSave();
+            _saveData.freeBionicModules = player.GetFreeBionicModulesSave();
         }
         else if(SceneManager.GetActiveScene() == SceneManager.GetSceneByName("Hub"))
         {
@@ -39,7 +43,11 @@ public struct SaveData
 {
     public int currentFlorNumber;
     public int currentPlayerHP;
+    public int gold;
     public List<WeaponSave> weapons;
+    public List<WeaponModuleSave> freeWeaponModules;
+    public List<BionicModuleSave> installedBionicModules;
+    public List<BionicModuleSave> freeBionicModules;
 }
 [System.Serializable]
 public struct WeaponSave
@@ -50,6 +58,12 @@ public struct WeaponSave
 }
 [System.Serializable]
 public struct WeaponModuleSave
+{
+    public int number;
+    public int level;
+}
+[System.Serializable]
+public struct BionicModuleSave
 {
     public int number;
     public int level;

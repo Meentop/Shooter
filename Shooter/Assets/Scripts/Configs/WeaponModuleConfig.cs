@@ -5,5 +5,6 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "WeaponModuleConfig", menuName = "ScriptableObjects/WeaponModuleConfig")]
 public class WeaponModuleConfig : ScriptableObject
 {
-    public List<WeaponModule> modules;
+    [SerializeField] private List<WeaponModule> modules = new List<WeaponModule>();
+    [HideInInspector] public List<WeaponModule> Modules { get => modules; }
 }

@@ -116,11 +116,7 @@ public abstract class Weapon : MonoBehaviour, ISelectableItem
     public float GetDamage() => damage[level];
     public float GetUpgradedDamage() => damage[level + 1];
     public float GetFiringSpeed() => firingSpeed;
-    public int GetMaxNumbersOfModules()
-    {
-        print(maxNumberOfModules); 
-        return maxNumberOfModules;
-    }
+    public int GetMaxNumbersOfModules() => maxNumberOfModules;
     public int GetUpgradedMaxNumbersOfModules() => maxNumberOfModules + 1;
     public int GetPrice() => price;
     public int GetUpgradePrice() => upgradePrices.Length > level ? upgradePrices[level] : 0;

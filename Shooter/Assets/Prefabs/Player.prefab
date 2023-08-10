@@ -169,6 +169,7 @@ MonoBehaviour:
   selectDistance: 4
   weaponConfig: {fileID: 11400000, guid: 9e47c26e340d1f44a88c8fe251ae30e7, type: 2}
   weaponModuleConfig: {fileID: 11400000, guid: fd2808706ce919042acf4f109e9a8909, type: 2}
+  bionicModuleConfig: {fileID: 11400000, guid: fd43a64f7017b1d4b87eb9a5354715b5, type: 2}
   _movement:
     movementSpeed: 6
     groundDrag: 10

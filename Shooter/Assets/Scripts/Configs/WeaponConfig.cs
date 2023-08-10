@@ -5,5 +5,6 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "WeaponConfig", menuName = "ScriptableObjects/WeaponConfig")]
 public class WeaponConfig : ScriptableObject
 {
-    public List<GameObject> weapons;
+    [SerializeField] private List<GameObject> weapons = new List<GameObject>();
+    [HideInInspector] public List<GameObject> Weapons { get => weapons; }
 }

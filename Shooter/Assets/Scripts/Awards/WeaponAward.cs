@@ -10,7 +10,7 @@ public class WeaponAward : MonoBehaviour
     private void Start()
     {
         List<GameObject> weapons = new List<GameObject>();
-        weapons.AddRange(weaponConfig.weapons);
+        weapons.AddRange(weaponConfig.Weapons);
         foreach (var stand in stands)
         {
             int randomNumber = Random.Range(1, weapons.Count);

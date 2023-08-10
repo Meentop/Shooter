@@ -20,6 +20,10 @@ public class Load : MonoBehaviour
             floorSpawner.UpdateFloor(saveData.currentFlorNumber);
             player.Health.SetCurHealth(saveData.currentPlayerHP);
             player.LoadWeapons(saveData.weapons);
+            player.LoadFreeWeaponModules(saveData.freeWeaponModules);
+            player.Gold.Add(saveData.gold);
+            player.LoadInstalledBionicModules(saveData.installedBionicModules);
+            player.LoadFreeBionicModules(saveData.freeBionicModules);
         }
         else
         {

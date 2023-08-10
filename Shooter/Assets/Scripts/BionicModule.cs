@@ -15,4 +15,14 @@ public class BionicModule : Module
         }
         return movement;
     }
+
+    public BionicModuleSave GetSave()
+    {
+        BionicModuleSave moduleSave = new BionicModuleSave
+        {
+            number = number,
+            level = level
+        };
+        return moduleSave;
+    }
 }
