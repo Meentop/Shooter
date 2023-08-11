@@ -496,6 +496,7 @@ MonoBehaviour:
   buyHealthPrice: {fileID: 2565003241933251668}
   buyHealthCount: {fileID: 2565003241933251667}
   buyHealthWasUsed: {fileID: 493764672}
+  deathPanel: {fileID: 2565003241933251689}
   _infoInterface: {fileID: 2565003241933251670}
   _dinemicInterface: {fileID: 1082036342}
 --- !u!4 &760817649
@@ -1411,6 +1412,11 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 4358123442149225988, guid: 83c9ad56a38022b4899e1e1eec2c3fab, type: 3}
   m_PrefabInstance: {fileID: 2565003241933251663}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &2565003241933251689 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7974908803447949711, guid: 83c9ad56a38022b4899e1e1eec2c3fab, type: 3}
+  m_PrefabInstance: {fileID: 2565003241933251663}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &6655776286918135550
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1434,6 +1440,18 @@ PrefabInstance:
       propertyPath: text
       value: 
       objectReference: {fileID: 97334677}
+    - target: {fileID: 4046690061827201452, guid: 9e72b9e8f879a1147acd589cbd24cdd4, type: 3}
+      propertyPath: uiManager
+      value: 
+      objectReference: {fileID: 760817648}
+    - target: {fileID: 4046690061827201452, guid: 9e72b9e8f879a1147acd589cbd24cdd4, type: 3}
+      propertyPath: gameManager
+      value: 
+      objectReference: {fileID: 760817650}
+    - target: {fileID: 4046690061827201452, guid: 9e72b9e8f879a1147acd589cbd24cdd4, type: 3}
+      propertyPath: cameraController
+      value: 
+      objectReference: {fileID: 879264486}
     - target: {fileID: 5417072423963475846, guid: 9e72b9e8f879a1147acd589cbd24cdd4, type: 3}
       propertyPath: weapon
       value: 

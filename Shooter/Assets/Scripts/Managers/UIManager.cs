@@ -26,6 +26,7 @@ public class UIManager : MonoBehaviour
     [SerializeField] private Text buyHealthCount;
     [SerializeField] private GameObject buyHealthWasUsed;
     [Header("Other")]
+    [SerializeField] private GameObject deathPanel;
     [SerializeField] private InfoInterface _infoInterface;
     [SerializeField] private ModulesPanelUI _dinemicInterface;
 
@@ -183,6 +184,11 @@ public class UIManager : MonoBehaviour
     }
 
     public Image GetActiveSkillReloadImage() => activeSkillReloadImage;
+
+    public void SetActiveDeathPanel()
+    {
+        deathPanel.SetActive(true);
+    }
 }
 
 
