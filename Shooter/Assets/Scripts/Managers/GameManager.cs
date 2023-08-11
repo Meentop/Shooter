@@ -16,12 +16,13 @@ public class GameManager : MonoBehaviour
     [SerializeField] private Load load;
     [SerializeField] private Save save;
 
+    private bool death;
+
     private void Awake()
     {
         player.Init(uiManager, cameraController, mainCamera, canvas);
         if (SceneManager.GetActiveScene() == SceneManager.GetSceneByName("Hub"))
             DeleteFromFile("saveData.json");
-        //if (SceneManager.GetActiveScene() == SceneManager.GetSceneByName("Run"))
         load.LoadFromFile("saveData.json");
     }
 
@@ -37,6 +38,8 @@ public class GameManager : MonoBehaviour
             DeleteFromFile("saveData.json");
             SceneManager.LoadScene(SceneManager.GetActiveScene().name);
         }
+        if(death && Input.anyKeyDown)
+            SceneManager.LoadScene("Hub");
     }
 
     public void DeleteFromFile(string fileName)
@@ -46,5 +49,16 @@ public class GameManager : MonoBehaviour
         {
             File.Delete(filePath);
         }
+    }
+
+    public void SetActiveDeathReload()
+    {
+        StartCoroutine(DeathReload());
+    }
+
+    IEnumerator DeathReload()
+    {
+        yield return new WaitForSeconds(4);
+        death = true;
     }
 }
