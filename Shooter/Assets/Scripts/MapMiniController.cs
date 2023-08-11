@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
+using UnityEngine.UI;
 
 public class MapMiniController : MonoBehaviour
 {
@@ -9,6 +10,7 @@ public class MapMiniController : MonoBehaviour
     [SerializeField] private Transform miniRoomsHolder;
     [SerializeField] private Transform mapMiniRotateHolder;
     [SerializeField] private Transform playerTransform;
+    [SerializeField] private Sprite[] awardTypes;
 
     public Transform MiniRoomsHolder { get { return miniRoomsHolder; } private set { miniRoomsHolder = value; } }
 
@@ -25,6 +27,7 @@ public class MapMiniController : MonoBehaviour
         MiniRoom newMinimapRoom = Instantiate(miniRoomPrefab, miniRoomsHolder).GetComponent<MiniRoom>();
         newMinimapRoom.transform.localPosition = new Vector3(spawnPosition.x, spawnPosition.z, 0);
         newMinimapRoom.transform.localScale = new Vector3(0.3f, 0.3f, 0.3f);
+        newMinimapRoom.SetAwardType(awardTypes[(int)realRoom.Value.GetRoomsAwardType()]);
         newMinimapRoom.gameObject.SetActive(false);
         _miniRooms.Add(realRoom.Value, newMinimapRoom);
         newMinimapRoom.GetComponent<MiniRoom>().SetActiveHall(directionFromNewRoom);

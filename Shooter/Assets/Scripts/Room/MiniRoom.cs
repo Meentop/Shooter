@@ -11,15 +11,31 @@ public class MiniRoom : MonoBehaviour
     [SerializeField] private GameObject[] halls;
     [SerializeField] private Color unactiveColor;
     [SerializeField] private Color activeColor;
+    [SerializeField] private GameObject awardTypeIcon;
 
     public Dictionary<Vector2Int, MiniRoom> Neighours = new Dictionary<Vector2Int, MiniRoom>();
 
     private bool _isActive;
     private bool _isActivated = false;
+
+    private void Update()
+    {
+        awardTypeIcon.transform.rotation = Quaternion.Euler(awardTypeIcon.transform.rotation.eulerAngles.x, awardTypeIcon.transform.rotation.eulerAngles.y, 0);
+    }
     public void SetActiveHall(Vector2Int direction)
     {
         int index = Array.IndexOf(directions, direction);
         halls[index].SetActive(true);
+    }
+
+    public void SetAwardType(Sprite awardSprite)
+    {
+        awardTypeIcon.GetComponent<Image>().sprite = awardSprite;
+        if (awardTypeIcon.GetComponent<Image>().sprite != null)
+        {
+            awardTypeIcon.SetActive(true);
+        }
+
     }
 
     public void SetColor(bool isActive)

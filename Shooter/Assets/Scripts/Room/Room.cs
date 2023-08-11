@@ -128,6 +128,8 @@ public class Room : MonoBehaviour
             Instantiate(awardConfig.awards[(int)award], awardSpawnPoint);
     }
 
+    public AwardType GetRoomsAwardType() => awardType;
+
     [Serializable]
     struct EnemyGroup
     {
