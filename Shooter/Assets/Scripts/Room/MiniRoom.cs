@@ -16,12 +16,15 @@ public class MiniRoom : MonoBehaviour
     public Dictionary<Vector2Int, MiniRoom> Neighours = new Dictionary<Vector2Int, MiniRoom>();
 
     private bool _isActive;
-    private bool _isActivated = false;
+    private bool _isActivated;
+    private Image image;
+    private Image awardImage;
 
     private void Update()
     {
         awardTypeIcon.transform.rotation = Quaternion.Euler(awardTypeIcon.transform.rotation.eulerAngles.x, awardTypeIcon.transform.rotation.eulerAngles.y, 0);
     }
+
     public void SetActiveHall(Vector2Int direction)
     {
         int index = Array.IndexOf(directions, direction);
@@ -30,23 +33,24 @@ public class MiniRoom : MonoBehaviour
 
     public void SetAwardType(Sprite awardSprite)
     {
-        awardTypeIcon.GetComponent<Image>().sprite = awardSprite;
-        if (awardTypeIcon.GetComponent<Image>().sprite != null)
+        awardImage = awardTypeIcon.GetComponent<Image>();
+        awardImage.sprite = awardSprite;
+        if (awardImage.sprite != null)
         {
             awardTypeIcon.SetActive(true);
         }
-
     }
 
     public void SetColor(bool isActive)
     {
+        image = GetComponent<Image>();
         if (isActive)
         {
-            gameObject.GetComponent<Image>().color = activeColor;
+            image.color = activeColor;
         }    
         else
         {
-            gameObject.GetComponent<Image>().color = unactiveColor;
+            image.color = unactiveColor;
         }
         SetTransparency();
     }
@@ -60,17 +64,20 @@ public class MiniRoom : MonoBehaviour
 
     public void SetTransparency()
     {
-        if(!_isActivated)
+        image = GetComponent<Image>();
+        if (!_isActivated)
         {
-            Color color = gameObject.GetComponent<Image>().color;
+            Color color = image.color;
             color.a = 0.5f;
-            gameObject.GetComponent<Image>().color = color;
+            image.color = color;
+            awardImage.color = color;
         }
         else
         {
-            Color color = gameObject.GetComponent<Image>().color;
+            Color color = image.color;
             color.a = 1f;
-            gameObject.GetComponent<Image>().color = color;
+            image.color = color;
+            awardImage.color = color;
         }
     }
 }

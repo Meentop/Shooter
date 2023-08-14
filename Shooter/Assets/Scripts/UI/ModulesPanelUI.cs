@@ -72,7 +72,7 @@ public class ModulesPanelUI : MonoBehaviour
                     Destroy(child.gameObject);
                 }
             }
-            Pause.pause = _panelEnabled;
+            PauseManager.Pause = _panelEnabled;
         }
     }
 

@@ -11,6 +11,7 @@ public abstract class Weapon : MonoBehaviour, ISelectableItem
     [SerializeField] private int number;
     [SerializeField] protected Sprite sprite;
     [SerializeField] protected string weaponName;
+    [SerializeField] private bool canSprayed;
     [SerializeField] protected int[] damage = new int[3];
     [SerializeField] protected float firingSpeed;
     [SerializeField] protected Vector3 weaponOnCollectRot;
@@ -32,6 +33,9 @@ public abstract class Weapon : MonoBehaviour, ISelectableItem
     private Transform _weaponHolder;
     private bool _isInited;
     private List<WeaponModule> _weaponModules = new List<WeaponModule>();
+    protected bool isSpraying;
+    protected float shootTimer;
+    protected bool reload = true;
     public bool Bought { get; private set; }
 
     [System.Serializable]
@@ -51,10 +55,23 @@ public abstract class Weapon : MonoBehaviour, ISelectableItem
         if (!_isInited)
             return;
 
-        if (Input.GetMouseButtonDown(0))
+        Reload();
+
+        if (Input.GetMouseButtonDown(0) && !reload && !PauseManager.Pause)
+        {
             Shoot();
+            if (canSprayed)
+                isSpraying = true;
+        }
         else if (Input.GetMouseButtonUp(0))
+        {
             StopShooting();
+            if (canSprayed)
+                isSpraying = false;
+        }
+
+        if (isSpraying && !reload && !PauseManager.Pause)
+            Shoot();
     }
 
     public void Init(Player player, Transform weaponHolder, Transform targetLook, InfoInterface infoInterface, int selectedWeapon)
@@ -70,6 +87,19 @@ public abstract class Weapon : MonoBehaviour, ISelectableItem
         _isInited = true;
         Bought = true;
         OnInit();
+    }
+
+    private void Reload()
+    {
+        if (reload)
+        {
+            shootTimer += Time.deltaTime;
+            if (shootTimer >= firingSpeed)
+            {
+                reload = false;
+                shootTimer = 0f;
+            }
+        }
     }
 
     public abstract void OnInit();

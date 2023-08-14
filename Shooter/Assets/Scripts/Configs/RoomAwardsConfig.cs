@@ -10,7 +10,7 @@ public class RoomAwardsConfig : ScriptableObject
 
 public enum AwardType
 {
-    None,
+    Start,
     Gold,
     Health,
     Weapon,
@@ -18,5 +18,6 @@ public enum AwardType
     BionicModule,
     WeaponUpgrade,
     ModuleUpgrade,
-    ActiveSkill
+    ActiveSkill,
+    Portal
 }

@@ -22,16 +22,16 @@ public class MapMiniController : MonoBehaviour
         mapMiniRotateHolder.localRotation = Quaternion.Euler(new Vector3(0, 0, playerTransform.localRotation.eulerAngles.y));
     }
 
-    public void SpawnMiniMap(Vector3 spawnPosition, Vector2Int directionFromNewRoom, KeyValuePair<Vector2Int, Room> realRoom, KeyValuePair<Vector2Int, Room> parentRoom)
+    public void SpawnMiniRoom(Vector3 spawnPosition, Vector2Int directionFromNewRoom, KeyValuePair<Vector2Int, Room> spawnedRoom, KeyValuePair<Vector2Int, Room> parentRoom)
     {
         MiniRoom newMinimapRoom = Instantiate(miniRoomPrefab, miniRoomsHolder).GetComponent<MiniRoom>();
         newMinimapRoom.transform.localPosition = new Vector3(spawnPosition.x, spawnPosition.z, 0);
         newMinimapRoom.transform.localScale = new Vector3(0.3f, 0.3f, 0.3f);
-        newMinimapRoom.SetAwardType(awardTypes[(int)realRoom.Value.GetRoomsAwardType()]);
+        newMinimapRoom.SetAwardType(awardTypes[(int)spawnedRoom.Value.GetRoomsAwardType()]);
         newMinimapRoom.gameObject.SetActive(false);
-        _miniRooms.Add(realRoom.Value, newMinimapRoom);
+        _miniRooms.Add(spawnedRoom.Value, newMinimapRoom);
         newMinimapRoom.GetComponent<MiniRoom>().SetActiveHall(directionFromNewRoom);
-        UpdateMiniRoomMap(newMinimapRoom, realRoom, parentRoom, directionFromNewRoom);
+        UpdateMiniRoomMap(newMinimapRoom, spawnedRoom, parentRoom, directionFromNewRoom);
     }
 
     public void SpawnMiniStartRoom(Room startRoom)
@@ -39,10 +39,11 @@ public class MapMiniController : MonoBehaviour
         MiniRoom miniStartRoom = Instantiate(miniRoomPrefab, miniRoomsHolder).GetComponent<MiniRoom>();
         miniStartRoom.transform.localPosition = Vector3.zero;
         miniStartRoom.transform.localScale = new Vector3(0.3f, 0.3f, 0.3f);
+        miniStartRoom.SetAwardType(awardTypes[(int)startRoom.GetRoomsAwardType()]);
         _miniRooms = new Dictionary<Room, MiniRoom>() { { startRoom, miniStartRoom } };
     }
 
-    public MiniRoom SetActiveMiniRoom (bool isActive, Room currentRoom)
+    public MiniRoom SetActiveMiniRoom(bool isActive, Room currentRoom)
     {
        MiniRoom currentMiniRoom = _miniRooms[currentRoom];
        currentMiniRoom.SetActiveMiniRoom(isActive);

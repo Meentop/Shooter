@@ -20,5 +20,6 @@ public class PlayerDeathAction : ActionBase
         cameraController.enabled = false;
         uiManager.SetActiveDeathPanel();
         gameManager.SetActiveDeathReload();
+        gameManager.DeleteSave();
     }
 }

@@ -18,7 +18,7 @@ public class RoomSpawner : MonoBehaviour
     {
         Room startRoom = Instantiate(_roomSpawnerInfo.StartRoom.gameObject, Vector3.zero, Quaternion.identity).GetComponent<Room>();
         mapMiniController.SpawnMiniStartRoom(startRoom);
-        startRoom.Init(Vector2Int.zero, 0, mapMiniController, AwardType.None);
+        startRoom.Init(Vector2Int.zero, 0, mapMiniController, AwardType.Start);
         _roomMap = new Dictionary<Vector2Int, Room>() { { Vector2Int.zero, startRoom } };
 
         for (int i = 0; i < _roomSpawnerInfo.NumberOfRooms - 1; i++)
@@ -29,7 +29,7 @@ public class RoomSpawner : MonoBehaviour
             var newRoomSpawnPos = freePlaces.ElementAt(Random.Range(0, freePlaces.Count()));
             var spawnedRoom = SpawnRoom(parentRoom, newRoomSpawnPos, i);
             UpdateRoomMap(spawnedRoom, newRoomSpawnPos.Key);
-            mapMiniController.SpawnMiniMap(spawnedRoom.transform.position / 1.2f, parentRoom.Key - newRoomSpawnPos.Key, new KeyValuePair<Vector2Int, Room>(newRoomSpawnPos.Key, spawnedRoom), parentRoom);
+            mapMiniController.SpawnMiniRoom(spawnedRoom.transform.position / 1.2f, parentRoom.Key - newRoomSpawnPos.Key, new KeyValuePair<Vector2Int, Room>(newRoomSpawnPos.Key, spawnedRoom), parentRoom);
         }
     }
 
@@ -49,7 +49,7 @@ public class RoomSpawner : MonoBehaviour
 
         Room newRoom = Instantiate(randomRoomPrefab, spawnPosition, Quaternion.identity);
         newRoom.SetOpenDoor(directionFromNewRoom);
-        AwardType randomAwardType = randomRoomPrefab.IsBattleRoom() ? (AwardType)Random.Range(1, (int)AwardType.ActiveSkill) : AwardType.None;
+        AwardType randomAwardType = randomRoomPrefab.IsBattleRoom() ? (AwardType)Random.Range(1, (int)AwardType.ActiveSkill) : AwardType.Portal;
         newRoom.Init(_newRoom.Key, newRoom.transform.position.y, mapMiniController, randomAwardType);
 
         parentRoom.Value.SetOpenDoor(directionFromParent);

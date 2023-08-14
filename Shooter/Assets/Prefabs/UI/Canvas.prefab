@@ -1994,7 +1994,7 @@ MonoBehaviour:
   mapMiniRotateHolder: {fileID: 4531930013317117560}
   playerTransform: {fileID: 0}
   awardTypes:
-  - {fileID: 0}
+  - {fileID: 21300000, guid: 25973fe0240752c4d9aba1426d5ef972, type: 3}
   - {fileID: 21300000, guid: 814f9a00656ef5e4296d33066b24ab30, type: 3}
   - {fileID: 21300000, guid: 4a9121a3087b1aa4abecd7fa44050a16, type: 3}
   - {fileID: 21300000, guid: e85cfe443f32f1e4cba159074a2d510d, type: 3}
@@ -2003,6 +2003,7 @@ MonoBehaviour:
   - {fileID: 21300000, guid: b8b9d2d25355d064881e392d69894fb3, type: 3}
   - {fileID: 21300000, guid: e225230f14165854799885fe52e88d0a, type: 3}
   - {fileID: 21300000, guid: e94208e54bf22014a9003bf53f4e40b5, type: 3}
+  - {fileID: 21300000, guid: 038af48e8f5edb34a9557d4c4879fc0f, type: 3}
 --- !u!114 &5477886473937387128
 MonoBehaviour:
   m_ObjectHideFlags: 0

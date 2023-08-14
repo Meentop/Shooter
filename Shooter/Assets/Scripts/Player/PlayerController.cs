@@ -25,7 +25,7 @@ public class PlayerController : MonoBehaviour
 
     private void Update()
     {
-        if (!Pause.pause)
+        if (!PauseManager.Pause)
         {
             _grounded = Physics.Raycast(transform.position, Vector3.down, 1.3f, LayerMask.GetMask("Solid"));
 
@@ -57,7 +57,7 @@ public class PlayerController : MonoBehaviour
 
     private void FixedUpdate()
     {
-        if (!Pause.pause && !_dashing)
+        if (!PauseManager.Pause && !_dashing)
         {
             Movement();
         }    

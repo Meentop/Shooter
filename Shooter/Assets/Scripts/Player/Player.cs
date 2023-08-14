@@ -33,7 +33,7 @@ public class Player : MonoBehaviour
 
     private void Update()
     {
-        if (!Pause.pause)
+        if (!PauseManager.Pause)
         {
             SelectWeapon();
             InputScrollWeapon();
@@ -52,7 +52,6 @@ public class Player : MonoBehaviour
         _infoInterface = uiManager.infoInterface;
         _dynamicInterface = uiManager.dinemicInterface;
         _uiManager = uiManager;
-        //_currentWeapon.Init(this, weaponHolder, targetLook, uiManager.infoInterface, _selectedWeaponSlot);
         _dynamicInterface.Init(this, cameraController, mainCamera, canvas);
     }
 
