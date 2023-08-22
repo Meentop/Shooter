@@ -41,20 +41,23 @@ public class EnemyHealth : BaseDamageReceiver
     {
         while (true)
         {
-            yield return new WaitForSeconds(statusEffectsConfig.statsuEffectDeltaTime);
-            Dictionary<StatusEffect, int> statusEffectsDamage = new Dictionary<StatusEffect, int>();
-            if (statusEffects.ContainsKey(StatusEffect.Poison))
+            if (!PauseManager.Pause) 
             {
-                int damage = statusEffects[StatusEffect.Poison] / 2;
-                if (statusEffects[StatusEffect.Poison] == 1)
-                    damage = 1;
-                statusEffects[StatusEffect.Poison] -= damage;
-                statusEffectsDamage.Add(StatusEffect.Poison, damage);
-                if (statusEffects[StatusEffect.Poison] < 1)
-                    statusEffects.Remove(StatusEffect.Poison);
+                Dictionary<StatusEffect, int> statusEffectsDamage = new Dictionary<StatusEffect, int>();
+                if (statusEffects.ContainsKey(StatusEffect.Poison))
+                {
+                    int damage = statusEffects[StatusEffect.Poison] / 2;
+                    if (statusEffects[StatusEffect.Poison] == 1)
+                        damage = 1;
+                    statusEffects[StatusEffect.Poison] -= damage;
+                    statusEffectsDamage.Add(StatusEffect.Poison, damage);
+                    if (statusEffects[StatusEffect.Poison] < 1)
+                        statusEffects.Remove(StatusEffect.Poison);
+                }
+                DamageData damageData = new DamageData(statusEffectsDamage: statusEffectsDamage);
+                GetDamage(damageData); 
             }
-            DamageData damageData = new DamageData(statusEffectsDamage: statusEffectsDamage);
-            GetDamage(damageData);
+            yield return new WaitForSeconds(statusEffectsConfig.statsuEffectDeltaTime);
         }
     }   
 

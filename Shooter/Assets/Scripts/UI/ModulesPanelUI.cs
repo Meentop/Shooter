@@ -19,7 +19,7 @@ public class ModulesPanelUI : MonoBehaviour
     [SerializeField] private float bionicPos;
     [SerializeField] private float transitionSpeed;
     [SerializeField] private AnimationCurve toBionicTransition, toWeaponTransition;
-    private bool _panelEnabled = false;
+    public bool PanelEnabled { get; private set; }
     private Player _player;
     private CameraController _cameraController;
     private Camera _mainCamera;
@@ -48,31 +48,32 @@ public class ModulesPanelUI : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Tab))
-        {      
-            _panelEnabled = !_panelEnabled;
-            SetTabInterface(_panelEnabled);
-            if (_panelEnabled)
+        
+    }
+
+    public void SetEnablePanel()
+    {
+        PanelEnabled = !PanelEnabled;
+        SetTabInterface(PanelEnabled);
+        if (PanelEnabled)
+        {
+            UpdateWeaponsInfo(_player.GetWeapons());
+            UpdateFreeModuleInfo(_player.GetFreeWeaponModules().Select(module => module as Module).ToList(), freeWeaponModulesHolderUI);
+            UpdateFreeModuleInfo(_player.GetFreeBionicModules().Select(module => module as Module).ToList(), freeBionicModulesHolderUI);
+            UpdateInstalledBionicModules(_player.GetInstalledBionicModules());
+            _cameraController.UnlockCursor();
+        }
+        else
+        {
+            _cameraController.LockCursor();
+            foreach (Transform child in freeWeaponModulesHolderUI.GetContent())
             {
-                UpdateWeaponsInfo(_player.GetWeapons());
-                UpdateFreeModuleInfo(_player.GetFreeWeaponModules().Select(module => module as Module).ToList(), freeWeaponModulesHolderUI);
-                UpdateFreeModuleInfo(_player.GetFreeBionicModules().Select(module => module as Module).ToList(), freeBionicModulesHolderUI);
-                UpdateInstalledBionicModules(_player.GetInstalledBionicModules());
-                _cameraController.UnlockCursor();
+                Destroy(child.gameObject);
             }
-            else
+            foreach (Transform child in freeBionicModulesHolderUI.GetContent())
             {
-                _cameraController.LockCursor();
-                foreach (Transform child in freeWeaponModulesHolderUI.GetContent())
-                {
-                    Destroy(child.gameObject);
-                }
-                foreach (Transform child in freeBionicModulesHolderUI.GetContent())
-                {
-                    Destroy(child.gameObject);
-                }
+                Destroy(child.gameObject);
             }
-            PauseManager.Pause = _panelEnabled;
         }
     }
 

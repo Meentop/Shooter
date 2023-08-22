@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 705507994}
-  m_IndirectSpecularColor: {r: 0.44657898, g: 0.4964133, b: 0.5748178, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657844, g: 0.49641222, b: 0.57481694, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -286,6 +286,11 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 2509159126030503150, guid: 83c9ad56a38022b4899e1e1eec2c3fab, type: 3}
   m_PrefabInstance: {fileID: 2565003241933251663}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &580224962 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 93565706709831737, guid: 83c9ad56a38022b4899e1e1eec2c3fab, type: 3}
+  m_PrefabInstance: {fileID: 2565003241933251663}
+  m_PrefabAsset: {fileID: 0}
 --- !u!114 &621224444 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 5511015412219285430, guid: 83c9ad56a38022b4899e1e1eec2c3fab, type: 3}
@@ -426,6 +431,7 @@ GameObject:
   - component: {fileID: 760817651}
   - component: {fileID: 760817653}
   - component: {fileID: 760817652}
+  - component: {fileID: 760817654}
   m_Layer: 0
   m_Name: Managers
   m_TagString: Untagged
@@ -577,6 +583,21 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   floorSpawner: {fileID: 760817651}
   player: {fileID: 670343695}
+--- !u!114 &760817654
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 760817647}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d59482a06789d8347a2e20b3d741b991, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  cameraController: {fileID: 879264486}
+  modules: {fileID: 1082036342}
+  pausePanel: {fileID: 580224962}
 --- !u!114 &879264486 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 1697727722218239970, guid: 5dabf89771060884e956222b099303a1, type: 3}
@@ -1140,6 +1161,22 @@ PrefabInstance:
     - target: {fileID: 6615010783831084144, guid: 83c9ad56a38022b4899e1e1eec2c3fab, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7325586802374492321, guid: 83c9ad56a38022b4899e1e1eec2c3fab, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 760817654}
+    - target: {fileID: 7325586802374492321, guid: 83c9ad56a38022b4899e1e1eec2c3fab, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: DisablePauseMenu
+      objectReference: {fileID: 0}
+    - target: {fileID: 7325586802374492321, guid: 83c9ad56a38022b4899e1e1eec2c3fab, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: PauseInput, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 7325586802374492321, guid: 83c9ad56a38022b4899e1e1eec2c3fab, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
       objectReference: {fileID: 0}
     - target: {fileID: 7607249716108153019, guid: 83c9ad56a38022b4899e1e1eec2c3fab, type: 3}
       propertyPath: m_Camera

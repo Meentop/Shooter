@@ -5,9 +5,10 @@ using UnityEngine;
 using UnityEngine.AI;
 using UnityEngine.EventSystems;
 
-public class Agent : MonoBehaviour
+public class Agent : MonoBehaviour, IPauseble
 {
     [SerializeField] private Rigidbody rb;
+    [SerializeField] private Animator animator;
     [SerializeField] private float normalMaxSpeed;
     [SerializeField] private float normalAccel;
     [SerializeField] private float normalRotationSpeed;
@@ -41,34 +42,40 @@ public class Agent : MonoBehaviour
         rotationSpeed = normalRotationSpeed;
         velocity = Vector3.zero;  
         _steering = new Steering();
+        PauseManager.OnSetPause += OnSetPause;
     }
 
     private void Update()
     {
-        transform.parent.rotation = Quaternion.RotateTowards(transform.parent.rotation, rotation, rotationSpeed * Time.deltaTime);
+        if(!PauseManager.Pause)
+            transform.parent.rotation = Quaternion.RotateTowards(transform.parent.rotation, rotation, rotationSpeed * Time.deltaTime);
     }
 
     private void FixedUpdate()
     {
-        rb.velocity = new Vector3(velocity.x, rb.velocity.y, velocity.z);
+        if (!PauseManager.Pause)
+            rb.velocity = new Vector3(velocity.x, rb.velocity.y, velocity.z);
     }
 
     private void LateUpdate()
     {
-        velocity += _steering.linear * accel * Time.deltaTime;
-        if(velocity.magnitude > maxSpeed)
+        if (!PauseManager.Pause)
         {
-            velocity.Normalize();
-            velocity *= maxSpeed;
-        }
-        if(_steering.linear.sqrMagnitude == 0f)
-        {
-            velocity = Vector3.zero;
-        }
+            velocity += accel * Time.deltaTime * _steering.linear;
+            if (velocity.magnitude > maxSpeed)
+            {
+                velocity.Normalize();
+                velocity *= maxSpeed;
+            }
+            if (_steering.linear.sqrMagnitude == 0f)
+            {
+                velocity = Vector3.zero;
+            }
 
-        orientation = _steering.orientation;
-        rotation = Quaternion.Euler(0, orientation, 0);
-        _steering = new Steering();
+            orientation = _steering.orientation;
+            rotation = Quaternion.Euler(0, orientation, 0);
+            _steering = new Steering();
+        }
     }
 
     public void SetSteering(Steering steering)
@@ -119,5 +126,25 @@ public class Agent : MonoBehaviour
                 rotation -= 360f;
         }
         return rotation;
+    }
+
+    public void OnSetPause(bool value)
+    {
+        if (value)
+        {
+            rb.velocity = Vector3.zero;
+            rb.isKinematic = true;
+            animator.enabled = false;
+        }
+        else
+        {
+            rb.isKinematic = false;
+            animator.enabled = true;
+        }
+    }
+
+    private void OnDestroy()
+    {
+        PauseManager.OnSetPause -= OnSetPause;
     }
 }

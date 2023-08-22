@@ -55,7 +55,8 @@ public abstract class Weapon : MonoBehaviour, ISelectableItem
         if (!_isInited)
             return;
 
-        Reload();
+        if(!PauseManager.Pause)
+            Reload();
 
         if (Input.GetMouseButtonDown(0) && !reload && !PauseManager.Pause)
         {

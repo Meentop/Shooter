@@ -370,6 +370,7 @@ GameObject:
   - component: {fileID: 760817648}
   - component: {fileID: 760817653}
   - component: {fileID: 760817652}
+  - component: {fileID: 760817651}
   m_Layer: 0
   m_Name: Managers
   m_TagString: Untagged
@@ -478,6 +479,21 @@ MonoBehaviour:
   floorSpawner: {fileID: 0}
   load: {fileID: 760817652}
   save: {fileID: 760817653}
+--- !u!114 &760817651
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 760817647}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d59482a06789d8347a2e20b3d741b991, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  cameraController: {fileID: 879264486}
+  modules: {fileID: 1082036342}
+  pausePanel: {fileID: 1879393302}
 --- !u!114 &760817652
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -721,6 +737,11 @@ MonoBehaviour:
 Transform:
   m_CorrespondingSourceObject: {fileID: 1697727722218239975, guid: 5dabf89771060884e956222b099303a1, type: 3}
   m_PrefabInstance: {fileID: 1697727722191368257}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &1879393302 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 93565706709831737, guid: 83c9ad56a38022b4899e1e1eec2c3fab, type: 3}
+  m_PrefabInstance: {fileID: 2565003241933251663}
   m_PrefabAsset: {fileID: 0}
 --- !u!114 &2043625175 stripped
 MonoBehaviour:
@@ -1095,6 +1116,22 @@ PrefabInstance:
     - target: {fileID: 6615010783831084144, guid: 83c9ad56a38022b4899e1e1eec2c3fab, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7325586802374492321, guid: 83c9ad56a38022b4899e1e1eec2c3fab, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 760817651}
+    - target: {fileID: 7325586802374492321, guid: 83c9ad56a38022b4899e1e1eec2c3fab, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: DisablePauseMenu
+      objectReference: {fileID: 0}
+    - target: {fileID: 7325586802374492321, guid: 83c9ad56a38022b4899e1e1eec2c3fab, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: PauseInput, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 7325586802374492321, guid: 83c9ad56a38022b4899e1e1eec2c3fab, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
       objectReference: {fileID: 0}
     - target: {fileID: 7607249716108153019, guid: 83c9ad56a38022b4899e1e1eec2c3fab, type: 3}
       propertyPath: m_Camera

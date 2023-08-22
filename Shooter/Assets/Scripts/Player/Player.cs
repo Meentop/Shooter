@@ -253,7 +253,7 @@ public class Player : MonoBehaviour
 
     private void UseActiveSkill()
     {
-        if (Input.GetMouseButtonDown(1))
+        if (Input.GetMouseButtonDown(1) && !PauseManager.Pause)
         {
             try
             {

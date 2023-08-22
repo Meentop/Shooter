@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerController : MonoBehaviour
+public class PlayerController : MonoBehaviour, IPauseble
 {
     [SerializeField] private Transform checkOnGroundPoint;
     private KeyCode jumpKey = KeyCode.Space;
@@ -15,12 +15,14 @@ public class PlayerController : MonoBehaviour
     private RaycastHit _slopeHit;
     private Player _player;
     private int _curDashCharges = 0;
+    private Vector3 prepauseVelocity;
 
     private void Start()
     {
         _rb = GetComponent<Rigidbody>();
         _rb.freezeRotation = true;
         _player = GetComponent<Player>();
+        PauseManager.OnSetPause += OnSetPause;
     }
 
     private void Update()
@@ -162,12 +164,34 @@ public class PlayerController : MonoBehaviour
         _rb.useGravity = false;
         while (dashTimer > 0)
         {
-            Vector3 dashDirection = transform.TransformDirection(direction) * _player.GetMovement().dashStrength;
-            _rb.velocity = new Vector3(dashDirection.x, _rb.velocity.y, dashDirection.z);
-            dashTimer -= Time.fixedDeltaTime;
+            if (!PauseManager.Pause)
+            {
+                Vector3 dashDirection = transform.TransformDirection(direction) * _player.GetMovement().dashStrength;
+                _rb.velocity = new Vector3(dashDirection.x, _rb.velocity.y, dashDirection.z);
+                dashTimer -= Time.fixedDeltaTime;
+            }
             yield return new WaitForFixedUpdate();
         }
         _rb.useGravity = true;
         _dashing = false;
+    }
+
+    public void OnSetPause(bool value)
+    {
+        if (value)
+        {
+            prepauseVelocity = _rb.velocity;
+            _rb.isKinematic = true;
+        }
+        else
+        {
+            _rb.isKinematic = false;
+            _rb.velocity = prepauseVelocity;
+        }
+    }
+
+    private void OnDestroy()
+    {
+        PauseManager.OnSetPause -= OnSetPause;
     }
 }
