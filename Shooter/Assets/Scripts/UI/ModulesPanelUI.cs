@@ -108,7 +108,7 @@ public class ModulesPanelUI : MonoBehaviour
                 {
                     ModuleUI moduleUI = Instantiate(modulePrefab, holder.transform);
                     WeaponModule module = weapons[i].GetModule(j);
-                    moduleUI.Init(module.GetSprite(), module.GetTitle(), module.GetDescription(), this, _mainCamera, _canvas, holder, module);
+                    moduleUI.Init(module.GetSprite(), module.GetTitle(module.Level), module.GetDescription(module.Level), this, _mainCamera, _canvas, holder, module);
                     holder.SetPosition(moduleUI.transform);
                 }
             }
@@ -120,7 +120,7 @@ public class ModulesPanelUI : MonoBehaviour
         foreach (var module in freeModules)
         {
             ModuleUI moduleUI = Instantiate(modulePrefab, freeModulesHolderUI.GetContent());
-            moduleUI.Init(module.GetSprite(), module.GetTitle(), module.GetDescription(), this, _mainCamera, _canvas, freeModulesHolderUI, module);
+            moduleUI.Init(module.GetSprite(), module.GetTitle(module.Level), module.GetDescription(module.Level), this, _mainCamera, _canvas, freeModulesHolderUI, module);
         }
         freeModulesHolderUI.SetFreeModulesHolderSize(freeModules.Count, modulePrefab.GetComponent<RectTransform>());
     }
@@ -136,7 +136,7 @@ public class ModulesPanelUI : MonoBehaviour
         {
             ModuleUI moduleUI = Instantiate(modulePrefab, installedBionicModuleHolders[i].transform);
             BionicModule module = modules[i];
-            moduleUI.Init(module.GetSprite(), module.GetTitle(), module.GetDescription(), this, _mainCamera, _canvas, installedBionicModuleHolders[i], module);
+            moduleUI.Init(module.GetSprite(), module.GetTitle(module.Level), module.GetDescription(module.Level), this, _mainCamera, _canvas, installedBionicModuleHolders[i], module);
             installedBionicModuleHolders[i].SetPosition(moduleUI.transform);
         }
     }

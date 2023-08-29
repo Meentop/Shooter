@@ -64,7 +64,7 @@ public class EnemyHealth : BaseDamageReceiver
     public override void GetDamage(DamageData damageData)
     {
         bool crit = Random.Range(0, 100) < damageData.CritChance;
-        if (crit) damageData.SetDamage(damageData.Damage * damageData.CritDamageMultiplier);
+        if (crit) damageData.SetDamage((int)(damageData.Damage * damageData.CritDamageMultiplier));
 
         _playerComponent.AddDamageToActiveSkill(Mathf.Clamp(damageData.Damage, 0, curHP));
 

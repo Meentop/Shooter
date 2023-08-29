@@ -4,5 +4,5 @@ using UnityEngine;
 
 public class InfoForBionicModule 
 {
-    
+    public int lvl;
 }

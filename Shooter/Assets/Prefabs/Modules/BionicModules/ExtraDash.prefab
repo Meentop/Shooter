@@ -129,8 +129,7 @@ MonoBehaviour:
   description: Plus dash charge, but increased dash recharge time
   price: 20
   undestroyable: 0
-  behaviours:
-  - {fileID: 6804177752906062789}
+  behaviour: {fileID: 6804177752906062789}
 --- !u!114 &6804177752906062789
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -143,4 +142,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cc397ff144730f04bba83ae5c9654d54, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  addDashReload: 0.5
+  addDashReload:
+  - 1
+  - 0.5
+  - 0

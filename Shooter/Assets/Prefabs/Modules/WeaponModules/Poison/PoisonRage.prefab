@@ -129,8 +129,7 @@ MonoBehaviour:
   description: +20% damage against poisoned enemies
   price: 10
   undestroyable: 0
-  behaviours:
-  - {fileID: 8167948716793092692}
+  behaviour: {fileID: 8167948716793092692}
 --- !u!114 &8167948716793092692
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -144,4 +143,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   statusEffect: 0
-  increase: 1.2
+  increase:
+  - 1.2
+  - 1.25
+  - 1.3

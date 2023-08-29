@@ -49,8 +49,8 @@ public class Player : MonoBehaviour
         Gold = GetComponent<PlayerGold>();
         Controller = GetComponent<PlayerController>();
         _currentWeapon = weapons[0];
-        _infoInterface = uiManager.infoInterface;
-        _dynamicInterface = uiManager.dinemicInterface;
+        _infoInterface = uiManager.InfoInterface;
+        _dynamicInterface = uiManager.ModulesPanel;
         _uiManager = uiManager;
         _dynamicInterface.Init(this, cameraController, mainCamera, canvas);
     }
@@ -73,6 +73,9 @@ public class Player : MonoBehaviour
     private void SwapWeapon(Weapon weaponToSwap)
     {
         if (weaponToSwap == _currentWeapon)
+            return;
+
+        if (_lastSavedSelectableItem != null && _lastSavedSelectableItem as ModuleUpgradeAward)
             return;
 
         _currentWeapon.transform.gameObject.SetActive(false);
@@ -112,7 +115,7 @@ public class Player : MonoBehaviour
 
     private void SelectItem()
     {
-        if (Input.GetKeyDown(KeyCode.E))
+        if (Input.GetKeyDown(KeyCode.E) && !PauseManager.Pause)
         {
             if (_lastSavedSelectableItem == null)
                 return;
@@ -155,20 +158,33 @@ public class Player : MonoBehaviour
                         Destroy(selectSkill.gameObject);
                     }
                     break;
-                case SelectableItems.UpgradeWeapon:
+                case SelectableItems.WeaponUpgrade:
                     Weapon curWeapon = weapons[_selectedWeaponSlot];
-                    UpgradeWeaponAward upgrader = _lastSavedSelectableItem as UpgradeWeaponAward;
-                    if (Gold.HasCount(curWeapon.GetUpgradePrice()) && !upgrader.IsUsed() && curWeapon.CouldBeUpgraded())
+                    WeaponUpgradeAward weaponUpgrader = _lastSavedSelectableItem as WeaponUpgradeAward;
+                    if (Gold.HasCount(curWeapon.GetUpgradePrice()) && !weaponUpgrader.IsUsed() && curWeapon.CouldBeUpgraded())
                     {
                         Gold.Remove(curWeapon.GetUpgradePrice());
                         curWeapon.UpgradeWeapon();
-                        upgrader.SetWasUsed();
+                        weaponUpgrader.SetWasUsed();
+                    }
+                    break;
+                case SelectableItems.ModuleUpgrade:
+                    Module curModule = _uiManager.GetSelectedModule();
+                    ModuleUpgradeAward moduleUpgrader = _lastSavedSelectableItem as ModuleUpgradeAward;
+                    if (Gold.HasCount(10) && !moduleUpgrader.IsUsed() && curModule.CouldBeUpgraded())
+                    {
+                        Gold.Remove(10);
+                        curModule.UpgradeModule();
+                        moduleUpgrader.SetWasUsed();
+                        _uiManager.EnableUpgradeModuleUI(Gold.HasCount(10), moduleUpgrader, GetAllModules());
                     }
                     break;
             }
             _lastSavedSelectableItem.OnSelect(this);
         }
     }
+
+    private bool over = false;
 
     private void SelectableItemsDetection()
     {
@@ -178,50 +194,73 @@ public class Player : MonoBehaviour
             {
                 _lastSavedSelectableItem = item;
                 OverChoosableItem();
+                if (!over)
+                {
+                    EnterSelectableItem();
+                    over = true;
+                }
             }
             else
-                ExitSelectableItem();
+            {
+                NoOverSelectableItem();
+                if (over)
+                {
+                    ExitSelectableItem();
+                    over = false;
+                }
+            }
         }
         else
-            ExitSelectableItem();
+        {
+            NoOverSelectableItem();
+            if (over)
+            {
+                ExitSelectableItem();
+                over = false;
+            }
+        }
     }
 
     private void OverChoosableItem()
     {
-        if (!_uiManager.GetActiveText(TextTypes.Select))
-            _uiManager.SetActiveText(TextTypes.Select, true);
+        if (!_uiManager.GetActiveSelectableUI(SelectableUI.Select))
+            _uiManager.SetActiveSelectableUI(SelectableUI.Select, true);
         _uiManager.SetSelectText(_lastSavedSelectableItem.Text);
         switch (_lastSavedSelectableItem.ItemType)
         {
             case SelectableItems.Weapon:
                 Weapon selectingWeapon = _lastSavedSelectableItem as Weapon;
-                _uiManager.UpdateNewWeaponDescription(Gold.HasCount(selectingWeapon.GetPrice()), selectingWeapon);
+                _uiManager.UpdateNewWeaponUI(Gold.HasCount(selectingWeapon.GetPrice()), selectingWeapon);
                 break;
             case SelectableItems.Module:
                 Module selectingModule = _lastSavedSelectableItem as Module; 
-                _uiManager.UpdateNewModuleInfo(Gold.HasCount(selectingModule.GetPrice()), selectingModule);
+                _uiManager.UpdateNewModuleUI(Gold.HasCount(selectingModule.GetPrice()), selectingModule);
                 break;
             case SelectableItems.ActiveSkill:
                 ActiveSkill selectingSkill = _lastSavedSelectableItem as ActiveSkill;
-                _uiManager.UpdateNewActiveSkillInfo(Gold.HasCount(selectingSkill.GetPrice()), selectingSkill);
+                _uiManager.UpdateNewActiveSkillUI(Gold.HasCount(selectingSkill.GetPrice()), selectingSkill);
                 break;
             case SelectableItems.HealthAward:
                 HealthAward healthAward = _lastSavedSelectableItem as HealthAward;
-                _uiManager.UpdateBuyHealthText(Gold.HasCount(healthAward.GetPrice()), healthAward);
+                _uiManager.UpdateBuyHealthUI(Gold.HasCount(healthAward.GetPrice()), healthAward);
                 break;
-            case SelectableItems.UpgradeWeapon:
+            case SelectableItems.WeaponUpgrade:
                 Weapon curWeapon = weapons[_selectedWeaponSlot];
-                UpgradeWeaponAward upgrader = _lastSavedSelectableItem as UpgradeWeaponAward;
-                _uiManager.UpdateUpgradeWeaponText(Gold.HasCount(curWeapon.GetUpgradePrice()), upgrader, curWeapon);
+                WeaponUpgradeAward weapoUpgrader = _lastSavedSelectableItem as WeaponUpgradeAward;
+                _uiManager.UpdateUpgradeWeaponUI(Gold.HasCount(curWeapon.GetUpgradePrice()), weapoUpgrader, curWeapon);
+                break;
+            case SelectableItems.ModuleUpgrade:
+                ModuleUpgradeAward moduleUpgrader = _lastSavedSelectableItem as ModuleUpgradeAward;
+                _uiManager.UpdateUpgradeModuleUI(moduleUpgrader);
                 break;
         }
         SetActiveTextTypes(true);
     }
 
-    private void ExitSelectableItem()
+    private void NoOverSelectableItem()
     {
-        if (_uiManager.GetActiveText(TextTypes.Select))
-            _uiManager.SetActiveText(TextTypes.Select, false);
+        if (_uiManager.GetActiveSelectableUI(SelectableUI.Select))
+            _uiManager.SetActiveSelectableUI(SelectableUI.Select, false);
         if (_lastSavedSelectableItem != null)
         {
             SetActiveTextTypes(false);
@@ -229,24 +268,43 @@ public class Player : MonoBehaviour
         }
     }
 
+    private void EnterSelectableItem()
+    {
+        switch (_lastSavedSelectableItem.ItemType)
+        {
+            case SelectableItems.ModuleUpgrade:
+                ModuleUpgradeAward moduleUpgrader = _lastSavedSelectableItem as ModuleUpgradeAward;
+                _uiManager.EnableUpgradeModuleUI(Gold.HasCount(10), moduleUpgrader, GetAllModules());
+                break;
+        }
+    }
+
+    private void ExitSelectableItem()
+    {
+
+    }
+
     private void SetActiveTextTypes(bool active)
     {
         switch (_lastSavedSelectableItem.ItemType)
         {
             case SelectableItems.Weapon:
-                _uiManager.SetActiveText(TextTypes.NewWeapon, active);
+                _uiManager.SetActiveSelectableUI(SelectableUI.NewWeapon, active);
                 break;
             case SelectableItems.Module:
-                _uiManager.SetActiveText(TextTypes.NewModule, active);
+                _uiManager.SetActiveSelectableUI(SelectableUI.NewModule, active);
                 break;
             case SelectableItems.ActiveSkill:
-                _uiManager.SetActiveText(TextTypes.NewActiveSkill, active);
+                _uiManager.SetActiveSelectableUI(SelectableUI.NewActiveSkill, active);
                 break;
             case SelectableItems.HealthAward:
-                _uiManager.SetActiveText(TextTypes.BuyHealth, active);
+                _uiManager.SetActiveSelectableUI(SelectableUI.BuyHealth, active);
                 break;
-            case SelectableItems.UpgradeWeapon:
-                _uiManager.SetActiveText(TextTypes.UpdateWeapon, active);
+            case SelectableItems.WeaponUpgrade:
+                _uiManager.SetActiveSelectableUI(SelectableUI.WeaponUpgrade, active);
+                break;
+            case SelectableItems.ModuleUpgrade:
+                _uiManager.SetActiveSelectableUI(SelectableUI.ModuleUpgrade, active);
                 break;
         }
     }
@@ -323,7 +381,9 @@ public class Player : MonoBehaviour
 
             foreach (var module in weaponSaves[i].modules)
             {
-                weapon.AddModule(weaponModuleConfig.Modules[module.number]);
+                WeaponModule weaponModule = weaponModuleConfig.Modules[module.number];
+                weaponModule.SetLevel(module.level);
+                weapon.AddModule(weaponModule);
             }
         }
         _currentWeapon = weapons[0];
@@ -335,7 +395,9 @@ public class Player : MonoBehaviour
     {
         foreach (var module in modules)
         {
-            _freeWeaponModules.Add(weaponModuleConfig.Modules[module.number]);
+            WeaponModule weaponModule = weaponModuleConfig.Modules[module.number];
+            weaponModule.SetLevel(module.level);
+            _freeWeaponModules.Add(weaponModule);
         }
     }
 
@@ -343,7 +405,9 @@ public class Player : MonoBehaviour
     {
         foreach (var module in modules)
         {
-            _installedBionicModules.Add(bionicModuleConfig.Modules[module.number]);
+            BionicModule bionicnModule = bionicModuleConfig.Modules[module.number];
+            bionicnModule.SetLevel(module.level);
+            _installedBionicModules.Add(bionicnModule);
         }
     }
 
@@ -351,13 +415,28 @@ public class Player : MonoBehaviour
     {
         foreach (var module in modules)
         {
-            _freeBionicModules.Add(bionicModuleConfig.Modules[module.number]);
+            BionicModule bionicnModule = bionicModuleConfig.Modules[module.number];
+            bionicnModule.SetLevel(module.level);
+            _freeBionicModules.Add(bionicnModule);
         }
     }
 
     public List<WeaponModule> GetFreeWeaponModules() => _freeWeaponModules;
     public List<BionicModule> GetFreeBionicModules() => _freeBionicModules;
     public List<BionicModule> GetInstalledBionicModules() => _installedBionicModules;
+
+    public List<Module> GetAllModules()
+    {
+        List<Module> modules = new List<Module>();
+        modules.AddRange(_freeWeaponModules);
+        modules.AddRange(_freeBionicModules);
+        modules.AddRange(_installedBionicModules);
+        foreach (var weapon in GetWeapons())
+        {
+            modules.AddRange(weapon.GetModules());
+        }
+        return modules;
+    }
 
     public void RemoveFreeModule(Module module)
     {
@@ -418,7 +497,8 @@ public class Player : MonoBehaviour
         InfoForBionicModule info = new InfoForBionicModule();
         foreach (var module in _installedBionicModules)
         {
-            movement = module.ApplyBehaviours(movement, info);
+            info.lvl = module.Level;
+            movement = module.ApplyBehaviour(movement, info);
         }
         return movement;
     }

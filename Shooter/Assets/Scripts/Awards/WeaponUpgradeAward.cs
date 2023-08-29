@@ -3,11 +3,11 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using UnityEngine;
 
-public class UpgradeWeaponAward : MonoBehaviour, ISelectableItem
+public class WeaponUpgradeAward : MonoBehaviour, ISelectableItem
 {
     private bool _wasUsed;
 
-    public SelectableItems ItemType => SelectableItems.UpgradeWeapon;
+    public SelectableItems ItemType => SelectableItems.WeaponUpgrade;
 
     public string Text => _wasUsed ? "" : "Press E to buy upgrade";
 

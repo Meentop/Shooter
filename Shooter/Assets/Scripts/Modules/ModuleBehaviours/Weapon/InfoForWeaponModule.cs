@@ -5,4 +5,5 @@ using UnityEngine;
 public class InfoForWeaponModule 
 {
     public Dictionary<StatusEffect, int> enemyStatusEffects;
+    public int lvl;
 }

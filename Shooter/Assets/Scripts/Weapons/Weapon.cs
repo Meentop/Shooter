@@ -194,6 +194,7 @@ public abstract class Weapon : MonoBehaviour, ISelectableItem
         Destroy(decal, 5);
     }
 
+    public List<WeaponModule> GetModules() => _weaponModules;
 
     public int GetModulesCount() => _weaponModules.Count;
 
@@ -219,7 +220,8 @@ public abstract class Weapon : MonoBehaviour, ISelectableItem
         };
         foreach (var module in _weaponModules)
         {
-            damageData = module.ApplyBehaviours(damageData, info);
+            info.lvl = module.Level;
+            damageData = module.ApplyBehaviour(damageData, info);
         }
         return damageData;
     }

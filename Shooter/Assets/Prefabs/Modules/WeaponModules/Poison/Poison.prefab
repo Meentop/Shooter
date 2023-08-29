@@ -129,8 +129,7 @@ MonoBehaviour:
   description: Add 2 poison to enemy
   price: 10
   undestroyable: 0
-  behaviours:
-  - {fileID: 1961878867387904894}
+  behaviour: {fileID: 1961878867387904894}
 --- !u!114 &1961878867387904894
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -144,4 +143,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   statusEffect: 0
-  value: 2
+  value: 020000000300000004000000

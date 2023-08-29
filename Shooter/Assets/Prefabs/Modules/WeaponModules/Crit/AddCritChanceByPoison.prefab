@@ -129,8 +129,7 @@ MonoBehaviour:
   description: +20% critical hit chance if enemy poisoned
   price: 10
   undestroyable: 0
-  behaviours:
-  - {fileID: 68475771457541026}
+  behaviour: {fileID: 68475771457541026}
 --- !u!114 &68475771457541026
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -144,4 +143,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   statusEffect: 0
-  addCritChance: 20
+  addCritChance: 140000001e00000028000000

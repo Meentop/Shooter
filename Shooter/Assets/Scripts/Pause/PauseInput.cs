@@ -1,22 +1,20 @@
-using System.Collections;
-using System.Collections.Generic;
-using TMPro.Examples;
 using UnityEngine;
 
 public class PauseInput : MonoBehaviour
 {
     [SerializeField] private CameraController cameraController;
-    [SerializeField] private ModulesPanelUI modules;
+    [SerializeField] private UIManager uiManager;
     [SerializeField] private GameObject pausePanel;
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Tab) || (Input.GetKeyDown(KeyCode.Escape) && modules.PanelEnabled))
+        if (Input.GetKeyDown(KeyCode.Tab) || (Input.GetKeyDown(KeyCode.Escape) && uiManager.ModulesPanel.PanelEnabled))
         {
-            modules.SetEnablePanel();
-            PauseManager.Pause = modules.PanelEnabled;
+            uiManager.ModulesPanel.SetEnablePanel();
+            PauseManager.Pause = uiManager.ModulesPanel.PanelEnabled;
+            uiManager.DisableAllSelectablesUI();
         }
-        else if(Input.GetKeyDown(KeyCode.Escape) && !modules.PanelEnabled)
+        else if(Input.GetKeyDown(KeyCode.Escape) && !uiManager.ModulesPanel.PanelEnabled)
         {
             PauseManager.Pause = !pausePanel.activeInHierarchy;
             pausePanel.SetActive(!pausePanel.activeInHierarchy);
@@ -24,6 +22,7 @@ public class PauseInput : MonoBehaviour
                 cameraController.UnlockCursor();
             else
                 cameraController.LockCursor();
+            uiManager.DisableAllSelectablesUI();
         }
     }
     

@@ -296,7 +296,7 @@ MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 5511015412219285430, guid: 83c9ad56a38022b4899e1e1eec2c3fab, type: 3}
   m_PrefabInstance: {fileID: 2565003241933251663}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
+  m_GameObject: {fileID: 2565003241933251690}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 5f7201a12d95ffc409449d95f23cf332, type: 3}
@@ -452,11 +452,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   selectText: {fileID: 621224444}
-  newWeaponTextHolder: {fileID: 1465410668}
-  newModuleTextHolder: {fileID: 2565003241933251678}
-  buyHealthHolder: {fileID: 2565003241933251666}
-  newActiveSkillHolder: {fileID: 2565003241933251685}
-  upgradeWeaponHolder: {fileID: 2565003241933251688}
+  selectablesUI:
+  - {fileID: 2565003241933251690}
+  - {fileID: 1465410668}
+  - {fileID: 2565003241933251678}
+  - {fileID: 2565003241933251685}
+  - {fileID: 2565003241933251666}
+  - {fileID: 2565003241933251688}
+  - {fileID: 2565003241933251691}
   normalBuyColor: {r: 0.19607843, g: 0.19607843, b: 0.19607843, a: 1}
   notEnoughColor: {r: 1, g: 0, b: 0, a: 1}
   newWeaponDescriptions:
@@ -499,12 +502,23 @@ MonoBehaviour:
     PriceText: {fileID: 1605036007}
   weaponUpgraderBlockPanel: {fileID: 966544887}
   weaponUpgraderBlockPanelText: {fileID: 1126735757}
+  modulesHolder: {fileID: 2565003241933251692}
+  hollowModulePrefab: {fileID: 2444929052063339256, guid: f20fabf83983d68499f9ae8971c3a5a8, type: 3}
+  upgardedModuleInfo:
+    Type: {fileID: 0}
+    Image: {fileID: 2565003241933251696}
+    Title: {fileID: 2565003241933251695}
+    Description: {fileID: 2565003241933251694}
+    Price: {fileID: 2565003241933251693}
+  moduleUpgraderUsedPanel: {fileID: 2565003241933251698}
+  moduleUpgraderMaxUpgradePanel: {fileID: 2565003241933251697}
+  moduleUpgraderBuyPanel: {fileID: 2565003241933251699}
   buyHealthPrice: {fileID: 2565003241933251668}
   buyHealthCount: {fileID: 2565003241933251667}
   buyHealthWasUsed: {fileID: 493764672}
   deathPanel: {fileID: 2565003241933251689}
-  _infoInterface: {fileID: 2565003241933251670}
-  _dinemicInterface: {fileID: 1082036342}
+  infoInterface: {fileID: 2565003241933251670}
+  modulesPanel: {fileID: 1082036342}
 --- !u!4 &760817649
 Transform:
   m_ObjectHideFlags: 0
@@ -596,7 +610,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   cameraController: {fileID: 879264486}
-  modules: {fileID: 1082036342}
+  uiManager: {fileID: 760817648}
   pausePanel: {fileID: 580224962}
 --- !u!114 &879264486 stripped
 MonoBehaviour:
@@ -1452,6 +1466,80 @@ GameObject:
 --- !u!1 &2565003241933251689 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 7974908803447949711, guid: 83c9ad56a38022b4899e1e1eec2c3fab, type: 3}
+  m_PrefabInstance: {fileID: 2565003241933251663}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &2565003241933251690 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2672805079970742602, guid: 83c9ad56a38022b4899e1e1eec2c3fab, type: 3}
+  m_PrefabInstance: {fileID: 2565003241933251663}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &2565003241933251691 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4606271630034635012, guid: 83c9ad56a38022b4899e1e1eec2c3fab, type: 3}
+  m_PrefabInstance: {fileID: 2565003241933251663}
+  m_PrefabAsset: {fileID: 0}
+--- !u!224 &2565003241933251692 stripped
+RectTransform:
+  m_CorrespondingSourceObject: {fileID: 1575501933494312698, guid: 83c9ad56a38022b4899e1e1eec2c3fab, type: 3}
+  m_PrefabInstance: {fileID: 2565003241933251663}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &2565003241933251693 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 2629656350074911800, guid: 83c9ad56a38022b4899e1e1eec2c3fab, type: 3}
+  m_PrefabInstance: {fileID: 2565003241933251663}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5f7201a12d95ffc409449d95f23cf332, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &2565003241933251694 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 2810344545420143747, guid: 83c9ad56a38022b4899e1e1eec2c3fab, type: 3}
+  m_PrefabInstance: {fileID: 2565003241933251663}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5f7201a12d95ffc409449d95f23cf332, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &2565003241933251695 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 7605541578508146903, guid: 83c9ad56a38022b4899e1e1eec2c3fab, type: 3}
+  m_PrefabInstance: {fileID: 2565003241933251663}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5f7201a12d95ffc409449d95f23cf332, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &2565003241933251696 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 8767791927016829522, guid: 83c9ad56a38022b4899e1e1eec2c3fab, type: 3}
+  m_PrefabInstance: {fileID: 2565003241933251663}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!1 &2565003241933251697 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1981696289054046346, guid: 83c9ad56a38022b4899e1e1eec2c3fab, type: 3}
+  m_PrefabInstance: {fileID: 2565003241933251663}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &2565003241933251698 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 626684422030372803, guid: 83c9ad56a38022b4899e1e1eec2c3fab, type: 3}
+  m_PrefabInstance: {fileID: 2565003241933251663}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &2565003241933251699 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4670973212428851450, guid: 83c9ad56a38022b4899e1e1eec2c3fab, type: 3}
   m_PrefabInstance: {fileID: 2565003241933251663}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &6655776286918135550
