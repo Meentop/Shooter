@@ -12,7 +12,7 @@ public class PauseInput : MonoBehaviour
         {
             uiManager.ModulesPanel.SetEnablePanel();
             PauseManager.Pause = uiManager.ModulesPanel.PanelEnabled;
-            uiManager.DisableAllSelectablesUI();
+            uiManager.SelectadleUI.DisableAllSelectablesUI();
         }
         else if(Input.GetKeyDown(KeyCode.Escape) && !uiManager.ModulesPanel.PanelEnabled)
         {
@@ -22,7 +22,7 @@ public class PauseInput : MonoBehaviour
                 cameraController.UnlockCursor();
             else
                 cameraController.LockCursor();
-            uiManager.DisableAllSelectablesUI();
+            uiManager.SelectadleUI.DisableAllSelectablesUI();
         }
     }
     

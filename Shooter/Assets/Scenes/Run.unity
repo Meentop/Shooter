@@ -519,6 +519,7 @@ MonoBehaviour:
   deathPanel: {fileID: 2565003241933251689}
   infoInterface: {fileID: 2565003241933251670}
   modulesPanel: {fileID: 1082036342}
+  selectadleUI: {fileID: 2565003241933251700}
 --- !u!4 &760817649
 Transform:
   m_ObjectHideFlags: 0
@@ -1542,6 +1543,17 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 4670973212428851450, guid: 83c9ad56a38022b4899e1e1eec2c3fab, type: 3}
   m_PrefabInstance: {fileID: 2565003241933251663}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &2565003241933251700 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 1971463818411859762, guid: 83c9ad56a38022b4899e1e1eec2c3fab, type: 3}
+  m_PrefabInstance: {fileID: 2565003241933251663}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: db2667c7d78091843acefbf96cbc8558, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &6655776286918135550
 PrefabInstance:
   m_ObjectHideFlags: 0

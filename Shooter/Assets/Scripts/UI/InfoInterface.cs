@@ -10,6 +10,9 @@ public class InfoInterface : MonoBehaviour
     [SerializeField] private Color inactiveWeaponColor;
     [SerializeField] private Image dashReloadIcon;
     [SerializeField] private Text dashCharges;
+    [SerializeField] private Text goldCount;
+    [SerializeField] private Image activeSkill;
+    [SerializeField] private Image activeSkillReloadIcon;
 
     public void SetWeaponIcon(Sprite sprite, int number)
     {
@@ -25,5 +28,20 @@ public class InfoInterface : MonoBehaviour
     {
         dashReloadIcon.fillAmount = dashReload;
         this.dashCharges.text = dashCharges.ToString();
+    }
+
+    public void SetGoldCount(int count)
+    {
+        goldCount.text = count.ToString("D3");
+    }
+
+    public void SetActiveSkillSprite(Sprite sprite)
+    {
+        activeSkill.sprite = sprite;
+    }
+
+    public void SetActiveSkillReload(float reload)
+    {
+        activeSkillReloadIcon.fillAmount = Mathf.Abs(reload - 1);
     }
 }

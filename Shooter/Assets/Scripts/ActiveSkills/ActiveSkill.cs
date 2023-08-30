@@ -16,9 +16,9 @@ public abstract class ActiveSkill : MonoBehaviour, ISelectableItem
     public string Text => "Press E to buy";
 
     private float curDamageTimer;
-    private Image reloadImage;
     protected Transform mainCamera;
     protected Player player;
+    private InfoInterface _infoUI;
 
     [System.Serializable]
     public struct Info
@@ -30,11 +30,11 @@ public abstract class ActiveSkill : MonoBehaviour, ISelectableItem
         public Text Price;
     }
 
-    public void Init(Image reloadImage, Transform camera, Player player)
+    public void Init(InfoInterface infoInterface, Transform camera, Player player)
     {
         curDamageTimer = damageToReload;
-        this.reloadImage = reloadImage;
-        reloadImage.sprite = sprite;
+        _infoUI = infoInterface;
+        infoInterface.SetActiveSkillSprite(sprite);
         mainCamera = camera;
         this.player = player;
         UpdateUI();
@@ -64,7 +64,7 @@ public abstract class ActiveSkill : MonoBehaviour, ISelectableItem
 
     private void UpdateUI()
     {
-        reloadImage.fillAmount = curDamageTimer / damageToReload;
+        _infoUI.SetActiveSkillReload(curDamageTimer / damageToReload);
     }
 
     public Sprite GetSprite() => sprite;

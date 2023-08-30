@@ -53,6 +53,7 @@ public class Player : MonoBehaviour
         _dynamicInterface = uiManager.ModulesPanel;
         _uiManager = uiManager;
         _dynamicInterface.Init(this, cameraController, mainCamera, canvas);
+        Gold.Init(_infoInterface);
     }
 
     public void SelectWeapon()
@@ -169,14 +170,14 @@ public class Player : MonoBehaviour
                     }
                     break;
                 case SelectableItems.ModuleUpgrade:
-                    Module curModule = _uiManager.GetSelectedModule();
+                    Module curModule = _uiManager.SelectadleUI.GetSelectedModule();
                     ModuleUpgradeAward moduleUpgrader = _lastSavedSelectableItem as ModuleUpgradeAward;
                     if (Gold.HasCount(10) && !moduleUpgrader.IsUsed() && curModule.CouldBeUpgraded())
                     {
                         Gold.Remove(10);
                         curModule.UpgradeModule();
                         moduleUpgrader.SetWasUsed();
-                        _uiManager.EnableUpgradeModuleUI(Gold.HasCount(10), moduleUpgrader, GetAllModules());
+                        _uiManager.SelectadleUI.EnableUpgradeModuleUI(Gold.HasCount(10), moduleUpgrader, GetAllModules());
                     }
                     break;
             }
@@ -223,35 +224,35 @@ public class Player : MonoBehaviour
 
     private void OverChoosableItem()
     {
-        if (!_uiManager.GetActiveSelectableUI(SelectableUI.Select))
-            _uiManager.SetActiveSelectableUI(SelectableUI.Select, true);
-        _uiManager.SetSelectText(_lastSavedSelectableItem.Text);
+        if (!_uiManager.SelectadleUI.GetActiveSelectableUI(SelectableUIType.Select))
+            _uiManager.SelectadleUI.SetActiveSelectableUI(SelectableUIType.Select, true);
+        _uiManager.SelectadleUI.SetSelectText(_lastSavedSelectableItem.Text);
         switch (_lastSavedSelectableItem.ItemType)
         {
             case SelectableItems.Weapon:
                 Weapon selectingWeapon = _lastSavedSelectableItem as Weapon;
-                _uiManager.UpdateNewWeaponUI(Gold.HasCount(selectingWeapon.GetPrice()), selectingWeapon);
+                _uiManager.SelectadleUI.UpdateNewWeaponUI(Gold.HasCount(selectingWeapon.GetPrice()), selectingWeapon);
                 break;
             case SelectableItems.Module:
                 Module selectingModule = _lastSavedSelectableItem as Module; 
-                _uiManager.UpdateNewModuleUI(Gold.HasCount(selectingModule.GetPrice()), selectingModule);
+                _uiManager.SelectadleUI.UpdateNewModuleUI(Gold.HasCount(selectingModule.GetPrice()), selectingModule);
                 break;
             case SelectableItems.ActiveSkill:
                 ActiveSkill selectingSkill = _lastSavedSelectableItem as ActiveSkill;
-                _uiManager.UpdateNewActiveSkillUI(Gold.HasCount(selectingSkill.GetPrice()), selectingSkill);
+                _uiManager.SelectadleUI.UpdateNewActiveSkillUI(Gold.HasCount(selectingSkill.GetPrice()), selectingSkill);
                 break;
             case SelectableItems.HealthAward:
                 HealthAward healthAward = _lastSavedSelectableItem as HealthAward;
-                _uiManager.UpdateBuyHealthUI(Gold.HasCount(healthAward.GetPrice()), healthAward);
+                _uiManager.SelectadleUI.UpdateBuyHealthUI(Gold.HasCount(healthAward.GetPrice()), healthAward);
                 break;
             case SelectableItems.WeaponUpgrade:
                 Weapon curWeapon = weapons[_selectedWeaponSlot];
                 WeaponUpgradeAward weapoUpgrader = _lastSavedSelectableItem as WeaponUpgradeAward;
-                _uiManager.UpdateUpgradeWeaponUI(Gold.HasCount(curWeapon.GetUpgradePrice()), weapoUpgrader, curWeapon);
+                _uiManager.SelectadleUI.UpdateUpgradeWeaponUI(Gold.HasCount(curWeapon.GetUpgradePrice()), weapoUpgrader, curWeapon);
                 break;
             case SelectableItems.ModuleUpgrade:
                 ModuleUpgradeAward moduleUpgrader = _lastSavedSelectableItem as ModuleUpgradeAward;
-                _uiManager.UpdateUpgradeModuleUI(moduleUpgrader);
+                _uiManager.SelectadleUI.UpdateUpgradeModuleUI(moduleUpgrader);
                 break;
         }
         SetActiveTextTypes(true);
@@ -259,8 +260,8 @@ public class Player : MonoBehaviour
 
     private void NoOverSelectableItem()
     {
-        if (_uiManager.GetActiveSelectableUI(SelectableUI.Select))
-            _uiManager.SetActiveSelectableUI(SelectableUI.Select, false);
+        if (_uiManager.SelectadleUI.GetActiveSelectableUI(SelectableUIType.Select))
+            _uiManager.SelectadleUI.SetActiveSelectableUI(SelectableUIType.Select, false);
         if (_lastSavedSelectableItem != null)
         {
             SetActiveTextTypes(false);
@@ -274,7 +275,7 @@ public class Player : MonoBehaviour
         {
             case SelectableItems.ModuleUpgrade:
                 ModuleUpgradeAward moduleUpgrader = _lastSavedSelectableItem as ModuleUpgradeAward;
-                _uiManager.EnableUpgradeModuleUI(Gold.HasCount(10), moduleUpgrader, GetAllModules());
+                _uiManager.SelectadleUI.EnableUpgradeModuleUI(Gold.HasCount(10), moduleUpgrader, GetAllModules());
                 break;
         }
     }
@@ -289,22 +290,22 @@ public class Player : MonoBehaviour
         switch (_lastSavedSelectableItem.ItemType)
         {
             case SelectableItems.Weapon:
-                _uiManager.SetActiveSelectableUI(SelectableUI.NewWeapon, active);
+                _uiManager.SelectadleUI.SetActiveSelectableUI(SelectableUIType.NewWeapon, active);
                 break;
             case SelectableItems.Module:
-                _uiManager.SetActiveSelectableUI(SelectableUI.NewModule, active);
+                _uiManager.SelectadleUI.SetActiveSelectableUI(SelectableUIType.NewModule, active);
                 break;
             case SelectableItems.ActiveSkill:
-                _uiManager.SetActiveSelectableUI(SelectableUI.NewActiveSkill, active);
+                _uiManager.SelectadleUI.SetActiveSelectableUI(SelectableUIType.NewActiveSkill, active);
                 break;
             case SelectableItems.HealthAward:
-                _uiManager.SetActiveSelectableUI(SelectableUI.BuyHealth, active);
+                _uiManager.SelectadleUI.SetActiveSelectableUI(SelectableUIType.BuyHealth, active);
                 break;
             case SelectableItems.WeaponUpgrade:
-                _uiManager.SetActiveSelectableUI(SelectableUI.WeaponUpgrade, active);
+                _uiManager.SelectadleUI.SetActiveSelectableUI(SelectableUIType.WeaponUpgrade, active);
                 break;
             case SelectableItems.ModuleUpgrade:
-                _uiManager.SetActiveSelectableUI(SelectableUI.ModuleUpgrade, active);
+                _uiManager.SelectadleUI.SetActiveSelectableUI(SelectableUIType.ModuleUpgrade, active);
                 break;
         }
     }
@@ -475,7 +476,7 @@ public class Player : MonoBehaviour
     private void AddActiveSkill(ActiveSkill skill)
     {
         _activeSkill = skill;
-        _activeSkill.Init(_uiManager.GetActiveSkillReloadImage(), Camera.main.transform, this);
+        _activeSkill.Init(_uiManager.InfoInterface, Camera.main.transform, this);
     }
 
     public void AddDamageToActiveSkill(int damage)
