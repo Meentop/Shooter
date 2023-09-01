@@ -5,27 +5,39 @@ using UnityEngine.UI;
 
 public class SelectableUI : MonoBehaviour
 {
+    [Header("General")]
     [SerializeField] private Text selectText;
     [SerializeField] private GameObject[] selectablesUI;
     [SerializeField] private Color normalBuyColor, notEnoughColor;
+    [Header("New Weapon")]
     [SerializeField] private Weapon.Description newWeaponDescriptions;
     [SerializeField] private GameObject hollowModuleHolderPrefab;
+    [Header("New Module")]
     [SerializeField] private Module.Info newModuleInfo;
+    [Header("New Active Skill")]
     [SerializeField] private ActiveSkill.Info newActiveSkillInfo;
-    [SerializeField] private Weapon.Description curWeaponDescriptions;
-    [SerializeField] private Weapon.Description upgradedWeaponDescriptions;
-    [SerializeField] private GameObject weaponUpgraderBlockPanel;
-    [SerializeField] private Text weaponUpgraderBlockPanelText;
-    [SerializeField] private Transform modulesHolder;
-    [SerializeField] private HollowModuleUI hollowModulePrefab;
-    [SerializeField] private Module.Info upgardedModuleInfo;
-    [SerializeField] private GameObject moduleUpgraderUsedPanel;
-    [SerializeField] private GameObject moduleUpgraderMaxUpgradePanel;
-    [SerializeField] private GameObject moduleUpgraderBuyPanel;
     [Header("Buy Health")]
     [SerializeField] private Text buyHealthPrice;
     [SerializeField] private Text buyHealthCount;
     [SerializeField] private GameObject buyHealthWasUsed;
+    [Header("Weapon Upgrade")]
+    [SerializeField] private Weapon.Description curWeaponDescriptions;
+    [SerializeField] private Weapon.Description upgradedWeaponDescriptions;
+    [SerializeField] private GameObject weaponUpgraderBlockPanel;
+    [SerializeField] private Text weaponUpgraderBlockPanelText;
+    [Header("Module Upgrade")]
+    [SerializeField] private Transform modulesHolder;
+    [SerializeField] private HollowModuleUI hollowModulePrefab;
+    [SerializeField] private Module.Info upgradedModuleInfo;
+    [SerializeField] private GameObject moduleUpgraderUsedPanel;
+    [SerializeField] private GameObject moduleUpgraderMaxUpgradePanel;
+    [SerializeField] private GameObject moduleUpgraderBuyPanel;
+    [SerializeField] private RectTransform moduleHolderTopPoint, moduleHolderBottomPoint;
+    
+    int selectedModuleIndex;
+    List<HollowModuleUI> hollowModules = new List<HollowModuleUI>();
+
+    //General
 
     public void SetActiveSelectableUI(SelectableUIType buttonTypes, bool isActive)
     {
@@ -51,6 +63,8 @@ public class SelectableUI : MonoBehaviour
         selectText.text = text;
     }
 
+    //New Weapon
+
     public void UpdateNewWeaponUI(bool hasGold, Weapon weapon)
     {
         newWeaponDescriptions.BuyPanel.SetActive(!weapon.Bought);
@@ -70,6 +84,8 @@ public class SelectableUI : MonoBehaviour
         newWeaponDescriptions.PriceText.color = hasGold ? normalBuyColor : notEnoughColor;
     }
 
+    //New Module
+
     public void UpdateNewModuleUI(bool hasGold, Module module)
     {
         if (module.GetType() == typeof(WeaponModule))
@@ -83,6 +99,8 @@ public class SelectableUI : MonoBehaviour
         newModuleInfo.Price.color = hasGold ? normalBuyColor : notEnoughColor;
     }
 
+    //New Active Skill
+
     public void UpdateNewActiveSkillUI(bool hasGold, ActiveSkill skill)
     {
         newActiveSkillInfo.Image.sprite = skill.GetSprite();
@@ -93,6 +111,8 @@ public class SelectableUI : MonoBehaviour
         newActiveSkillInfo.Price.color = hasGold ? normalBuyColor : notEnoughColor;
     }
 
+    //Buy health
+
     public void UpdateBuyHealthUI(bool hasGold, HealthAward healthAward)
     {
         buyHealthPrice.text = healthAward.GetPrice().ToString();
@@ -100,6 +120,8 @@ public class SelectableUI : MonoBehaviour
         buyHealthCount.text = healthAward.GetAddHealth().ToString();
         buyHealthWasUsed.SetActive(healthAward.IsUsed());
     }
+
+    //Weapon Upgrade
 
     public void UpdateUpgradeWeaponUI(bool hasGold, WeaponUpgradeAward upgrader, Weapon weapon)
     {
@@ -157,6 +179,8 @@ public class SelectableUI : MonoBehaviour
         upgradedWeaponDescriptions.PriceText.color = hasGold ? normalBuyColor : notEnoughColor;
     }
 
+    //Module Upgrade
+
     public void EnableUpgradeModuleUI(bool hasGold, ModuleUpgradeAward upgrader, List<Module> modules)
     {
         selectedModuleIndex = 0;
@@ -172,49 +196,25 @@ public class SelectableUI : MonoBehaviour
             moduleUI.Init(module.GetSprite(), module.GetTitle(module.Level), module.GetDescription(module.Level), module);
         }
 
+        RectTransform modulesHolderRect = modulesHolder.GetComponent<RectTransform>();
+        modulesHolderRect.sizeDelta = new Vector2(modulesHolderRect.sizeDelta.x, (hollowModulePrefab.GetComponent<RectTransform>().sizeDelta.y * modules.Count) + (5 * modules.Count - 1));
+
         moduleUpgraderUsedPanel.SetActive(upgrader.IsUsed());
+        upgradedModuleInfo.Price.color = hasGold ? normalBuyColor : notEnoughColor;
     }
 
-    int selectedModuleIndex;
-    List<HollowModuleUI> hollowModules = new List<HollowModuleUI>();
+    
     public void UpdateUpgradeModuleUI(ModuleUpgradeAward upgrader)
     {
         if (hollowModules.Count > 0 && !upgrader.IsUsed())
         {
-            foreach (var module in hollowModules)
-            {
-                module.SetEnable(false);
-            }
-            hollowModules[selectedModuleIndex].SetEnable(true);
+            DisableAllModules();
+            SelectNextOrPreviousModule();
+            DisplaySelectedModuleInfo(upgrader);
 
-            if (Input.mouseScrollDelta.y > 0)
-            {
-                selectedModuleIndex--;
-                if (selectedModuleIndex < 0)
-                    selectedModuleIndex = hollowModules.Count - 1;
-            }
-            if (Input.mouseScrollDelta.y < 0)
-            {
-                selectedModuleIndex++;
-                if (selectedModuleIndex > hollowModules.Count - 1)
-                    selectedModuleIndex = 0;
-            }
-            Module selectedModule = hollowModules[selectedModuleIndex].Module;
-            upgardedModuleInfo.Image.sprite = selectedModule.GetSprite();
-            if (selectedModule.CouldBeUpgraded())
-            {
-                upgardedModuleInfo.Title.text = selectedModule.GetTitle(selectedModule.Level + 1);
-                upgardedModuleInfo.Description.text = selectedModule.GetDescription(selectedModule.Level + 1);
-                upgardedModuleInfo.Price.text = "10";
-            }
-            else
-            {
-                upgardedModuleInfo.Title.text = selectedModule.GetTitle(selectedModule.Level);
-                upgardedModuleInfo.Description.text = selectedModule.GetDescription(selectedModule.Level);
-            }
+            SetModulesListPosition();
 
-            moduleUpgraderMaxUpgradePanel.SetActive(!selectedModule.CouldBeUpgraded());
-            moduleUpgraderBuyPanel.SetActive(selectedModule.CouldBeUpgraded());
+            UpdateModuleUpgraderPanels(upgrader);
         }
         else
         {
@@ -222,5 +222,105 @@ public class SelectableUI : MonoBehaviour
         }
     }
 
+    private void DisableAllModules()
+    {
+        foreach (var module in hollowModules)
+        {
+            module.SetEnable(false);
+        }
+        hollowModules[selectedModuleIndex].SetEnable(true);
+    }
+
+    private void SelectNextOrPreviousModule()
+    {
+        if (Input.mouseScrollDelta.y > 0)
+        {
+            selectedModuleIndex--;
+            if (selectedModuleIndex < 0)
+                selectedModuleIndex = hollowModules.Count - 1;
+        }
+        if (Input.mouseScrollDelta.y < 0)
+        {
+            selectedModuleIndex++;
+            if (selectedModuleIndex > hollowModules.Count - 1)
+                selectedModuleIndex = 0;
+        }
+    }
+
+    private void DisplaySelectedModuleInfo(ModuleUpgradeAward upgrader)
+    {
+        Module selectedModule = hollowModules[selectedModuleIndex].Module;
+        upgradedModuleInfo.Image.sprite = selectedModule.GetSprite();
+
+        if (selectedModule.CouldBeUpgraded())
+        {
+            upgradedModuleInfo.Title.text = selectedModule.GetTitle(selectedModule.Level + 1);
+            upgradedModuleInfo.Description.text = selectedModule.GetDescription(selectedModule.Level + 1);
+            upgradedModuleInfo.Price.text = "10";
+        }
+        else
+        {
+            upgradedModuleInfo.Title.text = selectedModule.GetTitle(selectedModule.Level);
+            upgradedModuleInfo.Description.text = selectedModule.GetDescription(selectedModule.Level);
+        }
+    }
+
+    private void UpdateModuleUpgraderPanels(ModuleUpgradeAward upgrader)
+    {
+        Module selectedModule = hollowModules[selectedModuleIndex].Module;
+        moduleUpgraderMaxUpgradePanel.SetActive(!selectedModule.CouldBeUpgraded());
+        moduleUpgraderBuyPanel.SetActive(selectedModule.CouldBeUpgraded());
+    }
+
+    private void SetModulesListPosition()
+    {
+        RectTransform modulesHolder = this.modulesHolder.GetComponent<RectTransform>();
+        RectTransform module = hollowModules[selectedModuleIndex].GetComponent<RectTransform>();
+
+        float modulePos = CalculatePositionInModuleList(module, modulesHolder);
+        float topViewPos = CalculatePositionInView(moduleHolderTopPoint, modulesHolder);
+        float bottomViewPos = CalculatePositionInView(moduleHolderBottomPoint, modulesHolder);
+
+        AdjustModulesListPosition(modulesHolder, module, modulePos, topViewPos, bottomViewPos);
+    }
+
+    private float CalculatePositionInModuleList(RectTransform module, RectTransform modulesHolder)
+    {
+        return Mathf.Abs((module.anchoredPosition.y / modulesHolder.sizeDelta.y) + 1);
+    }
+
+    private float CalculatePositionInView(RectTransform viewPoint, RectTransform modulesHolder)
+    {
+        float view = viewPoint.anchoredPosition.y - modulesHolder.anchoredPosition.y;
+        return Mathf.Abs((view / modulesHolder.sizeDelta.y) + 1);
+    }
+
+    private void AdjustModulesListPosition(RectTransform modulesHolder, RectTransform module, float modulePos, float topViewPos, float bottomViewPos)
+    {
+        if (modulePos > topViewPos)
+        {
+            float delta = modulePos - topViewPos;
+            float bigDelta = (modulesHolder.sizeDelta.y * delta) + (module.sizeDelta.y / 2);
+            modulesHolder.anchoredPosition = new Vector2(modulesHolder.anchoredPosition.x, modulesHolder.anchoredPosition.y - bigDelta);
+        }
+        else if (modulePos < bottomViewPos)
+        {
+            float delta = bottomViewPos - modulePos;
+            float bigDelta = (modulesHolder.sizeDelta.y * delta) + (module.sizeDelta.y / 2);
+            modulesHolder.anchoredPosition = new Vector2(modulesHolder.anchoredPosition.x, modulesHolder.anchoredPosition.y + bigDelta);
+        }
+    }
+
     public Module GetSelectedModule() => hollowModules[selectedModuleIndex].Module;
+}
+
+public enum SelectableUIType
+{
+    Select,
+    NewWeapon,
+    NewModule,
+    NewActiveSkill,
+    BuyHealth,
+    WeaponUpgrade,
+    ModuleUpgrade
 }

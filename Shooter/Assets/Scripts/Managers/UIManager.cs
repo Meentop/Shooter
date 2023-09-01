@@ -21,15 +21,3 @@ public class UIManager : MonoBehaviour
         deathPanel.SetActive(true);
     }
 }
-
-
-public enum SelectableUIType
-{
-    Select,
-    NewWeapon,
-    NewModule,
-    NewActiveSkill,
-    BuyHealth,
-    WeaponUpgrade,
-    ModuleUpgrade
-}
