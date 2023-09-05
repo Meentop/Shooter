@@ -7,6 +7,7 @@ public class PlayerCharacteristics
 {
     public PlayerCharacteristics(PlayerCharacteristics movement)
     {
+        maxHealth = movement.maxHealth;
         movementSpeed = movement.movementSpeed;
         groundDrag = movement.groundDrag;
         jumpStrength = movement.jumpStrength;
@@ -20,6 +21,7 @@ public class PlayerCharacteristics
         activeSkillBloodyPrice = movement.activeSkillBloodyPrice;
     }
 
+    public int maxHealth;
     public float movementSpeed;
     public float groundDrag;
     public float jumpStrength;

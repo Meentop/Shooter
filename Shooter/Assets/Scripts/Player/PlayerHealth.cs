@@ -12,14 +12,6 @@ public class PlayerHealth : BaseDamageReceiver
         
     }
 
-    public void AddMaxHealth(int add)
-    {
-        float coefficient = curHP / (float)maxHP;
-        maxHP += add;
-        curHP = Mathf.RoundToInt(maxHP * coefficient);
-        UpdateHealthBar();
-    }
-
     protected override void UpdateHealthBar()
     {
         base.UpdateHealthBar();
@@ -33,14 +25,18 @@ public class PlayerHealth : BaseDamageReceiver
     public void SetCurHealth(int health)
     {
         curHP = health;
-        _startSizeDelta = healthBar.sizeDelta;
         UpdateHealthBar();
     }
 
-    public void SetMaxHealth()
+    public void SetMaxHealth(int maxHealth)
+    {
+        maxHP = maxHealth;
+        UpdateHealthBar();
+    }
+
+    public void SetCurHealthToMax()
     {
         curHP = maxHP;
-        _startSizeDelta = healthBar.sizeDelta;
         UpdateHealthBar();
     }
 }

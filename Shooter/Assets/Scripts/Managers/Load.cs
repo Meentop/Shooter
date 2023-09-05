@@ -27,7 +27,7 @@ public class Load : MonoBehaviour
         }
         else
         {
-            player.Health.SetMaxHealth();
+            player.Health.SetCurHealthToMax();
             List<WeaponSave> weaponSaves = new List<WeaponSave> 
             { 
                 new WeaponSave { number = 0, level = 0, modules = new List<WeaponModuleSave>() }, 

@@ -172,6 +172,7 @@ MonoBehaviour:
   weaponModuleConfig: {fileID: 11400000, guid: fd2808706ce919042acf4f109e9a8909, type: 2}
   bionicModuleConfig: {fileID: 11400000, guid: fd43a64f7017b1d4b87eb9a5354715b5, type: 2}
   baseCharacteristics:
+    maxHealth: 100
     movementSpeed: 6
     groundDrag: 10
     jumpStrength: 15
@@ -182,6 +183,7 @@ MonoBehaviour:
     dashReloadTime: 1
     dashCharges: 1
     bloodyActiveSkill: 0
+    activeSkillBloodyPrice: 0
 --- !u!114 &6655776285994737154
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -214,6 +216,7 @@ MonoBehaviour:
   afterHealthBarImage: {fileID: 0}
   UIReduceSpeed: 0.2
   maxHP: 100
+  startSizeDelta: {x: 321.55, y: 22.448}
   _health: {fileID: 0}
 --- !u!114 &4046690061827201452
 MonoBehaviour:

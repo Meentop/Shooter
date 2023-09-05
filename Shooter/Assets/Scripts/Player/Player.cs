@@ -507,8 +507,9 @@ public class Player : MonoBehaviour
             characteristics = module.ApplyBehaviour(characteristics, info);
         }
         Characteristics = characteristics;
+        Health.SetMaxHealth(characteristics.maxHealth);
         _infoInterface.SetBloodyActiveSkill(characteristics.bloodyActiveSkill);
-        if(characteristics.bloodyActiveSkill)
+        if (characteristics.bloodyActiveSkill)
         {
             _infoInterface.SetActiveSkillBloodyPrice(characteristics.activeSkillBloodyPrice);
         }

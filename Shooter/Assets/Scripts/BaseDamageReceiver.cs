@@ -11,16 +11,15 @@ public abstract class BaseDamageReceiver : MonoBehaviour, IDamageReceiver
     [SerializeField] private Image afterHealthBarImage;
     [SerializeField] private float UIReduceSpeed = 0.2f;
     [SerializeField] protected int maxHP;
+    [SerializeField] protected Vector2 startSizeDelta;
 
     protected int curHP;    
     private float _barSizeRatio = 1;
     protected bool _isDead = false;
-    protected Vector2 _startSizeDelta;
 
     protected virtual void Start()
     {
         curHP = maxHP;
-        _startSizeDelta = healthBar.sizeDelta;
         UpdateHealthBar();
     }
 
@@ -60,6 +59,6 @@ public abstract class BaseDamageReceiver : MonoBehaviour, IDamageReceiver
             return;
 
         _barSizeRatio = (float)curHP / maxHP;
-        healthBar.sizeDelta = new Vector3(_barSizeRatio * _startSizeDelta.x, _startSizeDelta.y);
+        healthBar.sizeDelta = new Vector3(_barSizeRatio * startSizeDelta.x, startSizeDelta.y);
     }
 }

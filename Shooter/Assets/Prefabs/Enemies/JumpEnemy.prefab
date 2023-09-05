@@ -1047,6 +1047,7 @@ MonoBehaviour:
   afterHealthBarImage: {fileID: 3822463695861969783}
   UIReduceSpeed: 0.2
   maxHP: 500
+  startSizeDelta: {x: 100, y: 100}
   hPBarCanvas: {fileID: 7188750973442996329}
   scaleMultiplier: 0.2
   damageNumbersPoint: {fileID: 2311234918740360496}
