@@ -7,7 +7,7 @@ public abstract class Module : MonoBehaviour, ISelectableItem
 {
     [SerializeField] protected int number;
     [SerializeField] private Sprite sprite;
-    [SerializeField] private string title, description;
+    [SerializeField] private string title;
     [SerializeField] private int price;
     public bool undestroyable = false;
 

@@ -14,9 +14,9 @@ GameObject:
   - component: {fileID: 6853470117160362223}
   - component: {fileID: 921492956424591712}
   - component: {fileID: 3083144990236766652}
-  - component: {fileID: 6804177752906062789}
+  - component: {fileID: 7455346074587502757}
   m_Layer: 0
-  m_Name: ExtraDash
+  m_Name: Bloody Active Skill
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -123,14 +123,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3f0473998db1f984ebf88df65cced5df, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  number: 1
+  number: 0
   sprite: {fileID: 0}
-  title: Extra dash
+  title: Bloody Active Skill
   description: Plus dash charge, but increased dash recharge time
   price: 20
   undestroyable: 0
-  behaviour: {fileID: 6804177752906062789}
---- !u!114 &6804177752906062789
+  behaviour: {fileID: 7455346074587502757}
+--- !u!114 &7455346074587502757
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -139,10 +139,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 945461437842173202}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cc397ff144730f04bba83ae5c9654d54, type: 3}
+  m_Script: {fileID: 11500000, guid: 6592a121a7c2ce64a86e10881d30016a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  addDashReload:
-  - 1
-  - 0.5
-  - 0
+  bloodPrice: 0a0000000800000006000000

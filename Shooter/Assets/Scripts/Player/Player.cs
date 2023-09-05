@@ -13,10 +13,12 @@ public class Player : MonoBehaviour
     [SerializeField] private WeaponConfig weaponConfig;
     [SerializeField] private WeaponModuleConfig weaponModuleConfig;
     [SerializeField] private BionicModuleConfig bionicModuleConfig;
+    [SerializeField] private PlayerCharacteristics baseCharacteristics;
 
     public PlayerHealth Health { get; private set; }
     public PlayerGold Gold { get; private set; }
     public PlayerController Controller { get; private set; }
+    public PlayerCharacteristics Characteristics { get; private set; }
 
     private Weapon _currentWeapon;
     private ActiveSkill _activeSkill;
@@ -29,7 +31,6 @@ public class Player : MonoBehaviour
     private InfoInterface _infoInterface;
     private ModulesPanelUI _dynamicInterface;
     private UIManager _uiManager;
-    [SerializeField] private PlayerMovement _movement;
 
     private void Update()
     {
@@ -54,6 +55,7 @@ public class Player : MonoBehaviour
         _uiManager = uiManager;
         _dynamicInterface.Init(this, cameraController, mainCamera, canvas);
         Gold.Init(_infoInterface);
+        SetCharacteristics();
     }
 
     public void SelectWeapon()
@@ -178,6 +180,7 @@ public class Player : MonoBehaviour
                         curModule.UpgradeModule();
                         moduleUpgrader.SetWasUsed();
                         _uiManager.SelectadleUI.EnableUpgradeModuleUI(Gold.HasCount(10), moduleUpgrader, GetAllModules());
+                        SetCharacteristics();
                     }
                     break;
             }
@@ -466,11 +469,13 @@ public class Player : MonoBehaviour
     public void AddInstalledBionicModule(BionicModule module)
     {
         _installedBionicModules.Add(module);
+        SetCharacteristics();
     }
 
     public void RemoveInstalledBionicModule(BionicModule bionic)
     {
         _installedBionicModules.Remove(bionic);
+        SetCharacteristics();
     }
 
     private void AddActiveSkill(ActiveSkill skill)
@@ -492,16 +497,21 @@ public class Player : MonoBehaviour
     }
 
 
-    public PlayerMovement GetMovement()
+    private void SetCharacteristics()
     {
-        PlayerMovement movement = new PlayerMovement(_movement);
+        PlayerCharacteristics characteristics = new PlayerCharacteristics(baseCharacteristics);
         InfoForBionicModule info = new InfoForBionicModule();
         foreach (var module in _installedBionicModules)
         {
             info.lvl = module.Level;
-            movement = module.ApplyBehaviour(movement, info);
+            characteristics = module.ApplyBehaviour(characteristics, info);
         }
-        return movement;
+        Characteristics = characteristics;
+        _infoInterface.SetBloodyActiveSkill(characteristics.bloodyActiveSkill);
+        if(characteristics.bloodyActiveSkill)
+        {
+            _infoInterface.SetActiveSkillBloodyPrice(characteristics.activeSkillBloodyPrice);
+        }
     }
 
     

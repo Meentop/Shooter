@@ -171,7 +171,7 @@ MonoBehaviour:
   weaponConfig: {fileID: 11400000, guid: 9e47c26e340d1f44a88c8fe251ae30e7, type: 2}
   weaponModuleConfig: {fileID: 11400000, guid: fd2808706ce919042acf4f109e9a8909, type: 2}
   bionicModuleConfig: {fileID: 11400000, guid: fd43a64f7017b1d4b87eb9a5354715b5, type: 2}
-  _movement:
+  baseCharacteristics:
     movementSpeed: 6
     groundDrag: 10
     jumpStrength: 15
@@ -181,6 +181,7 @@ MonoBehaviour:
     dashDuration: 0.25
     dashReloadTime: 1
     dashCharges: 1
+    bloodyActiveSkill: 0
 --- !u!114 &6655776285994737154
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -228,6 +229,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   player: {fileID: 5417072423963475846}
   cameraController: {fileID: 0}
+  uiManager: {fileID: 0}
+  gameManager: {fileID: 0}
 --- !u!114 &5121611369077538754
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -253,7 +256,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3029f7b0358b87140861e535c5b72d83, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  text: {fileID: 0}
 --- !u!1 &6655776286372067822
 GameObject:
   m_ObjectHideFlags: 0

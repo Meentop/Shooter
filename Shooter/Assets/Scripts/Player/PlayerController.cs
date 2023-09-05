@@ -35,15 +35,15 @@ public class PlayerController : MonoBehaviour, IPauseble
             SpeedControl();
 
             if (_grounded && !_dashing)
-                _rb.drag = _player.GetMovement().groundDrag;
+                _rb.drag = _player.Characteristics.groundDrag;
             else
                 _rb.drag = 0;
 
-            if (_dashTimer < _player.GetMovement().dashReloadTime && _curDashCharges < _player.GetMovement().dashCharges)
+            if (_dashTimer < _player.Characteristics.dashReloadTime && _curDashCharges < _player.Characteristics.dashCharges)
             {
                 _dashTimer += Time.deltaTime;
             }
-            if( _dashTimer >= _player.GetMovement().dashReloadTime && _curDashCharges < _player.GetMovement().dashCharges)
+            if( _dashTimer >= _player.Characteristics.dashReloadTime && _curDashCharges < _player.Characteristics.dashCharges)
             {
                 _dashTimer = 0;
                 _curDashCharges++;
@@ -53,7 +53,7 @@ public class PlayerController : MonoBehaviour, IPauseble
             {
                 Dash();
             }
-            _player.SetDashInfo(_dashTimer / _player.GetMovement().dashReloadTime, _curDashCharges);
+            _player.SetDashInfo(_dashTimer / _player.Characteristics.dashReloadTime, _curDashCharges);
         }
     }
 
@@ -84,15 +84,15 @@ public class PlayerController : MonoBehaviour, IPauseble
 
         if (OnSlope() && !_exitingSlope)
         {
-            _rb.AddForce(20f * _player.GetMovement().movementSpeed * GetSlopeMoveDirection(), ForceMode.Force);
+            _rb.AddForce(20f * _player.Characteristics.movementSpeed * GetSlopeMoveDirection(), ForceMode.Force);
 
             if (_moveDirection != Vector3.zero)
                 _rb.AddForce(Vector3.down * 80f, ForceMode.Force);
         }
         else if (_grounded)
-            _rb.AddForce(20f * _player.GetMovement().movementSpeed * _moveDirection, ForceMode.Force);
+            _rb.AddForce(20f * _player.Characteristics.movementSpeed * _moveDirection, ForceMode.Force);
         else if(!_grounded)
-            _rb.AddForce(20f * _player.GetMovement().airMultiplayer * _player.GetMovement().movementSpeed * _moveDirection, ForceMode.Force);
+            _rb.AddForce(20f * _player.Characteristics.airMultiplayer * _player.Characteristics.movementSpeed * _moveDirection, ForceMode.Force);
 
         _rb.useGravity = !OnSlope();
     }
@@ -103,15 +103,15 @@ public class PlayerController : MonoBehaviour, IPauseble
         {
             if (OnSlope() && !_exitingSlope)
             {
-                if (_rb.velocity.magnitude > _player.GetMovement().movementSpeed)
-                    _rb.velocity = _rb.velocity.normalized * _player.GetMovement().movementSpeed;
+                if (_rb.velocity.magnitude > _player.Characteristics.movementSpeed)
+                    _rb.velocity = _rb.velocity.normalized * _player.Characteristics.movementSpeed;
             }
             else
             {
                 Vector3 flatVel = new Vector3(_rb.velocity.x, 0, _rb.velocity.z);
-                if (flatVel.magnitude > _player.GetMovement().movementSpeed)
+                if (flatVel.magnitude > _player.Characteristics.movementSpeed)
                 {
-                    Vector3 limitedVel = flatVel.normalized * _player.GetMovement().movementSpeed;
+                    Vector3 limitedVel = flatVel.normalized * _player.Characteristics.movementSpeed;
                     _rb.velocity = new Vector3(limitedVel.x, _rb.velocity.y, limitedVel.z);
                 }
             }
@@ -123,7 +123,7 @@ public class PlayerController : MonoBehaviour, IPauseble
         _exitingSlope = true;
         _rb.velocity = new Vector3(_rb.velocity.x, 0f, _rb.velocity.z);
 
-        _rb.AddForce(transform.up * _player.GetMovement().jumpStrength, ForceMode.Impulse);
+        _rb.AddForce(transform.up * _player.Characteristics.jumpStrength, ForceMode.Impulse);
     }
 
     private void ResetJump()
@@ -136,7 +136,7 @@ public class PlayerController : MonoBehaviour, IPauseble
         if(Physics.Raycast(transform.position, Vector3.down, out _slopeHit, 1.4f))
         {
             float angle = Vector3.Angle(Vector3.up, _slopeHit.normal);
-            return angle < _player.GetMovement().maxSlopeAngle && angle != 0;
+            return angle < _player.Characteristics.maxSlopeAngle && angle != 0;
         }
         return false;
     }
@@ -159,14 +159,14 @@ public class PlayerController : MonoBehaviour, IPauseble
         _curDashCharges--;
         _dashing = true;
         _dashTimer = 0;
-        float dashTimer = _player.GetMovement().dashDuration;
+        float dashTimer = _player.Characteristics.dashDuration;
         _rb.velocity = new Vector3(_rb.velocity.x, 0, _rb.velocity.z);
         _rb.useGravity = false;
         while (dashTimer > 0)
         {
             if (!PauseManager.Pause)
             {
-                Vector3 dashDirection = transform.TransformDirection(direction) * _player.GetMovement().dashStrength;
+                Vector3 dashDirection = transform.TransformDirection(direction) * _player.Characteristics.dashStrength;
                 _rb.velocity = new Vector3(dashDirection.x, _rb.velocity.y, dashDirection.z);
                 dashTimer -= Time.fixedDeltaTime;
             }

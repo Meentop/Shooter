@@ -281,7 +281,8 @@ public class SelectableUI : MonoBehaviour
         float topViewPos = CalculatePositionInView(moduleHolderTopPoint, modulesHolder);
         float bottomViewPos = CalculatePositionInView(moduleHolderBottomPoint, modulesHolder);
 
-        AdjustModulesListPosition(modulesHolder, module, modulePos, topViewPos, bottomViewPos);
+        if (Mathf.Abs(moduleHolderBottomPoint.anchoredPosition.y - moduleHolderTopPoint.anchoredPosition.y) < modulesHolder.sizeDelta.y)
+            AdjustModulesListPosition(modulesHolder, module, modulePos, topViewPos, bottomViewPos);
     }
 
     private float CalculatePositionInModuleList(RectTransform module, RectTransform modulesHolder)

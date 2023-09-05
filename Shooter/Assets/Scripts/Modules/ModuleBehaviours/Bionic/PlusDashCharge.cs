@@ -6,7 +6,7 @@ public class PlusDashCharge : BionicModuleBehaviour
 {
     [SerializeField] private float[] addDashReload;
 
-    public override PlayerMovement ApplyBehaviour(PlayerMovement movement, InfoForBionicModule info)
+    public override PlayerCharacteristics ApplyBehaviour(PlayerCharacteristics movement, InfoForBionicModule info)
     {
         movement.dashCharges += 1;
         movement.dashReloadTime += addDashReload[info.lvl];

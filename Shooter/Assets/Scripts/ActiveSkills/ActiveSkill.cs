@@ -42,14 +42,17 @@ public abstract class ActiveSkill : MonoBehaviour, ISelectableItem
 
     public void Activate()
     {
-        if (curDamageTimer >= damageToReload)
+        if (!player.Characteristics.bloodyActiveSkill && curDamageTimer >= damageToReload)
         {
             OnActivated();
             curDamageTimer = 0;
             UpdateUI();
         }
-        else
-            print("need damage");
+        else if(player.Characteristics.bloodyActiveSkill)
+        {
+            player.Health.GetDamage(new DamageData(player.Characteristics.activeSkillBloodyPrice));
+            OnActivated();
+        }
     }
 
     protected abstract void OnActivated();

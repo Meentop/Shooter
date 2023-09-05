@@ -13,4 +13,5 @@ MonoBehaviour:
   m_Name: BionicModuleConfig
   m_EditorClassIdentifier: 
   modules:
+  - {fileID: 3083144990236766652, guid: 6ee75f05dfc3622418ab484e58565ba9, type: 3}
   - {fileID: 3083144990236766652, guid: 20e21174cf671ae4c826bca55e0b14f4, type: 3}

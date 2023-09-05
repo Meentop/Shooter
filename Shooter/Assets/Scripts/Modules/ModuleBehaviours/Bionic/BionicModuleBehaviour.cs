@@ -5,5 +5,5 @@ using UnityEngine;
 [System.Serializable]
 public abstract class BionicModuleBehaviour : ModuleBehaviour
 {
-    public abstract PlayerMovement ApplyBehaviour(PlayerMovement movement, InfoForBionicModule info);
+    public abstract PlayerCharacteristics ApplyBehaviour(PlayerCharacteristics movement, InfoForBionicModule info);
 }

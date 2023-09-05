@@ -592,6 +592,7 @@ RectTransform:
   m_Children:
   - {fileID: 9101969019712966318}
   - {fileID: 6279258624675575694}
+  - {fileID: 5787165474918200175}
   m_Father: {fileID: 3571706909690948380}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -6779,6 +6780,9 @@ MonoBehaviour:
     Description: {fileID: 8878256659167356704}
     DamageToReload: {fileID: 5176040794400296506}
     Price: {fileID: 3126352926015454251}
+  buyHealthPrice: {fileID: 2539884539569640640}
+  buyHealthCount: {fileID: 8786235870073743534}
+  buyHealthWasUsed: {fileID: 7005170193647997815}
   curWeaponDescriptions:
     Image: {fileID: 1740485778611657106}
     NameText: {fileID: 2681478351918527002}
@@ -6810,9 +6814,6 @@ MonoBehaviour:
   moduleUpgraderBuyPanel: {fileID: 4670973212428851450}
   moduleHolderTopPoint: {fileID: 2126819818024943623}
   moduleHolderBottomPoint: {fileID: 7995955848885404235}
-  buyHealthPrice: {fileID: 2539884539569640640}
-  buyHealthCount: {fileID: 8786235870073743534}
-  buyHealthWasUsed: {fileID: 7005170193647997815}
 --- !u!1 &4236051265986607819
 GameObject:
   m_ObjectHideFlags: 0
@@ -7132,6 +7133,82 @@ MonoBehaviour:
   m_ChildScaleWidth: 0
   m_ChildScaleHeight: 0
   m_ReverseArrangement: 0
+--- !u!1 &4332790274431103062
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 5787165474918200175}
+  - component: {fileID: 4701014150383434247}
+  - component: {fileID: 2635611231366472069}
+  m_Layer: 5
+  m_Name: Blood
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 0
+--- !u!224 &5787165474918200175
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4332790274431103062}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children:
+  - {fileID: 3110741961319435762}
+  m_Father: {fileID: 3558922737211348766}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 27.2, y: 27.8}
+  m_SizeDelta: {x: 38.5224, y: 38.5224}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!222 &4701014150383434247
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4332790274431103062}
+  m_CullTransparentMesh: 1
+--- !u!114 &2635611231366472069
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4332790274431103062}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Sprite: {fileID: 21300000, guid: 4b1f71b9aaee7644fa636dbe1f2db889, type: 3}
+  m_Type: 0
+  m_PreserveAspect: 0
+  m_FillCenter: 1
+  m_FillMethod: 4
+  m_FillAmount: 1
+  m_FillClockwise: 1
+  m_FillOrigin: 0
+  m_UseSpriteMesh: 0
+  m_PixelsPerUnitMultiplier: 1
 --- !u!1 &4343843642664233730
 GameObject:
   m_ObjectHideFlags: 0
@@ -8666,6 +8743,85 @@ MonoBehaviour:
     m_VerticalOverflow: 0
     m_LineSpacing: 1
   m_Text: BIONIC MODULE
+--- !u!1 &5295880600190771511
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 3110741961319435762}
+  - component: {fileID: 2657183011916030252}
+  - component: {fileID: 1131446171275546389}
+  m_Layer: 5
+  m_Name: BloodPrice
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &3110741961319435762
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5295880600190771511}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 5787165474918200175}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 36.850136, y: 0}
+  m_SizeDelta: {x: 59.3123, y: 38.522}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!222 &2657183011916030252
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5295880600190771511}
+  m_CullTransparentMesh: 1
+--- !u!114 &1131446171275546389
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5295880600190771511}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5f7201a12d95ffc409449d95f23cf332, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 0.9528302, g: 0.9528302, b: 0.9528302, a: 1}
+  m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_FontData:
+    m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
+    m_FontSize: 14
+    m_FontStyle: 1
+    m_BestFit: 1
+    m_MinSize: 10
+    m_MaxSize: 40
+    m_Alignment: 5
+    m_AlignByGeometry: 0
+    m_RichText: 1
+    m_HorizontalOverflow: 0
+    m_VerticalOverflow: 0
+    m_LineSpacing: 1
+  m_Text: 
 --- !u!1 &5361027832923105874
 GameObject:
   m_ObjectHideFlags: 0
@@ -12426,6 +12582,8 @@ MonoBehaviour:
   goldCount: {fileID: 2193390920285931404}
   activeSkill: {fileID: 3676011843121071867}
   activeSkillReloadIcon: {fileID: 2431750227323545676}
+  activeSkillBlood: {fileID: 4332790274431103062}
+  activeSkillBloodPrice: {fileID: 1131446171275546389}
 --- !u!1 &8099069506872597118
 GameObject:
   m_ObjectHideFlags: 0

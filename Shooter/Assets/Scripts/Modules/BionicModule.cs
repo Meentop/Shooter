@@ -4,7 +4,7 @@ public class BionicModule : Module
 {
     [SerializeField] private BionicModuleBehaviour behaviour;
 
-    public PlayerMovement ApplyBehaviour(PlayerMovement movement, InfoForBionicModule info)
+    public PlayerCharacteristics ApplyBehaviour(PlayerCharacteristics movement, InfoForBionicModule info)
     {
         return behaviour.ApplyBehaviour(movement, info);
     }

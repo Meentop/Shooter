@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [System.Serializable]
-public class PlayerMovement 
+public class PlayerCharacteristics 
 {
-    public PlayerMovement(PlayerMovement movement)
+    public PlayerCharacteristics(PlayerCharacteristics movement)
     {
         movementSpeed = movement.movementSpeed;
         groundDrag = movement.groundDrag;
@@ -16,6 +16,8 @@ public class PlayerMovement
         dashDuration = movement.dashDuration;
         dashReloadTime = movement.dashReloadTime;
         dashCharges = movement.dashCharges;
+        bloodyActiveSkill = movement.bloodyActiveSkill;
+        activeSkillBloodyPrice = movement.activeSkillBloodyPrice;
     }
 
     public float movementSpeed;
@@ -27,4 +29,6 @@ public class PlayerMovement
     public float dashDuration;
     public float dashReloadTime;
     public int dashCharges;
+    public bool bloodyActiveSkill;
+    public int activeSkillBloodyPrice;
 }
