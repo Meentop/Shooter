@@ -373,7 +373,7 @@ GameObject:
   - component: {fileID: 4143810044907168549}
   - component: {fileID: 1738836272041217131}
   m_Layer: 8
-  m_Name: HPBarCanvas
+  m_Name: EnemyHPBar
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

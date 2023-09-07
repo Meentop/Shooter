@@ -5,6 +5,7 @@ using UnityEngine.UI;
 
 public abstract class ActiveSkill : MonoBehaviour, ISelectableItem
 {
+    [SerializeField] private int number;
     [SerializeField] private Sprite sprite;
     [SerializeField] private string title;
     [SerializeField] private string description;
@@ -84,4 +85,6 @@ public abstract class ActiveSkill : MonoBehaviour, ISelectableItem
     {
 
     }
+
+    public int GetNumber() => number;
 }

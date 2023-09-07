@@ -17,8 +17,9 @@ public class Save : MonoBehaviour
         {
             _saveData.currentFlorNumber = floorSpawner.GetFloorCount() + 1;
             _saveData.currentPlayerHP = player.Health.GetHealth();
-            _saveData.freeWeaponModules = player.GetFreeWeaponModulesSave();
             _saveData.gold = player.Gold.GetCount();
+            _saveData.activeSkill = player.GetActiveSkillNumber();
+            _saveData.freeWeaponModules = player.GetFreeWeaponModulesSave();
             _saveData.installedBionicModules = player.GetInstalledBionicModulesSave();
             _saveData.freeBionicModules = player.GetFreeBionicModulesSave();
         }
@@ -44,6 +45,7 @@ public struct SaveData
     public int currentFlorNumber;
     public int currentPlayerHP;
     public int gold;
+    public int activeSkill;
     public List<WeaponSave> weapons;
     public List<WeaponModuleSave> freeWeaponModules;
     public List<BionicModuleSave> installedBionicModules;

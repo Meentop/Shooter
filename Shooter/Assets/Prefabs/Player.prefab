@@ -168,6 +168,7 @@ MonoBehaviour:
   weapons: []
   scrollDelay: 0.4
   selectDistance: 4
+  activeSkillConfig: {fileID: 11400000, guid: cb14f9a6e35f32641a280c9143b29102, type: 2}
   weaponConfig: {fileID: 11400000, guid: 9e47c26e340d1f44a88c8fe251ae30e7, type: 2}
   weaponModuleConfig: {fileID: 11400000, guid: fd2808706ce919042acf4f109e9a8909, type: 2}
   bionicModuleConfig: {fileID: 11400000, guid: fd43a64f7017b1d4b87eb9a5354715b5, type: 2}

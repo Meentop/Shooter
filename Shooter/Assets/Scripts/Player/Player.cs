@@ -10,6 +10,7 @@ public class Player : MonoBehaviour
     [SerializeField] private Weapon[] weapons;
     [SerializeField] private float scrollDelay;
     [SerializeField] private float selectDistance = 4f;
+    [SerializeField] private ActiveSkillConfig activeSkillConfig;
     [SerializeField] private WeaponConfig weaponConfig;
     [SerializeField] private WeaponModuleConfig weaponModuleConfig;
     [SerializeField] private BionicModuleConfig bionicModuleConfig;
@@ -142,8 +143,10 @@ public class Player : MonoBehaviour
                     Module selectModule = _lastSavedSelectableItem as Module;
                     if (Gold.HasCount(selectModule.GetPrice()))
                     {
-                        if (selectModule.transform.parent.parent.TryGetComponent<WeaponModuleAward>(out var modifierAward))
-                            modifierAward.DeleteOtherModifiers(selectModule.transform.parent);
+                        if (selectModule.transform.parent.parent.TryGetComponent<WeaponModuleAward>(out var weaponModuleAward))
+                            weaponModuleAward.DeleteOtherModules(selectModule.transform.parent);
+                        if (selectModule.transform.parent.parent.TryGetComponent<BionicModuleAward>(out var bionicModuleAward))
+                            bionicModuleAward.DeleteOtherModules(selectModule.transform.parent);
                         Gold.Remove(selectModule.GetPrice());
                         AddFreeModule(selectModule);
                         if (!selectModule.undestroyable)
@@ -360,6 +363,7 @@ public class Player : MonoBehaviour
         }
         return modules;
     }
+
     public List<BionicModuleSave> GetFreeBionicModulesSave()
     {
         List<BionicModuleSave> modules = new List<BionicModuleSave>();
@@ -368,6 +372,11 @@ public class Player : MonoBehaviour
             modules.Add(module.GetSave());
         }
         return modules;
+    }
+
+    public int GetActiveSkillNumber()
+    {
+        return _activeSkill.GetNumber();
     }
 
 
@@ -403,6 +412,11 @@ public class Player : MonoBehaviour
             weaponModule.SetLevel(module.level);
             _freeWeaponModules.Add(weaponModule);
         }
+    }
+
+    public void LoadActiveSkill(int number)
+    {
+        AddActiveSkill(activeSkillConfig.ActiveSkills[number]);
     }
 
     public void LoadInstalledBionicModules(List<BionicModuleSave> modules)
