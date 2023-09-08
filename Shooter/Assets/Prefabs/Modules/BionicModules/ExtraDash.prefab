@@ -123,13 +123,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3f0473998db1f984ebf88df65cced5df, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  number: 1
   sprite: {fileID: 0}
   title: Extra dash
-  description: Plus dash charge, but increased dash recharge time
   price: 20
   undestroyable: 0
   behaviour: {fileID: 6804177752906062789}
+  config: {fileID: 11400000, guid: fd43a64f7017b1d4b87eb9a5354715b5, type: 2}
 --- !u!114 &6804177752906062789
 MonoBehaviour:
   m_ObjectHideFlags: 0

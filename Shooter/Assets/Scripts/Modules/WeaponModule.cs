@@ -3,6 +3,7 @@ using UnityEngine;
 public class WeaponModule : Module
 {
     [SerializeField] private WeaponModuleBehaviour behaviour;
+    [SerializeField] private WeaponModuleConfig config;
 
     public DamageData ApplyBehaviour(DamageData damageData, InfoForWeaponModule info)
     {
@@ -18,7 +19,7 @@ public class WeaponModule : Module
     {
         WeaponModuleSave weaponModuleSave = new WeaponModuleSave
         {
-            number = number,
+            number = config.GetIndex(this),
             level = Level
         };
         return weaponModuleSave;

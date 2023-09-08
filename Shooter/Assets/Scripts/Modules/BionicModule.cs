@@ -3,6 +3,7 @@ using UnityEngine;
 public class BionicModule : Module
 {
     [SerializeField] private BionicModuleBehaviour behaviour;
+    [SerializeField] private BionicModuleConfig config;
 
     public PlayerCharacteristics ApplyBehaviour(PlayerCharacteristics movement, InfoForBionicModule info)
     {
@@ -18,7 +19,7 @@ public class BionicModule : Module
     {
         BionicModuleSave moduleSave = new BionicModuleSave
         {
-            number = number,
+            number = config.GetIndex(this),
             level = Level
         };
         return moduleSave;

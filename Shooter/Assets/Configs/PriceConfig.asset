@@ -12,10 +12,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7ac5b0fba710d1743b0b6c4527a8970e, type: 3}
   m_Name: PriceConfig
   m_EditorClassIdentifier: 
+  levelMultipliers:
+  - 1
+  - 1.5
+  - 2
   weapons: c80000002c0100002c010000
-  weaponModules: 6400000096000000c8000000
-  bionicModules: c80000002c01000090010000
+  weaponModule: 100
+  bionicModule: 200
   activeSkill: c80000002c010000fa000000
-  weaponUpgrades: c80000002c01000090010000
-  weaponModuleUpgrades: 6400000096000000c8000000
-  bionicModuleUpgrades: 96000000c8000000fa000000
+  weaponUpgrade: 150
+  weaponModuleUpgrade: 100
+  bionicModuleUpgrade: 150

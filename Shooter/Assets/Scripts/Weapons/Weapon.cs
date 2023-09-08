@@ -8,7 +8,6 @@ public abstract class Weapon : MonoBehaviour, ISelectableItem
     [SerializeField] protected ParticleSystem decalPrefab;
     [SerializeField] private Collider boxCollider;
     [Space]
-    [SerializeField] private int number;
     [SerializeField] protected Sprite sprite;
     [SerializeField] protected string weaponName;
     [SerializeField] private bool canSprayed;
@@ -17,6 +16,7 @@ public abstract class Weapon : MonoBehaviour, ISelectableItem
     [SerializeField] protected Vector3 weaponOnCollectRot;
     [SerializeField] private int price;
     [SerializeField] private int[] upgradePrices;
+    [SerializeField] private WeaponConfig config;
 
     protected int maxNumberOfModules = 1;
     protected int level = 0;
@@ -253,7 +253,7 @@ public abstract class Weapon : MonoBehaviour, ISelectableItem
         }
         WeaponSave weaponSave = new WeaponSave
         {
-            number = number,
+            number = config.GetIndex(this),
             level = level,
             modules = modules
         };

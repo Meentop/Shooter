@@ -376,7 +376,7 @@ public class Player : MonoBehaviour
 
     public int GetActiveSkillNumber()
     {
-        return _activeSkill.GetNumber();
+        return activeSkillConfig.GetIndex(_activeSkill);
     }
 
 
@@ -427,6 +427,7 @@ public class Player : MonoBehaviour
             bionicnModule.SetLevel(module.level);
             _installedBionicModules.Add(bionicnModule);
         }
+        SetCharacteristics();
     }
 
     public void LoadFreeBionicModules(List<BionicModuleSave> modules)
