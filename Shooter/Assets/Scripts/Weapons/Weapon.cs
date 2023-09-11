@@ -7,6 +7,7 @@ public abstract class Weapon : MonoBehaviour, ISelectableItem
     [SerializeField] protected ParticleSystem shootEffect;
     [SerializeField] protected ParticleSystem decalPrefab;
     [SerializeField] private Collider boxCollider;
+    [SerializeField] protected GameObject crossheir;
     [Space]
     [SerializeField] protected Sprite sprite;
     [SerializeField] protected string weaponName;
@@ -82,6 +83,7 @@ public abstract class Weapon : MonoBehaviour, ISelectableItem
         gameObject.layer = LayerMask.NameToLayer("Weapon");
         _infoInterface = infoInterface;
         _infoInterface.SetWeaponIcon(sprite, selectedWeapon);
+        _infoInterface.SetWeaponCrossheir(crossheir);
         _playerDamage = _player.GetComponent<PlayerDamage>();
 
         _isInited = true;
@@ -198,6 +200,11 @@ public abstract class Weapon : MonoBehaviour, ISelectableItem
     public int GetModulesCount() => _weaponModules.Count;
 
     public WeaponModule GetModule(int index) => _weaponModules[index];
+
+    public GameObject GetWeaponCrossheir()
+    {
+        return crossheir;
+    }
 
     public void AddModule(WeaponModule module)
     {

@@ -5127,13 +5127,13 @@ MonoBehaviour:
   shootEffect: {fileID: 3161802147564303021}
   decalPrefab: {fileID: 198000010535933408, guid: f55c9bf640b6fd34aa8924a3dc6673dd, type: 3}
   boxCollider: {fileID: 7729926444301364067}
+  crossheir: {fileID: 8042525474897846806, guid: 3728d9438fb3a1b4cb05aceb037de13d, type: 3}
   sprite: {fileID: 21300000, guid: 4f3012bd5d70cd841b352ad5afdb9c3c, type: 3}
   weaponName: Shotgun
   canSprayed: 0
   damage: 0a0000000d00000010000000
   firingSpeed: 0.5
   weaponOnCollectRot: {x: -90, y: 180, z: 0}
-  price: 30
   upgradePrices: 1e00000028000000
   config: {fileID: 11400000, guid: 9e47c26e340d1f44a88c8fe251ae30e7, type: 2}
   pelletsCount: 5

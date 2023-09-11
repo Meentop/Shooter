@@ -1,4 +1,3 @@
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -6,6 +5,7 @@ public class InfoInterface : MonoBehaviour
 {
     [SerializeField] private Image[] weaponsIcon;
     [SerializeField] private Image[] weaponsIconHoldear;
+    [SerializeField] private GameObject weaponCrossheir;
     [SerializeField] private Color activeWeaponColor;
     [SerializeField] private Color inactiveWeaponColor;
     [SerializeField] private Image dashReloadIcon;
@@ -56,5 +56,15 @@ public class InfoInterface : MonoBehaviour
     public void SetActiveSkillBloodyPrice(int price)
     {
         activeSkillBloodPrice.text = price.ToString();
+    }
+
+    public void SetWeaponCrossheir(GameObject crossheir)
+    {
+        //if (weaponCrossheir != null)
+        {
+            Destroy(weaponCrossheir);
+        }
+        weaponCrossheir = Instantiate(crossheir, transform);
+
     }
 }

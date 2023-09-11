@@ -91,6 +91,7 @@ public class Player : MonoBehaviour
         _currentWeapon.transform.gameObject.SetActive(true);
         _infoInterface.SetActiveWeaponIcon(false, CollectionsExtensions.GetNextIndex(weapons, _selectedWeaponSlot));
         _infoInterface.SetActiveWeaponIcon(true, _selectedWeaponSlot);
+        _infoInterface.SetWeaponCrossheir(_currentWeapon.GetWeaponCrossheir());
     }
 
     private void InputScrollWeapon()
@@ -162,6 +163,7 @@ public class Player : MonoBehaviour
         _currentWeapon = weapons[0];
         weapons[1].transform.gameObject.SetActive(false);
         _infoInterface.SetActiveWeaponIcon(true, 0);
+        _infoInterface.SetWeaponCrossheir(_currentWeapon.GetWeaponCrossheir());
     }
 
     public List<WeaponModule> GetFreeWeaponModules() => _freeWeaponModules;

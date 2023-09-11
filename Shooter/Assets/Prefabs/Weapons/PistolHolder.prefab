@@ -103,13 +103,13 @@ MonoBehaviour:
   shootEffect: {fileID: 6800809668263106250}
   decalPrefab: {fileID: 198000010535933408, guid: f55c9bf640b6fd34aa8924a3dc6673dd, type: 3}
   boxCollider: {fileID: 4599686081341117006}
+  crossheir: {fileID: 8042525474897846806, guid: 427413f7c8be596429352a8f36077ca4, type: 3}
   sprite: {fileID: 21300000, guid: 44b9de42941a2734d80bc4bb2f45f09b, type: 3}
   weaponName: Pistol
   canSprayed: 0
   damage: 14000000190000001e000000
   firingSpeed: 0.3
   weaponOnCollectRot: {x: 0, y: 0, z: 0}
-  price: 20
   upgradePrices: 1e00000028000000
   config: {fileID: 11400000, guid: 9e47c26e340d1f44a88c8fe251ae30e7, type: 2}
 --- !u!65 &4599686081341117006
