@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Net.Sockets;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -123,7 +124,7 @@ public class SelectableUI : MonoBehaviour
 
     //Weapon Upgrade
 
-    public void UpdateUpgradeWeaponUI(bool hasGold, WeaponUpgradeAward upgrader, Weapon weapon)
+    public void UpdateUpgradeWeaponUI(int price, bool hasGold, WeaponUpgradeAward upgrader, Weapon weapon)
     {
         curWeaponDescriptions.Image.sprite = weapon.GetSprite();
         curWeaponDescriptions.NameText.text = weapon.GetName();
@@ -175,7 +176,7 @@ public class SelectableUI : MonoBehaviour
         {
             Instantiate(hollowModuleHolderPrefab, upgradedWeaponDescriptions.ModulesHolder);
         }
-        upgradedWeaponDescriptions.PriceText.text = weapon.GetUpgradePrice().ToString();
+        upgradedWeaponDescriptions.PriceText.text = price.ToString();
         upgradedWeaponDescriptions.PriceText.color = hasGold ? normalBuyColor : notEnoughColor;
     }
 
@@ -204,13 +205,13 @@ public class SelectableUI : MonoBehaviour
     }
 
     
-    public void UpdateUpgradeModuleUI(ModuleUpgradeAward upgrader)
+    public void UpdateUpgradeModuleUI(PriceConfig priceConfig, ModuleUpgradeAward upgrader)
     {
         if (hollowModules.Count > 0 && !upgrader.IsUsed())
         {
             DisableAllModules();
             SelectNextOrPreviousModule();
-            DisplaySelectedModuleInfo(upgrader);
+            DisplaySelectedModuleInfo(priceConfig);
 
             SetModulesListPosition();
 
@@ -247,16 +248,20 @@ public class SelectableUI : MonoBehaviour
         }
     }
 
-    private void DisplaySelectedModuleInfo(ModuleUpgradeAward upgrader)
+    private void DisplaySelectedModuleInfo(PriceConfig priceConfig)
     {
         Module selectedModule = hollowModules[selectedModuleIndex].Module;
         upgradedModuleInfo.Image.sprite = selectedModule.GetSprite();
+
+        int modulePrice = 0;
+        if (selectedModule is WeaponModule) modulePrice = priceConfig.GetWeaponModuleUpgradePrice(selectedModule.Level);
+        if (selectedModule is BionicModule) modulePrice = priceConfig.GetBionicModuleUpgradePrice(selectedModule.Level);
 
         if (selectedModule.CouldBeUpgraded())
         {
             upgradedModuleInfo.Title.text = selectedModule.GetTitle(selectedModule.Level + 1);
             upgradedModuleInfo.Description.text = selectedModule.GetDescription(selectedModule.Level + 1);
-            upgradedModuleInfo.Price.text = "10";
+            upgradedModuleInfo.Price.text = modulePrice.ToString();
         }
         else
         {
