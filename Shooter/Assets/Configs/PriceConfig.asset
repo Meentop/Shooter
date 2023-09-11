@@ -16,10 +16,11 @@ MonoBehaviour:
   - 1
   - 1.5
   - 2
-  weapons: c80000002c0100002c010000
+  weapons: 00000000c80000002c0100002c010000
   weaponModule: 100
   bionicModule: 200
-  activeSkill: c80000002c010000fa000000
-  weaponUpgrade: 150
+  activeSkill: 00000000c80000002c010000fa000000
+  weaponUpgrades: 0000000096000000e1000000e1000000
   weaponModuleUpgrade: 100
   bionicModuleUpgrade: 150
+  healingPrice: 200

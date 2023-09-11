@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: ActiveSkillConfig
   m_EditorClassIdentifier: 
   activeSkills:
+  - {fileID: 553038708061052321, guid: 0e2940562efae304a87ab415ab85e8c7, type: 3}
   - {fileID: 3854386597996586991, guid: 2b8b66a6dea543646bb7a1b6b150ab51, type: 3}
   - {fileID: 1007505786574999185, guid: fc3e32492b824264fb78cc3a8ad6a97e, type: 3}
   - {fileID: 6172488291766563658, guid: 982d04bc5f2929442a0457704dd53911, type: 3}

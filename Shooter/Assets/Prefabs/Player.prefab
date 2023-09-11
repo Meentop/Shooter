@@ -44,6 +44,8 @@ GameObject:
   - component: {fileID: 2031550109969213181}
   - component: {fileID: 6655776285994737161}
   - component: {fileID: 5417072423963475846}
+  - component: {fileID: 7942317274221711393}
+  - component: {fileID: 1691717333392774748}
   - component: {fileID: 6655776285994737154}
   - component: {fileID: 5440067626376647844}
   - component: {fileID: 4046690061827201452}
@@ -167,7 +169,6 @@ MonoBehaviour:
   targetLook: {fileID: 0}
   weapons: []
   scrollDelay: 0.4
-  selectDistance: 4
   activeSkillConfig: {fileID: 11400000, guid: cb14f9a6e35f32641a280c9143b29102, type: 2}
   weaponConfig: {fileID: 11400000, guid: 9e47c26e340d1f44a88c8fe251ae30e7, type: 2}
   weaponModuleConfig: {fileID: 11400000, guid: fd2808706ce919042acf4f109e9a8909, type: 2}
@@ -185,6 +186,40 @@ MonoBehaviour:
     dashCharges: 1
     bloodyActiveSkill: 0
     activeSkillBloodyPrice: 0
+--- !u!114 &7942317274221711393
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6655776285994737160}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 47bb411208a087e4ba0f9a5d8c026fc1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  selectDistance: 4
+  priceConfig: {fileID: 11400000, guid: 1cb4ea25211afdf4296778537018ba38, type: 2}
+  weaponConfig: {fileID: 11400000, guid: 9e47c26e340d1f44a88c8fe251ae30e7, type: 2}
+  weaponModuleConfig: {fileID: 11400000, guid: fd2808706ce919042acf4f109e9a8909, type: 2}
+  bionicModuleConfig: {fileID: 11400000, guid: fd43a64f7017b1d4b87eb9a5354715b5, type: 2}
+  activeSkillConfig: {fileID: 11400000, guid: cb14f9a6e35f32641a280c9143b29102, type: 2}
+--- !u!114 &1691717333392774748
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6655776285994737160}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 124d3f940dad7be4185ee79db64b191f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  activeSkillConfig: {fileID: 11400000, guid: cb14f9a6e35f32641a280c9143b29102, type: 2}
+  weaponConfig: {fileID: 11400000, guid: 9e47c26e340d1f44a88c8fe251ae30e7, type: 2}
+  weaponModuleConfig: {fileID: 11400000, guid: fd2808706ce919042acf4f109e9a8909, type: 2}
+  bionicModuleConfig: {fileID: 11400000, guid: fd43a64f7017b1d4b87eb9a5354715b5, type: 2}
 --- !u!114 &6655776285994737154
 MonoBehaviour:
   m_ObjectHideFlags: 0

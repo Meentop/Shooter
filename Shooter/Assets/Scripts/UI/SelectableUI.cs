@@ -65,7 +65,7 @@ public class SelectableUI : MonoBehaviour
 
     //New Weapon
 
-    public void UpdateNewWeaponUI(bool hasGold, Weapon weapon)
+    public void UpdateNewWeaponUI(int price, bool hasGold, Weapon weapon)
     {
         newWeaponDescriptions.BuyPanel.SetActive(!weapon.Bought);
         newWeaponDescriptions.Image.sprite = weapon.GetSprite();
@@ -80,13 +80,13 @@ public class SelectableUI : MonoBehaviour
         {
             Instantiate(hollowModuleHolderPrefab, newWeaponDescriptions.ModulesHolder);
         }
-        newWeaponDescriptions.PriceText.text = weapon.GetPrice().ToString();
+        newWeaponDescriptions.PriceText.text = price.ToString();
         newWeaponDescriptions.PriceText.color = hasGold ? normalBuyColor : notEnoughColor;
     }
 
     //New Module
 
-    public void UpdateNewModuleUI(bool hasGold, Module module)
+    public void UpdateNewModuleUI(int price, bool hasGold, Module module)
     {
         if (module.GetType() == typeof(WeaponModule))
             newModuleInfo.Type.text = "WEAPON MODULE";
@@ -95,27 +95,27 @@ public class SelectableUI : MonoBehaviour
         newModuleInfo.Image.sprite = module.GetSprite();
         newModuleInfo.Title.text = module.GetTitle(module.Level);
         newModuleInfo.Description.text = module.GetDescription(module.Level);
-        newModuleInfo.Price.text = module.GetPrice().ToString();
+        newModuleInfo.Price.text = price.ToString();
         newModuleInfo.Price.color = hasGold ? normalBuyColor : notEnoughColor;
     }
 
     //New Active Skill
 
-    public void UpdateNewActiveSkillUI(bool hasGold, ActiveSkill skill)
+    public void UpdateNewActiveSkillUI(int price, bool hasGold, ActiveSkill skill)
     {
         newActiveSkillInfo.Image.sprite = skill.GetSprite();
         newActiveSkillInfo.Title.text = skill.GetTitle();
         newActiveSkillInfo.Description.text = skill.GetDescription();
         newActiveSkillInfo.DamageToReload.text = "Damage to reload: " + skill.GetDamagaeToReturn().ToString();
-        newActiveSkillInfo.Price.text = skill.GetPrice().ToString();
+        newActiveSkillInfo.Price.text = price.ToString();
         newActiveSkillInfo.Price.color = hasGold ? normalBuyColor : notEnoughColor;
     }
 
     //Buy health
 
-    public void UpdateBuyHealthUI(bool hasGold, HealthAward healthAward)
+    public void UpdateBuyHealthUI(int price, bool hasGold, HealthAward healthAward)
     {
-        buyHealthPrice.text = healthAward.GetPrice().ToString();
+        buyHealthPrice.text = price.ToString();
         buyHealthPrice.color = hasGold ? normalBuyColor : notEnoughColor;
         buyHealthCount.text = healthAward.GetAddHealth().ToString();
         buyHealthWasUsed.SetActive(healthAward.IsUsed());

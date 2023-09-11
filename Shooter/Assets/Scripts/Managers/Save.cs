@@ -18,10 +18,10 @@ public class Save : MonoBehaviour
             _saveData.currentFlorNumber = floorSpawner.GetFloorCount() + 1;
             _saveData.currentPlayerHP = player.Health.GetHealth();
             _saveData.gold = player.Gold.GetCount();
-            _saveData.activeSkill = player.GetActiveSkillNumber();
-            _saveData.freeWeaponModules = player.GetFreeWeaponModulesSave();
-            _saveData.installedBionicModules = player.GetInstalledBionicModulesSave();
-            _saveData.freeBionicModules = player.GetFreeBionicModulesSave();
+            _saveData.activeSkill = player.SaveLoadManager.GetActiveSkillNumber();
+            _saveData.freeWeaponModules = player.SaveLoadManager.GetFreeWeaponModulesSave();
+            _saveData.installedBionicModules = player.SaveLoadManager.GetInstalledBionicModulesSave();
+            _saveData.freeBionicModules = player.SaveLoadManager.GetFreeBionicModulesSave();
         }
         else if(SceneManager.GetActiveScene() == SceneManager.GetSceneByName("Hub"))
         {
@@ -29,7 +29,7 @@ public class Save : MonoBehaviour
             _saveData.currentPlayerHP = player.Health.GetMaxHealth();
         }
 
-        _saveData.weapons = player.GetWeaponSaves();
+        _saveData.weapons = player.SaveLoadManager.GetWeaponSaves();
 
         string json = JsonUtility.ToJson(_saveData);
         string filePath = Path.Combine(Application.persistentDataPath, fileName);

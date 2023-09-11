@@ -1,6 +1,8 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Diagnostics;
+using System.Net.Sockets;
 using UnityEngine;
 
 public class Player : MonoBehaviour
@@ -9,7 +11,6 @@ public class Player : MonoBehaviour
     [SerializeField] private Transform targetLook;
     [SerializeField] private Weapon[] weapons;
     [SerializeField] private float scrollDelay;
-    [SerializeField] private float selectDistance = 4f;
     [SerializeField] private ActiveSkillConfig activeSkillConfig;
     [SerializeField] private WeaponConfig weaponConfig;
     [SerializeField] private WeaponModuleConfig weaponModuleConfig;
@@ -20,12 +21,13 @@ public class Player : MonoBehaviour
     public PlayerGold Gold { get; private set; }
     public PlayerController Controller { get; private set; }
     public PlayerCharacteristics Characteristics { get; private set; }
+    public PlayerInteractionManager InteractionManager { get; private set; }
+    public PlayerSaveLoadManager SaveLoadManager { get; private set; }
 
     private Weapon _currentWeapon;
     private ActiveSkill _activeSkill;
     private int _selectedWeaponSlot;
     private bool _isScrolling;
-    private ISelectableItem _lastSavedSelectableItem;
     private List<WeaponModule> _freeWeaponModules = new List<WeaponModule>();
     private List<BionicModule> _freeBionicModules = new List<BionicModule>();
     private List<BionicModule> _installedBionicModules = new List<BionicModule>();
@@ -40,8 +42,6 @@ public class Player : MonoBehaviour
             SelectWeapon();
             InputScrollWeapon();
             UseActiveSkill();
-            SelectableItemsDetection();
-            SelectItem();
         }
     }
 
@@ -50,6 +50,8 @@ public class Player : MonoBehaviour
         Health = GetComponent<PlayerHealth>();
         Gold = GetComponent<PlayerGold>();
         Controller = GetComponent<PlayerController>();
+        InteractionManager = GetComponent<PlayerInteractionManager>();
+        SaveLoadManager = GetComponent<PlayerSaveLoadManager>();
         _currentWeapon = weapons[0];
         _infoInterface = uiManager.InfoInterface;
         _dynamicInterface = uiManager.ModulesPanel;
@@ -57,6 +59,8 @@ public class Player : MonoBehaviour
         _dynamicInterface.Init(this, cameraController, mainCamera, canvas);
         Gold.Init(_infoInterface);
         SetCharacteristics();
+        InteractionManager.Init(this, _uiManager);
+        SaveLoadManager.Init(this);
     }
 
     public void SelectWeapon()
@@ -79,7 +83,7 @@ public class Player : MonoBehaviour
         if (weaponToSwap == _currentWeapon)
             return;
 
-        if (_lastSavedSelectableItem != null && _lastSavedSelectableItem as ModuleUpgradeAward)
+        if (InteractionManager.IsOverModuleUpgrade())
             return;
 
         _currentWeapon.transform.gameObject.SetActive(false);
@@ -117,205 +121,6 @@ public class Player : MonoBehaviour
         _isScrolling = false;
     }
 
-    private void SelectItem()
-    {
-        if (Input.GetKeyDown(KeyCode.E) && !PauseManager.Pause)
-        {
-            if (_lastSavedSelectableItem == null)
-                return;
-            
-            switch (_lastSavedSelectableItem.ItemType)
-            {
-                case SelectableItems.Weapon:
-                    Weapon selectWeapon = _lastSavedSelectableItem as Weapon;
-                    if (Gold.HasCount(selectWeapon.GetPrice()) || selectWeapon.Bought)
-                    {
-                        if(!selectWeapon.Bought)
-                            Gold.Remove(selectWeapon.GetPrice());
-                        _currentWeapon.ConnectToStand(selectWeapon.transform.parent.parent);
-                        _currentWeapon = selectWeapon;
-                        weapons[_selectedWeaponSlot] = _currentWeapon;
-                        _currentWeapon.Init(this, weaponHolder, targetLook, _infoInterface, _selectedWeaponSlot);
-                        _currentWeapon.ConectToPlayer();
-                    }
-                    break;
-                case SelectableItems.Module:
-                    Module selectModule = _lastSavedSelectableItem as Module;
-                    if (Gold.HasCount(selectModule.GetPrice()))
-                    {
-                        if (selectModule.transform.parent.parent.TryGetComponent<WeaponModuleAward>(out var weaponModuleAward))
-                            weaponModuleAward.DeleteOtherModules(selectModule.transform.parent);
-                        if (selectModule.transform.parent.parent.TryGetComponent<BionicModuleAward>(out var bionicModuleAward))
-                            bionicModuleAward.DeleteOtherModules(selectModule.transform.parent);
-                        Gold.Remove(selectModule.GetPrice());
-                        AddFreeModule(selectModule);
-                        if (!selectModule.undestroyable)
-                            Destroy(selectModule.gameObject);
-                    }
-                    break;
-                case SelectableItems.ActiveSkill:
-                    ActiveSkill selectSkill = _lastSavedSelectableItem as ActiveSkill;
-                    if (Gold.HasCount(selectSkill.GetPrice()))
-                    {
-                        if (selectSkill.transform.parent.parent.TryGetComponent<ActiveSkillAward>(out var skillAward))
-                            skillAward.DeleteOtherSkills(selectSkill.transform.parent);
-                        Gold.Remove(selectSkill.GetPrice());
-                        AddActiveSkill(selectSkill);
-                        Destroy(selectSkill.gameObject);
-                    }
-                    break;
-                case SelectableItems.WeaponUpgrade:
-                    Weapon curWeapon = weapons[_selectedWeaponSlot];
-                    WeaponUpgradeAward weaponUpgrader = _lastSavedSelectableItem as WeaponUpgradeAward;
-                    if (Gold.HasCount(curWeapon.GetUpgradePrice()) && !weaponUpgrader.IsUsed() && curWeapon.CouldBeUpgraded())
-                    {
-                        Gold.Remove(curWeapon.GetUpgradePrice());
-                        curWeapon.UpgradeWeapon();
-                        weaponUpgrader.SetWasUsed();
-                    }
-                    break;
-                case SelectableItems.ModuleUpgrade:
-                    Module curModule = _uiManager.SelectadleUI.GetSelectedModule();
-                    ModuleUpgradeAward moduleUpgrader = _lastSavedSelectableItem as ModuleUpgradeAward;
-                    if (Gold.HasCount(10) && !moduleUpgrader.IsUsed() && curModule.CouldBeUpgraded())
-                    {
-                        Gold.Remove(10);
-                        curModule.UpgradeModule();
-                        moduleUpgrader.SetWasUsed();
-                        _uiManager.SelectadleUI.EnableUpgradeModuleUI(Gold.HasCount(10), moduleUpgrader, GetAllModules());
-                        SetCharacteristics();
-                    }
-                    break;
-            }
-            _lastSavedSelectableItem.OnSelect(this);
-        }
-    }
-
-    private bool over = false;
-
-    private void SelectableItemsDetection()
-    {
-        if (Physics.Raycast(Camera.main.transform.position, Camera.main.transform.forward, out var hit, selectDistance))
-        {
-            if (hit.collider.TryGetComponent<ISelectableItem>(out var item))
-            {
-                _lastSavedSelectableItem = item;
-                OverChoosableItem();
-                if (!over)
-                {
-                    EnterSelectableItem();
-                    over = true;
-                }
-            }
-            else
-            {
-                NoOverSelectableItem();
-                if (over)
-                {
-                    ExitSelectableItem();
-                    over = false;
-                }
-            }
-        }
-        else
-        {
-            NoOverSelectableItem();
-            if (over)
-            {
-                ExitSelectableItem();
-                over = false;
-            }
-        }
-    }
-
-    private void OverChoosableItem()
-    {
-        if (!_uiManager.SelectadleUI.GetActiveSelectableUI(SelectableUIType.Select))
-            _uiManager.SelectadleUI.SetActiveSelectableUI(SelectableUIType.Select, true);
-        _uiManager.SelectadleUI.SetSelectText(_lastSavedSelectableItem.Text);
-        switch (_lastSavedSelectableItem.ItemType)
-        {
-            case SelectableItems.Weapon:
-                Weapon selectingWeapon = _lastSavedSelectableItem as Weapon;
-                _uiManager.SelectadleUI.UpdateNewWeaponUI(Gold.HasCount(selectingWeapon.GetPrice()), selectingWeapon);
-                break;
-            case SelectableItems.Module:
-                Module selectingModule = _lastSavedSelectableItem as Module; 
-                _uiManager.SelectadleUI.UpdateNewModuleUI(Gold.HasCount(selectingModule.GetPrice()), selectingModule);
-                break;
-            case SelectableItems.ActiveSkill:
-                ActiveSkill selectingSkill = _lastSavedSelectableItem as ActiveSkill;
-                _uiManager.SelectadleUI.UpdateNewActiveSkillUI(Gold.HasCount(selectingSkill.GetPrice()), selectingSkill);
-                break;
-            case SelectableItems.HealthAward:
-                HealthAward healthAward = _lastSavedSelectableItem as HealthAward;
-                _uiManager.SelectadleUI.UpdateBuyHealthUI(Gold.HasCount(healthAward.GetPrice()), healthAward);
-                break;
-            case SelectableItems.WeaponUpgrade:
-                Weapon curWeapon = weapons[_selectedWeaponSlot];
-                WeaponUpgradeAward weapoUpgrader = _lastSavedSelectableItem as WeaponUpgradeAward;
-                _uiManager.SelectadleUI.UpdateUpgradeWeaponUI(Gold.HasCount(curWeapon.GetUpgradePrice()), weapoUpgrader, curWeapon);
-                break;
-            case SelectableItems.ModuleUpgrade:
-                ModuleUpgradeAward moduleUpgrader = _lastSavedSelectableItem as ModuleUpgradeAward;
-                _uiManager.SelectadleUI.UpdateUpgradeModuleUI(moduleUpgrader);
-                break;
-        }
-        SetActiveTextTypes(true);
-    }
-
-    private void NoOverSelectableItem()
-    {
-        if (_uiManager.SelectadleUI.GetActiveSelectableUI(SelectableUIType.Select))
-            _uiManager.SelectadleUI.SetActiveSelectableUI(SelectableUIType.Select, false);
-        if (_lastSavedSelectableItem != null)
-        {
-            SetActiveTextTypes(false);
-            _lastSavedSelectableItem = null;
-        }
-    }
-
-    private void EnterSelectableItem()
-    {
-        switch (_lastSavedSelectableItem.ItemType)
-        {
-            case SelectableItems.ModuleUpgrade:
-                ModuleUpgradeAward moduleUpgrader = _lastSavedSelectableItem as ModuleUpgradeAward;
-                _uiManager.SelectadleUI.EnableUpgradeModuleUI(Gold.HasCount(10), moduleUpgrader, GetAllModules());
-                break;
-        }
-    }
-
-    private void ExitSelectableItem()
-    {
-
-    }
-
-    private void SetActiveTextTypes(bool active)
-    {
-        switch (_lastSavedSelectableItem.ItemType)
-        {
-            case SelectableItems.Weapon:
-                _uiManager.SelectadleUI.SetActiveSelectableUI(SelectableUIType.NewWeapon, active);
-                break;
-            case SelectableItems.Module:
-                _uiManager.SelectadleUI.SetActiveSelectableUI(SelectableUIType.NewModule, active);
-                break;
-            case SelectableItems.ActiveSkill:
-                _uiManager.SelectadleUI.SetActiveSelectableUI(SelectableUIType.NewActiveSkill, active);
-                break;
-            case SelectableItems.HealthAward:
-                _uiManager.SelectadleUI.SetActiveSelectableUI(SelectableUIType.BuyHealth, active);
-                break;
-            case SelectableItems.WeaponUpgrade:
-                _uiManager.SelectadleUI.SetActiveSelectableUI(SelectableUIType.WeaponUpgrade, active);
-                break;
-            case SelectableItems.ModuleUpgrade:
-                _uiManager.SelectadleUI.SetActiveSelectableUI(SelectableUIType.ModuleUpgrade, active);
-                break;
-        }
-    }
-
     private void UseActiveSkill()
     {
         if (Input.GetMouseButtonDown(1) && !PauseManager.Pause)
@@ -334,110 +139,29 @@ public class Player : MonoBehaviour
 
     public Weapon[] GetWeapons() => weapons;
     public Weapon GetSelectedWeapon() => weapons[_selectedWeaponSlot];
-    public List<WeaponSave> GetWeaponSaves()
+    
+
+
+    public void AddWeaponFromStand(Weapon selectWeapon)
     {
-        List<WeaponSave> weapons = new List<WeaponSave>();
-        foreach (var weapon in this.weapons)
-        {
-            weapons.Add(weapon.GetSave());
-        }
-        return weapons;
+        _currentWeapon.ConnectToStand(selectWeapon.transform.parent.parent);
+        _currentWeapon = selectWeapon;
+        weapons[_selectedWeaponSlot] = _currentWeapon;
+        _currentWeapon.Init(this, weaponHolder, targetLook, _infoInterface, _selectedWeaponSlot);
+        _currentWeapon.ConectToPlayer();
     }
 
-    public List<WeaponModuleSave> GetFreeWeaponModulesSave()
+    public void AddWeapon(Weapon weapon, int index)
     {
-        List<WeaponModuleSave> modules = new List<WeaponModuleSave>();
-        foreach (var module in _freeWeaponModules)
-        {
-            modules.Add(module.GetSave());
-        }
-        return modules;
+        weapons[index] = weapon;
+        weapon.Init(this, this.weaponHolder, targetLook, _infoInterface, index);
     }
 
-    public List<BionicModuleSave> GetInstalledBionicModulesSave()
+    public void SetCurrentWeapon()
     {
-        List<BionicModuleSave> modules = new List<BionicModuleSave>();
-        foreach (var module in _installedBionicModules)
-        {
-            modules.Add(module.GetSave());
-        }
-        return modules;
-    }
-
-    public List<BionicModuleSave> GetFreeBionicModulesSave()
-    {
-        List<BionicModuleSave> modules = new List<BionicModuleSave>();
-        foreach (var module in _freeBionicModules)
-        {
-            modules.Add(module.GetSave());
-        }
-        return modules;
-    }
-
-    public int GetActiveSkillNumber()
-    {
-        return activeSkillConfig.GetIndex(_activeSkill);
-    }
-
-
-
-    public void LoadWeapons(List<WeaponSave> weaponSaves)
-    {
-        for (int i = 0; i < weaponSaves.Count; i++)
-        {
-            GameObject weaponHolder = Instantiate(weaponConfig.Weapons[weaponSaves[i].number]);
-            Weapon weapon = weaponHolder.GetComponentInChildren<Weapon>();
-            weapons[i] = weapon;
-            weapon.SetLevel(weaponSaves[i].level);
-            weapon.Init(this, this.weaponHolder, targetLook, _infoInterface, i);
-            weapon.ConectToPlayer();
-
-            foreach (var module in weaponSaves[i].modules)
-            {
-                WeaponModule weaponModule = weaponModuleConfig.Modules[module.number];
-                weaponModule.SetLevel(module.level);
-                weapon.AddModule(weaponModule);
-            }
-        }
         _currentWeapon = weapons[0];
         weapons[1].transform.gameObject.SetActive(false);
         _infoInterface.SetActiveWeaponIcon(true, 0);
-    }
-
-    public void LoadFreeWeaponModules(List<WeaponModuleSave> modules)
-    {
-        foreach (var module in modules)
-        {
-            WeaponModule weaponModule = weaponModuleConfig.Modules[module.number];
-            weaponModule.SetLevel(module.level);
-            _freeWeaponModules.Add(weaponModule);
-        }
-    }
-
-    public void LoadActiveSkill(int number)
-    {
-        AddActiveSkill(activeSkillConfig.ActiveSkills[number]);
-    }
-
-    public void LoadInstalledBionicModules(List<BionicModuleSave> modules)
-    {
-        foreach (var module in modules)
-        {
-            BionicModule bionicnModule = bionicModuleConfig.Modules[module.number];
-            bionicnModule.SetLevel(module.level);
-            _installedBionicModules.Add(bionicnModule);
-        }
-        SetCharacteristics();
-    }
-
-    public void LoadFreeBionicModules(List<BionicModuleSave> modules)
-    {
-        foreach (var module in modules)
-        {
-            BionicModule bionicnModule = bionicModuleConfig.Modules[module.number];
-            bionicnModule.SetLevel(module.level);
-            _freeBionicModules.Add(bionicnModule);
-        }
     }
 
     public List<WeaponModule> GetFreeWeaponModules() => _freeWeaponModules;
@@ -493,7 +217,12 @@ public class Player : MonoBehaviour
         SetCharacteristics();
     }
 
-    private void AddActiveSkill(ActiveSkill skill)
+    public ActiveSkill GetActiveSkill()
+    {
+        return _activeSkill;
+    }
+
+    public void AddActiveSkill(ActiveSkill skill)
     {
         _activeSkill = skill;
         _activeSkill.Init(_uiManager.InfoInterface, Camera.main.transform, this);
@@ -512,7 +241,7 @@ public class Player : MonoBehaviour
     }
 
 
-    private void SetCharacteristics()
+    public void SetCharacteristics()
     {
         PlayerCharacteristics characteristics = new PlayerCharacteristics(baseCharacteristics);
         InfoForBionicModule info = new InfoForBionicModule();

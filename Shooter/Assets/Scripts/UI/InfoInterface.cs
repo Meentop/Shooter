@@ -34,7 +34,7 @@ public class InfoInterface : MonoBehaviour
 
     public void SetGoldCount(int count)
     {
-        goldCount.text = count.ToString("D3");
+        goldCount.text = count.ToString("D4");
     }
 
     public void SetActiveSkillSprite(Sprite sprite)

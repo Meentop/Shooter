@@ -9,7 +9,6 @@ public abstract class ActiveSkill : MonoBehaviour, ISelectableItem
     [SerializeField] private string title;
     [SerializeField] private string description;
     [SerializeField] private int damageToReload;
-    [SerializeField] private int price;
 
     public SelectableItems ItemType => SelectableItems.ActiveSkill;
 
@@ -77,8 +76,6 @@ public abstract class ActiveSkill : MonoBehaviour, ISelectableItem
     public string GetDescription() => description;
 
     public int GetDamagaeToReturn() => damageToReload;
-
-    public int GetPrice() => price;
 
     public void OnSelect(Player player)
     {

@@ -20,11 +20,11 @@ public class Load : MonoBehaviour
             floorSpawner.UpdateFloor(saveData.currentFlorNumber);
             player.Health.SetCurHealth(saveData.currentPlayerHP);
             player.Gold.Add(saveData.gold);
-            player.LoadActiveSkill(saveData.activeSkill);
-            player.LoadWeapons(saveData.weapons);
-            player.LoadFreeWeaponModules(saveData.freeWeaponModules);
-            player.LoadInstalledBionicModules(saveData.installedBionicModules);
-            player.LoadFreeBionicModules(saveData.freeBionicModules);
+            player.SaveLoadManager.LoadActiveSkill(saveData.activeSkill);
+            player.SaveLoadManager.LoadWeapons(saveData.weapons);
+            player.SaveLoadManager.LoadFreeWeaponModules(saveData.freeWeaponModules);
+            player.SaveLoadManager.LoadInstalledBionicModules(saveData.installedBionicModules);
+            player.SaveLoadManager.LoadFreeBionicModules(saveData.freeBionicModules);
         }
         else
         {
@@ -34,7 +34,7 @@ public class Load : MonoBehaviour
                 new WeaponSave { number = 0, level = 0, modules = new List<WeaponModuleSave>() }, 
                 new WeaponSave { number = 0, level = 0, modules = new List<WeaponModuleSave>() } 
             };
-            player.LoadWeapons(weaponSaves);
+            player.SaveLoadManager.LoadWeapons(weaponSaves);
         }
     }
 }

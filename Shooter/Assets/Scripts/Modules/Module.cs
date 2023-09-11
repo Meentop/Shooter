@@ -7,7 +7,6 @@ public abstract class Module : MonoBehaviour, ISelectableItem
 {
     [SerializeField] private Sprite sprite;
     [SerializeField] private string title;
-    [SerializeField] private int price;
     public bool undestroyable = false;
 
     public SelectableItems ItemType => SelectableItems.Module;
@@ -30,7 +29,6 @@ public abstract class Module : MonoBehaviour, ISelectableItem
     public Sprite GetSprite() => sprite;
     public string GetTitle(int lvl) => title + " " + (lvl + 1).ToString() + " lvl";
     public abstract string GetDescription(int lvl);
-    public int GetPrice() => price;
     public bool CouldBeUpgraded() => Level < maxLevel;
 
     public void UpgradeModule()
