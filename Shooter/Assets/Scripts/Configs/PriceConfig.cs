@@ -42,4 +42,20 @@ public class PriceConfig : ScriptableObject
     {
         return (int)(healingPrice * levelMultipliers[lvl]);
     }
+
+    public int GetWeaponUpgradePrice(int weapon, int lvl)
+    {
+        return (int)(weaponUpgrades[weapon] * levelMultipliers[lvl]);
+    }
+
+    public int GetWeaponModuleUpgradePrice(int lvl)
+    {
+        return (int)(weaponModuleUpgrade * levelMultipliers[lvl]);
+    }
+
+    public int GetBionicModuleUpgradePrice(int lvl)
+    {
+        Debug.Log("bionic upgrade");
+        return (int)(bionicModuleUpgrade * levelMultipliers[lvl]);
+    }
 }

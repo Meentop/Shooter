@@ -2619,7 +2619,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: +100
+  m_Text: +1000
 --- !u!1 &1794938851191313215
 GameObject:
   m_ObjectHideFlags: 0
@@ -3182,7 +3182,7 @@ GameObject:
   - component: {fileID: 4999982935454286442}
   - component: {fileID: 7465351203324766175}
   m_Layer: 6
-  m_Name: -10gold
+  m_Name: -100gold
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3277,7 +3277,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 445a124b515f06047b47a8db5722562b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  addGold: -10
+  addGold: -100
 --- !u!1 &2610717755649316169
 GameObject:
   m_ObjectHideFlags: 0
@@ -4056,7 +4056,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: -100
+  m_Text: -1000
 --- !u!1 &4049100184420543564
 GameObject:
   m_ObjectHideFlags: 0
@@ -4365,7 +4365,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: -10
+  m_Text: -100
 --- !u!1 &4959845147166933860
 GameObject:
   m_ObjectHideFlags: 0
@@ -4680,7 +4680,7 @@ GameObject:
   - component: {fileID: 8868974366245136949}
   - component: {fileID: 7730265775677423305}
   m_Layer: 6
-  m_Name: '+100gold '
+  m_Name: '+1000gold '
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4775,7 +4775,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 445a124b515f06047b47a8db5722562b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  addGold: 100
+  addGold: 1000
 --- !u!1 &6118711528719274247
 GameObject:
   m_ObjectHideFlags: 0
@@ -5059,7 +5059,7 @@ GameObject:
   - component: {fileID: 4814414922888488127}
   - component: {fileID: 6798998870329009828}
   m_Layer: 6
-  m_Name: +10gold (2)
+  m_Name: +100gold (2)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -5154,7 +5154,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 445a124b515f06047b47a8db5722562b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  addGold: 10
+  addGold: 100
 --- !u!1 &6770613940628268308
 GameObject:
   m_ObjectHideFlags: 0
@@ -5634,7 +5634,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: +10
+  m_Text: +100
 --- !u!1 &7536699574814162530
 GameObject:
   m_ObjectHideFlags: 0
@@ -5939,7 +5939,7 @@ GameObject:
   - component: {fileID: 1641677841556113535}
   - component: {fileID: 4026722722134685144}
   m_Layer: 6
-  m_Name: -100gold
+  m_Name: -1000gold
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -6034,7 +6034,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 445a124b515f06047b47a8db5722562b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  addGold: -100
+  addGold: -1000
 --- !u!1 &8556201394761461941
 GameObject:
   m_ObjectHideFlags: 0

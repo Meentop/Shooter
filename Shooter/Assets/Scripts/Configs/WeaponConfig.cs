@@ -13,7 +13,7 @@ public class WeaponConfig : ScriptableObject
     {
         foreach (GameObject weapon2 in weapons)
         {
-            if (weapon2.GetComponentInChildren<Weapon>().GetName() == weapon.GetName())
+            if (weapon2.GetComponentInChildren<Weapon>().GetTitle() == weapon.GetTitle())
                 return weapons.IndexOf(weapon2);
         }
         return -1;

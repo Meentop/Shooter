@@ -15,7 +15,6 @@ public abstract class Weapon : MonoBehaviour, ISelectableItem
     [SerializeField] protected int[] damage = new int[3];
     [SerializeField] protected float firingSpeed;
     [SerializeField] protected Vector3 weaponOnCollectRot;
-    [SerializeField] private int[] upgradePrices;
     [SerializeField] private WeaponConfig config;
 
     protected int maxNumberOfModules = 1;
@@ -143,6 +142,7 @@ public abstract class Weapon : MonoBehaviour, ISelectableItem
     }
 
     public Sprite GetSprite() => sprite;
+    public string GetTitle() => weaponName;
     public string GetName() => weaponName + " " + (level + 1).ToString() + " lvl";
     public string GetUpgradedName() => weaponName + " " + (level + 2).ToString() + " lvl";
     public float GetDamage() => damage[level];
@@ -150,7 +150,6 @@ public abstract class Weapon : MonoBehaviour, ISelectableItem
     public float GetFiringSpeed() => firingSpeed;
     public int GetMaxNumbersOfModules() => maxNumberOfModules;
     public int GetUpgradedMaxNumbersOfModules() => maxNumberOfModules + 1;
-    public int GetUpgradePrice() => upgradePrices.Length > level ? upgradePrices[level] : 0;
     public bool CouldBeUpgraded() => level < maxLevel;
     public int GetLevel() => level;
 
