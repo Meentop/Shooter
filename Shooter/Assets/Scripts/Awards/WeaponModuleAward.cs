@@ -17,12 +17,12 @@ public class WeaponModuleAward : MonoBehaviour
             int randomNumber = Random.Range(0, modules.Count);
             WeaponModule modifier = modules[randomNumber];
             modules.RemoveAt(randomNumber);
-            Transform modifierTransform = Instantiate(modifier, stand).transform;
-            modifierTransform.localPosition = new Vector3(0, moduleHeight, 0);
+            Transform moduleTransform = Instantiate(modifier, stand).transform;
+            moduleTransform.localPosition = new Vector3(0, moduleHeight, 0);
         }
     }
 
-    public void DeleteOtherModifiers(Transform thisStand)
+    public void DeleteOtherModules(Transform thisStand)
     {
         foreach (var stand in stands)
         {

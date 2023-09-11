@@ -17,6 +17,7 @@ public enum SelectableItems
     GoldAward,
     HealthAward,
     GoldButton,
-    UpgradeWeapon,
+    WeaponUpgrade,
+    ModuleUpgrade,
     StartRun
 }

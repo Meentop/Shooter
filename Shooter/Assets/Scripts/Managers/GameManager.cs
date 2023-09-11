@@ -16,26 +16,27 @@ public class GameManager : MonoBehaviour
     [SerializeField] private Load load;
     [SerializeField] private Save save;
 
+    private const string saveName = "saveData.json";
     private bool death;
 
     private void Awake()
     {
         player.Init(uiManager, cameraController, mainCamera, canvas);
         if (SceneManager.GetActiveScene() == SceneManager.GetSceneByName("Hub"))
-            DeleteFromFile("saveData.json");
-        load.LoadFromFile("saveData.json");
+            DeleteFromFile(saveName);
+        load.LoadFromFile(saveName);
     }
 
     private void Update()
     {
         if (Input.GetKeyDown(KeyCode.G))
         {
-            save.SaveToFile("saveData.json");
+            save.SaveToFile(saveName);
             SceneManager.LoadScene(SceneManager.GetActiveScene().name);
         }
         if (Input.GetKeyDown(KeyCode.R))
         { 
-            DeleteFromFile("saveData.json");
+            DeleteFromFile(saveName);
             SceneManager.LoadScene(SceneManager.GetActiveScene().name);
         }
         if(death && Input.anyKeyDown)
@@ -60,5 +61,10 @@ public class GameManager : MonoBehaviour
     {
         yield return new WaitForSeconds(4);
         death = true;
+    }
+
+    public void DeleteSave()
+    {
+        DeleteFromFile(saveName);
     }
 }

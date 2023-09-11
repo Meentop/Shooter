@@ -123,14 +123,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a22ba2031a1df454ba8644a4fba4e060, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  number: 2
   sprite: {fileID: 0}
   title: IMPROVE CRIT
-  description: +100% crit damage
   price: 10
   undestroyable: 0
-  behaviours:
-  - {fileID: 2152147932885609179}
+  behaviour: {fileID: 2152147932885609179}
+  config: {fileID: 11400000, guid: fd2808706ce919042acf4f109e9a8909, type: 2}
 --- !u!114 &2152147932885609179
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -143,4 +141,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6b56b6f8484f7514aa5d927ac9fef266, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  addDamageMultiplier: 1
+  addDamageMultiplier:
+  - 1
+  - 1.5
+  - 2

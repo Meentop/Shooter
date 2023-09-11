@@ -16,7 +16,7 @@ public class CameraController : MonoBehaviour
 
     private void FixedUpdate()
     {
-        if (!Pause.pause)
+        if (!PauseManager.Pause)
             Rotate();
     }
 

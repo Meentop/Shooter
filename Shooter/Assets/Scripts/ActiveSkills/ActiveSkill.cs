@@ -9,16 +9,15 @@ public abstract class ActiveSkill : MonoBehaviour, ISelectableItem
     [SerializeField] private string title;
     [SerializeField] private string description;
     [SerializeField] private int damageToReload;
-    [SerializeField] private int price;
 
     public SelectableItems ItemType => SelectableItems.ActiveSkill;
 
     public string Text => "Press E to buy";
 
     private float curDamageTimer;
-    private Image reloadImage;
     protected Transform mainCamera;
     protected Player player;
+    private InfoInterface _infoUI;
 
     [System.Serializable]
     public struct Info
@@ -30,11 +29,11 @@ public abstract class ActiveSkill : MonoBehaviour, ISelectableItem
         public Text Price;
     }
 
-    public void Init(Image reloadImage, Transform camera, Player player)
+    public void Init(InfoInterface infoInterface, Transform camera, Player player)
     {
         curDamageTimer = damageToReload;
-        this.reloadImage = reloadImage;
-        reloadImage.sprite = sprite;
+        _infoUI = infoInterface;
+        infoInterface.SetActiveSkillSprite(sprite);
         mainCamera = camera;
         this.player = player;
         UpdateUI();
@@ -42,14 +41,17 @@ public abstract class ActiveSkill : MonoBehaviour, ISelectableItem
 
     public void Activate()
     {
-        if (curDamageTimer >= damageToReload)
+        if (!player.Characteristics.bloodyActiveSkill && curDamageTimer >= damageToReload)
         {
             OnActivated();
             curDamageTimer = 0;
             UpdateUI();
         }
-        else
-            print("need damage");
+        else if(player.Characteristics.bloodyActiveSkill)
+        {
+            player.Health.GetDamage(new DamageData(player.Characteristics.activeSkillBloodyPrice));
+            OnActivated();
+        }
     }
 
     protected abstract void OnActivated();
@@ -64,7 +66,7 @@ public abstract class ActiveSkill : MonoBehaviour, ISelectableItem
 
     private void UpdateUI()
     {
-        reloadImage.fillAmount = curDamageTimer / damageToReload;
+        _infoUI.SetActiveSkillReload(curDamageTimer / damageToReload);
     }
 
     public Sprite GetSprite() => sprite;
@@ -74,8 +76,6 @@ public abstract class ActiveSkill : MonoBehaviour, ISelectableItem
     public string GetDescription() => description;
 
     public int GetDamagaeToReturn() => damageToReload;
-
-    public int GetPrice() => price;
 
     public void OnSelect(Player player)
     {

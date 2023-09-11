@@ -19,21 +19,22 @@ public class Load : MonoBehaviour
             saveData = JsonUtility.FromJson<SaveData>(json);
             floorSpawner.UpdateFloor(saveData.currentFlorNumber);
             player.Health.SetCurHealth(saveData.currentPlayerHP);
-            player.LoadWeapons(saveData.weapons);
-            player.LoadFreeWeaponModules(saveData.freeWeaponModules);
             player.Gold.Add(saveData.gold);
-            player.LoadInstalledBionicModules(saveData.installedBionicModules);
-            player.LoadFreeBionicModules(saveData.freeBionicModules);
+            player.SaveLoadManager.LoadActiveSkill(saveData.activeSkill);
+            player.SaveLoadManager.LoadWeapons(saveData.weapons);
+            player.SaveLoadManager.LoadFreeWeaponModules(saveData.freeWeaponModules);
+            player.SaveLoadManager.LoadInstalledBionicModules(saveData.installedBionicModules);
+            player.SaveLoadManager.LoadFreeBionicModules(saveData.freeBionicModules);
         }
         else
         {
-            player.Health.SetMaxHealth();
+            player.Health.SetCurHealthToMax();
             List<WeaponSave> weaponSaves = new List<WeaponSave> 
             { 
                 new WeaponSave { number = 0, level = 0, modules = new List<WeaponModuleSave>() }, 
                 new WeaponSave { number = 0, level = 0, modules = new List<WeaponModuleSave>() } 
             };
-            player.LoadWeapons(weaponSaves);
+            player.SaveLoadManager.LoadWeapons(weaponSaves);
         }
     }
 }

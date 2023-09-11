@@ -19,7 +19,7 @@ public class ModulesPanelUI : MonoBehaviour
     [SerializeField] private float bionicPos;
     [SerializeField] private float transitionSpeed;
     [SerializeField] private AnimationCurve toBionicTransition, toWeaponTransition;
-    private bool _panelEnabled = false;
+    public bool PanelEnabled { get; private set; }
     private Player _player;
     private CameraController _cameraController;
     private Camera _mainCamera;
@@ -48,31 +48,32 @@ public class ModulesPanelUI : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Tab))
-        {      
-            _panelEnabled = !_panelEnabled;
-            SetTabInterface(_panelEnabled);
-            if (_panelEnabled)
+        
+    }
+
+    public void SetEnablePanel()
+    {
+        PanelEnabled = !PanelEnabled;
+        SetTabInterface(PanelEnabled);
+        if (PanelEnabled)
+        {
+            UpdateWeaponsInfo(_player.GetWeapons());
+            UpdateFreeModuleInfo(_player.GetFreeWeaponModules().Select(module => module as Module).ToList(), freeWeaponModulesHolderUI);
+            UpdateFreeModuleInfo(_player.GetFreeBionicModules().Select(module => module as Module).ToList(), freeBionicModulesHolderUI);
+            UpdateInstalledBionicModules(_player.GetInstalledBionicModules());
+            _cameraController.UnlockCursor();
+        }
+        else
+        {
+            _cameraController.LockCursor();
+            foreach (Transform child in freeWeaponModulesHolderUI.GetContent())
             {
-                UpdateWeaponsInfo(_player.GetWeapons());
-                UpdateFreeModuleInfo(_player.GetFreeWeaponModules().Select(module => module as Module).ToList(), freeWeaponModulesHolderUI);
-                UpdateFreeModuleInfo(_player.GetFreeBionicModules().Select(module => module as Module).ToList(), freeBionicModulesHolderUI);
-                UpdateInstalledBionicModules(_player.GetInstalledBionicModules());
-                _cameraController.UnlockCursor();
+                Destroy(child.gameObject);
             }
-            else
+            foreach (Transform child in freeBionicModulesHolderUI.GetContent())
             {
-                _cameraController.LockCursor();
-                foreach (Transform child in freeWeaponModulesHolderUI.GetContent())
-                {
-                    Destroy(child.gameObject);
-                }
-                foreach (Transform child in freeBionicModulesHolderUI.GetContent())
-                {
-                    Destroy(child.gameObject);
-                }
+                Destroy(child.gameObject);
             }
-            Pause.pause = _panelEnabled;
         }
     }
 
@@ -107,7 +108,7 @@ public class ModulesPanelUI : MonoBehaviour
                 {
                     ModuleUI moduleUI = Instantiate(modulePrefab, holder.transform);
                     WeaponModule module = weapons[i].GetModule(j);
-                    moduleUI.Init(module.GetSprite(), module.GetTitle(), module.GetDescription(), this, _mainCamera, _canvas, holder, module);
+                    moduleUI.Init(module.GetSprite(), module.GetTitle(module.Level), module.GetDescription(module.Level), this, _mainCamera, _canvas, holder, module);
                     holder.SetPosition(moduleUI.transform);
                 }
             }
@@ -119,7 +120,7 @@ public class ModulesPanelUI : MonoBehaviour
         foreach (var module in freeModules)
         {
             ModuleUI moduleUI = Instantiate(modulePrefab, freeModulesHolderUI.GetContent());
-            moduleUI.Init(module.GetSprite(), module.GetTitle(), module.GetDescription(), this, _mainCamera, _canvas, freeModulesHolderUI, module);
+            moduleUI.Init(module.GetSprite(), module.GetTitle(module.Level), module.GetDescription(module.Level), this, _mainCamera, _canvas, freeModulesHolderUI, module);
         }
         freeModulesHolderUI.SetFreeModulesHolderSize(freeModules.Count, modulePrefab.GetComponent<RectTransform>());
     }
@@ -135,7 +136,7 @@ public class ModulesPanelUI : MonoBehaviour
         {
             ModuleUI moduleUI = Instantiate(modulePrefab, installedBionicModuleHolders[i].transform);
             BionicModule module = modules[i];
-            moduleUI.Init(module.GetSprite(), module.GetTitle(), module.GetDescription(), this, _mainCamera, _canvas, installedBionicModuleHolders[i], module);
+            moduleUI.Init(module.GetSprite(), module.GetTitle(module.Level), module.GetDescription(module.Level), this, _mainCamera, _canvas, installedBionicModuleHolders[i], module);
             installedBionicModuleHolders[i].SetPosition(moduleUI.transform);
         }
     }

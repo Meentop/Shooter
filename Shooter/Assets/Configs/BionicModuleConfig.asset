@@ -1,0 +1,18 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6d2678aa0f7ab674683959ce3ffe5edb, type: 3}
+  m_Name: BionicModuleConfig
+  m_EditorClassIdentifier: 
+  modules:
+  - {fileID: 3083144990236766652, guid: 6ee75f05dfc3622418ab484e58565ba9, type: 3}
+  - {fileID: 3083144990236766652, guid: 20e21174cf671ae4c826bca55e0b14f4, type: 3}
+  - {fileID: 3083144990236766652, guid: 17f127eaadf924d48aa4b935846157fb, type: 3}

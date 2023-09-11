@@ -1,16 +1,19 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Reflection;
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "RoomAwardConfig", menuName = "ScriptableObjects/RoomAwardConfig")]
 public class RoomAwardsConfig : ScriptableObject
 {
-    public GameObject[] awards;
+    [SerializeField] private GameObject[] awards;
+
+    [HideInInspector] public GameObject[] Awards { get => awards; }
 }
 
 public enum AwardType
 {
-    None,
+    Start,
     Gold,
     Health,
     Weapon,
@@ -18,5 +21,6 @@ public enum AwardType
     BionicModule,
     WeaponUpgrade,
     ModuleUpgrade,
-    ActiveSkill
+    ActiveSkill,
+    Portal
 }

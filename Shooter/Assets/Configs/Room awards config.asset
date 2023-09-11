@@ -1,0 +1,25 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 54ca22056591cd04db4be32333b68a8d, type: 3}
+  m_Name: Room awards config
+  m_EditorClassIdentifier: 
+  awards:
+  - {fileID: 0}
+  - {fileID: 4118957625835808196, guid: 46831debde93abd4dade28c1c02de5e6, type: 3}
+  - {fileID: 4118957625835808196, guid: d3f22ed90a9ea044d8b1f7294a2cc151, type: 3}
+  - {fileID: 7373440825907077385, guid: 800778eab48ac384c8f090619b85edfe, type: 3}
+  - {fileID: 7373440825907077385, guid: 1e2720770895d6946a18778bc5c1beb4, type: 3}
+  - {fileID: 7373440825907077385, guid: f5ddfdbab9ccccf46b49495117502ef2, type: 3}
+  - {fileID: 4118957625835808196, guid: 75ac391bd787f0e449af7ce0cd0fc3a1, type: 3}
+  - {fileID: 4118957625835808196, guid: 14b0d486673f3b548bf0a93b4f4badf0, type: 3}
+  - {fileID: 7373440825907077385, guid: 9e8c988728f6c4748ac6f5e687f22499, type: 3}
+  - {fileID: 0}

@@ -28,7 +28,7 @@ public class ModuleUI : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDrag
         _mainCamera = mainCamera;
         _canvas = canvas;
         _holder = holder;
-        this.Module = module;
+        Module = module;
     }
 
     public void OnBeginDrag(PointerEventData eventData)

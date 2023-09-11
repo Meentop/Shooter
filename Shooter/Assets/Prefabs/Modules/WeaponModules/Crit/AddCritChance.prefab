@@ -125,10 +125,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   sprite: {fileID: 0}
   title: CRIT
-  description: +10% critical hit chance
   price: 10
-  behaviours:
-  - {fileID: 1429715845795600379}
+  undestroyable: 0
+  behaviour: {fileID: 1429715845795600379}
+  config: {fileID: 11400000, guid: fd2808706ce919042acf4f109e9a8909, type: 2}
 --- !u!114 &1429715845795600379
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -141,4 +141,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f7d8a8386a8352b43800947cc7f0383f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  addCritChance: 10
+  addCritChance: 0a0000000f00000014000000

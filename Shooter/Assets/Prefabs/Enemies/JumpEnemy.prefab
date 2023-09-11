@@ -846,6 +846,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   rb: {fileID: 5587077259902345157}
+  animator: {fileID: 2081749909696065837}
   normalMaxSpeed: 7
   normalAccel: 20
   normalRotationSpeed: 200
@@ -1046,7 +1047,7 @@ MonoBehaviour:
   afterHealthBarImage: {fileID: 3822463695861969783}
   UIReduceSpeed: 0.2
   maxHP: 500
-  _startSizeDelta: {x: 100, y: 100}
+  startSizeDelta: {x: 100, y: 100}
   hPBarCanvas: {fileID: 7188750973442996329}
   scaleMultiplier: 0.2
   damageNumbersPoint: {fileID: 2311234918740360496}
