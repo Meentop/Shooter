@@ -847,6 +847,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   rb: {fileID: 5587077259902345157}
   animator: {fileID: 2081749909696065837}
+  name: 
   normalMaxSpeed: 7
   normalAccel: 20
   normalRotationSpeed: 200
@@ -1094,10 +1095,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9bb5c91171b64694e994d5b9d5cc102e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  agent: {fileID: 7226409352599093293}
   gold: {fileID: 7224739097227597096, guid: 9b09b6be0a941d548a80d46ca774998b, type: 3}
   dropPoint: {fileID: 5587077260405396983}
-  config: {fileID: 11400000, guid: c025bec9cce367d4eabe87258d9ff2d9, type: 2}
-  goldCount: 5
+  pullableConfig: {fileID: 11400000, guid: c025bec9cce367d4eabe87258d9ff2d9, type: 2}
+  priceConfig: {fileID: 11400000, guid: 95c003c7602932c4d9f3bf28859c3497, type: 2}
 --- !u!1 &5587077260405396980
 GameObject:
   m_ObjectHideFlags: 0

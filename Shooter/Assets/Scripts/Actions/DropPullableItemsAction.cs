@@ -4,10 +4,11 @@ using UnityEngine;
 
 public class DropPullableItemsAction : ActionBase
 {
+    [SerializeField] private Agent agent;
     [SerializeField] private Gold gold;
     [SerializeField] private Transform dropPoint;
-    [SerializeField] private PullableConfig config;
-    [SerializeField] private int goldCount;
+    [SerializeField] private PullableConfig pullableConfig;
+    [SerializeField] private GoldPriceConfig priceConfig;
 
     public override void ExecuteAction(params ActionParameter[] parametr)
     {
@@ -16,7 +17,7 @@ public class DropPullableItemsAction : ActionBase
 
     private void DropGold()
     {
-        for (int i = 0; i < goldCount; i++)
+        for (int i = 0; i < priceConfig.GetEnemiesPrice(agent); i++)
         {
             Gold gold = ObjectPool.Instance.GetObject(this.gold);
             PushItem(gold.transform);
@@ -25,8 +26,8 @@ public class DropPullableItemsAction : ActionBase
 
     private void PushItem(Transform item)
     {
-        item.position = (Random.insideUnitSphere * config.randomInsideSphereSize) + dropPoint.position;
-        Vector3 randVector = new Vector3(Random.Range(config.XZMin, config.XZMax), Random.Range(config.YMin, config.YMax), Random.Range(config.XZMin, config.XZMax));
+        item.position = (Random.insideUnitSphere * pullableConfig.randomInsideSphereSize) + dropPoint.position;
+        Vector3 randVector = new Vector3(Random.Range(pullableConfig.XZMin, pullableConfig.XZMax), Random.Range(pullableConfig.YMin, pullableConfig.YMax), Random.Range(pullableConfig.XZMin, pullableConfig.XZMax));
         item.GetComponent<Rigidbody>().AddForce(randVector, ForceMode.Impulse);
     }
 }
