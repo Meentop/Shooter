@@ -21,11 +21,13 @@ public class Room : MonoBehaviour
     private MapMiniController _miniController;
     private List<Agent> enemies = new List<Agent>();
     private List<GameObject> activeDoors = new List<GameObject>();
+    private int _enemyGroupIndex;
 
     public Dictionary<Vector2Int, Room> Neighours;
 
     public void Init(Vector2Int roomPos, float roomHeight, MapMiniController miniController, AwardType awardType)
     {
+        _enemyGroupIndex = UnityEngine.Random.Range(0, enemyGroups.Length);
         Height = roomHeight;
         _miniController = miniController;
         Neighours = new Dictionary<Vector2Int, Room>();
@@ -40,7 +42,7 @@ public class Room : MonoBehaviour
     {
         if (enemyGroups.Length > 0)
         {
-            foreach (var enemy in enemyGroups[UnityEngine.Random.Range(0, enemyGroups.Length)].enemies)
+            foreach (var enemy in enemyGroups[_enemyGroupIndex].enemies)
             {
                 Agent enemy1 = Instantiate(enemy.enemyPrefab, transform.position + enemy.position, Quaternion.identity).GetComponentInChildren<Agent>();
                 enemies.Add(enemy1);
@@ -129,18 +131,18 @@ public class Room : MonoBehaviour
     }
 
     public AwardType GetRoomsAwardType() => awardType;
+}
+
+[Serializable]
+public struct EnemyGroup
+{
+    public SpawnEnemy[] enemies;
 
     [Serializable]
-    struct EnemyGroup
+    public struct SpawnEnemy
     {
-        public SpawnEnemy[] enemies;
-
-        [Serializable]
-        public struct SpawnEnemy
-        {
-            public GameObject enemyPrefab;
-            public Vector3 position;
-        }
+        public GameObject enemyPrefab;
+        public Vector3 position;
     }
 }
 
