@@ -19,5 +19,6 @@ public enum SelectableItems
     GoldButton,
     WeaponUpgrade,
     ModuleUpgrade,
-    StartRun
+    StartRun,
+    Portal
 }

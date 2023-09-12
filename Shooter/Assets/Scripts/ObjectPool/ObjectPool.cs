@@ -7,10 +7,15 @@ public class ObjectPool
     private static ObjectPool _instance;
     public static ObjectPool Instance => _instance ??= new ObjectPool();
     
-    private readonly Dictionary<Component, PoolTask> _activePoolTasks;
-    private readonly Transform _container;
+    private Dictionary<Component, PoolTask> _activePoolTasks;
+    private Transform _container;
 
     private ObjectPool()
+    {
+        ClearPool();
+    }
+
+    public void ClearPool()
     {
         _activePoolTasks = new Dictionary<Component, PoolTask>();
         _container = new GameObject().transform;

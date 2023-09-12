@@ -23,6 +23,7 @@ public class Player : MonoBehaviour
     public PlayerCharacteristics Characteristics { get; private set; }
     public PlayerInteractionManager InteractionManager { get; private set; }
     public PlayerSaveLoadManager SaveLoadManager { get; private set; }
+    public GameManager GameManager { get; private set; }
 
     private Weapon _currentWeapon;
     private ActiveSkill _activeSkill;
@@ -45,7 +46,7 @@ public class Player : MonoBehaviour
         }
     }
 
-    public void Init(UIManager uiManager, CameraController cameraController, Camera mainCamera, RectTransform canvas)
+    public void Init(GameManager gameManager, UIManager uiManager, CameraController cameraController, Camera mainCamera, RectTransform canvas)
     {
         Health = GetComponent<PlayerHealth>();
         Gold = GetComponent<PlayerGold>();
@@ -55,6 +56,7 @@ public class Player : MonoBehaviour
         _currentWeapon = weapons[0];
         _infoInterface = uiManager.InfoInterface;
         _dynamicInterface = uiManager.ModulesPanel;
+        GameManager = gameManager;
         _uiManager = uiManager;
         _dynamicInterface.Init(this, cameraController, mainCamera, canvas);
         Gold.Init(_infoInterface);
