@@ -21,7 +21,7 @@ public class GameManager : MonoBehaviour
 
     private void Awake()
     {
-        player.Init(uiManager, cameraController, mainCamera, canvas);
+        player.Init(this, uiManager, cameraController, mainCamera, canvas);
         if (SceneManager.GetActiveScene() == SceneManager.GetSceneByName("Hub"))
             DeleteFromFile(saveName);
         load.LoadFromFile(saveName);
@@ -30,14 +30,11 @@ public class GameManager : MonoBehaviour
     private void Update()
     {
         if (Input.GetKeyDown(KeyCode.G))
-        {
-            save.SaveToFile(saveName);
-            SceneManager.LoadScene(SceneManager.GetActiveScene().name);
-        }
+            LoadNextFloor();
         if (Input.GetKeyDown(KeyCode.R))
         { 
             DeleteFromFile(saveName);
-            SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+            SceneManager.LoadScene("Hub");
         }
         if(death && Input.anyKeyDown)
             SceneManager.LoadScene("Hub");
@@ -50,6 +47,12 @@ public class GameManager : MonoBehaviour
         {
             File.Delete(filePath);
         }
+    }
+
+    public void LoadNextFloor()
+    {
+        save.SaveToFile(saveName);
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 
     public void SetActiveDeathReload()
