@@ -21,6 +21,7 @@ public class GameManager : MonoBehaviour
 
     private void Awake()
     {
+        ObjectPool.Instance.ClearPool();
         player.Init(this, uiManager, cameraController, mainCamera, canvas);
         if (SceneManager.GetActiveScene() == SceneManager.GetSceneByName("Hub"))
             DeleteFromFile(saveName);
