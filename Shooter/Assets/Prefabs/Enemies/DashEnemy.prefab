@@ -691,8 +691,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6129114539219433956}
-  - component: {fileID: 7828633789004962030}
   - component: {fileID: 994671410886761277}
+  - component: {fileID: 7828633789004962030}
   - component: {fileID: 3384784651783171952}
   m_Layer: 8
   m_Name: DashAttack
@@ -715,6 +715,19 @@ Transform:
   m_Father: {fileID: 5464930841596248112}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &994671410886761277
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2804198455508769532}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0bfa9ead3a9474e438e969a381ebad5c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  reloadTime: 3
 --- !u!114 &7828633789004962030
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -729,19 +742,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   minDistance: 0
   maxDistance: 5
---- !u!114 &994671410886761277
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2804198455508769532}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0bfa9ead3a9474e438e969a381ebad5c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  reloadTime: 3
 --- !u!114 &3384784651783171952
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1432,7 +1432,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   rb: {fileID: 537288006300093292}
   animator: {fileID: 2105284880716143178}
-  name: 
+  enemyName: Dash
   normalMaxSpeed: 3
   normalAccel: 10
   normalRotationSpeed: 200

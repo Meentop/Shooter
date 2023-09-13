@@ -225,9 +225,9 @@ GameObject:
   m_Component:
   - component: {fileID: 7116124958230531789}
   - component: {fileID: 1567236795819354401}
-  - component: {fileID: 5112442652318461460}
-  - component: {fileID: 764010553850588059}
   - component: {fileID: 1922913775065309767}
+  - component: {fileID: 764010553850588059}
+  - component: {fileID: 5112442652318461460}
   m_Layer: 8
   m_Name: Punch
   m_TagString: Untagged
@@ -263,7 +263,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   transitions: []
   nextState: {fileID: 6331969462705211782}
---- !u!114 &5112442652318461460
+--- !u!114 &1922913775065309767
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -272,11 +272,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 2143458126845691793}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ce23934826eb93b4cbfa27b3bdea32d6, type: 3}
+  m_Script: {fileID: 11500000, guid: 0bfa9ead3a9474e438e969a381ebad5c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  minDistance: 0
-  maxDistance: 3
+  reloadTime: 2
 --- !u!114 &764010553850588059
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -291,7 +290,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   numberIs: 1
   angle: 45
---- !u!114 &1922913775065309767
+--- !u!114 &5112442652318461460
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -300,10 +299,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 2143458126845691793}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0bfa9ead3a9474e438e969a381ebad5c, type: 3}
+  m_Script: {fileID: 11500000, guid: ce23934826eb93b4cbfa27b3bdea32d6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  reloadTime: 2
+  minDistance: 0
+  maxDistance: 3
 --- !u!1 &2512158569623019935
 GameObject:
   m_ObjectHideFlags: 0
@@ -847,7 +847,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   rb: {fileID: 5587077259902345157}
   animator: {fileID: 2081749909696065837}
-  name: 
+  enemyName: Jump
   normalMaxSpeed: 7
   normalAccel: 20
   normalRotationSpeed: 200

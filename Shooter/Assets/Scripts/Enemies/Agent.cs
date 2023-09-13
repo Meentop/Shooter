@@ -9,7 +9,7 @@ public class Agent : MonoBehaviour, IPauseble
 {
     [SerializeField] private Rigidbody rb;
     [SerializeField] private Animator animator;
-    [SerializeField] private string name;
+    [SerializeField] private string enemyName;
     [SerializeField] private float normalMaxSpeed;
     [SerializeField] private float normalAccel;
     [SerializeField] private float normalRotationSpeed;
@@ -84,7 +84,7 @@ public class Agent : MonoBehaviour, IPauseble
         _steering = steering;
     }
 
-    public string GetName() => name;
+    public string GetName() => enemyName;
 
     public void SetMaxSpeed(float maxSpeed)
     {

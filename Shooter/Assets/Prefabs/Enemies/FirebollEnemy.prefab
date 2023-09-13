@@ -1407,7 +1407,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   rb: {fileID: 537288006300093292}
   animator: {fileID: 2105284880716143178}
-  name: 
+  enemyName: Fireball
   normalMaxSpeed: 2
   normalAccel: 10
   normalRotationSpeed: 200
