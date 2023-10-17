@@ -5,6 +5,7 @@ public class PauseInput : MonoBehaviour
     [SerializeField] private CameraController cameraController;
     [SerializeField] private UIManager uiManager;
     [SerializeField] private GameObject pausePanel;
+    [SerializeField] private GameObject settingsPanel;
 
     private void Update()
     {
