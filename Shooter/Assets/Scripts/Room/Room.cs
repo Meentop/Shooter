@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System.Linq;
 
 public class Room : MonoBehaviour
 {
@@ -15,6 +16,8 @@ public class Room : MonoBehaviour
     [SerializeField] private AwardType awardType;
     [SerializeField] private Transform awardSpawnPoint;
     [SerializeField] private RoomAwardsConfig awardConfig;
+    [SerializeField] private Transform[] enemiesSpawnPoints;
+    [SerializeField] private EnemiesTeamVariationsConfig enemiesTeamVariationsConfig;
 
     public float Height { get; private set; }
 
@@ -42,11 +45,15 @@ public class Room : MonoBehaviour
     {
         if (enemyGroups.Length > 0)
         {
-            foreach (var enemy in enemyGroups[_enemyGroupIndex].enemies)
+            var enemiesSpawnPoints = this.enemiesSpawnPoints.ToList();
+            var enemiesGroup = enemiesTeamVariationsConfig.enemyTeamVariations[UnityEngine.Random.Range(0, enemiesTeamVariationsConfig.enemyTeamVariations.Length)];
+            foreach (var enemy in enemiesGroup.enemies)
             {
-                Agent enemy1 = Instantiate(enemy.enemyPrefab, transform.position + enemy.position, Quaternion.identity).GetComponentInChildren<Agent>();
+                Transform spawnPoint = enemiesSpawnPoints[UnityEngine.Random.Range(0, enemiesSpawnPoints.Count)];
+                Agent enemy1 = Instantiate(enemy, spawnPoint.position, Quaternion.identity).GetComponentInChildren<Agent>();
                 enemies.Add(enemy1);
                 enemy1.GetComponentInParent<RemoveFromRoomAction>().room = this;
+                enemiesSpawnPoints.Remove(spawnPoint);
             }
         }
     }

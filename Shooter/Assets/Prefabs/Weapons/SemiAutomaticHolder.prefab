@@ -4892,10 +4892,9 @@ MonoBehaviour:
   sprite: {fileID: 21300000, guid: e884030ede1e6034d84629a0b4acb5be, type: 3}
   weaponName: Semi Automatic
   canSprayed: 1
-  damage: 0a0000000d00000010000000
+  damage: 6400000082000000a0000000
   firingSpeed: 0.15
   weaponOnCollectRot: {x: 0, y: -90, z: 0}
-  upgradePrices: 1e00000028000000
   config: {fileID: 11400000, guid: 9e47c26e340d1f44a88c8fe251ae30e7, type: 2}
 --- !u!65 &3124322557215765905
 BoxCollider:
