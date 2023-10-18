@@ -15,6 +15,8 @@ public class GameManager : MonoBehaviour
     [SerializeField] private FloorSpawner floorSpawner;
     [SerializeField] private Load load;
     [SerializeField] private Save save;
+    [SerializeField] private EnemiesTeamVariationsConfig enemiesTeamVariationsConfig;
+
 
     private const string saveName = "saveData.json";
     private bool death;
@@ -26,6 +28,7 @@ public class GameManager : MonoBehaviour
         if (SceneManager.GetActiveScene() == SceneManager.GetSceneByName("Hub"))
             DeleteFromFile(saveName);
         load.LoadFromFile(saveName);
+        enemiesTeamVariationsConfig.curEnemiesPool = enemiesTeamVariationsConfig.enemyPoolVariations[0];
     }
 
     private void Update()
