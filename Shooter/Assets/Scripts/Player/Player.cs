@@ -38,7 +38,7 @@ public class Player : MonoBehaviour
 
     private void Start()
     {
-        Application.targetFrameRate = 120;
+        Application.targetFrameRate = 60;
     }
 
     private void Update()

@@ -86,7 +86,6 @@ GameObject:
   - component: {fileID: 6811098867243921778}
   - component: {fileID: 2468474541599755309}
   - component: {fileID: 3188788878013449805}
-  - component: {fileID: 774614412103792965}
   m_Layer: 5
   m_Name: PausePanel
   m_TagString: Untagged
@@ -105,8 +104,8 @@ RectTransform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
-  - {fileID: 4835596503664575065}
   - {fileID: 4124487560935198855}
+  - {fileID: 4835596503664575065}
   m_Father: {fileID: 5526591209243580115}
   m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -153,20 +152,6 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
---- !u!114 &774614412103792965
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 93565706709831737}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e0b9afb6235b1a945822426a56465a58, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  pauseMenu: {fileID: 7768163445124436590}
-  settingsPanel: {fileID: 3950763083142725596}
 --- !u!1 &119096939933192246
 GameObject:
   m_ObjectHideFlags: 0
@@ -1918,7 +1903,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 774614412103792965}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: PauseManager1, Assembly-CSharp
         m_MethodName: ShowSettings
         m_Mode: 1
@@ -6941,7 +6926,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 774614412103792965}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: PauseManager1, Assembly-CSharp
         m_MethodName: BackToMenu
         m_Mode: 1
@@ -7982,7 +7967,7 @@ RectTransform:
   - {fileID: 7736526815620008197}
   - {fileID: 6584183077622954303}
   m_Father: {fileID: 6811098867243921778}
-  m_RootOrder: 0
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -8010,7 +7995,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 0.392}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -13992,7 +13977,7 @@ RectTransform:
   - {fileID: 4227250871074233468}
   - {fileID: 1609611125200933711}
   m_Father: {fileID: 6811098867243921778}
-  m_RootOrder: 1
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}

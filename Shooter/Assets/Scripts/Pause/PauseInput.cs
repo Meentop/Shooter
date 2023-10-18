@@ -11,9 +11,17 @@ public class PauseInput : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Tab) || (Input.GetKeyDown(KeyCode.Escape) && uiManager.ModulesPanel.PanelEnabled))
         {
-            uiManager.ModulesPanel.SetEnablePanel();
-            PauseManager.Pause = uiManager.ModulesPanel.PanelEnabled;
-            uiManager.SelectadleUI.DisableAllSelectablesUI();
+            if (!pausePanel.activeInHierarchy)
+            {
+                uiManager.ModulesPanel.ToggleAndRefreshPanel();
+                PauseManager.Pause = uiManager.ModulesPanel.PanelEnabled;
+                uiManager.SelectadleUI.DisableAllSelectablesUI();
+            }
+        }
+        else if(Input.GetKeyDown(KeyCode.Escape) && settingsPanel.activeInHierarchy)
+        {
+            settingsPanel.SetActive(false);
+            pausePanel.SetActive(true);
         }
         else if(Input.GetKeyDown(KeyCode.Escape) && !uiManager.ModulesPanel.PanelEnabled)
         {
@@ -27,10 +35,21 @@ public class PauseInput : MonoBehaviour
         }
     }
     
+    //ui button
     public void DisablePauseMenu()
     {
         PauseManager.Pause = false;
         pausePanel.SetActive(false);
         cameraController.LockCursor();
+    }
+
+    public void ShowSettings()
+    {
+        settingsPanel.SetActive(true);
+    }
+
+    public void BackToPauseMenu()
+    {
+        settingsPanel.SetActive(false);
     }
 }

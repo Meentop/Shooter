@@ -14,10 +14,15 @@ public class CameraController : MonoBehaviour
         LockCursor();
     }
 
-    private void FixedUpdate()
+    private void Update()
     {
         if (!PauseManager.Pause)
             Rotate();
+    }
+
+    private void FixedUpdate()
+    {
+        
     }
 
     public void LockCursor()
@@ -32,8 +37,8 @@ public class CameraController : MonoBehaviour
 
     private void Rotate()
     {
-        float mouseX = Input.GetAxisRaw("Mouse X") * cameraConfig.sensivity;
-        float mouseY = Input.GetAxisRaw("Mouse Y") * cameraConfig.sensivity;
+        float mouseX = Input.GetAxisRaw("Mouse X") * cameraConfig.sensivity * Time.deltaTime;
+        float mouseY = Input.GetAxisRaw("Mouse Y") * cameraConfig.sensivity * Time.deltaTime;
 
         yRotation += mouseX;
 

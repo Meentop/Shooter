@@ -51,7 +51,7 @@ public class ModulesPanelUI : MonoBehaviour
         
     }
 
-    public void SetEnablePanel()
+    public void ToggleAndRefreshPanel()
     {
         PanelEnabled = !PanelEnabled;
         SetTabInterface(PanelEnabled);
