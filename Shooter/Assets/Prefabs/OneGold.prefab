@@ -94,7 +94,7 @@ GameObject:
   - component: {fileID: 7224739097227597274}
   - component: {fileID: 7224739097227597096}
   m_Layer: 10
-  m_Name: Gold
+  m_Name: OneGold
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -156,6 +156,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fe748a2adbe974e44809f3b868c2bc15, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  goldCount: 1
   pullDistance: 3
   pickDistance: 0.3
   speed: 10

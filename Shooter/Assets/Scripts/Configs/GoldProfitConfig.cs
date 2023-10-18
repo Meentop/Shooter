@@ -2,10 +2,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "GoldPriceConfig", menuName = "ScriptableObjects/GoldPriceConfig")]
-public class GoldPriceConfig : ScriptableObject
+[CreateAssetMenu(fileName = "GoldProfitConfig", menuName = "ScriptableObjects/GoldProfitConfig")]
+public class GoldProfitConfig : ScriptableObject
 {
-    public EnemyPrice[] enemyPrice;
+    [SerializeField] private EnemyPrice[] enemyPrice;
+    [SerializeField] private int chestGold;
 
     public int GetEnemiesPrice(Agent agent)
     {
@@ -16,6 +17,8 @@ public class GoldPriceConfig : ScriptableObject
         }
         return Vector3Int.zero.y;
     }
+
+    public int GetChestGold() => chestGold;
 }
 
 [System.Serializable]

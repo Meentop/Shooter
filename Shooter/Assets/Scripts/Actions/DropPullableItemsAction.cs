@@ -5,10 +5,10 @@ using UnityEngine;
 public class DropPullableItemsAction : ActionBase
 {
     [SerializeField] private Agent agent;
-    [SerializeField] private Gold gold;
+    [SerializeField] private Gold oneGold, tenGold;
     [SerializeField] private Transform dropPoint;
     [SerializeField] private PullableConfig pullableConfig;
-    [SerializeField] private GoldPriceConfig priceConfig;
+    [SerializeField] private GoldProfitConfig priceConfig;
 
     public override void ExecuteAction(params ActionParameter[] parametr)
     {
@@ -17,9 +17,19 @@ public class DropPullableItemsAction : ActionBase
 
     private void DropGold()
     {
-        for (int i = 0; i < priceConfig.GetEnemiesPrice(agent); i++)
+        int price;
+        if (agent != null)
+            price = priceConfig.GetEnemiesPrice(agent);
+        else
+            price = priceConfig.GetChestGold();
+        for (int i = 0; i < price / 10; i++)
         {
-            Gold gold = ObjectPool.Instance.GetObject(this.gold);
+            Gold gold = ObjectPool.Instance.GetObject(tenGold);
+            PushItem(gold.transform);
+        }
+        for (int i = 0; i < price % 10; i++)
+        {
+            Gold gold = ObjectPool.Instance.GetObject(oneGold);
             PushItem(gold.transform);
         }
     }
