@@ -3,8 +3,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Gold : MonoBehaviour, IPoolable
+public class Gold : MonoBehaviour, IPoolable, IPauseble
 {
+    [SerializeField] private int goldCount;
     [SerializeField] private float pullDistance, pickDistance, speed, lifeTime, unpullableTime;
     public GameObject GameObject => gameObject;
 
@@ -16,23 +17,25 @@ public class Gold : MonoBehaviour, IPoolable
     private float _lifeTimer, _unpullableTimer;
 
     public event Action<IPoolable> Destroyed;
+    private Vector3 prepauseVelocity;
 
     private void Start()
     {
         _player = FindObjectOfType<Player>().transform;
         _rb = GetComponent<Rigidbody>();
         _collider = GetComponent<Collider>();
+        PauseManager.OnSetPause += OnSetPause;
     }
 
     private void Update()
     {
-        if (!_isPicked)
+        if (!_isPicked && !PauseManager.Pause)
         {
             _lifeTimer += Time.deltaTime;
             if (_lifeTimer >= lifeTime)
                 Reset();
         }
-        if(!_isPicked && !_canPull)
+        if(!_isPicked && !_canPull && !PauseManager.Pause)
         {
             _unpullableTimer += Time.deltaTime;
             if(_unpullableTimer >= unpullableTime)
@@ -46,17 +49,22 @@ public class Gold : MonoBehaviour, IPoolable
         }
         if (_isPicked && Vector3.Distance(_player.position, transform.position) <= pickDistance)
         {
-            _player.GetComponent<Player>().Gold.Add();
+            _player.GetComponent<Player>().Gold.Add(goldCount);
             Reset();
         }
     }
 
     private void FixedUpdate()
     {
-        if (_isPicked)
+        if (_isPicked && !PauseManager.Pause)
         {
             _rb.velocity = (_player.position - transform.position).normalized * speed;
         }
+    }
+
+    private void OnDestroy()
+    {
+        PauseManager.OnSetPause -= OnSetPause;
     }
 
     public void Reset()
@@ -74,5 +82,19 @@ public class Gold : MonoBehaviour, IPoolable
         _rb.velocity = Vector3.zero;
         _lifeTimer = 0;
         _unpullableTimer = 0;
+    }
+
+    public void OnSetPause(bool value)
+    {
+        if (value)
+        {
+            prepauseVelocity = _rb.velocity;
+            _rb.isKinematic = true;
+        }
+        else
+        {
+            _rb.isKinematic = false;
+            _rb.velocity = prepauseVelocity;
+        }
     }
 }
