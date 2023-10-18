@@ -54,7 +54,6 @@ public class PlayerInteractionManager : MonoBehaviour
                     int modulePrice = 0;
                     if (selectModule is WeaponModule) modulePrice = priceConfig.GetWeaponModulePrice(selectModule.Level);
                     if (selectModule is BionicModule) modulePrice = priceConfig.GetBionicModulePrice(selectModule.Level);
-                    Debug.Log($"{selectModule is WeaponModule} {selectModule is BionicModule}");
                     if (_player.Gold.HasCount(modulePrice))
                     {
                         if (selectModule.transform.parent.parent.TryGetComponent<WeaponModuleAward>(out var weaponModuleAward))

@@ -36,6 +36,11 @@ public class Player : MonoBehaviour
     private ModulesPanelUI _dynamicInterface;
     private UIManager _uiManager;
 
+    private void Start()
+    {
+        Application.targetFrameRate = 120;
+    }
+
     private void Update()
     {
         if (!PauseManager.Pause)
