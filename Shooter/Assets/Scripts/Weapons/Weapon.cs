@@ -16,7 +16,8 @@ public abstract class Weapon : MonoBehaviour, ISelectableItem
     [SerializeField] protected float firingSpeed;
     [SerializeField] protected Vector3 weaponOnCollectRot;
     [SerializeField] private WeaponConfig config;
-
+    [SerializeField] protected Vector3 weaponsRecoil;
+    [SerializeField] protected float snappiness;
     protected int maxNumberOfModules = 1;
     protected int level = 0;
     protected const int maxLevel = 2;

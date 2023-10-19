@@ -5134,8 +5134,9 @@ MonoBehaviour:
   damage: 0a0000000d00000010000000
   firingSpeed: 0.5
   weaponOnCollectRot: {x: -90, y: 180, z: 0}
-  upgradePrices: 1e00000028000000
   config: {fileID: 11400000, guid: 9e47c26e340d1f44a88c8fe251ae30e7, type: 2}
+  weaponsRecoil: {x: -25, y: 3, z: 1}
+  snappiness: 30
   pelletsCount: 5
   spread: 0.1
 --- !u!65 &7729926444301364067
