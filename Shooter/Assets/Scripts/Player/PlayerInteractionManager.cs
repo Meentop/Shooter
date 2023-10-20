@@ -14,11 +14,13 @@ public class PlayerInteractionManager : MonoBehaviour
     private ISelectableItem _lastSavedSelectableItem;
     private Player _player;
     private UIManager _uiManager;
+    private CameraController _cameraController;
 
-    public void Init(Player player, UIManager uIManager)
+    public void Init(Player player, UIManager uIManager, CameraController cameraController)
     {
         _player = player;
         _uiManager = uIManager;
+        _cameraController = cameraController;
     }
 
     private void Update()
@@ -113,6 +115,12 @@ public class PlayerInteractionManager : MonoBehaviour
                         _uiManager.SelectadleUI.EnableUpgradeModuleUI(_player.Gold.HasCount(upgradeModulePrice), moduleUpgrader, _player.GetAllModules());
                         _player.SetCharacteristics();
                     }
+                    break;
+                case SelectableItems.TerminalButton:
+                    _uiManager.TerminalUI.Init(_lastSavedSelectableItem as Terminal);
+                    _uiManager.TerminalUI.SetActiveTerminalPanel(true);
+                    _cameraController.UnlockCursor();
+                    PauseManager.Pause = true;
                     break;
             }
             _lastSavedSelectableItem.OnSelect(_player);

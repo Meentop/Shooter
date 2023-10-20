@@ -10,7 +10,7 @@ public interface ISelectableItem
 public enum SelectableItems
 {
     Weapon,
-    TestButton,
+    TerminalButton,
     Module,
     ActiveSkill,
     AwardButton,

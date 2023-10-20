@@ -392,6 +392,7 @@ MonoBehaviour:
   infoInterface: {fileID: 2565003241933251670}
   modulesPanel: {fileID: 1082036342}
   selectadleUI: {fileID: 2565003241933251700}
+  terminalUI: {fileID: 2565003241933251667}
 --- !u!4 &760817649
 Transform:
   m_ObjectHideFlags: 0
@@ -486,6 +487,7 @@ MonoBehaviour:
   uiManager: {fileID: 760817648}
   pausePanel: {fileID: 580224962}
   settingsPanel: {fileID: 2565003241933251666}
+  terminalPanel: {fileID: 2565003241933251668}
 --- !u!114 &879264486 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 1697727722218239970, guid: 5dabf89771060884e956222b099303a1, type: 3}
@@ -1027,6 +1029,22 @@ MonoBehaviour:
 --- !u!1 &2565003241933251666 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 4287301982884339044, guid: 83c9ad56a38022b4899e1e1eec2c3fab, type: 3}
+  m_PrefabInstance: {fileID: 2565003241933251663}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &2565003241933251667 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 4718137616032196958, guid: 83c9ad56a38022b4899e1e1eec2c3fab, type: 3}
+  m_PrefabInstance: {fileID: 2565003241933251663}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2565003241933251668}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6d567ff0bd3845d44bc2e2f000d0f2b0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!1 &2565003241933251668 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 159960500518606457, guid: 83c9ad56a38022b4899e1e1eec2c3fab, type: 3}
   m_PrefabInstance: {fileID: 2565003241933251663}
   m_PrefabAsset: {fileID: 0}
 --- !u!114 &2565003241933251669 stripped

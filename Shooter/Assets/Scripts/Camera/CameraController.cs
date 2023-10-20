@@ -20,11 +20,6 @@ public class CameraController : MonoBehaviour
             Rotate();
     }
 
-    private void FixedUpdate()
-    {
-        
-    }
-
     public void LockCursor()
     {
         Cursor.lockState = CursorLockMode.Locked;

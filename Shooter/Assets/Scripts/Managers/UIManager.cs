@@ -9,10 +9,13 @@ public class UIManager : MonoBehaviour
     [SerializeField] private InfoInterface infoInterface;
     [SerializeField] private ModulesPanelUI modulesPanel;
     [SerializeField] private SelectableUI selectadleUI;
+    [SerializeField] private TerminalUI terminalUI;
 
     public InfoInterface InfoInterface { get { return infoInterface; } private set { infoInterface = value; } }
     public ModulesPanelUI ModulesPanel { get { return modulesPanel; } private set { modulesPanel = value; } }    
     public SelectableUI SelectadleUI { get { return selectadleUI; } private set { selectadleUI = value; } }
+
+    public TerminalUI TerminalUI { get { return terminalUI; } private set { terminalUI = value; } }
 
     public Image GetActiveSkillReloadImage() => activeSkillReloadImage;
 

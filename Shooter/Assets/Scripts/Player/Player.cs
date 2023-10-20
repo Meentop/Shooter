@@ -66,7 +66,7 @@ public class Player : MonoBehaviour
         _dynamicInterface.Init(this, cameraController, mainCamera, canvas);
         Gold.Init(_infoInterface);
         SetCharacteristics();
-        InteractionManager.Init(this, _uiManager);
+        InteractionManager.Init(this, _uiManager, cameraController);
         SaveLoadManager.Init(this);
     }
 
@@ -147,7 +147,7 @@ public class Player : MonoBehaviour
 
     public Weapon[] GetWeapons() => weapons;
     public Weapon GetSelectedWeapon() => weapons[_selectedWeaponSlot];
-    
+    public int GetSelectedWeaponSlot() => _selectedWeaponSlot; 
 
 
     public void AddWeaponFromStand(Weapon selectWeapon)

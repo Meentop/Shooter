@@ -6,17 +6,24 @@ public class PauseInput : MonoBehaviour
     [SerializeField] private UIManager uiManager;
     [SerializeField] private GameObject pausePanel;
     [SerializeField] private GameObject settingsPanel;
+    [SerializeField] private GameObject terminalPanel;
 
     private void Update()
     {
         if (Input.GetKeyDown(KeyCode.Tab) || (Input.GetKeyDown(KeyCode.Escape) && uiManager.ModulesPanel.PanelEnabled))
         {
-            if (!pausePanel.activeInHierarchy)
+            if (!pausePanel.activeInHierarchy && !terminalPanel.activeInHierarchy)
             {
                 uiManager.ModulesPanel.ToggleAndRefreshPanel();
                 PauseManager.Pause = uiManager.ModulesPanel.PanelEnabled;
                 uiManager.SelectadleUI.DisableAllSelectablesUI();
             }
+        }
+        else if (Input.GetKeyDown(KeyCode.Escape) && terminalPanel.activeInHierarchy)
+        {
+            terminalPanel.SetActive(false);
+            PauseManager.Pause = false;
+            cameraController.LockCursor();
         }
         else if(Input.GetKeyDown(KeyCode.Escape) && settingsPanel.activeInHierarchy)
         {
@@ -32,7 +39,7 @@ public class PauseInput : MonoBehaviour
             else
                 cameraController.LockCursor();
             uiManager.SelectadleUI.DisableAllSelectablesUI();
-        }
+        }    
     }
     
     //ui button

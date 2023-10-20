@@ -7,7 +7,7 @@ public class TestAwardButton : MonoBehaviour, ISelectableItem
     [SerializeField] private Room room;
     [SerializeField] private AwardType award;
 
-    public SelectableItems ItemType => SelectableItems.TestButton;
+    public SelectableItems ItemType => SelectableItems.TerminalButton;
 
     public string Text => "E";
 
