@@ -110,8 +110,9 @@ MonoBehaviour:
   damage: 14000000190000001e000000
   firingSpeed: 0.3
   weaponOnCollectRot: {x: 0, y: 0, z: 0}
-  upgradePrices: 1e00000028000000
   config: {fileID: 11400000, guid: 9e47c26e340d1f44a88c8fe251ae30e7, type: 2}
+  weaponsRecoil: {x: -10, y: 2, z: 1}
+  snappiness: 20
 --- !u!65 &4599686081341117006
 BoxCollider:
   m_ObjectHideFlags: 0

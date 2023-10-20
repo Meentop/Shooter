@@ -46,7 +46,8 @@ public class Room : MonoBehaviour
         if (enemyGroups.Length > 0)
         {
             var enemiesSpawnPoints = this.enemiesSpawnPoints.ToList();
-            var enemiesGroup = enemiesTeamVariationsConfig.enemyTeamVariations[UnityEngine.Random.Range(0, enemiesTeamVariationsConfig.enemyTeamVariations.Length)];
+            var enemiesPool = enemiesTeamVariationsConfig.curEnemiesPool.enemyTeamVariations;
+            var enemiesGroup = enemiesPool[UnityEngine.Random.Range(0, enemiesPool.Length)];
             foreach (var enemy in enemiesGroup.enemies)
             {
                 Transform spawnPoint = enemiesSpawnPoints[UnityEngine.Random.Range(0, enemiesSpawnPoints.Count)];

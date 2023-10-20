@@ -8,6 +8,7 @@ public class Pistol : Weapon
 
         shootEffect.Play();
         reload = true;
+        Camera.main.GetComponent<CameraController>().FireRecoil(weaponsRecoil, snappiness);
         shootTimer = 0;
     }
 

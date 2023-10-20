@@ -3,11 +3,15 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+using TMPro;
 
 public class Settings : MonoBehaviour
 {
     [SerializeField] private Dropdown resolutionDropdown;
-
+    [SerializeField] private Slider sensivitySlider;
+    [SerializeField] private CameraConfig cameraConfig;
+    [SerializeField] private TextMeshProUGUI sensivityValueTextPro;
+    
     Resolution[] resolutions;
     void Start()
     {
@@ -57,5 +61,11 @@ public class Settings : MonoBehaviour
             Screen.fullScreen = System.Convert.ToBoolean(PlayerPrefs.GetInt("FullScreenPreference"));
         else
             Screen.fullScreen = true;
+    }
+
+    public void UpdateSensivity() 
+    {
+        cameraConfig.sensivity = sensivitySlider.value;
+        sensivityValueTextPro.text = sensivitySlider.value.ToString("0");
     }
 }
