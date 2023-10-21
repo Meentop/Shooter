@@ -1,11 +1,13 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 
 public class PlayerController : MonoBehaviour, IPauseble
 {
     [SerializeField] private Transform checkOnGroundPoint;
     private KeyCode jumpKey = KeyCode.Space;
+    private KeyCode dashKey = KeyCode.LeftShift;
 
     private Rigidbody _rb;
     private bool _grounded, _exitingSlope, _dashing;
@@ -32,7 +34,7 @@ public class PlayerController : MonoBehaviour, IPauseble
             _grounded = Physics.Raycast(transform.position, Vector3.down, 1.3f, LayerMask.GetMask("Solid"));
 
             MyInput();
-            SpeedControl();
+            SpeedControl(_dashing ? _player.Characteristics.dashStrength : _player.Characteristics.movementSpeed);
 
             if (_grounded && !_dashing)
                 _rb.drag = _player.Characteristics.groundDrag;
@@ -43,26 +45,28 @@ public class PlayerController : MonoBehaviour, IPauseble
             {
                 _dashTimer += Time.deltaTime;
             }
-            if( _dashTimer >= _player.Characteristics.dashReloadTime && _curDashCharges < _player.Characteristics.dashCharges)
+            if ( _dashTimer >= _player.Characteristics.dashReloadTime && _curDashCharges < _player.Characteristics.dashCharges)
             {
                 _dashTimer = 0;
                 _curDashCharges++;
             }
-
-            if (Input.GetKeyDown(KeyCode.LeftShift) && _curDashCharges > 0 && !_dashing)
-            {
-                Dash();
-            }
+            
             _player.SetDashInfo(_dashTimer / _player.Characteristics.dashReloadTime, _curDashCharges);
         }
     }
 
     private void FixedUpdate()
     {
-        if (!PauseManager.Pause && !_dashing)
+        if (!PauseManager.Pause)
         {
-            Movement();
-        }    
+            if (!_dashing) 
+            {
+                _moveDirection = transform.forward * _verticalInput + transform.right * _horizontalInput;
+                Movement(_moveDirection, _player.Characteristics.movementSpeed);
+            }
+            else
+                Movement(_moveDirection, _player.Characteristics.dashStrength);
+        }   
     }
 
     private void MyInput()
@@ -76,44 +80,48 @@ public class PlayerController : MonoBehaviour, IPauseble
 
             Invoke(nameof(ResetJump), 1.0f);
         }
+
+        if (Input.GetKeyDown(dashKey) && _curDashCharges > 0 && !_dashing)
+        {
+            Dash();
+        }
     }
 
-    private void Movement()
+    private void Movement(Vector3 direction, float speed)
     {
-        _moveDirection = transform.forward * _verticalInput + transform.right * _horizontalInput;
-
         if (OnSlope() && !_exitingSlope)
         {
-            _rb.AddForce(20f * _player.Characteristics.movementSpeed * GetSlopeMoveDirection(), ForceMode.Force);
+            _rb.AddForce(20f * speed * GetSlopeMoveDirection(direction), ForceMode.Force);
 
-            if (_moveDirection != Vector3.zero)
+            if (direction != Vector3.zero)
                 _rb.AddForce(Vector3.down * 80f, ForceMode.Force);
         }
-        else if (_grounded)
-            _rb.AddForce(20f * _player.Characteristics.movementSpeed * _moveDirection, ForceMode.Force);
-        else if(!_grounded)
-            _rb.AddForce(20f * _player.Characteristics.airMultiplayer * _player.Characteristics.movementSpeed * _moveDirection, ForceMode.Force);
+        else if (_grounded || _dashing)
+        {
+            _rb.AddForce(20f * speed * direction, ForceMode.Force);
+        }
+        else if (!_grounded)
+        {
+            _rb.AddForce(20f * _player.Characteristics.airMultiplayer * speed * direction, ForceMode.Force);
+        }
 
         _rb.useGravity = !OnSlope();
     }
 
-    private void SpeedControl()
+    private void SpeedControl(float speed)
     {
-        if (!_dashing)
+        if (OnSlope() && !_exitingSlope)
         {
-            if (OnSlope() && !_exitingSlope)
+            if (_rb.velocity.magnitude > speed)
+                _rb.velocity = _rb.velocity.normalized * speed;
+        }
+        else
+        {
+            Vector3 flatVel = new Vector3(_rb.velocity.x, 0, _rb.velocity.z);
+            if (flatVel.magnitude > speed)
             {
-                if (_rb.velocity.magnitude > _player.Characteristics.movementSpeed)
-                    _rb.velocity = _rb.velocity.normalized * _player.Characteristics.movementSpeed;
-            }
-            else
-            {
-                Vector3 flatVel = new Vector3(_rb.velocity.x, 0, _rb.velocity.z);
-                if (flatVel.magnitude > _player.Characteristics.movementSpeed)
-                {
-                    Vector3 limitedVel = flatVel.normalized * _player.Characteristics.movementSpeed;
-                    _rb.velocity = new Vector3(limitedVel.x, _rb.velocity.y, limitedVel.z);
-                }
+                Vector3 limitedVel = flatVel.normalized * speed;
+                _rb.velocity = new Vector3(limitedVel.x, _rb.velocity.y, limitedVel.z);
             }
         }
     }
@@ -133,7 +141,7 @@ public class PlayerController : MonoBehaviour, IPauseble
 
     private bool OnSlope()
     {
-        if(Physics.Raycast(transform.position, Vector3.down, out _slopeHit, 1.4f))
+        if (Physics.Raycast(transform.position, Vector3.down, out _slopeHit, 1.4f))
         {
             float angle = Vector3.Angle(Vector3.up, _slopeHit.normal);
             return angle < _player.Characteristics.maxSlopeAngle && angle != 0;
@@ -141,9 +149,9 @@ public class PlayerController : MonoBehaviour, IPauseble
         return false;
     }
 
-    private Vector3 GetSlopeMoveDirection()
+    private Vector3 GetSlopeMoveDirection(Vector3 direction)
     {
-        return Vector3.ProjectOnPlane(_moveDirection, _slopeHit.normal).normalized;
+        return Vector3.ProjectOnPlane(direction, _slopeHit.normal).normalized;
     }
 
     private void Dash()
@@ -153,23 +161,21 @@ public class PlayerController : MonoBehaviour, IPauseble
 
     private IEnumerator DashCor()
     {
-        Vector3 direction = new Vector3(Input.GetAxis("Horizontal"), 0, Input.GetAxis("Vertical")).normalized;
-        if (Input.GetAxis("Horizontal") == 0 && Input.GetAxis("Vertical") == 0)
-            direction = Vector3.forward;
         _curDashCharges--;
         _dashing = true;
         _dashTimer = 0;
         float dashTimer = _player.Characteristics.dashDuration;
         _rb.velocity = new Vector3(_rb.velocity.x, 0, _rb.velocity.z);
         _rb.useGravity = false;
+
+        _moveDirection = transform.forward * _verticalInput + transform.right * _horizontalInput;
+        if (_moveDirection == Vector3.zero)
+            _moveDirection = transform.forward;
+
         while (dashTimer > 0)
         {
             if (!PauseManager.Pause)
-            {
-                Vector3 dashDirection = transform.TransformDirection(direction) * _player.Characteristics.dashStrength;
-                _rb.velocity = new Vector3(dashDirection.x, _rb.velocity.y, dashDirection.z);
                 dashTimer -= Time.fixedDeltaTime;
-            }
             yield return new WaitForFixedUpdate();
         }
         _rb.useGravity = true;
