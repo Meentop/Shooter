@@ -383,6 +383,7 @@ MonoBehaviour:
   floorSpawner: {fileID: 0}
   load: {fileID: 760817652}
   save: {fileID: 760817653}
+  enemiesTeamVariationsConfig: {fileID: 11400000, guid: 3a85a6db53259cf4b9048d727d4faf49, type: 2}
 --- !u!114 &760817651
 MonoBehaviour:
   m_ObjectHideFlags: 0

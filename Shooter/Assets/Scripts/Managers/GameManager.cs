@@ -40,7 +40,7 @@ public class GameManager : MonoBehaviour
             DeleteFromFile(saveName);
             SceneManager.LoadScene("Hub");
         }
-        if(death && Input.anyKeyDown)
+        if (death && Input.anyKeyDown)
             SceneManager.LoadScene("Hub");
     }
 
