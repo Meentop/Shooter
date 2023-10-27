@@ -68,7 +68,7 @@ public class SelectableUI : MonoBehaviour
 
     public void UpdateNewWeaponUI(int price, bool hasGold, Weapon weapon)
     {
-        newWeaponDescriptions.BuyPanel.SetActive(!weapon.Bought);
+        //newWeaponDescriptions.BuyPanel.SetActive(!weapon.Bought);
         newWeaponDescriptions.Image.sprite = weapon.GetSprite();
         newWeaponDescriptions.NameText.text = weapon.GetName();
         newWeaponDescriptions.DamageText.text = "Damage " + weapon.GetDamage().ToString();

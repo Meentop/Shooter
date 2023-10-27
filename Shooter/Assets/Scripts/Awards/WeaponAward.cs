@@ -9,15 +9,15 @@ public class WeaponAward : MonoBehaviour
 
     private void Start()
     {
-        List<GameObject> weapons = new List<GameObject>();
-        weapons.AddRange(weaponConfig.Weapons);
+        List<StandWeapon> weapons = new List<StandWeapon>();
+        weapons.AddRange(weaponConfig.StandWeapons);
         foreach (var stand in stands)
         {
             int randomNumber = Random.Range(1, weapons.Count);
-            GameObject randWeaponHolder = weapons[randomNumber];
+            StandWeapon randStandWeapon = weapons[randomNumber];
             weapons.RemoveAt(randomNumber);
-            Weapon weapon = Instantiate(randWeaponHolder, stand).GetComponentInChildren<Weapon>();
-            weapon.ConnectToStand(stand);
+            //Weapon weapon = Instantiate(randStandWeapon, stand).GetComponentInChildren<Weapon>();
+            //weapon.ConnectToStand(stand);
         }
     }
 

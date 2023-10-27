@@ -42,13 +42,13 @@ public class PlayerInteractionManager : MonoBehaviour
             switch (_lastSavedSelectableItem.ItemType)
             {
                 case SelectableItems.Weapon:
-                    Weapon selectWeapon = _lastSavedSelectableItem as Weapon;
-                    int weaponPrice = priceConfig.GetWeaponPrice(weaponConfig.GetIndex(selectWeapon), selectWeapon.GetLevel());
+                    StandWeapon selectWeapon = _lastSavedSelectableItem as StandWeapon;
+                    int weaponPrice = priceConfig.GetWeaponPrice(weaponConfig.GetIndex(selectWeapon.GetWeaponCharacteristics()), selectWeapon.GetWeapon().GetLevel());
                     if (_player.Gold.HasCount(weaponPrice) || selectWeapon.Bought)
                     {
                         if (!selectWeapon.Bought)
                             _player.Gold.Remove(weaponPrice);
-                        _player.AddWeaponFromStand(selectWeapon);
+                        //_player.AddWeaponFromStand(selectWeapon);
                     }
                     break;
                 case SelectableItems.Module:
@@ -93,7 +93,7 @@ public class PlayerInteractionManager : MonoBehaviour
                 case SelectableItems.WeaponUpgrade:
                     Weapon curWeapon = _player.GetSelectedWeapon();
                     WeaponUpgradeAward weaponUpgrader = _lastSavedSelectableItem as WeaponUpgradeAward;
-                    int weaponUpgradePrice = priceConfig.GetWeaponUpgradePrice(weaponConfig.GetIndex(curWeapon), curWeapon.GetLevel());
+                    int weaponUpgradePrice = priceConfig.GetWeaponUpgradePrice(weaponConfig.GetIndex(curWeapon.GetWeaponCharacteristics()), curWeapon.GetLevel());
                     if (_player.Gold.HasCount(weaponUpgradePrice) && !weaponUpgrader.IsUsed() && curWeapon.CouldBeUpgraded())
                     {
                         _player.Gold.Remove(weaponUpgradePrice);
@@ -173,7 +173,7 @@ public class PlayerInteractionManager : MonoBehaviour
         {
             case SelectableItems.Weapon:
                 Weapon selectWeapon = _lastSavedSelectableItem as Weapon;
-                int weaponPrice = priceConfig.GetWeaponPrice(weaponConfig.GetIndex(selectWeapon), selectWeapon.GetLevel());
+                int weaponPrice = priceConfig.GetWeaponPrice(weaponConfig.GetIndex(selectWeapon.GetWeaponCharacteristics()), selectWeapon.GetLevel());
                 _uiManager.SelectadleUI.UpdateNewWeaponUI(weaponPrice, _player.Gold.HasCount(weaponPrice), selectWeapon);
                 break;
             case SelectableItems.Module:
@@ -196,7 +196,7 @@ public class PlayerInteractionManager : MonoBehaviour
             case SelectableItems.WeaponUpgrade:
                 Weapon curWeapon = _player.GetSelectedWeapon();
                 WeaponUpgradeAward weapoUpgrader = _lastSavedSelectableItem as WeaponUpgradeAward;
-                int weaponUpgradePrice = priceConfig.GetWeaponUpgradePrice(weaponConfig.GetIndex(curWeapon), curWeapon.GetLevel());
+                int weaponUpgradePrice = priceConfig.GetWeaponUpgradePrice(weaponConfig.GetIndex(curWeapon.GetWeaponCharacteristics()), curWeapon.GetLevel());
                 _uiManager.SelectadleUI.UpdateUpgradeWeaponUI(weaponUpgradePrice, _player.Gold.HasCount(weaponUpgradePrice), weapoUpgrader, curWeapon);
                 break;
             case SelectableItems.ModuleUpgrade:

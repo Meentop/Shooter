@@ -39,7 +39,7 @@ public class Terminal : MonoBehaviour, ISelectableItem
                 }
                 break;
             case TerminalButtonType.Weapon:
-                foreach (var weapon in weaponConfig.Weapons)
+                foreach (var weapon in weaponConfig.Characteristics)
                 {
                     names.Add(weapon.name);
                 }
@@ -89,8 +89,7 @@ public class Terminal : MonoBehaviour, ISelectableItem
                 Instantiate(enemies[index], enemySpawnPoint.position, Quaternion.identity);
                 break;
             case TerminalButtonType.Weapon:
-                GameObject weaponHolder = Instantiate(weaponConfig.Weapons[index]);
-                Weapon weapon = weaponHolder.GetComponentInChildren<Weapon>();
+                Weapon weapon = Instantiate(weaponConfig.Weapons[index]);
                 Destroy(player.GetSelectedWeapon().gameObject);
                 player.AddWeapon(weapon, player.GetSelectedWeaponSlot());
                 weapon.ConectToPlayer();

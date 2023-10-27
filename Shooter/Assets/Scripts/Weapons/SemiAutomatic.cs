@@ -8,7 +8,7 @@ public class SemiAutomatic : Weapon
         RaycastShoot(Camera.main.transform.forward);
         shootEffect.Play();
         reload = true;
-        Camera.main.GetComponent<CameraController>().FireRecoil(weaponsRecoil, snappiness);
+        Camera.main.GetComponent<CameraController>().FireRecoil(characteristics.WeaponsRecoil, characteristics.Snappiness);
         shootTimer = 0;
     }
 

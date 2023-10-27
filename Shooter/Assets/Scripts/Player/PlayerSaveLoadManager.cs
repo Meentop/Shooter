@@ -67,8 +67,7 @@ public class PlayerSaveLoadManager : MonoBehaviour
     {
         for (int i = 0; i < weaponSaves.Count; i++)
         {
-            GameObject weaponHolder = Instantiate(weaponConfig.Weapons[weaponSaves[i].number]);
-            Weapon weapon = weaponHolder.GetComponentInChildren<Weapon>();
+            Weapon weapon = Instantiate(weaponConfig.Weapons[weaponSaves[i].number]);
             _player.AddWeapon(weapon, i);
             weapon.SetLevel(weaponSaves[i].level);
             weapon.ConectToPlayer();

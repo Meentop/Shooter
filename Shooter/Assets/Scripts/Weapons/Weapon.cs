@@ -2,30 +2,19 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public abstract class Weapon : MonoBehaviour, ISelectableItem
+public abstract class Weapon : MonoBehaviour
 {
     [SerializeField] protected ParticleSystem shootEffect;
     [SerializeField] protected ParticleSystem decalPrefab;
     [SerializeField] private Collider boxCollider;
     [SerializeField] protected GameObject crossheir;
     [Space]
-    [SerializeField] protected Sprite sprite;
-    [SerializeField] protected string weaponName;
-    [SerializeField] private bool canSprayed;
-    [SerializeField] protected int[] damage = new int[3];
-    [SerializeField] protected float firingSpeed;
-    [SerializeField] protected Vector3 weaponOnCollectRot;
     [SerializeField] private WeaponConfig config;
-    [SerializeField] protected Vector3 weaponsRecoil;
-    [SerializeField] protected float snappiness;
+    [SerializeField] protected WeaponCharacteristics characteristics;
     protected int maxNumberOfModules = 1;
     protected int level = 0;
     protected const int maxLevel = 2;
 
-    public SelectableItems ItemType => SelectableItems.Weapon;
-
-    public string Text => Bought ? "Press E to buy" : "Press E to equip";
-    
     private Player _player;
     private InfoInterface _infoInterface;
     private PlayerDamage _playerDamage;
@@ -36,7 +25,6 @@ public abstract class Weapon : MonoBehaviour, ISelectableItem
     protected bool isSpraying;
     protected float shootTimer;
     protected bool reload = true;
-    public bool Bought { get; private set; }
 
     [System.Serializable]
     public struct Description
@@ -61,13 +49,13 @@ public abstract class Weapon : MonoBehaviour, ISelectableItem
         if (Input.GetMouseButtonDown(0) && !reload && !PauseManager.Pause)
         {
             Shoot();
-            if (canSprayed)
+            if (characteristics.CanSprayed)
                 isSpraying = true;
         }
         else if (Input.GetMouseButtonUp(0))
         {
             StopShooting();
-            if (canSprayed)
+            if (characteristics.CanSprayed)
                 isSpraying = false;
         }
 
@@ -82,12 +70,12 @@ public abstract class Weapon : MonoBehaviour, ISelectableItem
         _targetLook = targetLook;
         gameObject.layer = LayerMask.NameToLayer("Weapon");
         _infoInterface = infoInterface;
-        _infoInterface.SetWeaponIcon(sprite, selectedWeapon);
+        _infoInterface.SetWeaponIcon(characteristics.Sprite, selectedWeapon);
         _infoInterface.SetWeaponCrossheir(crossheir);
         _playerDamage = _player.GetComponent<PlayerDamage>();
 
         _isInited = true;
-        Bought = true;
+        //Bought = true;
         OnInit();
     }
 
@@ -96,7 +84,7 @@ public abstract class Weapon : MonoBehaviour, ISelectableItem
         if (reload)
         {
             shootTimer += Time.deltaTime;
-            if (shootTimer >= firingSpeed)
+            if (shootTimer >= characteristics.FiringSpeed)
             {
                 reload = false;
                 shootTimer = 0f;
@@ -135,33 +123,29 @@ public abstract class Weapon : MonoBehaviour, ISelectableItem
             boxCollider.enabled = false;
         if (transform.TryGetComponent<RotateObject>(out var component))
             component.enabled = false;
-        transform.localRotation = Quaternion.Euler(weaponOnCollectRot);
+        //transform.localRotation = Quaternion.Euler(weaponOnCollectRot);
         transform.parent.parent = _weaponHolder.transform;
         transform.parent.localPosition = Vector3.zero;
         transform.parent.localRotation = Quaternion.identity;
         gameObject.layer = LayerMask.NameToLayer("Weapon");
     }
 
-    public Sprite GetSprite() => sprite;
-    public string GetTitle() => weaponName;
-    public string GetName() => weaponName + " " + (level + 1).ToString() + " lvl";
-    public string GetUpgradedName() => weaponName + " " + (level + 2).ToString() + " lvl";
-    public float GetDamage() => damage[level];
-    public float GetUpgradedDamage() => damage[level + 1];
-    public float GetFiringSpeed() => firingSpeed;
+    public Sprite GetSprite() => characteristics.Sprite;
+    public string GetTitle() => characteristics.WeaponName;
+    public string GetName() => characteristics.WeaponName + " " + (level + 1).ToString() + " lvl";
+    public string GetUpgradedName() => characteristics.WeaponName + " " + (level + 2).ToString() + " lvl";
+    public float GetDamage() => characteristics.Damage[level];
+    public float GetUpgradedDamage() => characteristics.Damage[level + 1];
+    public float GetFiringSpeed() => characteristics.FiringSpeed;
     public int GetMaxNumbersOfModules() => maxNumberOfModules;
     public int GetUpgradedMaxNumbersOfModules() => maxNumberOfModules + 1;
     public bool CouldBeUpgraded() => level < maxLevel;
     public int GetLevel() => level;
-
-    public void OnSelect(Player player)
-    {
-        
-    }
+    public WeaponCharacteristics GetWeaponCharacteristics() => characteristics;
 
     protected int DamageModifired()
     {
-        return (int)(damage[level] * _playerDamage.damagePower);
+        return (int)(characteristics.Damage[level] * _playerDamage.damagePower);
     }
 
     public void RaycastShoot(Vector3 direction)
@@ -247,7 +231,7 @@ public abstract class Weapon : MonoBehaviour, ISelectableItem
 
     public void SetBought()
     {
-        Bought = true;
+        //Bought = true;
     }
 
     public WeaponSave GetSave()
@@ -259,7 +243,7 @@ public abstract class Weapon : MonoBehaviour, ISelectableItem
         }
         WeaponSave weaponSave = new WeaponSave
         {
-            number = config.GetIndex(this),
+            number = config.GetIndex(characteristics),
             level = level,
             modules = modules
         };
