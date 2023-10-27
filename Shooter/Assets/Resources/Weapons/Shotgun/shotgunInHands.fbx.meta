@@ -3,7 +3,22 @@ guid: 5a1cdd6a719ed854b814b1b685abc112
 ModelImporter:
   serializedVersion: 20300
   internalIDToNameTable: []
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: defaultMat
+    second: {fileID: 2100000, guid: aba9ee60131ddfe4b920ae075240f563, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: fpArms_skinMale_mat
+    second: {fileID: 2100000, guid: 170acbf5b040c4e4f9622e9761da72a7, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: lambert1
+    second: {fileID: 2100000, guid: bfcac616a369d3a48be71e45c5beadcd, type: 2}
   materials:
     materialImportMode: 2
     materialName: 0

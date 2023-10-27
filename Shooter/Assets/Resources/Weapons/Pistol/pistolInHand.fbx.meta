@@ -3,7 +3,27 @@ guid: 211e2f62b2ca4dd49a5bd018c6618c6a
 ModelImporter:
   serializedVersion: 20300
   internalIDToNameTable: []
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: defaultMat
+    second: {fileID: 2100000, guid: aba9ee60131ddfe4b920ae075240f563, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: fpArms_skinMale_mat
+    second: {fileID: 2100000, guid: 170acbf5b040c4e4f9622e9761da72a7, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: pistol1
+    second: {fileID: 2100000, guid: c5ba0acd81353d942867bc35af0122d6, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: pistol2
+    second: {fileID: 2100000, guid: aa9ce99aeacc83244af35c5e382f9f99, type: 2}
   materials:
     materialImportMode: 2
     materialName: 0
