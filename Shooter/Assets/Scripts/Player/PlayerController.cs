@@ -5,6 +5,11 @@ using UnityEngine;
 public class PlayerController : MonoBehaviour, IPauseble
 {
     [SerializeField] private Transform checkOnGroundPoint;
+    [SerializeField] private AudioClip[] stepSounds;
+    [SerializeField] private AudioClip jumpSound;
+    [SerializeField] private AudioClip fallSound;
+    [SerializeField] private AudioClip[] deshSounds;
+    [SerializeField] private float stepTimer;
     private KeyCode jumpKey = KeyCode.Space;
 
     private Rigidbody _rb;
@@ -16,6 +21,9 @@ public class PlayerController : MonoBehaviour, IPauseble
     private Player _player;
     private int _curDashCharges = 0;
     private Vector3 prepauseVelocity;
+    private AudioSource _audioSource;
+    private float _curStepTimer = 0;
+
 
     private void Start()
     {
@@ -23,13 +31,22 @@ public class PlayerController : MonoBehaviour, IPauseble
         _rb.freezeRotation = true;
         _player = GetComponent<Player>();
         PauseManager.OnSetPause += OnSetPause;
+        _audioSource = Camera.main.GetComponent<AudioSource>();
     }
 
     private void Update()
     {
         if (!PauseManager.Pause)
         {
-            _grounded = Physics.Raycast(transform.position, Vector3.down, 1.3f, LayerMask.GetMask("Solid"));
+            if (_grounded && !Physics.Raycast(transform.position, Vector3.down, 1.3f, LayerMask.GetMask("Solid"))) 
+            {
+                _grounded = false;
+            }
+            else if(!_grounded && Physics.Raycast(transform.position, Vector3.down, 1.3f, LayerMask.GetMask("Solid")))
+            {
+                _grounded = true;
+                _audioSource.PlayOneShot(fallSound);
+            }
 
             MyInput();
             SpeedControl();
@@ -52,6 +69,7 @@ public class PlayerController : MonoBehaviour, IPauseble
             if (Input.GetKeyDown(KeyCode.LeftShift) && _curDashCharges > 0 && !_dashing)
             {
                 Dash();
+                _audioSource.PlayOneShot(deshSounds[Random.Range(0, deshSounds.Length)]);
             }
             _player.SetDashInfo(_dashTimer / _player.Characteristics.dashReloadTime, _curDashCharges);
         }
@@ -87,13 +105,25 @@ public class PlayerController : MonoBehaviour, IPauseble
             _rb.AddForce(20f * _player.Characteristics.movementSpeed * GetSlopeMoveDirection(), ForceMode.Force);
 
             if (_moveDirection != Vector3.zero)
+            {
                 _rb.AddForce(Vector3.down * 80f, ForceMode.Force);
+            }
         }
         else if (_grounded)
+        {
             _rb.AddForce(20f * _player.Characteristics.movementSpeed * _moveDirection, ForceMode.Force);
+        }
         else if(!_grounded)
             _rb.AddForce(20f * _player.Characteristics.airMultiplayer * _player.Characteristics.movementSpeed * _moveDirection, ForceMode.Force);
 
+        if (_curStepTimer <= 0 && _moveDirection != Vector3.zero && _grounded)
+        {
+            FootStep();
+            _curStepTimer = stepTimer;
+        }
+
+        if (_curStepTimer > 0)
+            _curStepTimer -= Time.fixedDeltaTime;
         _rb.useGravity = !OnSlope();
     }
 
@@ -122,6 +152,7 @@ public class PlayerController : MonoBehaviour, IPauseble
     {
         _exitingSlope = true;
         _rb.velocity = new Vector3(_rb.velocity.x, 0f, _rb.velocity.z);
+        _audioSource.PlayOneShot(jumpSound);
 
         _rb.AddForce(transform.up * _player.Characteristics.jumpStrength, ForceMode.Impulse);
     }
@@ -193,5 +224,12 @@ public class PlayerController : MonoBehaviour, IPauseble
     private void OnDestroy()
     {
         PauseManager.OnSetPause -= OnSetPause;
+    }
+
+    private void FootStep()
+    {
+        int randIndex = Random.Range(0, stepSounds.Length);
+        _audioSource.PlayOneShot(stepSounds[randIndex]);
+        _curStepTimer = stepTimer;
     }
 }

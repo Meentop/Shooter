@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8124924040811388294}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: CameraPos
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -28,7 +28,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 6655776285994737156}
-  m_RootOrder: 1
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &6655776285994737160
 GameObject:
@@ -69,8 +69,8 @@ Transform:
   m_LocalPosition: {x: 0, y: 1, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
-  - {fileID: 6655776286372067823}
   - {fileID: 8124924040811388294}
+  - {fileID: 6655776286372067823}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -167,7 +167,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   weaponHolder: {fileID: 0}
   targetLook: {fileID: 0}
-  weapons: []
+  weapons:
+  - {fileID: 0}
+  - {fileID: 0}
   scrollDelay: 0.4
   activeSkillConfig: {fileID: 11400000, guid: cb14f9a6e35f32641a280c9143b29102, type: 2}
   weaponConfig: {fileID: 11400000, guid: 9e47c26e340d1f44a88c8fe251ae30e7, type: 2}
@@ -233,6 +235,21 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   checkOnGroundPoint: {fileID: 6655776286372067823}
+  stepSounds:
+  - {fileID: 8300000, guid: d88cbad2d217cd74ba1eb0899d6c55ad, type: 3}
+  - {fileID: 8300000, guid: ada024810fd950d408257d2b4903e899, type: 3}
+  - {fileID: 8300000, guid: 74fb0bf68831ec14e8bbc1d6ab1dfba5, type: 3}
+  - {fileID: 8300000, guid: 72fa4eaddcee6834c9fdd330daf0ea25, type: 3}
+  - {fileID: 8300000, guid: 4f4662159c986a84d837e300ab18b254, type: 3}
+  - {fileID: 8300000, guid: eaf994496ccc5594e8080f3b417dc6e4, type: 3}
+  - {fileID: 8300000, guid: dadaa610dcc8540478eb22b5eb22600d, type: 3}
+  - {fileID: 8300000, guid: c7494890bd662124591224be98bb3f83, type: 3}
+  jumpSound: {fileID: 8300000, guid: bee89a8c2b507c84b98d7651aae5ce77, type: 3}
+  fallSound: {fileID: 8300000, guid: 4f314046c8f16b9468348f8cbdaeed98, type: 3}
+  deshSounds:
+  - {fileID: 8300000, guid: 670b0d19a69803c4d85614c463436184, type: 3}
+  - {fileID: 8300000, guid: fdf6806f78eb6c149ac6954e021f1fcd, type: 3}
+  stepTimer: 0.3
 --- !u!114 &5440067626376647844
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -251,7 +268,7 @@ MonoBehaviour:
   healthBar: {fileID: 0}
   afterHealthBarImage: {fileID: 0}
   UIReduceSpeed: 0.2
-  maxHP: 100
+  maxHP: 0
   startSizeDelta: {x: 321.55, y: 22.448}
   _health: {fileID: 0}
 --- !u!114 &4046690061827201452
@@ -304,7 +321,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6655776286372067823}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: CheckOnGroundPoint
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -323,5 +340,5 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 6655776285994737156}
-  m_RootOrder: 0
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
