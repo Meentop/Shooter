@@ -21,7 +21,7 @@ public class PlayerSaveLoadManager : MonoBehaviour
         List<WeaponSave> weapons = new List<WeaponSave>();
         foreach (var weapon in _player.GetWeapons())
         {
-            weapons.Add(weapon.GetSave());
+            //weapons.Add(weapon.GetSave());
         }
         return weapons;
     }

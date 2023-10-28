@@ -44,9 +44,9 @@ public class PlayerInteractionManager : MonoBehaviour
                 case SelectableItems.Weapon:
                     StandWeapon selectWeapon = _lastSavedSelectableItem as StandWeapon;
                     int weaponPrice = priceConfig.GetWeaponPrice(weaponConfig.GetIndex(selectWeapon.GetWeaponCharacteristics()), selectWeapon.GetWeapon().GetLevel());
-                    if (_player.Gold.HasCount(weaponPrice) || selectWeapon.Bought)
+                    if (_player.Gold.HasCount(weaponPrice)/* || selectWeapon.Bought*/)
                     {
-                        if (!selectWeapon.Bought)
+                        //if (!selectWeapon.Bought)
                             _player.Gold.Remove(weaponPrice);
                         //_player.AddWeaponFromStand(selectWeapon);
                     }

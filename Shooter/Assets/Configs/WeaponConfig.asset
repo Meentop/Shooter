@@ -12,6 +12,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4dd21841639fe7f46b04e053d77bf423, type: 3}
   m_Name: WeaponConfig
   m_EditorClassIdentifier: 
+  characteristics:
+  - {fileID: 11400000, guid: 1a68cca86577b6548b6942d9924cba80, type: 2}
+  - {fileID: 11400000, guid: 85746b94c97dc0f4fa25cb942a397481, type: 2}
+  - {fileID: 11400000, guid: c71050e8eb1b09443895d52988febc11, type: 2}
+  - {fileID: 11400000, guid: 4be3c82c7b6a51749817a90ea0fad96c, type: 2}
+  standWeapons:
+  - {fileID: 0}
+  - {fileID: 5378383693000340290, guid: 39d98f944c03fef42b31678cbf83b0dd, type: 3}
+  - {fileID: 543510342069185989, guid: 4bbb88cf27819aa4a83edd8ed49b0228, type: 3}
+  - {fileID: 5846149899938312163, guid: 36eb3809717107546be191397f5d174c, type: 3}
   weapons:
   - {fileID: 6326213263480613786, guid: cbcae3890e51c3f489d826d24a038d8d, type: 3}
   - {fileID: 6326213263480613786, guid: 22947d7ca094aab45a3066d32938a7d8, type: 3}
