@@ -4,9 +4,13 @@ using UnityEngine;
 
 public class StandWeapon : MonoBehaviour
 {
-    [SerializeField] private Weapon weapon;
     [SerializeField] private WeaponCharacteristics characteristics;
-
-    public Weapon GetWeapon() => weapon;
+    public int Level { get; private set; } = 0;
+    public bool Bought { get; private set; } = false;
     public WeaponCharacteristics GetWeaponCharacteristics() => characteristics;
+
+    public void SetBought()
+    {
+        Bought = true;
+    }
 }

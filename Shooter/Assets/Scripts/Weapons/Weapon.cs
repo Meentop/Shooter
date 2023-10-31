@@ -6,7 +6,6 @@ public abstract class Weapon : MonoBehaviour
 {
     [SerializeField] protected ParticleSystem shootEffect;
     [SerializeField] protected ParticleSystem decalPrefab;
-    [SerializeField] private Collider boxCollider;
     [SerializeField] protected GameObject crossheir;
     [Space]
     [SerializeField] private WeaponConfig config;
@@ -63,19 +62,18 @@ public abstract class Weapon : MonoBehaviour
             Shoot();
     }
 
-    public void Init(Player player, Transform weaponHolder, Transform targetLook, InfoInterface infoInterface, int selectedWeapon)
+    public void Init(Player player, Transform weaponHolder, Transform targetLook, InfoInterface infoInterface, int weaponPosition)
     {
         _player = player;
         _weaponHolder = weaponHolder;
         _targetLook = targetLook;
         gameObject.layer = LayerMask.NameToLayer("Weapon");
         _infoInterface = infoInterface;
-        _infoInterface.SetWeaponIcon(characteristics.Sprite, selectedWeapon);
+        _infoInterface.SetWeaponIcon(characteristics.Sprite, weaponPosition);
         _infoInterface.SetWeaponCrossheir(crossheir);
         _playerDamage = _player.GetComponent<PlayerDamage>();
 
         _isInited = true;
-        //Bought = true;
         OnInit();
     }
 
@@ -97,38 +95,6 @@ public abstract class Weapon : MonoBehaviour
     public abstract void Shoot();
 
     public abstract void StopShooting();
-
-    public void ConnectToStand(Transform stand)
-    {
-        enabled = false;
-        if (transform.TryGetComponent<RotateObject>(out var component))
-            component.enabled = true;
-        transform.parent.parent = stand;
-        transform.parent.localRotation = Quaternion.identity;
-        transform.parent.position = transform.parent.parent.position + new Vector3(0, 1f, 0) + (transform.parent.position - transform.position);
-        if (boxCollider != null)
-            boxCollider.enabled = true;
-        foreach (var module in _weaponModules)
-            _player.AddFreeModule(module);
-        _weaponModules.Clear();
-        gameObject.layer = LayerMask.NameToLayer("Default");
-    }
-
-    public void ConectToPlayer()
-    {
-        enabled = true;
-        if (transform.GetComponentInParent<WeaponAward>())
-            transform.GetComponentInParent<WeaponAward>().DeleteOtherWeapons(transform.parent.parent);
-        if (boxCollider != null)
-            boxCollider.enabled = false;
-        if (transform.TryGetComponent<RotateObject>(out var component))
-            component.enabled = false;
-        //transform.localRotation = Quaternion.Euler(weaponOnCollectRot);
-        transform.parent.parent = _weaponHolder.transform;
-        transform.parent.localPosition = Vector3.zero;
-        transform.parent.localRotation = Quaternion.identity;
-        gameObject.layer = LayerMask.NameToLayer("Weapon");
-    }
 
     public Sprite GetSprite() => characteristics.Sprite;
     public string GetTitle() => characteristics.WeaponName;
@@ -227,11 +193,6 @@ public abstract class Weapon : MonoBehaviour
     {
         this.level = level;
         maxNumberOfModules = level + 1;
-    }
-
-    public void SetBought()
-    {
-        //Bought = true;
     }
 
     public WeaponSave GetSave()

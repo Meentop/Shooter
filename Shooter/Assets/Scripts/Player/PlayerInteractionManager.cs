@@ -42,13 +42,13 @@ public class PlayerInteractionManager : MonoBehaviour
             switch (_lastSavedSelectableItem.ItemType)
             {
                 case SelectableItems.Weapon:
-                    StandWeapon selectWeapon = _lastSavedSelectableItem as StandWeapon;
-                    int weaponPrice = priceConfig.GetWeaponPrice(weaponConfig.GetIndex(selectWeapon.GetWeaponCharacteristics()), selectWeapon.GetWeapon().GetLevel());
-                    if (_player.Gold.HasCount(weaponPrice)/* || selectWeapon.Bought*/)
+                    StandWithWeapon selectStand = _lastSavedSelectableItem as StandWithWeapon;
+                    int weaponPrice = priceConfig.GetWeaponPrice(weaponConfig.GetIndex(selectStand.GetWeaponCharacteristics()), selectStand.StandWeapon.Level);
+                    if (_player.Gold.HasCount(weaponPrice) || selectStand.StandWeapon.Bought)
                     {
-                        //if (!selectWeapon.Bought)
+                        if (!selectStand.StandWeapon.Bought)
                             _player.Gold.Remove(weaponPrice);
-                        //_player.AddWeaponFromStand(selectWeapon);
+                        _player.AddWeaponFromStand(selectStand);
                     }
                     break;
                 case SelectableItems.Module:
@@ -172,9 +172,9 @@ public class PlayerInteractionManager : MonoBehaviour
         switch (_lastSavedSelectableItem.ItemType)
         {
             case SelectableItems.Weapon:
-                Weapon selectWeapon = _lastSavedSelectableItem as Weapon;
-                int weaponPrice = priceConfig.GetWeaponPrice(weaponConfig.GetIndex(selectWeapon.GetWeaponCharacteristics()), selectWeapon.GetLevel());
-                _uiManager.SelectadleUI.UpdateNewWeaponUI(weaponPrice, _player.Gold.HasCount(weaponPrice), selectWeapon);
+                StandWithWeapon selectWeaponStand = _lastSavedSelectableItem as StandWithWeapon;
+                int weaponPrice = priceConfig.GetWeaponPrice(weaponConfig.GetIndex(selectWeaponStand.GetWeaponCharacteristics()), selectWeaponStand.StandWeapon.Level);
+                _uiManager.SelectadleUI.UpdateNewWeaponUI(weaponPrice, _player.Gold.HasCount(weaponPrice), selectWeaponStand.StandWeapon);
                 break;
             case SelectableItems.Module:
                 Module selectModule = _lastSavedSelectableItem as Module;

@@ -18,12 +18,12 @@ MonoBehaviour:
   - {fileID: 11400000, guid: c71050e8eb1b09443895d52988febc11, type: 2}
   - {fileID: 11400000, guid: 4be3c82c7b6a51749817a90ea0fad96c, type: 2}
   standWeapons:
-  - {fileID: 0}
+  - {fileID: 543510342069185989, guid: 4d21f94184d1e404b984e9452b7d4a9b, type: 3}
   - {fileID: 5378383693000340290, guid: 39d98f944c03fef42b31678cbf83b0dd, type: 3}
   - {fileID: 543510342069185989, guid: 4bbb88cf27819aa4a83edd8ed49b0228, type: 3}
   - {fileID: 5846149899938312163, guid: 36eb3809717107546be191397f5d174c, type: 3}
   weapons:
-  - {fileID: 6326213263480613786, guid: cbcae3890e51c3f489d826d24a038d8d, type: 3}
-  - {fileID: 6326213263480613786, guid: 22947d7ca094aab45a3066d32938a7d8, type: 3}
-  - {fileID: 2375438750422303458, guid: be6f9770983ba1c42a7b2eb7d30b3fcc, type: 3}
-  - {fileID: 2162788818056508648, guid: bf6922ff3993097449c8df0241a8c114, type: 3}
+  - {fileID: 1819924578768365034, guid: bd3b7346972d2164e952454f248dbc67, type: 3}
+  - {fileID: 1271097320929870045, guid: f54bab1d2a907e34aab8d6a9c032a5e0, type: 3}
+  - {fileID: 0}
+  - {fileID: 1568556206116574673, guid: 021eec4f09dcac843a34f897743f7e1f, type: 3}

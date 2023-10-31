@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &7373440825907077385
+--- !u!1 &5283843332859263764
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8,42 +8,43 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 189729236226332883}
-  - component: {fileID: 3815651923741399475}
-  m_Layer: 0
-  m_Name: HubWeapons
+  - component: {fileID: 4762604059919393198}
+  - component: {fileID: 1819924578768365034}
+  m_Layer: 7
+  m_Name: NoneWeapon
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &189729236226332883
+--- !u!4 &4762604059919393198
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7373440825907077385}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_GameObject: {fileID: 5283843332859263764}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0.19, y: -1.4, z: -1.94}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &3815651923741399475
+--- !u!114 &1819924578768365034
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7373440825907077385}
+  m_GameObject: {fileID: 5283843332859263764}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 613150e8b8a51ee43aec791e7109057b, type: 3}
+  m_Script: {fileID: 11500000, guid: 502625e7e11fd2a468e18dd65b613276, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  standPrefab: {fileID: 1764062464346463649, guid: f4d52bb1953b67f48ace0da6d9056834, type: 3}
-  standDistance: 1.5
-  standCount: 1
-  weaponConfig: {fileID: 11400000, guid: 9e47c26e340d1f44a88c8fe251ae30e7, type: 2}
+  shootEffect: {fileID: 0}
+  decalPrefab: {fileID: 0}
+  crossheir: {fileID: 8042525474897846806, guid: 427413f7c8be596429352a8f36077ca4, type: 3}
+  config: {fileID: 11400000, guid: 9e47c26e340d1f44a88c8fe251ae30e7, type: 2}
+  characteristics: {fileID: 11400000, guid: 1a68cca86577b6548b6942d9924cba80, type: 2}
