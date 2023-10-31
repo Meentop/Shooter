@@ -35,7 +35,6 @@ public class Settings : MonoBehaviour
         resolutionDropdown.AddOptions(options);
         resolutionDropdown.RefreshShownValue();
         _audioSource = Camera.main.GetComponent<AudioSource>();
-        UpdateVolume();
         LoadSettings(currentResolutionIndex);
     }
 
@@ -77,7 +76,29 @@ public class Settings : MonoBehaviour
 
     public void UpdateVolume()
     {
-        _audioSource.volume = volumeSlider.value / 100;
+        PlayerPrefs.SetInt("PlayerVolume", (int)volumeSlider.value);
+        _audioSource.volume = PlayerPrefs.GetInt("PlayerVolume") / volumeSlider.maxValue;
         volumeValueTextPro.text = volumeSlider.value.ToString("0");
+    }
+
+    public void StartVolume()
+    {
+        if(_audioSource == null)
+            _audioSource = Camera.main.GetComponent<AudioSource>();
+
+        if (!PlayerPrefs.HasKey("PlayerVolume"))
+        {
+            PlayerPrefs.SetInt("PlayerVolume", (int)volumeSlider.maxValue / 2);
+            _audioSource.volume = PlayerPrefs.GetInt("PlayerVolume") / volumeSlider.maxValue;
+            volumeSlider.value = PlayerPrefs.GetInt("PlayerVolume");
+            volumeValueTextPro.text = volumeSlider.value.ToString("0");
+        }
+
+        else
+        {
+            _audioSource.volume = PlayerPrefs.GetInt("PlayerVolume") / volumeSlider.maxValue;
+            volumeSlider.value = PlayerPrefs.GetInt("PlayerVolume");
+            volumeValueTextPro.text = volumeSlider.value.ToString("0");
+        }
     }
 }

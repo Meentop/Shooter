@@ -7,6 +7,9 @@ public class PauseInput : MonoBehaviour
     [SerializeField] private GameObject pausePanel;
     [SerializeField] private GameObject settingsPanel;
     [SerializeField] private GameObject terminalPanel;
+    [SerializeField] private AudioClip[] pressButtonSounds;
+
+    private AudioSource _audioSource;
 
     private void Update()
     {
@@ -41,7 +44,12 @@ public class PauseInput : MonoBehaviour
             uiManager.SelectadleUI.DisableAllSelectablesUI();
         }    
     }
-    
+
+    private void Start()
+    {
+        _audioSource = Camera.main.GetComponent<AudioSource>();
+    }
+
     //ui button
     public void DisablePauseMenu()
     {
@@ -58,5 +66,10 @@ public class PauseInput : MonoBehaviour
     public void BackToPauseMenu()
     {
         settingsPanel.SetActive(false);
+    }
+
+    public void PressButtonSound()
+    {
+        _audioSource.PlayOneShot(pressButtonSounds[Random.Range(0, pressButtonSounds.Length)]);
     }
 }

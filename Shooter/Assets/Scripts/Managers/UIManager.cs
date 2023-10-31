@@ -10,6 +10,7 @@ public class UIManager : MonoBehaviour
     [SerializeField] private ModulesPanelUI modulesPanel;
     [SerializeField] private SelectableUI selectadleUI;
     [SerializeField] private TerminalUI terminalUI;
+    [SerializeField] private Settings settings;
 
     public InfoInterface InfoInterface { get { return infoInterface; } private set { infoInterface = value; } }
     public ModulesPanelUI ModulesPanel { get { return modulesPanel; } private set { modulesPanel = value; } }    
@@ -22,5 +23,10 @@ public class UIManager : MonoBehaviour
     public void SetActiveDeathPanel()
     {
         deathPanel.SetActive(true);
+    }
+
+    private void Start()
+    {
+        settings.StartVolume();
     }
 }
