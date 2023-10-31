@@ -9,8 +9,12 @@ public class Settings : MonoBehaviour
 {
     [SerializeField] private Dropdown resolutionDropdown;
     [SerializeField] private Slider sensivitySlider;
+    [SerializeField] private Slider volumeSlider;
     [SerializeField] private CameraConfig cameraConfig;
     [SerializeField] private TextMeshProUGUI sensivityValueTextPro;
+    [SerializeField] private TextMeshProUGUI volumeValueTextPro;
+
+    private AudioSource _audioSource;
     
     Resolution[] resolutions;
     void Start()
@@ -30,6 +34,8 @@ public class Settings : MonoBehaviour
 
         resolutionDropdown.AddOptions(options);
         resolutionDropdown.RefreshShownValue();
+        _audioSource = Camera.main.GetComponent<AudioSource>();
+        UpdateVolume();
         LoadSettings(currentResolutionIndex);
     }
 
@@ -67,5 +73,11 @@ public class Settings : MonoBehaviour
     {
         cameraConfig.sensivity = sensivitySlider.value;
         sensivityValueTextPro.text = sensivitySlider.value.ToString("0");
+    }
+
+    public void UpdateVolume()
+    {
+        _audioSource.volume = volumeSlider.value / 100;
+        volumeValueTextPro.text = volumeSlider.value.ToString("0");
     }
 }

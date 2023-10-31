@@ -241,14 +241,12 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 74fb0bf68831ec14e8bbc1d6ab1dfba5, type: 3}
   - {fileID: 8300000, guid: 72fa4eaddcee6834c9fdd330daf0ea25, type: 3}
   - {fileID: 8300000, guid: 4f4662159c986a84d837e300ab18b254, type: 3}
-  - {fileID: 8300000, guid: eaf994496ccc5594e8080f3b417dc6e4, type: 3}
   - {fileID: 8300000, guid: dadaa610dcc8540478eb22b5eb22600d, type: 3}
   - {fileID: 8300000, guid: c7494890bd662124591224be98bb3f83, type: 3}
-  jumpSound: {fileID: 8300000, guid: bee89a8c2b507c84b98d7651aae5ce77, type: 3}
+  jumpSound: {fileID: 8300000, guid: 60928fa09c802aa4289a2212b72215c2, type: 3}
   fallSound: {fileID: 8300000, guid: 4f314046c8f16b9468348f8cbdaeed98, type: 3}
   deshSounds:
   - {fileID: 8300000, guid: 670b0d19a69803c4d85614c463436184, type: 3}
-  - {fileID: 8300000, guid: fdf6806f78eb6c149ac6954e021f1fcd, type: 3}
   stepTimer: 0.3
 --- !u!114 &5440067626376647844
 MonoBehaviour:
