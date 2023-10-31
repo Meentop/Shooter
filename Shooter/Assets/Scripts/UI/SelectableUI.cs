@@ -66,18 +66,20 @@ public class SelectableUI : MonoBehaviour
 
     //New Weapon
 
-    public void UpdateNewWeaponUI(int price, bool hasGold, Weapon weapon)
+    public void UpdateNewWeaponUI(int price, bool hasGold, StandWeapon weapon)
     {
-        //newWeaponDescriptions.BuyPanel.SetActive(!weapon.Bought);
-        newWeaponDescriptions.Image.sprite = weapon.GetSprite();
-        newWeaponDescriptions.NameText.text = weapon.GetName();
-        newWeaponDescriptions.DamageText.text = "Damage " + weapon.GetDamage().ToString();
-        newWeaponDescriptions.FiringSpeed.text = "FiringSpeed " + weapon.GetFiringSpeed().ToString();
+        WeaponCharacteristics characteristics = weapon.GetWeaponCharacteristics();
+
+        newWeaponDescriptions.BuyPanel.SetActive(!weapon.Bought);
+        newWeaponDescriptions.Image.sprite = characteristics.Sprite;
+        newWeaponDescriptions.NameText.text = characteristics.WeaponName;
+        newWeaponDescriptions.DamageText.text = "Damage " + characteristics.Damage[weapon.Level].ToString();
+        newWeaponDescriptions.FiringSpeed.text = "FiringSpeed " + characteristics.FiringSpeed.ToString();
         foreach (Transform modulesHolder in newWeaponDescriptions.ModulesHolder)
         {
             Destroy(modulesHolder.gameObject);
         }
-        for (int j = 0; j < weapon.GetMaxNumbersOfModules(); j++)
+        for (int j = 0; j < weapon.Level + 1; j++)
         {
             Instantiate(hollowModuleHolderPrefab, newWeaponDescriptions.ModulesHolder);
         }

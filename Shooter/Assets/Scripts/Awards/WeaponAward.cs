@@ -17,9 +17,8 @@ public class WeaponAward : MonoBehaviour
             int randomNumber = Random.Range(1, standWeapons.Count);
             StandWeapon randStandWeapon = standWeapons[randomNumber];
             standWeapons.RemoveAt(randomNumber);
-            StandWeapon standWeapon = Instantiate(randStandWeapon, holders[i]);
+            Instantiate(randStandWeapon, holders[i]);
             stands[i].SetStandWeapon(randStandWeapon);
-            //weapon.ConnectToStand(stand);
         }
     }
 

@@ -89,11 +89,7 @@ public class Terminal : MonoBehaviour, ISelectableItem
                 Instantiate(enemies[index], enemySpawnPoint.position, Quaternion.identity);
                 break;
             case TerminalButtonType.Weapon:
-                Weapon weapon = Instantiate(weaponConfig.Weapons[index]);
-                Destroy(player.GetSelectedWeapon().gameObject);
-                player.AddWeapon(weapon, player.GetSelectedWeaponSlot());
-                weapon.ConectToPlayer();
-                player.SetCurrentWeapon();
+                player.AddWeaponFromTerminal(index);
                 break;
             case TerminalButtonType.Gold:
                 player.Gold.Add(golds[index]);

@@ -21,7 +21,7 @@ public class PlayerSaveLoadManager : MonoBehaviour
         List<WeaponSave> weapons = new List<WeaponSave>();
         foreach (var weapon in _player.GetWeapons())
         {
-            //weapons.Add(weapon.GetSave());
+            weapons.Add(weapon.GetSave());
         }
         return weapons;
     }
@@ -67,10 +67,8 @@ public class PlayerSaveLoadManager : MonoBehaviour
     {
         for (int i = 0; i < weaponSaves.Count; i++)
         {
-            Weapon weapon = Instantiate(weaponConfig.Weapons[weaponSaves[i].number]);
-            _player.AddWeapon(weapon, i);
+            Weapon weapon = _player.AddWeaponFromSave(weaponSaves[i].number, i);
             weapon.SetLevel(weaponSaves[i].level);
-            weapon.ConectToPlayer();
             foreach (var module in weaponSaves[i].modules)
             {
                 WeaponModule weaponModule = weaponModuleConfig.Modules[module.number];

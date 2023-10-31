@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 2433323160323860775}
   - component: {fileID: 2433323160323860774}
   - component: {fileID: 2433323160323860773}
-  m_Layer: 10
+  m_Layer: 0
   m_Name: StandModel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -186,7 +186,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7a5a20eb148b04249be9e1c69f73166e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  standWeapon: {fileID: 0}
+  holder: {fileID: 7095987848279072559}
+  weaponConfig: {fileID: 11400000, guid: 9e47c26e340d1f44a88c8fe251ae30e7, type: 2}
+  collider1: {fileID: 7951191256834968996}
 --- !u!65 &7951191256834968996
 BoxCollider:
   m_ObjectHideFlags: 0

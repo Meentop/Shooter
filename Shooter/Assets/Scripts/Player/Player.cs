@@ -1,8 +1,6 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Diagnostics;
-using System.Net.Sockets;
 using UnityEngine;
 
 public class Player : MonoBehaviour
@@ -150,19 +148,33 @@ public class Player : MonoBehaviour
     public int GetSelectedWeaponSlot() => _selectedWeaponSlot; 
 
 
-    public void AddWeaponFromStand(Weapon selectWeapon)
+    public void AddWeaponFromStand(StandWithWeapon selectStand)
     {
-        _currentWeapon.ConnectToStand(selectWeapon.transform.parent.parent);
-        _currentWeapon = selectWeapon;
+        int previousWeaponIndex = weaponConfig.GetIndex(_currentWeapon.GetWeaponCharacteristics());
+        Destroy(weapons[_selectedWeaponSlot].gameObject);
+
+        _currentWeapon = Instantiate(weaponConfig.Weapons[weaponConfig.GetIndex(selectStand.GetWeaponCharacteristics())], weaponHolder);
         weapons[_selectedWeaponSlot] = _currentWeapon;
         _currentWeapon.Init(this, weaponHolder, targetLook, _infoInterface, _selectedWeaponSlot);
-        _currentWeapon.ConectToPlayer();
+
+        selectStand.SetBoughtStandWeapon(previousWeaponIndex);
     }
 
-    public void AddWeapon(Weapon weapon, int index)
+    public void AddWeaponFromTerminal(int index)
     {
-        weapons[index] = weapon;
-        weapon.Init(this, this.weaponHolder, targetLook, _infoInterface, index);
+        Destroy(weapons[_selectedWeaponSlot].gameObject);
+
+        _currentWeapon = Instantiate(weaponConfig.Weapons[index], weaponHolder);
+        weapons[_selectedWeaponSlot] = _currentWeapon;
+        _currentWeapon.Init(this, weaponHolder, targetLook, _infoInterface, _selectedWeaponSlot);
+    }
+
+    public Weapon AddWeaponFromSave(int weaponIndex, int weaponPosition)
+    {
+        weapons[weaponPosition] = Instantiate(weaponConfig.Weapons[weaponIndex], weaponHolder);
+        weapons[weaponPosition].Init(this, weaponHolder, targetLook, _infoInterface, weaponPosition);
+
+        return weapons[weaponPosition];
     }
 
     public void SetCurrentWeapon()
