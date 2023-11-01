@@ -556,6 +556,18 @@ PrefabInstance:
       propertyPath: playerTransform
       value: 
       objectReference: {fileID: 6655776286918135551}
+    - target: {fileID: 3084846461369755120, guid: 83c9ad56a38022b4899e1e1eec2c3fab, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3084846461369755120, guid: 83c9ad56a38022b4899e1e1eec2c3fab, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3084846461369755120, guid: 83c9ad56a38022b4899e1e1eec2c3fab, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3893339360288788293, guid: 83c9ad56a38022b4899e1e1eec2c3fab, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
@@ -564,6 +576,18 @@ PrefabInstance:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Target
       value: 
       objectReference: {fileID: 760817651}
+    - target: {fileID: 3970181966446831125, guid: 83c9ad56a38022b4899e1e1eec2c3fab, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3970181966446831125, guid: 83c9ad56a38022b4899e1e1eec2c3fab, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3970181966446831125, guid: 83c9ad56a38022b4899e1e1eec2c3fab, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4117623843743096854, guid: 83c9ad56a38022b4899e1e1eec2c3fab, type: 3}
       propertyPath: m_Name
       value: Canvas
