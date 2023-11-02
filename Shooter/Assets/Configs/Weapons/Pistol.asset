@@ -16,6 +16,6 @@ MonoBehaviour:
   weaponName: Pistol
   canSprayed: 0
   damage: 0a0000000f00000014000000
-  firingSpeed: 1
-  weaponsRecoil: {x: 0, y: 0, z: 0}
-  snappiness: 0
+  firingSpeed: 0.3
+  weaponsRecoil: {x: -3, y: 2, z: 1}
+  snappiness: 12

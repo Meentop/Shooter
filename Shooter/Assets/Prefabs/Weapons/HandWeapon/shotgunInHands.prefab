@@ -572,6 +572,8 @@ MonoBehaviour:
   shootEffect: {fileID: 198000012944515248, guid: 18da9b4052e33814097d68831d211209, type: 3}
   decalPrefab: {fileID: 198000010535933408, guid: f55c9bf640b6fd34aa8924a3dc6673dd, type: 3}
   crossheir: {fileID: 8042525474897846806, guid: 3728d9438fb3a1b4cb05aceb037de13d, type: 3}
+  shootSounds:
+  - {fileID: 8300000, guid: 3cf79a34cf6b5d04e8fdf0423c1628cc, type: 3}
   config: {fileID: 11400000, guid: 9e47c26e340d1f44a88c8fe251ae30e7, type: 2}
   characteristics: {fileID: 11400000, guid: 4be3c82c7b6a51749817a90ea0fad96c, type: 2}
   pelletsCount: 5
