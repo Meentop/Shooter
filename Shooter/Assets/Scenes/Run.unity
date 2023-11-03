@@ -430,6 +430,7 @@ MonoBehaviour:
   load: {fileID: 760817652}
   save: {fileID: 760817653}
   enemiesTeamVariationsConfig: {fileID: 11400000, guid: 3a85a6db53259cf4b9048d727d4faf49, type: 2}
+  swayNBob: {fileID: 1697727722191368259}
 --- !u!114 &760817651
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -703,6 +704,17 @@ Camera:
   m_CorrespondingSourceObject: {fileID: 7071249058586371037, guid: 5dabf89771060884e956222b099303a1, type: 3}
   m_PrefabInstance: {fileID: 1697727722191368257}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1697727722191368259 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 3323577946139769544, guid: 5dabf89771060884e956222b099303a1, type: 3}
+  m_PrefabInstance: {fileID: 1697727722191368257}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a60d01b8a691fd54699c815470b36c89, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &2565003241933251663
 PrefabInstance:
   m_ObjectHideFlags: 0

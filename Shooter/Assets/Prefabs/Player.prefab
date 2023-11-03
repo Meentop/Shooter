@@ -247,7 +247,7 @@ MonoBehaviour:
   fallSound: {fileID: 8300000, guid: 4f314046c8f16b9468348f8cbdaeed98, type: 3}
   deshSounds:
   - {fileID: 8300000, guid: 670b0d19a69803c4d85614c463436184, type: 3}
-  stepTimer: 0.3
+  stepTimer: 0.4
 --- !u!114 &5440067626376647844
 MonoBehaviour:
   m_ObjectHideFlags: 0

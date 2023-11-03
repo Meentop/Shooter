@@ -13,7 +13,10 @@ public class PlayerController : MonoBehaviour, IPauseble
     private KeyCode jumpKey = KeyCode.Space;
 
     private Rigidbody _rb;
-    private bool _grounded, _exitingSlope, _dashing;
+    private bool _exitingSlope;
+    public bool Grounded { get; private set; }
+    public bool Dashing { get; private set; }
+    public Vector2 DashDirection { get; private set; }
     private float _dashTimer;
     private float _horizontalInput, _verticalInput;
     private Vector3 _moveDirection;
@@ -38,20 +41,20 @@ public class PlayerController : MonoBehaviour, IPauseble
     {
         if (!PauseManager.Pause)
         {
-            if (_grounded && !Physics.Raycast(transform.position, Vector3.down, 1.3f, LayerMask.GetMask("Solid"))) 
+            if (Grounded && !Physics.Raycast(transform.position, Vector3.down, 1.3f, LayerMask.GetMask("Solid"))) 
             {
-                _grounded = false;
+                Grounded = false;
             }
-            else if(!_grounded && Physics.Raycast(transform.position, Vector3.down, 1.3f, LayerMask.GetMask("Solid")))
+            else if(!Grounded && Physics.Raycast(transform.position, Vector3.down, 1.3f, LayerMask.GetMask("Solid")))
             {
-                _grounded = true;
+                Grounded = true;
                 _audioSource.PlayOneShot(fallSound);
             }
 
             MyInput();
             SpeedControl();
 
-            if (_grounded && !_dashing)
+            if (Grounded && !Dashing)
                 _rb.drag = _player.Characteristics.groundDrag;
             else
                 _rb.drag = 0;
@@ -66,7 +69,7 @@ public class PlayerController : MonoBehaviour, IPauseble
                 _curDashCharges++;
             }
 
-            if (Input.GetKeyDown(KeyCode.LeftShift) && _curDashCharges > 0 && !_dashing)
+            if (Input.GetKeyDown(KeyCode.LeftShift) && _curDashCharges > 0 && !Dashing)
             {
                 Dash();
                 _audioSource.PlayOneShot(deshSounds[Random.Range(0, deshSounds.Length)]);
@@ -77,7 +80,7 @@ public class PlayerController : MonoBehaviour, IPauseble
 
     private void FixedUpdate()
     {
-        if (!PauseManager.Pause && !_dashing)
+        if (!PauseManager.Pause && !Dashing)
         {
             Movement();
         }    
@@ -88,7 +91,7 @@ public class PlayerController : MonoBehaviour, IPauseble
         _horizontalInput = Input.GetAxisRaw("Horizontal");
         _verticalInput = Input.GetAxisRaw("Vertical");
 
-        if (Input.GetKeyDown(jumpKey) && _grounded && !_dashing)
+        if (Input.GetKeyDown(jumpKey) && Grounded && !Dashing)
         {
             Jump();
 
@@ -109,14 +112,14 @@ public class PlayerController : MonoBehaviour, IPauseble
                 _rb.AddForce(Vector3.down * 80f, ForceMode.Force);
             }
         }
-        else if (_grounded)
+        else if (Grounded)
         {
             _rb.AddForce(20f * _player.Characteristics.movementSpeed * _moveDirection, ForceMode.Force);
         }
-        else if(!_grounded)
+        else if(!Grounded)
             _rb.AddForce(20f * _player.Characteristics.airMultiplayer * _player.Characteristics.movementSpeed * _moveDirection, ForceMode.Force);
 
-        if (_curStepTimer <= 0 && _moveDirection != Vector3.zero && _grounded)
+        if (_curStepTimer <= 0 && _moveDirection != Vector3.zero && Grounded)
         {
             FootStep();
             _curStepTimer = stepTimer;
@@ -129,7 +132,7 @@ public class PlayerController : MonoBehaviour, IPauseble
 
     private void SpeedControl()
     {
-        if (!_dashing)
+        if (!Dashing)
         {
             if (OnSlope() && !_exitingSlope)
             {
@@ -187,8 +190,9 @@ public class PlayerController : MonoBehaviour, IPauseble
         Vector3 direction = new Vector3(Input.GetAxis("Horizontal"), 0, Input.GetAxis("Vertical")).normalized;
         if (Input.GetAxis("Horizontal") == 0 && Input.GetAxis("Vertical") == 0)
             direction = Vector3.forward;
+        DashDirection = new Vector2(direction.x, direction.z);
         _curDashCharges--;
-        _dashing = true;
+        Dashing = true;
         _dashTimer = 0;
         float dashTimer = _player.Characteristics.dashDuration;
         _rb.velocity = new Vector3(_rb.velocity.x, 0, _rb.velocity.z);
@@ -204,7 +208,7 @@ public class PlayerController : MonoBehaviour, IPauseble
             yield return new WaitForFixedUpdate();
         }
         _rb.useGravity = true;
-        _dashing = false;
+        Dashing = false;
     }
 
     public void OnSetPause(bool value)
