@@ -6,6 +6,7 @@ public class Pistol : Weapon
     {
         RaycastShoot(Camera.main.transform.forward);
         shootEffect.Play();
+        _audioSource.PlayOneShot(shootSounds[Random.Range(0, shootSounds.Length)]);
         reload = true;
         Camera.main.GetComponent<CameraController>().FireRecoil(characteristics.WeaponsRecoil, characteristics.Snappiness);
         shootTimer = 0;

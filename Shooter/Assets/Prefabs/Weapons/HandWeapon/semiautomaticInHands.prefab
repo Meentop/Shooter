@@ -376,6 +376,10 @@ MonoBehaviour:
   shootEffect: {fileID: 198000012944515248, guid: 18da9b4052e33814097d68831d211209, type: 3}
   decalPrefab: {fileID: 198000010535933408, guid: f55c9bf640b6fd34aa8924a3dc6673dd, type: 3}
   crossheir: {fileID: 8042525474897846806, guid: 20eb48a970adea54ebcd7548c8369a74, type: 3}
+  shootSounds:
+  - {fileID: 8300000, guid: a8c098bd25ce8a34cafa37f266686073, type: 3}
+  - {fileID: 8300000, guid: c6bbf10224db8794b8aecf8e094fa072, type: 3}
+  - {fileID: 8300000, guid: cea9ea5649f43cc4d94a3e4d1752c4ea, type: 3}
   config: {fileID: 11400000, guid: 9e47c26e340d1f44a88c8fe251ae30e7, type: 2}
   characteristics: {fileID: 11400000, guid: c71050e8eb1b09443895d52988febc11, type: 2}
 --- !u!95 &2643355145998368365

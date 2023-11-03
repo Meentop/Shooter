@@ -7,6 +7,7 @@ public abstract class Weapon : MonoBehaviour
     [SerializeField] protected ParticleSystem shootEffect;
     [SerializeField] protected ParticleSystem decalPrefab;
     [SerializeField] protected GameObject crossheir;
+    [SerializeField] protected AudioClip[] shootSounds;
     [Space]
     [SerializeField] private WeaponConfig config;
     [SerializeField] protected WeaponCharacteristics characteristics;
@@ -24,6 +25,7 @@ public abstract class Weapon : MonoBehaviour
     protected bool isSpraying;
     protected float shootTimer;
     protected bool reload = true;
+    protected AudioSource _audioSource;
 
     [System.Serializable]
     public struct Description
@@ -72,6 +74,7 @@ public abstract class Weapon : MonoBehaviour
         _infoInterface.SetWeaponIcon(characteristics.Sprite, weaponPosition);
         _infoInterface.SetWeaponCrossheir(crossheir);
         _playerDamage = _player.GetComponent<PlayerDamage>();
+        _audioSource = Camera.main.GetComponent<AudioSource>();
 
         _isInited = true;
         OnInit();

@@ -21,6 +21,7 @@ public class Shotgun : Weapon
         }
 
         shootEffect.Play();
+        _audioSource.PlayOneShot(shootSounds[Random.Range(0, shootSounds.Length)]);
         reload = true;
         Camera.main.GetComponent<CameraController>().FireRecoil(characteristics.WeaponsRecoil, characteristics.Snappiness);
         shootTimer = 0;

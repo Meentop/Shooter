@@ -17,5 +17,5 @@ MonoBehaviour:
   canSprayed: 0
   damage: 0a0000000f00000014000000
   firingSpeed: 1
-  weaponsRecoil: {x: 0, y: 0, z: 0}
-  snappiness: 0
+  weaponsRecoil: {x: -8, y: 5, z: 1}
+  snappiness: 15
