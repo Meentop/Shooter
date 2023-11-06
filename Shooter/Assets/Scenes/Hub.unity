@@ -298,28 +298,130 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 50, y: -30, z: 0}
---- !u!114 &760817651 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 7227883076108030674, guid: 00ccb181976632b438d86d70eaa9496c, type: 3}
-  m_PrefabInstance: {fileID: 7227883076421104929}
+--- !u!1 &760817647
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 760817649}
+  - component: {fileID: 760817650}
+  - component: {fileID: 760817648}
+  - component: {fileID: 760817653}
+  - component: {fileID: 760817652}
+  - component: {fileID: 760817651}
+  m_Layer: 0
+  m_Name: Managers
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &760817648
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 760817647}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d5fa6d88d808fb746bb1f1b9edd4035e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  activeSkillReloadImage: {fileID: 2565003241933251686}
+  deathPanel: {fileID: 2565003241933251690}
+  infoInterface: {fileID: 2565003241933251670}
+  modulesPanel: {fileID: 1082036342}
+  selectadleUI: {fileID: 2565003241933251695}
+  terminalUI: {fileID: 2565003241933251666}
+  settings: {fileID: 2565003241933251665}
+--- !u!4 &760817649
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 760817647}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 4
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &760817650
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 760817647}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c6c4ec9b5a7339a4690e9b7186baf170, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  cameraController: {fileID: 879264486}
+  player: {fileID: 670343695}
+  uiManager: {fileID: 760817648}
+  roomSpawner: {fileID: 0}
+  mainCamera: {fileID: 1573259695}
+  canvas: {fileID: 1026115379}
+  floorSpawner: {fileID: 0}
+  load: {fileID: 760817652}
+  save: {fileID: 760817653}
+  enemiesTeamVariationsConfig: {fileID: 11400000, guid: 3a85a6db53259cf4b9048d727d4faf49, type: 2}
+  swayNBob: {fileID: 1697727722191368258}
+--- !u!114 &760817651
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 760817647}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: d59482a06789d8347a2e20b3d741b991, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &760817653 stripped
+  cameraController: {fileID: 879264486}
+  uiManager: {fileID: 760817648}
+  pausePanel: {fileID: 1879393302}
+  settingsPanel: {fileID: 1339762209}
+  terminalPanel: {fileID: 248117817}
+  pressButtonSounds:
+  - {fileID: 8300000, guid: e6f1e9f47e508c24b957d4d747406c4f, type: 3}
+--- !u!114 &760817652
 MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 7227883076108030676, guid: 00ccb181976632b438d86d70eaa9496c, type: 3}
-  m_PrefabInstance: {fileID: 7227883076421104929}
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
+  m_GameObject: {fileID: 760817647}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5c9447181d95adb438bbb5d1848eeab3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  floorSpawner: {fileID: 0}
+  player: {fileID: 670343695}
+--- !u!114 &760817653
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 760817647}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: ac388bba28644464eb1b6ac1cbe444f1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  floorSpawner: {fileID: 0}
+  player: {fileID: 670343695}
 --- !u!20 &786769203 stripped
 Camera:
   m_CorrespondingSourceObject: {fileID: 7071249058586371037, guid: 5dabf89771060884e956222b099303a1, type: 3}
@@ -946,132 +1048,3 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 8124924040811388294, guid: 9e72b9e8f879a1147acd589cbd24cdd4, type: 3}
   m_PrefabInstance: {fileID: 6655776286918135550}
   m_PrefabAsset: {fileID: 0}
---- !u!1001 &7227883076421104929
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    m_TransformParent: {fileID: 0}
-    m_Modifications:
-    - target: {fileID: 7227883076108030670, guid: 00ccb181976632b438d86d70eaa9496c, type: 3}
-      propertyPath: m_Name
-      value: Managers
-      objectReference: {fileID: 0}
-    - target: {fileID: 7227883076108030672, guid: 00ccb181976632b438d86d70eaa9496c, type: 3}
-      propertyPath: m_RootOrder
-      value: 4
-      objectReference: {fileID: 0}
-    - target: {fileID: 7227883076108030672, guid: 00ccb181976632b438d86d70eaa9496c, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7227883076108030672, guid: 00ccb181976632b438d86d70eaa9496c, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7227883076108030672, guid: 00ccb181976632b438d86d70eaa9496c, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7227883076108030672, guid: 00ccb181976632b438d86d70eaa9496c, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 7227883076108030672, guid: 00ccb181976632b438d86d70eaa9496c, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7227883076108030672, guid: 00ccb181976632b438d86d70eaa9496c, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7227883076108030672, guid: 00ccb181976632b438d86d70eaa9496c, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7227883076108030672, guid: 00ccb181976632b438d86d70eaa9496c, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7227883076108030672, guid: 00ccb181976632b438d86d70eaa9496c, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7227883076108030672, guid: 00ccb181976632b438d86d70eaa9496c, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7227883076108030673, guid: 00ccb181976632b438d86d70eaa9496c, type: 3}
-      propertyPath: settings
-      value: 
-      objectReference: {fileID: 2565003241933251665}
-    - target: {fileID: 7227883076108030673, guid: 00ccb181976632b438d86d70eaa9496c, type: 3}
-      propertyPath: deathPanel
-      value: 
-      objectReference: {fileID: 2565003241933251690}
-    - target: {fileID: 7227883076108030673, guid: 00ccb181976632b438d86d70eaa9496c, type: 3}
-      propertyPath: terminalUI
-      value: 
-      objectReference: {fileID: 2565003241933251666}
-    - target: {fileID: 7227883076108030673, guid: 00ccb181976632b438d86d70eaa9496c, type: 3}
-      propertyPath: modulesPanel
-      value: 
-      objectReference: {fileID: 1082036342}
-    - target: {fileID: 7227883076108030673, guid: 00ccb181976632b438d86d70eaa9496c, type: 3}
-      propertyPath: selectadleUI
-      value: 
-      objectReference: {fileID: 2565003241933251695}
-    - target: {fileID: 7227883076108030673, guid: 00ccb181976632b438d86d70eaa9496c, type: 3}
-      propertyPath: infoInterface
-      value: 
-      objectReference: {fileID: 2565003241933251670}
-    - target: {fileID: 7227883076108030673, guid: 00ccb181976632b438d86d70eaa9496c, type: 3}
-      propertyPath: activeSkillReloadImage
-      value: 
-      objectReference: {fileID: 2565003241933251686}
-    - target: {fileID: 7227883076108030674, guid: 00ccb181976632b438d86d70eaa9496c, type: 3}
-      propertyPath: pausePanel
-      value: 
-      objectReference: {fileID: 1879393302}
-    - target: {fileID: 7227883076108030674, guid: 00ccb181976632b438d86d70eaa9496c, type: 3}
-      propertyPath: settingsPanel
-      value: 
-      objectReference: {fileID: 1339762209}
-    - target: {fileID: 7227883076108030674, guid: 00ccb181976632b438d86d70eaa9496c, type: 3}
-      propertyPath: terminalPanel
-      value: 
-      objectReference: {fileID: 248117817}
-    - target: {fileID: 7227883076108030674, guid: 00ccb181976632b438d86d70eaa9496c, type: 3}
-      propertyPath: cameraController
-      value: 
-      objectReference: {fileID: 879264486}
-    - target: {fileID: 7227883076108030675, guid: 00ccb181976632b438d86d70eaa9496c, type: 3}
-      propertyPath: canvas
-      value: 
-      objectReference: {fileID: 1026115379}
-    - target: {fileID: 7227883076108030675, guid: 00ccb181976632b438d86d70eaa9496c, type: 3}
-      propertyPath: player
-      value: 
-      objectReference: {fileID: 670343695}
-    - target: {fileID: 7227883076108030675, guid: 00ccb181976632b438d86d70eaa9496c, type: 3}
-      propertyPath: swayNBob
-      value: 
-      objectReference: {fileID: 1697727722191368258}
-    - target: {fileID: 7227883076108030675, guid: 00ccb181976632b438d86d70eaa9496c, type: 3}
-      propertyPath: mainCamera
-      value: 
-      objectReference: {fileID: 1573259695}
-    - target: {fileID: 7227883076108030675, guid: 00ccb181976632b438d86d70eaa9496c, type: 3}
-      propertyPath: cameraController
-      value: 
-      objectReference: {fileID: 879264486}
-    - target: {fileID: 7227883076108030676, guid: 00ccb181976632b438d86d70eaa9496c, type: 3}
-      propertyPath: player
-      value: 
-      objectReference: {fileID: 670343695}
-    - target: {fileID: 7227883076108030677, guid: 00ccb181976632b438d86d70eaa9496c, type: 3}
-      propertyPath: player
-      value: 
-      objectReference: {fileID: 670343695}
-    m_RemovedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: 00ccb181976632b438d86d70eaa9496c, type: 3}

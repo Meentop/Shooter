@@ -561,6 +561,7 @@ MonoBehaviour:
   maxRotationStep: 1.25
   travelLimit: {x: 0.025, y: 0.025, z: 0.025}
   bobLimit: {x: 0.01, y: 0.01, z: 0.01}
+  dashLimit: {x: 0.05, y: 0.05, z: 0.05}
   bobExaggeration: 6
   multiplier: {x: 1, y: 1, z: 1}
 --- !u!1 &8321239611015989735

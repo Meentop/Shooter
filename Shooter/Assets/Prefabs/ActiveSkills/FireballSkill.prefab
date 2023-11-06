@@ -61,7 +61,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: ebe30fae73f3dd9419be4dd56eb125c8, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -112,5 +112,4 @@ MonoBehaviour:
   title: FIREBALL
   description: Shoot fireball
   damageToReload: 180
-  price: 20
   fireball: {fileID: 3749027257339470823, guid: 132fed1102997ce4bb1940cc10380c60, type: 3}
