@@ -33,6 +33,8 @@ public class Player : MonoBehaviour
     private InfoInterface _infoInterface;
     private ModulesPanelUI _dynamicInterface;
     private UIManager _uiManager;
+    private CameraController _cameraController;
+    private AudioSource _audioSource;
 
     private void Start()
     {
@@ -49,7 +51,7 @@ public class Player : MonoBehaviour
         }
     }
 
-    public void Init(GameManager gameManager, UIManager uiManager, CameraController cameraController, Camera mainCamera, RectTransform canvas)
+    public void Init(GameManager gameManager, UIManager uiManager, CameraController cameraController, AudioSource audioSource, Camera mainCamera, RectTransform canvas)
     {
         Health = GetComponent<PlayerHealth>();
         Gold = GetComponent<PlayerGold>();
@@ -61,6 +63,9 @@ public class Player : MonoBehaviour
         _dynamicInterface = uiManager.ModulesPanel;
         GameManager = gameManager;
         _uiManager = uiManager;
+        _cameraController = cameraController;
+        _audioSource = audioSource;
+        Controller.Init(audioSource);
         _dynamicInterface.Init(this, cameraController, mainCamera, canvas);
         Gold.Init(_infoInterface);
         SetCharacteristics();
@@ -155,7 +160,7 @@ public class Player : MonoBehaviour
 
         _currentWeapon = Instantiate(weaponConfig.Weapons[weaponConfig.GetIndex(selectStand.GetWeaponCharacteristics())], weaponHolder);
         weapons[_selectedWeaponSlot] = _currentWeapon;
-        _currentWeapon.Init(this, weaponHolder, targetLook, _infoInterface, _selectedWeaponSlot);
+        _currentWeapon.Init(this, _cameraController, _audioSource, _infoInterface, _selectedWeaponSlot);
 
         selectStand.SetBoughtStandWeapon(previousWeaponIndex);
     }
@@ -166,13 +171,13 @@ public class Player : MonoBehaviour
 
         _currentWeapon = Instantiate(weaponConfig.Weapons[index], weaponHolder);
         weapons[_selectedWeaponSlot] = _currentWeapon;
-        _currentWeapon.Init(this, weaponHolder, targetLook, _infoInterface, _selectedWeaponSlot);
+        _currentWeapon.Init(this, _cameraController, _audioSource, _infoInterface, _selectedWeaponSlot);
     }
 
     public Weapon AddWeaponFromSave(int weaponIndex, int weaponPosition)
     {
         weapons[weaponPosition] = Instantiate(weaponConfig.Weapons[weaponIndex], weaponHolder);
-        weapons[weaponPosition].Init(this, weaponHolder, targetLook, _infoInterface, weaponPosition);
+        weapons[weaponPosition].Init(this, _cameraController, _audioSource, _infoInterface, weaponPosition);
 
         return weapons[weaponPosition];
     }

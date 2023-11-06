@@ -229,7 +229,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   player: {fileID: 0}
   cameraConfig: {fileID: 11400000, guid: 2756563a011559b46b7e575379cb9c7e, type: 2}
-  returnSpeed: 2
+  returnSpeed: 5
 --- !u!114 &3404408182172758579
 MonoBehaviour:
   m_ObjectHideFlags: 0

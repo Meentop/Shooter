@@ -16,16 +16,17 @@ public abstract class Weapon : MonoBehaviour
     protected const int maxLevel = 2;
 
     private Player _player;
+    protected CameraController _cameraController;
+    protected AudioSource _audioSource;
     private InfoInterface _infoInterface;
     private PlayerDamage _playerDamage;
-    private Transform _targetLook;
-    private Transform _weaponHolder;
+
     private bool _isInited;
     private List<WeaponModule> _weaponModules = new List<WeaponModule>();
     protected bool isSpraying;
     protected float shootTimer;
     protected bool reload = true;
-    protected AudioSource _audioSource;
+    
 
     [System.Serializable]
     public struct Description
@@ -64,17 +65,15 @@ public abstract class Weapon : MonoBehaviour
             Shoot();
     }
 
-    public void Init(Player player, Transform weaponHolder, Transform targetLook, InfoInterface infoInterface, int weaponPosition)
+    public void Init(Player player, CameraController cameraController, AudioSource audioSource, InfoInterface infoInterface, int weaponPosition)
     {
         _player = player;
-        _weaponHolder = weaponHolder;
-        _targetLook = targetLook;
-        gameObject.layer = LayerMask.NameToLayer("Weapon");
+        _cameraController = cameraController;
+        _audioSource = audioSource;
         _infoInterface = infoInterface;
         _infoInterface.SetWeaponIcon(characteristics.Sprite, weaponPosition);
         _infoInterface.SetWeaponCrossheir(crossheir);
         _playerDamage = _player.GetComponent<PlayerDamage>();
-        _audioSource = Camera.main.GetComponent<AudioSource>();
 
         _isInited = true;
         OnInit();
@@ -95,7 +94,14 @@ public abstract class Weapon : MonoBehaviour
 
     public abstract void OnInit();
 
-    public abstract void Shoot();
+    public virtual void Shoot()
+    {
+        shootEffect.Play();
+        _audioSource.PlayOneShot(shootSounds[Random.Range(0, shootSounds.Length)]);
+        reload = true;
+        _cameraController.FireRecoil(characteristics.WeaponsRecoil, characteristics.Snappiness, characteristics.ReturnSpeed);
+        shootTimer = 0;
+    }
 
     public abstract void StopShooting();
 

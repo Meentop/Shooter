@@ -375,6 +375,7 @@ MonoBehaviour:
   save: {fileID: 760817653}
   enemiesTeamVariationsConfig: {fileID: 11400000, guid: 3a85a6db53259cf4b9048d727d4faf49, type: 2}
   swayNBob: {fileID: 1697727722191368258}
+  audioSource: {fileID: 1009071581}
 --- !u!114 &760817651
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -438,14 +439,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: db497ba7f854e4a4e9ba9206d2c2aa44, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!20 &922822104 stripped
-Camera:
-  m_CorrespondingSourceObject: {fileID: 1697727721791610561, guid: 5dabf89771060884e956222b099303a1, type: 3}
-  m_PrefabInstance: {fileID: 1697727722191368257}
-  m_PrefabAsset: {fileID: 0}
 --- !u!4 &987962129 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 3517441006931142457, guid: 5dabf89771060884e956222b099303a1, type: 3}
+  m_PrefabInstance: {fileID: 1697727722191368257}
+  m_PrefabAsset: {fileID: 0}
+--- !u!82 &1009071581 stripped
+AudioSource:
+  m_CorrespondingSourceObject: {fileID: 1222343667213991104, guid: 5dabf89771060884e956222b099303a1, type: 3}
   m_PrefabInstance: {fileID: 1697727722191368257}
   m_PrefabAsset: {fileID: 0}
 --- !u!4 &1021593791 stripped
@@ -561,30 +562,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 2074480430, guid: 5dabf89771060884e956222b099303a1, type: 3}
-      propertyPath: m_Cameras.Array.size
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 2074480430, guid: 5dabf89771060884e956222b099303a1, type: 3}
-      propertyPath: m_Cameras.Array.data[0]
-      value: 
-      objectReference: {fileID: 922822104}
-    - target: {fileID: 2074480430, guid: 5dabf89771060884e956222b099303a1, type: 3}
-      propertyPath: m_Cameras.Array.data[1]
-      value: 
-      objectReference: {fileID: 786769203}
-    - target: {fileID: 1222343667213991104, guid: 5dabf89771060884e956222b099303a1, type: 3}
-      propertyPath: m_Volume
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 1697727722218239970, guid: 5dabf89771060884e956222b099303a1, type: 3}
       propertyPath: player
       value: 
       objectReference: {fileID: 6655776286918135551}
-    - target: {fileID: 1697727722218239970, guid: 5dabf89771060884e956222b099303a1, type: 3}
-      propertyPath: returnSpeed
-      value: 5
-      objectReference: {fileID: 0}
     - target: {fileID: 1697727722218239971, guid: 5dabf89771060884e956222b099303a1, type: 3}
       propertyPath: m_Name
       value: Main Camera

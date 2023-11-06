@@ -7,11 +7,10 @@ public class CameraController : MonoBehaviour
     [SerializeField] private Transform player;
     [SerializeField] private CameraConfig cameraConfig;
 
-    [SerializeField] private float returnSpeed = 2;
-
     private Vector3 targetRotation = new Vector3();
     private Vector3 currentRotation;
     private float _snappiness;
+    private float _returnSpeed = 2;
 
     private float xRotation, yRotation;
 
@@ -49,13 +48,14 @@ public class CameraController : MonoBehaviour
         transform.rotation = Quaternion.Euler(xRotation + currentRotation.x, yRotation + currentRotation.y, 0 + currentRotation.z);
         player.rotation = Quaternion.Euler(0, yRotation, 0);
 
-        targetRotation = Vector3.Lerp(targetRotation, Vector3.zero, returnSpeed * Time.deltaTime);
+        targetRotation = Vector3.Lerp(targetRotation, Vector3.zero, _returnSpeed * Time.deltaTime);
         currentRotation = Vector3.Slerp(currentRotation, targetRotation, _snappiness * Time.fixedDeltaTime);
     }
 
-    public void FireRecoil(Vector3 recoilXYZ, float snappiness)
+    public void FireRecoil(Vector3 recoilXYZ, float snappiness, float returnSpeed)
     {
         targetRotation += new Vector3(recoilXYZ.x, Random.Range(-recoilXYZ.y, recoilXYZ.y), Random.Range(-recoilXYZ.z, recoilXYZ.z));
         _snappiness = snappiness;
+        _returnSpeed = returnSpeed;
     }
 }
