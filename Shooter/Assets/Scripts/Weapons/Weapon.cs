@@ -11,6 +11,13 @@ public abstract class Weapon : MonoBehaviour
     [Space]
     [SerializeField] private WeaponConfig config;
     [SerializeField] protected WeaponCharacteristics characteristics;
+    [Header("VFX")]
+    [SerializeField] private ParticleSystem shootingParticle;
+    [SerializeField] private Transform bullerSpawnPoint;
+    [SerializeField] private ParticleSystem impactParcticle;
+    [SerializeField] private TrailRenderer bullerTrail;
+    [SerializeField] private LayerMask mask;
+    
     protected int maxNumberOfModules = 1;
     protected int level = 0;
     protected const int maxLevel = 2;
@@ -20,6 +27,7 @@ public abstract class Weapon : MonoBehaviour
     protected AudioSource _audioSource;
     private InfoInterface _infoInterface;
     private PlayerDamage _playerDamage;
+    private Animator _animator;
 
     private bool _isInited;
     private List<WeaponModule> _weaponModules = new List<WeaponModule>();
@@ -74,6 +82,7 @@ public abstract class Weapon : MonoBehaviour
         _infoInterface.SetWeaponIcon(characteristics.Sprite, weaponPosition);
         _infoInterface.SetWeaponCrossheir(crossheir);
         _playerDamage = _player.GetComponent<PlayerDamage>();
+        _animator = GetComponent<Animator>();
 
         _isInited = true;
         OnInit();
@@ -97,10 +106,12 @@ public abstract class Weapon : MonoBehaviour
     public virtual void Shoot()
     {
         shootEffect.Play();
+        shootingParticle.Play();
         _audioSource.PlayOneShot(shootSounds[Random.Range(0, shootSounds.Length)]);
         reload = true;
         _cameraController.FireRecoil(characteristics.WeaponsRecoil, characteristics.Snappiness, characteristics.ReturnSpeed);
         shootTimer = 0;
+        _animator.SetTrigger("Shoot");
     }
 
     public abstract void StopShooting();
