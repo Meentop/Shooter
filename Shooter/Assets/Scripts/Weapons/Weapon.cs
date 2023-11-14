@@ -11,12 +11,6 @@ public abstract class Weapon : MonoBehaviour
     [Space]
     [SerializeField] private WeaponConfig config;
     [SerializeField] protected WeaponCharacteristics characteristics;
-    [Header("VFX")]
-    [SerializeField] private ParticleSystem shootingParticle;
-    [SerializeField] private Transform bullerSpawnPoint;
-    [SerializeField] private ParticleSystem impactParcticle;
-    [SerializeField] private TrailRenderer bullerTrail;
-    [SerializeField] private LayerMask mask;
     
     protected int maxNumberOfModules = 1;
     protected int level = 0;
@@ -106,7 +100,6 @@ public abstract class Weapon : MonoBehaviour
     public virtual void Shoot()
     {
         shootEffect.Play();
-        shootingParticle.Play();
         _audioSource.PlayOneShot(shootSounds[Random.Range(0, shootSounds.Length)]);
         reload = true;
         _cameraController.FireRecoil(characteristics.WeaponsRecoil, characteristics.Snappiness, characteristics.ReturnSpeed);
