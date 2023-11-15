@@ -102,7 +102,7 @@ public abstract class Weapon : MonoBehaviour
         shootEffect.Play();
         _audioSource.PlayOneShot(shootSounds[Random.Range(0, shootSounds.Length)]);
         reload = true;
-        _cameraController.FireRecoil(characteristics.WeaponsRecoil, characteristics.Snappiness, characteristics.ReturnSpeed);
+        _cameraController.FireRecoil(characteristics.WeaponsRecoil, characteristics.Snappiness);
         shootTimer = 0;
         _animator.SetTrigger("Shoot");
     }

@@ -12,7 +12,6 @@ public class WeaponCharacteristics : ScriptableObject
     [SerializeField] private float firingSpeed;
     [SerializeField] private Vector2 weaponsRecoil;
     [SerializeField] private float snappiness;
-    [SerializeField] private float returnSpeed;
 
     [HideInInspector] public Sprite Sprite { get => sprite; }
     [HideInInspector] public string WeaponName { get => weaponName; }
@@ -21,5 +20,4 @@ public class WeaponCharacteristics : ScriptableObject
     [HideInInspector] public float FiringSpeed { get => firingSpeed; }
     [HideInInspector] public Vector2 WeaponsRecoil { get => weaponsRecoil; }
     [HideInInspector] public float Snappiness { get => snappiness; }
-    [HideInInspector] public float ReturnSpeed { get => returnSpeed; }
 }
