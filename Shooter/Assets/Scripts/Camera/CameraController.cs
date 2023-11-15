@@ -54,8 +54,9 @@ public class CameraController : MonoBehaviour
 
     public void FireRecoil(Vector3 recoilXYZ, float snappiness, float returnSpeed)
     {
-        targetRotation += new Vector3(recoilXYZ.x, Random.Range(-recoilXYZ.y, recoilXYZ.y), Random.Range(-recoilXYZ.z, recoilXYZ.z));
+        targetRotation += new Vector3(recoilXYZ.x, Random.Range(-recoilXYZ.y, recoilXYZ.y), 0);
         _snappiness = snappiness;
         _returnSpeed = returnSpeed;
+
     }
 }
