@@ -6,6 +6,7 @@ using UnityEngine.UI;
 public class PlayerHealth : BaseDamageReceiver
 {
     [SerializeField] private Text _health;
+    [SerializeField] protected PostProcessingController postController;
 
     protected override void Start()
     {
@@ -38,5 +39,11 @@ public class PlayerHealth : BaseDamageReceiver
     {
         curHP = maxHP;
         UpdateHealthBar();
+    }
+
+    public override void GetDamage(DamageData damageData)
+    {
+        base.GetDamage(damageData);
+        postController.SetDamageBool(true);
     }
 }

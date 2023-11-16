@@ -269,6 +269,7 @@ MonoBehaviour:
   maxHP: 0
   startSizeDelta: {x: 321.55, y: 22.448}
   _health: {fileID: 0}
+  postController: {fileID: 0}
 --- !u!114 &4046690061827201452
 MonoBehaviour:
   m_ObjectHideFlags: 0
