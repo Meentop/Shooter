@@ -19,3 +19,4 @@ MonoBehaviour:
   firingSpeed: 1
   weaponsRecoil: {x: -8, y: 5, z: 1}
   snappiness: 15
+  returnSpeed: 2

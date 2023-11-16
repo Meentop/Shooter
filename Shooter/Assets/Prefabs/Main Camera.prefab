@@ -229,7 +229,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   player: {fileID: 0}
   cameraConfig: {fileID: 11400000, guid: 2756563a011559b46b7e575379cb9c7e, type: 2}
-  returnSpeed: 2
+  returnSpeed: 5
 --- !u!114 &3404408182172758579
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -561,6 +561,7 @@ MonoBehaviour:
   maxRotationStep: 1.25
   travelLimit: {x: 0.025, y: 0.025, z: 0.025}
   bobLimit: {x: 0.01, y: 0.01, z: 0.01}
+  dashLimit: {x: 0.05, y: 0.05, z: 0.05}
   bobExaggeration: 6
   multiplier: {x: 1, y: 1, z: 1}
 --- !u!1 &8321239611015989735

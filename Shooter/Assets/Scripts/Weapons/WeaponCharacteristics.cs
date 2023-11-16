@@ -10,7 +10,7 @@ public class WeaponCharacteristics : ScriptableObject
     [SerializeField] private bool canSprayed;
     [SerializeField] private int[] damage = new int[3];
     [SerializeField] private float firingSpeed;
-    [SerializeField] private Vector3 weaponsRecoil;
+    [SerializeField] private Vector2 weaponsRecoil;
     [SerializeField] private float snappiness;
 
     [HideInInspector] public Sprite Sprite { get => sprite; }
@@ -18,6 +18,6 @@ public class WeaponCharacteristics : ScriptableObject
     [HideInInspector] public bool CanSprayed { get => canSprayed; }
     [HideInInspector] public int[] Damage { get => damage; } 
     [HideInInspector] public float FiringSpeed { get => firingSpeed; }
-    [HideInInspector] public Vector3 WeaponsRecoil { get => weaponsRecoil; }
+    [HideInInspector] public Vector2 WeaponsRecoil { get => weaponsRecoil; }
     [HideInInspector] public float Snappiness { get => snappiness; }
 }

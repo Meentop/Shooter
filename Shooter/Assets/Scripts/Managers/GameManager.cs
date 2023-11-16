@@ -17,6 +17,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] private Save save;
     [SerializeField] private EnemiesTeamVariationsConfig enemiesTeamVariationsConfig;
     [SerializeField] private SwayNBob swayNBob;
+    [SerializeField] private AudioSource audioSource;
 
     private const string saveName = "saveData.json";
     private bool death;
@@ -24,7 +25,7 @@ public class GameManager : MonoBehaviour
     private void Awake()
     {
         ObjectPool.Instance.ClearPool();
-        player.Init(this, uiManager, cameraController, mainCamera, canvas);
+        player.Init(this, uiManager, cameraController, audioSource, mainCamera, canvas);
         swayNBob.Init(player.Controller);
         if (SceneManager.GetActiveScene() == SceneManager.GetSceneByName("Hub"))
             DeleteFromFile(saveName);

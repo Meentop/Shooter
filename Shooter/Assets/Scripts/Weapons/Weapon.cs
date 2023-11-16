@@ -11,21 +11,24 @@ public abstract class Weapon : MonoBehaviour
     [Space]
     [SerializeField] private WeaponConfig config;
     [SerializeField] protected WeaponCharacteristics characteristics;
+    
     protected int maxNumberOfModules = 1;
     protected int level = 0;
     protected const int maxLevel = 2;
 
     private Player _player;
+    protected CameraController _cameraController;
+    protected AudioSource _audioSource;
     private InfoInterface _infoInterface;
     private PlayerDamage _playerDamage;
-    private Transform _targetLook;
-    private Transform _weaponHolder;
+    private Animator _animator;
+
     private bool _isInited;
     private List<WeaponModule> _weaponModules = new List<WeaponModule>();
     protected bool isSpraying;
     protected float shootTimer;
     protected bool reload = true;
-    protected AudioSource _audioSource;
+    
 
     [System.Serializable]
     public struct Description
@@ -64,17 +67,16 @@ public abstract class Weapon : MonoBehaviour
             Shoot();
     }
 
-    public void Init(Player player, Transform weaponHolder, Transform targetLook, InfoInterface infoInterface, int weaponPosition)
+    public void Init(Player player, CameraController cameraController, AudioSource audioSource, InfoInterface infoInterface, int weaponPosition)
     {
         _player = player;
-        _weaponHolder = weaponHolder;
-        _targetLook = targetLook;
-        gameObject.layer = LayerMask.NameToLayer("Weapon");
+        _cameraController = cameraController;
+        _audioSource = audioSource;
         _infoInterface = infoInterface;
         _infoInterface.SetWeaponIcon(characteristics.Sprite, weaponPosition);
         _infoInterface.SetWeaponCrossheir(crossheir);
         _playerDamage = _player.GetComponent<PlayerDamage>();
-        _audioSource = Camera.main.GetComponent<AudioSource>();
+        _animator = GetComponent<Animator>();
 
         _isInited = true;
         OnInit();
@@ -95,7 +97,15 @@ public abstract class Weapon : MonoBehaviour
 
     public abstract void OnInit();
 
-    public abstract void Shoot();
+    public virtual void Shoot()
+    {
+        shootEffect.Play();
+        _audioSource.PlayOneShot(shootSounds[Random.Range(0, shootSounds.Length)]);
+        reload = true;
+        _cameraController.FireRecoil(characteristics.WeaponsRecoil, characteristics.Snappiness);
+        shootTimer = 0;
+        _animator.SetTrigger("Shoot");
+    }
 
     public abstract void StopShooting();
 

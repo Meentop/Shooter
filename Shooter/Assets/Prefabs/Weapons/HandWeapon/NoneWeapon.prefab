@@ -45,6 +45,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   shootEffect: {fileID: 0}
   decalPrefab: {fileID: 0}
-  crossheir: {fileID: 8042525474897846806, guid: 427413f7c8be596429352a8f36077ca4, type: 3}
+  crossheir: {fileID: 1823969064154431607, guid: a788ecd714205d745a89c682ed44a1b4, type: 3}
+  shootSounds: []
   config: {fileID: 11400000, guid: 9e47c26e340d1f44a88c8fe251ae30e7, type: 2}
   characteristics: {fileID: 11400000, guid: 1a68cca86577b6548b6942d9924cba80, type: 2}

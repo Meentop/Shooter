@@ -27,14 +27,13 @@ public class PlayerController : MonoBehaviour, IPauseble
     private AudioSource _audioSource;
     private float _curStepTimer = 0;
 
-
-    private void Start()
+    public void Init(AudioSource audioSource)
     {
         _rb = GetComponent<Rigidbody>();
         _rb.freezeRotation = true;
         _player = GetComponent<Player>();
         PauseManager.OnSetPause += OnSetPause;
-        _audioSource = Camera.main.GetComponent<AudioSource>();
+        _audioSource = audioSource;
     }
 
     private void Update()

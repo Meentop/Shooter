@@ -9,6 +9,7 @@ public class Shotgun : Weapon
 
     public override void Shoot()
     {
+        base.Shoot();
         for (int i = 0; i < pelletsCount; i++)
         {
             Vector3 direction = Camera.main.transform.forward;
@@ -19,12 +20,6 @@ public class Shotgun : Weapon
 
             RaycastShoot(direction);
         }
-
-        shootEffect.Play();
-        _audioSource.PlayOneShot(shootSounds[Random.Range(0, shootSounds.Length)]);
-        reload = true;
-        Camera.main.GetComponent<CameraController>().FireRecoil(characteristics.WeaponsRecoil, characteristics.Snappiness);
-        shootTimer = 0;
     }
 
     public override void OnInit()

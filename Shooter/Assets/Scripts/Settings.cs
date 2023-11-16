@@ -2,7 +2,6 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-using UnityEngine.SceneManagement;
 using TMPro;
 
 public class Settings : MonoBehaviour
@@ -17,6 +16,7 @@ public class Settings : MonoBehaviour
     private AudioSource _audioSource;
     
     Resolution[] resolutions;
+
     void Start()
     {
         resolutionDropdown.ClearOptions();
@@ -28,7 +28,7 @@ public class Settings : MonoBehaviour
             string option = resolutions[i].width + "x" + resolutions[i].height + " " + resolutions[i].refreshRate + "Hz";
             options.Add(option);
 
-            if(resolutions[i].width == Screen.currentResolution.width && resolutions[i].height == Screen.currentResolution.height)
+            if (resolutions[i].width == Screen.currentResolution.width && resolutions[i].height == Screen.currentResolution.height)
                 currentResolutionIndex = i;
         }
 
@@ -57,12 +57,12 @@ public class Settings : MonoBehaviour
 
     public void LoadSettings(int currentResolutionIndex)
     {
-        if(PlayerPrefs.HasKey("ResolutionSettingsPreference"))
+        if (PlayerPrefs.HasKey("ResolutionSettingsPreference"))
             resolutionDropdown.value = PlayerPrefs.GetInt("ResolutionSettingsPreference");
         else
             resolutionDropdown.value = currentResolutionIndex;
         
-        if(PlayerPrefs.HasKey("FullScreenPreference"))
+        if (PlayerPrefs.HasKey("FullScreenPreference"))
             Screen.fullScreen = System.Convert.ToBoolean(PlayerPrefs.GetInt("FullScreenPreference"));
         else
             Screen.fullScreen = true;
@@ -83,7 +83,7 @@ public class Settings : MonoBehaviour
 
     public void StartVolume()
     {
-        if(_audioSource == null)
+        if (_audioSource == null)
             _audioSource = Camera.main.GetComponent<AudioSource>();
 
         if (!PlayerPrefs.HasKey("PlayerVolume"))
@@ -93,7 +93,6 @@ public class Settings : MonoBehaviour
             volumeSlider.value = PlayerPrefs.GetInt("PlayerVolume");
             volumeValueTextPro.text = volumeSlider.value.ToString("0");
         }
-
         else
         {
             _audioSource.volume = PlayerPrefs.GetInt("PlayerVolume") / volumeSlider.maxValue;
